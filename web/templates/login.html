@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block header %}
+    <div id="headband" class="header imag" >
+        <img id="imagTitle" src="{{ url_for('static', filename = 'img/Bandeau_75p.png') }}" onclick="window.location.href = '{{ url_for('mobilestart') }}'"/>
+    </div>
+{% endblock %}
+{% block content %}
+    <div align="center">
+        <form id="login-form" action="{{ url_for('login') }}" method="POST" role="form">
+            {{ loginForm.hidden_tag() }}
+
+            {{ loginForm.name(placeholder="Votre nom") }}
+            {% for message in loginForm.name.errors %}
+                <div><b>{{ message }}</b></div>
+            {% endfor %}
+            <br />
+            {{ loginForm.password(placeholder="Votre mot de passe") }}
+            {% for message in loginForm.password.errors %}
+                <div><b>{{ message }}</b></div>
+            {% endfor %}
+            <br />
+            {{ loginForm.submit(class_="clickButton") }}
+        </form>
+    </div>
+</div><!-- /.container -->
+<script>
+$(function() {
+    //JqueryUI call for styling and changing button behavior.
+    $('.clickButton').button();
+    $("input:text").addClass("ui-corner-all");
+});
+</script>
+{% endblock %}

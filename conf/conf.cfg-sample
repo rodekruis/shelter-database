@@ -1,0 +1,11 @@
+[misc]
+platform_url = http://127.0.0.1:5000/
+log_path = ./web/var/shelter.log
+log_level = info
+[webserver]
+debug = false
+host = 0.0.0.0
+port = 5000
+https = false
+[database]
+database_url = postgres://pgsqluser:pgsqlpwd@127.0.0.1:5432/shelter

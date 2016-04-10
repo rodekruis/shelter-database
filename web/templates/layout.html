@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>LPS{% if title %} - {{ title }}{% endif %}</title>
+    <link rel="shortcut icon" href="{{ url_for("static", filename="img/favicon.ico") }}" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="description" content="WarRoom">
+    <meta name="author" content="LIST">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <script type="text/javascript" src="{{ url_for('static', filename = 'bower_components/jquery/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'bower_components/moment/moment.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'js/jquery.ui.touch-punch.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'bower_components/socket.io-client/socket.io.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'bower_components/d3/d3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'bower_components/lodash/lodash.min.js') }}"></script>
+    <link href="{{ url_for('static', filename='bower_components/jquery-ui/themes/flick/jquery-ui.css') }}" rel="stylesheet"/>
+
+    <!-- Add custom CSS here -->
+    <link href="{{ url_for('static', filename='css/test.css') }}" rel="stylesheet" media="screen" />
+
+    <!-- style>
+        #draggable { width: 150px; height: 150px; padding: 0.5em; }
+    </style -->
+    {% endblock %}
+</head>
+<body>
+    <div>
+        <div id="header">
+        </div>
+        {% block header %}
+        <div id="headband" class="header imag" >
+            <img id="imagTitle" src="{{ url_for('static', filename = 'img/Bandeau_75p.png') }}" onclick="window.location.href = '{{ url_for('start') }}'"/>
+
+            <img id="imagBand" src="{{ url_for('static', filename = 'img/Header_SCP.png') }}"/>
+            <div id="titler">
+                  <center><b>{% if title %}{{ title }}{% else %} Smart Construction Planner {% endif %}</b></center>
+            </div>
+
+
+            {% if g.user.is_authenticated %}
+                <img id="imagTitle" class="naviImag" src="{{ url_for('static', filename = 'img/exit.png') }}" onclick="window.location.href = '{{ url_for('logout') }}'"/>
+            {% endif %}
+            <img id="imagTitle" class="naviImag" src="{{ url_for('static', filename = 'img/about.png') }}" onclick="window.location.href = '{{ url_for('collaborative_planning') }}'"/>
+            <img id="imagTitle" class="naviImag" src="{{ url_for('static', filename = 'img/prerequis06.png') }}"  onclick="window.location.href = '{{ url_for('plannedprerequisits') }}'"/>
+            <img id="imagTitle" class="naviImag" src="{{ url_for('static', filename = 'img/pph.png') }}" onclick="window.location.href = '{{ url_for('index') }}'"/>
+            <img id="imagTitle" class="naviImag" src="{{ url_for('static', filename = 'img/collaborative.png') }}" onclick="window.location.href = '{{ url_for('collaborative_planning') }}'"/>
+
+            <!--h2 id="headTitle">Smart Construction Planner</h2 -->
+        {% endblock %}
+        </div>
+
+        <div class="container">
+            {% block messages %}
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{category}}">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            {% endblock %}
+        </div>
+
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+
+        <div class="footer" id="swipeZone">
+            <p class="text-muted">
+                &copy; 2015-2016 <a href="http://www.list.lu">Luxembourg Institute of Science &amp; Technology</a> (LIST)
+                <br />
+                <img id="footerimag" src="{{ url_for('static', filename = 'img/Footer_LIST_Logo.png') }}"></img>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
