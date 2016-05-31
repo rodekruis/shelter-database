@@ -20,6 +20,11 @@ __license__ = ""
 from sqlalchemy import desc
 from bootstrap import db
 
+association_table = db.Table('association', db.metadata,
+    db.Column('property_id', db.Integer, db.ForeignKey('property.id')),
+    db.Column('value_id', db.Integer, db.ForeignKey('value.id'))
+)
+
 class Property(db.Model):
     """
     Represent a property of a shelter.
@@ -31,4 +36,14 @@ class Property(db.Model):
                             nullable=False)
     attribute_id = db.Column(db.Integer, db.ForeignKey('attribute.id'),
                                 nullable=False)
-    value_id = db.Column(db.Integer, db.ForeignKey('value.id'), nullable=False)
+    attribute = db.relationship("Attribute", back_populates="properties")
+
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'),
+                            nullable=False)
+    category = db.relationship("Category", back_populates="properties")
+
+    values = db.relationship("Value", secondary=association_table,
+                            backref="properties")
+
+    def get_values(self):
+        return ", ".join([value.name for value in self.values])

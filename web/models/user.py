@@ -20,7 +20,7 @@ __license__ = ""
 import re
 from datetime import datetime
 from werkzeug import generate_password_hash, check_password_hash
-from flask.ext.login import UserMixin
+from flask_login import UserMixin
 from sqlalchemy import desc
 
 from bootstrap import db

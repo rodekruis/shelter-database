@@ -45,6 +45,16 @@ with app.app_context():
                         methods=['GET', 'POST', 'PUT', 'DELETE'])
     app.register_blueprint(blueprint_attribute)
 
+    # 'Value' Web service
+    blueprint_value = manager.create_api_blueprint(models.Value,
+                        methods=['GET', 'POST', 'PUT', 'DELETE'])
+    app.register_blueprint(blueprint_value)
+
+    # 'Property' Web service
+    blueprint_property = manager.create_api_blueprint(models.Property,
+                        methods=['GET', 'POST', 'PUT', 'DELETE'])
+    app.register_blueprint(blueprint_property)
+
 
 if __name__ == "__main__":
     app.run(host=conf.WEBSERVER_HOST,

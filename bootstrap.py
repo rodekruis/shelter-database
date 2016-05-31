@@ -28,8 +28,8 @@ import logging
 import conf
 
 from flask import Flask
-from flask.ext.sqlalchemy import SQLAlchemy
-import flask.ext.restless
+from flask_sqlalchemy import SQLAlchemy
+import flask_restless
 
 # Create Flask app
 app = Flask('web')
@@ -44,7 +44,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = conf.SQLALCHEMY_DATABASE_URI
 db = SQLAlchemy(app)
 
 # Create the Flask-Restless API manager.
-manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
+manager = flask_restless.APIManager(app, flask_sqlalchemy_db=db)
 
 def populate_g():
     from flask import g

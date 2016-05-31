@@ -1,85 +1,105 @@
 <!DOCTYPE html>
-<html>
-<head>
-    {% block head %}
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>LPS{% if title %} - {{ title }}{% endif %}</title>
-    <link rel="shortcut icon" href="{{ url_for("static", filename="img/favicon.ico") }}" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-    <meta name="description" content="WarRoom">
-    <meta name="author" content="LIST">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:th="http://www.thymeleaf.org">
+        <head>
+            <meta charset="utf-8" />
+            <meta name="description" content="The Shelter Database is a resource for the wider shelter sector, that can help to deliver humanitarian shelter." />
+            <meta name="author" content="" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Shelters Database Management</title>
 
-    <script type="text/javascript" src="{{ url_for('static', filename = 'bower_components/jquery/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename = 'bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename = 'bower_components/moment/moment.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename = 'js/jquery.ui.touch-punch.min.js') }}"></script>
-    <script src="{{ url_for('static', filename = 'bower_components/socket.io-client/socket.io.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename = 'bower_components/d3/d3.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename = 'bower_components/lodash/lodash.min.js') }}"></script>
-    <link href="{{ url_for('static', filename='bower_components/jquery-ui/themes/flick/jquery-ui.css') }}" rel="stylesheet"/>
+            <script src="{{ url_for('static', filename = 'lib/jquery/dist/jquery.min.js') }}"></script>
 
-    <!-- Add custom CSS here -->
-    <link href="{{ url_for('static', filename='css/test.css') }}" rel="stylesheet" media="screen" />
+            <!-- Bootstrap core CSS -->
+            <link href="{{ url_for('static', filename='lib/bootstrap/dist/css/bootstrap.css') }}" rel="stylesheet" media="screen" />
+            <link href="{{ url_for('static', filename='lib/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet" media="screen" />
+            <link href="{{ url_for('static', filename='lib/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" media="screen" >
 
-    <!-- style>
-        #draggable { width: 150px; height: 150px; padding: 0.5em; }
-    </style -->
-    {% endblock %}
-</head>
-<body>
-    <div>
-        <div id="header">
-        </div>
-        {% block header %}
-        <div id="headband" class="header imag" >
-            <img id="imagTitle" src="{{ url_for('static', filename = 'img/Bandeau_75p.png') }}" onclick="window.location.href = '{{ url_for('start') }}'"/>
+            <!-- Add custom CSS here -->
+            <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" media="screen" />
+            <link href="{{ url_for('static', filename='css/climate.css') }}" rel="stylesheet" media="screen" />
+        </head>
 
-            <img id="imagBand" src="{{ url_for('static', filename = 'img/Header_SCP.png') }}"/>
-            <div id="titler">
-                  <center><b>{% if title %}{{ title }}{% else %} Smart Construction Planner {% endif %}</b></center>
-            </div>
+        <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a title="Shelter Database" href="">
+                      <img src="{{ url_for('static', filename='img/Header_ShelterDB_v02.png') }}"
+                        alt="Shelters Database" />
+                  </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li><a href="{{ url_for("about") }}">About</a></li>
+                        <li><a href="">Recommendations</a></li>
+                        <li><a href="">Bibliography</a></li>
+                        <li><a href="">Glossary of terms</a></li>
+                        {% if g.user.is_authenticated %}
 
 
-            {% if g.user.is_authenticated %}
-                <img id="imagTitle" class="naviImag" src="{{ url_for('static', filename = 'img/exit.png') }}" onclick="window.location.href = '{{ url_for('logout') }}'"/>
-            {% endif %}
-            <img id="imagTitle" class="naviImag" src="{{ url_for('static', filename = 'img/about.png') }}" onclick="window.location.href = '{{ url_for('collaborative_planning') }}'"/>
-            <img id="imagTitle" class="naviImag" src="{{ url_for('static', filename = 'img/prerequis06.png') }}"  onclick="window.location.href = '{{ url_for('plannedprerequisits') }}'"/>
-            <img id="imagTitle" class="naviImag" src="{{ url_for('static', filename = 'img/pph.png') }}" onclick="window.location.href = '{{ url_for('index') }}'"/>
-            <img id="imagTitle" class="naviImag" src="{{ url_for('static', filename = 'img/collaborative.png') }}" onclick="window.location.href = '{{ url_for('collaborative_planning') }}'"/>
+                            {% if g.user.has_role('admin') %}
 
-            <!--h2 id="headTitle">Smart Construction Planner</h2 -->
-        {% endblock %}
-        </div>
+                            {% endif %}
+                            <li class="visible-xs-block"><a href=""><span class="glyphicon glyphicon-question-sign"></span>&nbsp;About</a></li>
+                            <li class="visible-xs-block"><a href=""><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
 
-        <div class="container">
-            {% block messages %}
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class="alert alert-{{category}}">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
-            {% endblock %}
-        </div>
+                        {% else %}
+                        <li><a href="">Join</a></li>
 
-        <div id="content">
-            {% block content %}{% endblock %}
-        </div>
+                        {% endif %}
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container -->
+        </nav>
 
-        <div class="footer" id="swipeZone">
+    <br />
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{category}}">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    {% block content %}{% endblock %}
+
+
+    <footer class="footer">
+        <div class="container-fluid">
             <p class="text-muted">
-                &copy; 2015-2016 <a href="http://www.list.lu">Luxembourg Institute of Science &amp; Technology</a> (LIST)
                 <br />
-                <img id="footerimag" src="{{ url_for('static', filename = 'img/Footer_LIST_Logo.png') }}"></img>
+                &#169; 2016 <a href="http://www.list.lu">Luxembourg Institute of Science &amp; Technology</a>
+                (LIST)
             </p>
         </div>
-    </div>
-</body>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ url_for('static', filename = 'lib/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'lib/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'lib/placeholders/dist/placeholders.jquery.min.js') }}"></script>
+    <script>
+    $(document).ready(function() {
+        $('ul.navbar-right > li.dropdown').show();
+    });
+    </script>
+  </body>
 </html>

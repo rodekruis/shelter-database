@@ -18,7 +18,7 @@ __copyright__ = "Copyright (c) "
 __license__ = ""
 
 from bootstrap import app, db, populate_g, conf
-from flask.ext.script import Manager
+from flask_script import Manager
 
 import scripts
 import web.models
@@ -46,13 +46,13 @@ def db_create():
         web.models.db_create(db)
 
 @manager.command
-def init_db():
+def init_db_structure():
     "Will initialize the database with the attribute for the shelters."
     with app.app_context():
         scripts.init_db()
 
 @manager.command
-def init_db():
+def import_shelters():
     "Will import the shelters in the database."
     with app.app_context():
         scripts.populate_shelters()

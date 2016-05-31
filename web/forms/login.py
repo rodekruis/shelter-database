@@ -17,7 +17,7 @@ __revision__ = "$Date: 2016/03/30 $"
 __copyright__ = "Copyright (c) "
 __license__ = ""
 
-from flask.ext.wtf import Form
+from flask_wtf import Form
 from flask import url_for, redirect
 from wtforms import validators, TextField, PasswordField, BooleanField, \
                     SubmitField, HiddenField

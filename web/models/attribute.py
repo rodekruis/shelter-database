@@ -29,11 +29,16 @@ class Attribute(db.Model):
     name = db.Column(db.String(), nullable=False)
     image = db.Column(db.String(), default='')
     multiple = db.Column(db.Boolean(), default=True)
+    free_text = db.Column(db.Boolean(), default=False)
     type = db.Column(db.String(), default='')
+    display_position = db.Column(db.Integer, default=0)
 
     # relationships
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    category = db.relationship("Category", back_populates="attributes")
 
     associated_values = db.relationship('Value', backref='attribute', lazy='dynamic',
                            cascade='all, delete-orphan',
                            order_by=desc('Value.id'))
+
+    properties = db.relationship("Property", back_populates="attribute")

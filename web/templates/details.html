@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid">
+
+    <section layout:fragment="content">
+        <ul id="myTab" class="nav nav-tabs" role="tablist">
+            <li id="tab-general">
+                <a href="{{ url_for('details', shelter_id=shelter_id, section_name='generalInformation') }}">General Information</a>
+            </li>
+            <li id="tab-details">
+                <a href="{{ url_for('details', shelter_id=shelter_id, section_name='implementationDetails') }}">Implementation details</a>
+            </li>
+            <li id="tab-structure">
+                <a href="{{ url_for('details', shelter_id=shelter_id, section_name='structure') }}">Structure</a>
+            </li>
+            <li id="tab-skin">
+                <a href="{{ url_for('details', shelter_id=shelter_id, section_name='skin') }}">Skin</a>
+            </li>
+            <li id="tab-services">
+                <a href="{{ url_for('details', shelter_id=shelter_id, section_name='services') }}">Services</a>
+            </li>
+            <li id="tab-spaceplan">
+                <a href="{{ url_for('details', shelter_id=shelter_id, section_name='spacePlan') }}">Spaceplan</a>
+            </li>
+            <li id="tab-documents">
+                <a href="{{ url_for('details', shelter_id=shelter_id, section_name='documents') }}">Documents</a>
+            </li>
+
+            <li id="tab-edit" class="pull-right" >
+                <a id="btn-edit" class="btn" style="font-weight: bold;" href="{{ url_for('edit', shelter_id=shelter_id, section_name=section_name) }}">Edit</a>
+            </li>
+        </ul>
+
+        <section layout:fragment="tabcontent">
+            <div class="tab-content"></div>
+        </section>
+
+
+
+                {% for category in categories_list %}
+                    <fieldset id="{{ category }}" class="border">
+                        <legend class="border">
+                            <span class="section-title">{{ category }}</span>
+                        </legend>
+                        <div class="col-md-8">
+                            {% for property  in categories[category]  %}
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <b>{{ property.attribute.name }}</b>
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{ property.get_values() }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </fieldset>
+                {% endfor %}
+
+
+
+
+
+        <script type="text/javascript" class="source">
+        $(document).ready(function() {
+            if (window.location.href.indexOf("generalInformation") > -1){
+                $("#tab-general").attr('class', "active");
+                $("#title").text("Shelter details - General Information");
+            }
+            if (window.location.href.indexOf("implementationDetails") > -1) {
+                $("#tab-details").attr('class', "active");
+                $("#title").text("Shelter details - Implementation details");
+            }
+            if (window.location.href.indexOf("structure") > -1) {
+                $("#tab-structure").attr('class', "active");
+                $("#title").text("Shelter details - Structure");
+            }
+            if (window.location.href.indexOf("skin") > -1) {
+                $("#tab-skin").attr('class', "active");
+                $("#title").text("Shelter details - Skin");
+            }
+            if (window.location.href.indexOf("services") > -1) {
+                $("#tab-services").attr('class', "active");
+                $("#title").text("Shelter details - Services");
+            }
+            if (window.location.href.indexOf("spacePlan") > -1) {
+                $("#tab-spaceplan").attr('class', "active");
+                $("#title").text("Shelter details - Spaceplan");
+            }
+            if (window.location.href.indexOf("documents") > -1) {
+                $("#tab-documents").attr('class', "active");
+                $("#title").text("Shelter details - Documents");
+            }
+
+            if (window.location.href.indexOf("/edit/") > -1) {
+                var value = $("#btn-edit").attr('href');
+                $("#btn-edit").attr('href',  value.replace('/edit/', '/details/'));
+                $("#btn-edit").text('Details');
+            }
+        });
+        </script>
+
+
+
+</section>
+</div><!-- /.container -->
+{% endblock %}

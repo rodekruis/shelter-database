@@ -29,11 +29,14 @@ class Category(db.Model):
     name = db.Column(db.String(), nullable=False, default='')
 
     # relationships
-    attributes = db.relationship('Attribute', backref='category', lazy='dynamic',
-                           cascade='all, delete-orphan',
-                           order_by=desc('Attribute.id'))
+    #attributes = db.relationship('Attribute', backref='category', lazy='dynamic',
+                           #cascade='all, delete-orphan',
+                           #order_by=desc('Attribute.id'))
+    attributes = db.relationship("Attribute", back_populates="category")
 
     parent_id = db.Column(db.Integer, db.ForeignKey(id))
     sub_categories = db.relationship('Category',
                              backref=db.backref('parent', remote_side=id),
                              lazy="dynamic")
+
+    properties = db.relationship("Property", back_populates="category")

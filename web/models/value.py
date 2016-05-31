@@ -30,6 +30,6 @@ class Value(db.Model):
     # relationship
     attribute_id = db.Column(db.Integer, db.ForeignKey('attribute.id'))
 
-    properties = db.relationship('Property', backref='value', lazy='dynamic',
-                                cascade='all, delete-orphan',
-                                order_by=desc('Property.id'))
+    #properties = db.relationship('Property', backref='value', lazy='dynamic',
+                                #cascade='all, delete-orphan',
+                                #order_by=desc('Property.id'))

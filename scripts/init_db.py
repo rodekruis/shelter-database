@@ -13,15 +13,19 @@ def init_db():
         category = None
         sub_category = None
         sub_category_name = ''
+        display_position = 0
         for index, row in enumerate(structure):
             if index == 0:
                 continue
+
+            display_position += 1
 
             if row[0] != '':
                 category_name = row[0]
                 category = models.Category(name=category_name)
                 db.session.add(category)
                 db.session.commit()
+                display_position = 1
 
             if sub_category_name != row[1]:
                 sub_category_name = row[1]
@@ -33,7 +37,8 @@ def init_db():
 
             attribute_name = row[2]
             attribute = models.Attribute(name=attribute_name,
-                                            category_id=sub_category.id)
+                                        category_id=sub_category.id,
+                                        display_position=display_position)
             attribute_type = row[3] # TODO: do something with row[3] ...
 
             cardinality = row[5]
@@ -47,6 +52,8 @@ def init_db():
                                             attribute_id=attribute.id)
                     db.session.add(value)
                     attribute.associated_values.append(value)
+            else:
+                attribute.free_text = True
 
             db.session.add(attribute)
             db.session.commit()
