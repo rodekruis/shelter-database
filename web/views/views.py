@@ -73,7 +73,7 @@ def before_request():
 # Views.
 #
 @app.route('/', methods=['GET'])
-def start():
+def index():
     return render_template('index.html')
 
 
@@ -91,9 +91,13 @@ def dashboard_user(user_id):
     return render_template('dashboard_user.html', user=g.user,
                                 employee=employee)
 
+@app.route('/contributors', methods=['GET'])
+def contributors():
+    return render_template('contributors.html')
+
 @app.route('/about', methods=['GET'])
 def about():
-    return render_template('details.html')
+    return render_template('about.html')
 
 @app.route('/db_initialization', methods=['GET'])
 def db_initialization():

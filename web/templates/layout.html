@@ -40,23 +40,45 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav navbar-right">
-
                         <li><a href="{{ url_for("about") }}">About</a></li>
                         <li><a href="">Recommendations</a></li>
                         <li><a href="">Bibliography</a></li>
                         <li><a href="">Glossary of terms</a></li>
                         {% if g.user.is_authenticated %}
-
-
-                            {% if g.user.has_role('admin') %}
-
-                            {% endif %}
-                            <li class="visible-xs-block"><a href=""><span class="glyphicon glyphicon-question-sign"></span>&nbsp;About</a></li>
-                            <li class="visible-xs-block"><a href=""><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
-
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <div><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;New shelter</div>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <form action="#" class="navbar-form  navbar-left" method="GET" name="save">
+                                          <div class="input-group input-group-inline">
+                                              <input class="form-control" name="url" type="url" placeholder="Name" required="required"/>
+                                              <span class="input-group-btn">
+                                                    <button type="submit" class="btn btn-default" /><span class="glyphicon glyphicon-plus"></span></button>
+                                              </span>
+                                          </div><!-- /input-group -->
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <div><span class="glyphicon glyphicon-user"></span>&nbsp;{{ current_user.name }}<b class="caret"></b></div>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;Profile</a></li>
+                                    <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;Your data</a></li>
+                                    {% if current_user.is_admin %}
+                                        <li role="presentation" class="divider"></li>
+                                        <li><a href="{{ url_for("dashboard") }}"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Dashboard</a></li>
+                                        <li role="presentation" class="divider"></li>
+                                    {% endif %}
+                                    <li><a href="{{ url_for("logout") }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
+                                </ul>
+                            </li>
                         {% else %}
-                        <li><a href="">Join</a></li>
-
+                            <li><a href="">Join</a></li>
                         {% endif %}
               </ul>
             </div><!-- /.navbar-collapse -->
@@ -80,14 +102,21 @@
 
     {% block content %}{% endblock %}
 
-
-    <footer class="footer">
+    <footer>
         <div class="container-fluid">
-            <p class="text-muted">
-                <br />
-                &#169; 2016 <a href="http://www.list.lu">Luxembourg Institute of Science &amp; Technology</a>
-                (LIST)
-            </p>
+            <div class="footer">
+                <hr class="footer" />
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>
+                        Designed by the <a href="http://ifrc-sru.org" target="_blank">Shelter Research Unit</a>, an initiative of the Benelux Red Cross Societies.
+                        Implemented by the <a href="http://www.list.lu" target="_blank">Luxembourg Institute of Science and Technology</a>.
+                        <br />
+                        List of all <a href="/contributors">contributors</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
 

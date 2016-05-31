@@ -81,6 +81,42 @@ def details(shelter_id=0, section_name=""):
 def edit(shelter_id=0, section_name=""):
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
 
+    if section_name == "generalInformation":
+        categories_list = ["Identification", "Disaster & Response", "Site"]
+    elif section_name == "implementationDetails":
+        categories_list = ["General"]
+    elif section_name == "structure":
+        superstructure_type = Property.query.filter(
+                            Property.shelter_id==shelter_id,
+                            Property.category.has(name="Walls & Frame")).first()
+        categories_list = ["Foundation", "Walls & Frame",
+                            superstructure_type.get_values(),
+                            "Beams & Floor",
+                            "Beams & Floor (ground floor)", "Roof"]
+    elif section_name == "skin":
+        categories_list = ["Cladding", "Openings", "Insulation"]
+    elif section_name == "services":
+        categories_list = ["Services"]
+    elif section_name == "spaceplan":
+        categories_list = ["Spaceplan"]
+    elif section_name == "documents":
+        categories_list = ["Documents"]
+    else:
+        categories_list = []
+
+
+    categories = defaultdict(list)
+    for category in categories_list:
+        categories[category].extend(
+                        Category.query.filter(Category.name==category,
+                                                Category.parent_id!=None)
+                                                )
+
+
+
     return render_template('edit.html',
                             section_name=section_name,
-                            shelter=shelter)
+                            shelter=shelter,
+                            shelter_id=shelter_id,
+                            categories_list=categories_list,
+                            categories=categories)

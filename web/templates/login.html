@@ -9,12 +9,12 @@
         <form id="login-form" action="{{ url_for('login') }}" method="POST" role="form">
             {{ loginForm.hidden_tag() }}
 
-            {{ loginForm.name(placeholder="Votre nom") }}
-            {% for message in loginForm.name.errors %}
+            {{ loginForm.email(placeholder="Your email address") }}
+            {% for message in loginForm.email.errors %}
                 <div><b>{{ message }}</b></div>
             {% endfor %}
             <br />
-            {{ loginForm.password(placeholder="Votre mot de passe") }}
+            {{ loginForm.password(placeholder="Your password") }}
             {% for message in loginForm.password.errors %}
                 <div><b>{{ message }}</b></div>
             {% endfor %}

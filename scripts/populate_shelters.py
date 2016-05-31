@@ -2,6 +2,7 @@
 #-*- coding:utf-8 -*
 
 import csv
+from werkzeug import generate_password_hash
 
 from web import models
 from bootstrap import db
@@ -10,8 +11,8 @@ def populate_shelters():
     print("Importing shelters...")
 
     user = models.User(email="cedric.bonhomme@list.lu",
-                        name="cedric",
-                        pwdhash="",
+                        name="admin",
+                        pwdhash=generate_password_hash("password"),
                         is_admin=True,
                         is_active=True)
     db.session.add(user)

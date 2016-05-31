@@ -18,11 +18,13 @@ __copyright__ = "Copyright (c) "
 __license__ = ""
 
 from .user import User
-from .shelter import Shelter
 from .property import Property
+from .value import Value
+from .shelter import Shelter
+
 from .category import Category
 from .attribute import Attribute
-from .value import Value
+
 
 __all__ = ['User', 'Shelter', 'Property', 'Category', 'Attribute', 'Value']
 

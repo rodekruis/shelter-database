@@ -46,20 +46,25 @@ class LoginForm(RedirectForm):
     """
     Login form.
     """
-    name = TextField("Name",
-        [validators.Required("Please enter your name.")])
+    email = TextField("Email",
+        [validators.Required("Please enter your email address.")])
     password = PasswordField('Password',
         [validators.Required("Please enter a password.")])
     remember_me = BooleanField("Remember me", default=False)
     submit = SubmitField("Log In")
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = None
+
     def validate(self):
         if not super(LoginForm, self).validate():
             return False
 
-        user = User.query.filter(User.name==self.name.data).first()
+        user = User.query.filter(User.email==self.email.data).first()
         if user and user.check_password(self.password.data):
+            self.user = user
             return True
         else:
-            self.name.errors.append("Invalid name or password")
+            self.email.errors.append("Invalid name or password")
             return False

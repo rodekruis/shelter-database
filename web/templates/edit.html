@@ -5,29 +5,29 @@
     <section layout:fragment="content">
         <ul id="myTab" class="nav nav-tabs" role="tablist">
             <li id="tab-general">
-                <a href="{{ url_for('edit', shelter_id=shelter.id, section_name='generalInformation') }}">General Information</a>
+                <a href="{{ url_for('edit', shelter_id=shelter_id, section_name='generalInformation') }}">General Information</a>
             </li>
             <li id="tab-details">
-                <a href="{{ url_for('edit', shelter_id=shelter.id, section_name='implementationDetails') }}">Implementation details</a>
+                <a href="{{ url_for('edit', shelter_id=shelter_id, section_name='implementationDetails') }}">Implementation details</a>
             </li>
             <li id="tab-structure">
-                <a href="{{ url_for('edit', shelter_id=shelter.id, section_name='structure') }}">Structure</a>
+                <a href="{{ url_for('edit', shelter_id=shelter_id, section_name='structure') }}">Structure</a>
             </li>
             <li id="tab-skin">
-                <a href="{{ url_for('edit', shelter_id=shelter.id, section_name='skin') }}">Skin</a>
+                <a href="{{ url_for('edit', shelter_id=shelter_id, section_name='skin') }}">Skin</a>
             </li>
             <li id="tab-services">
-                <a href="{{ url_for('edit', shelter_id=shelter.id, section_name='services') }}">Services</a>
+                <a href="{{ url_for('edit', shelter_id=shelter_id, section_name='services') }}">Services</a>
             </li>
             <li id="tab-spaceplan">
-                <a href="{{ url_for('edit', shelter_id=shelter.id, section_name='spacePlan') }}">Spaceplan</a>
+                <a href="{{ url_for('edit', shelter_id=shelter_id, section_name='spacePlan') }}">Spaceplan</a>
             </li>
             <li id="tab-documents">
-                <a href="{{ url_for('edit', shelter_id=shelter.id, section_name='documents') }}">Documents</a>
+                <a href="{{ url_for('edit', shelter_id=shelter_id, section_name='documents') }}">Documents</a>
             </li>
 
             <li id="tab-edit" class="pull-right" >
-                <a id="btn-edit" class="btn" style="font-weight: bold;" href="{{ url_for('details', shelter_id=shelter.id, section_name=section_name) }}">Edit</a>
+                <a id="btn-edit" class="btn" style="font-weight: bold;" href="{{ url_for('details', shelter_id=shelter_id, section_name=section_name) }}">Edit</a>
             </li>
         </ul>
 
@@ -36,6 +36,41 @@
         </section>
 
 
+        {% for category_name in categories_list %}
+            <fieldset id="{{ category }}" class="border">
+                <legend class="border">
+                    <span class="section-title">{{ category_name }}</span>
+                </legend>
+                <div class="col-md-8">
+                    {% for category  in categories[category_name]  %}
+                        {% for attribute in category.attributes %}
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <b>{{ attribute.name }}</b>
+                                </div>
+                                <div class="col-md-4">
+                                    {% if not attribute.free_text %}
+                                        {{ shelter.get_value_of_attribute(attribute.id).name }}
+                                        <select class="form-control selectpicker show-tick"
+                                        {% if attribute.multiple %}multiple="multiple"{% endif %}
+                                        name="{{ attribute.id }}" id="{{ attribute.id }}">
+                                            <option value=""></option>
+                                            {% for value in attribute.associated_values %}
+
+                                                <option value="{{value.id}}">{{ value.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    {% else %}
+                                        <input type="integer" class="form-control" name="28" id="28" value="{{ attribute.associated_values.first().name }}" />
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </fieldset>
+        {% endfor %}
 
 
 
@@ -78,9 +113,6 @@
             }
         });
         </script>
-
-
-
 </section>
 </div><!-- /.container -->
 {% endblock %}

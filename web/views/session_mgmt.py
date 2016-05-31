@@ -32,8 +32,9 @@ from flask_principal import (Principal, AnonymousIdentity, UserNeed,
                                  session_identity_loader)
 
 import conf
-#from web.views.common import admin_role, api_role, login_user_bundle
-#from web.forms import SignupForm, SigninForm
+from web.views.common import admin_role, api_role, login_user_bundle
+from web.models import User
+from web.forms import LoginForm
 #from notifications import notifications
 
 Principal(current_app)
@@ -56,25 +57,22 @@ def on_identity_loaded(sender, identity):
         identity.provides.add(UserNeed(current_user.id))
         if current_user.is_admin:
             identity.provides.add(admin_role)
-        if current_user.is_api:
-            identity.provides.add(api_role)
 
 
 @login_manager.user_loader
 def load_user(user_id):
-    return UserController(user_id, ignore_context=True).get(
-            id=user_id, is_active=True)
+    return User.query.filter(User.id==user_id, User.is_active==True).first()
 
 
 @current_app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
-    form = SigninForm()
+        return redirect(url_for('index'))
+    form = LoginForm()
     if form.validate_on_submit():
         login_user_bundle(form.user)
-        return form.redirect('home')
-    return render_template('login.html', form=form)
+        return form.redirect('index')
+    return render_template('login.html', loginForm=form)
 
 
 @current_app.route('/logout')
