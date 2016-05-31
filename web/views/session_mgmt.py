@@ -1,3 +1,22 @@
+#! /usr/bin/env python
+#-*- coding: utf-8 -*-
+
+# ***** BEGIN LICENSE BLOCK *****
+# This file is part of Shelter Database.
+# Copyright (c) 2016
+# All rights reserved.
+#
+#
+#
+# ***** END LICENSE BLOCK *****
+
+__author__ = "Cedric Bonhomme"
+__version__ = "$Revision: 0.1 $"
+__date__ = "$Date: 2016/05/31$"
+__revision__ = "$Date: 2016/05/31 $"
+__copyright__ = "Copyright (c) "
+__license__ = ""
+
 import json
 import logging
 

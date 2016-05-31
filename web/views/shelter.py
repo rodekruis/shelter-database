@@ -12,16 +12,15 @@
 
 __author__ = "Cedric Bonhomme"
 __version__ = "$Revision: 0.1 $"
-__date__ = "$Date: 2016/03/30$"
-__revision__ = "$Date: 2016/03/30 $"
+__date__ = "$Date: 2016/05/31$"
+__revision__ = "$Date: 2016/05/31 $"
 __copyright__ = "Copyright (c) "
 __license__ = ""
 
-import string
 import datetime
 import subprocess
 from collections import defaultdict
-from flask import request, flash,render_template, session, url_for, redirect, \
+from flask import request, flash, render_template, session, url_for, redirect, \
     g, abort, jsonify
 from flask_login import login_required, current_user
 
@@ -45,14 +44,10 @@ def details(shelter_id=0, section_name=""):
         superstructure_type = Property.query.filter(
                             Property.shelter_id==shelter_id,
                             Property.category.has(name="Walls & Frame")).first()
-
-
         categories_list = ["Foundation", "Walls & Frame",
                             superstructure_type.get_values(),
                             "Beams & Floor",
                             "Beams & Floor (ground floor)", "Roof"]
-
-
     elif section_name == "skin":
         categories_list = ["Cladding", "Openings", "Insulation"]
     elif section_name == "services":
