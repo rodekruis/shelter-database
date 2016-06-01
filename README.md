@@ -23,7 +23,7 @@ Tested with Python 3.5 and Python 2.7.
 
 ## Get the code and configure the database connection
 
-    $ git clone https://git.list.lu/
+    $ git clone https://git.list.lu/cedric/shelter-database.git
     $ cd shelter-database/
     $ cp conf/conf.cfg-sample conf/conf.cfg
 
@@ -47,10 +47,20 @@ Update appropriately the line just above.
     $ sudo npm install -g bower
     $ bower install
 
-## Launch the application and populate the database
+## Initialization of the database
 
-    $ nohup python runserver.py &
     $ ./init_db.sh
+    Dropping database...
+    Creation of the database...
+    Importing base structure of shelters from 'data/Shelters_Structure.csv' ...
+    Creation of the admin user...
+    Importing shelters from 'data/20150518_Haiti_shelters.csv' ...
+    Importing shelters from 'data/Phil-Bangla-Burundi.csv' ...
+
+## Launch the application
+
+    $ python runserver.py
+     * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 
 # Generation of the database UML graph
 
