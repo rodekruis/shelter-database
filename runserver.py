@@ -52,7 +52,7 @@ with app.app_context():
 
     # 'Property' Web service
     blueprint_property = manager.create_api_blueprint(models.Property,
-                        methods=['GET', 'POST', 'PUT', 'DELETE'])
+                        methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
     app.register_blueprint(blueprint_property)
 
 

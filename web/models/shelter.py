@@ -38,29 +38,30 @@ class Shelter(db.Model):
                                 order_by=desc('Property.id'))
 
 
-    def get_value_of_attribute(self, attribute_id):
+    def get_values_of_attribute(self, attribute_id):
         """
         """
-        potential_values = Value.query.filter(
-                            Value.attribute_id==attribute_id,
-                            Shelter.id==self.id)
-        properties = Property.query.filter(
+        props = Property.query.filter(
                             Property.shelter_id==self.id,
                             Property.attribute_id==attribute_id)
 
-        for value in potential_values:
-            for property_elem in properties:
-                if property_elem.shelter_id == self.id:
-                    return value
-
-
-            """if value.attribute_id == attribute_id:
-                return value"""
-
-        """for property_elem in self.properties:
+        for property_elem in props:
             if property_elem.attribute.id == attribute_id:
-                return property_elem.values"""
+                return property_elem.values
+        else:
+            return []
 
+    def get_idvalues_of_attribute(self, attribute_id):
+        return [value.id for value in self.get_values_of_attribute(attribute_id)]
+
+    def get_property_of_attribute(self, attribute_id):
+        prop = Property.query.filter(
+                            Property.shelter_id==self.id,
+                            Property.attribute_id==attribute_id)
+        if prop:
+            return prop.first()
+        else:
+            return 0
 
     def __str__(self):
         """

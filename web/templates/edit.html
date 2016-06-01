@@ -35,7 +35,7 @@
             <div class="tab-content"></div>
         </section>
 
-
+    <div class="form-horizontal" role="form" action="" shelterId="{{shelter_id}}" id="shelterForm">
         {% for category_name in categories_list %}
             <fieldset id="{{ category }}" class="border">
                 <legend class="border">
@@ -45,25 +45,46 @@
                     {% for category  in categories[category_name]  %}
                         {% for attribute in category.attributes %}
                             <div class="row">
-                                <div class="col-md-4">
-                                    <b>{{ attribute.name }}</b>
-                                </div>
-                                <div class="col-md-4">
-                                    {% if not attribute.free_text %}
-                                        {{ shelter.get_value_of_attribute(attribute.id).name }}
-                                        <select class="form-control selectpicker show-tick"
-                                        {% if attribute.multiple %}multiple="multiple"{% endif %}
-                                        name="{{ attribute.id }}" id="{{ attribute.id }}">
-                                            <option value=""></option>
-                                            {% for value in attribute.associated_values %}
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <b>{{ attribute.name }}</b>
+                                    </div>
 
-                                                <option value="{{value.id}}">{{ value.name }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    {% else %}
-                                        <input type="integer" class="form-control" name="28" id="28" value="{{ attribute.associated_values.first().name }}" />
-                                    {% endif %}
+                                    <div class="col-md-4">
+                                        {% if not attribute.is_editable %}
+                                            {{ shelter.get_values_of_attribute(attribute.id)[0].name }}
+                                        {% elif not attribute.free_text %}
+                                            <select class="form-control select-attribute selectpicker show-tick"
+                                            property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
+                                            {% if attribute.multiple %}multiple="multiple"{% endif %}
+                                            attribute-id="{{ attribute.id }}"
+                                            category-id="{{ attribute.category_id }}"
+                                            id="{{ attribute.id }}">
+                                                <option value=""></option>
+                                                {% for value in attribute.associated_values %}
+                                                    <option value="{{value.id}}"
+                                                        {% if value.id in shelter.get_idvalues_of_attribute(attribute.id)  %}selected="selected"{% endif %}>{{ value.name }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                        {% else %}
+                                            {% if shelter.get_values_of_attribute(attribute.id) %}
+                                                <input type="text"
+                                                class="form-control free-text-attribute"
+                                                property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}" id="{{ attribute.associated_values.first().id }}"
+                                                value-id="{{ shelter.get_values_of_attribute(attribute.id)[0].id }}"
+                                                value="{{ shelter.get_values_of_attribute(attribute.id)[0].name }}" />
+                                            {% else %}
+                                                <input type="text"
+                                                class="form-control free-text-attribute"
+                                                attribute-id="{{ attribute.id }}"
+                                                category-id="{{ attribute.category_id }}"
+                                                value-id="null"
+                                                value="" />
+                                            {% endif %}
+                                        {% endif %}
 
+                                    </div>
                                 </div>
                             </div>
                         {% endfor %}
@@ -71,8 +92,7 @@
                 </div>
             </fieldset>
         {% endfor %}
-
-
+    </div>
 
 
         <script type="text/javascript" class="source">
@@ -111,7 +131,126 @@
                 $("#btn-edit").attr('href',  value.replace('/edit/', '/details/'));
                 $("#btn-edit").text('Details');
             }
+
+            $('.select-attribute').change(function(evt) {
+                property_id = $(evt.target).attr("property-id")
+                id_of_values = $(evt.target).val()
+                if (typeof id_of_values === 'string') {
+                    tmp = []
+                    tmp.push(id_of_values)
+                    id_of_values = tmp
+                }
+
+                if (property_id==""){
+                    category_id = $(evt.target).attr("category-id")
+                    attribute_id = $(evt.target).attr("attribute-id")
+                    new_property(category_id, attribute_id, id_of_values)
+                } else {
+                    update_property(property_id, id_of_values)
+                }
+            });
+
+            $('.free-text-attribute').change(function(evt) {
+                value = $(evt.target).val()
+                value_id = $(evt.target).attr("value-id")
+
+                if (value_id != "null") {
+                    update_free_text_value(value_id, value);
+                } else {
+                    category_id = $(evt.target).attr("category-id")
+                    attribute_id = $(evt.target).attr("attribute-id")
+                    new_free_text_property(category_id, attribute_id, value);
+                }
+            });
+
         });
+
+        function update_free_text_value(value_id, value) {
+            new_value = {name: value}
+
+            $.ajax({
+                type: 'PUT',
+                url: 'http://' + document.domain + ':' + location.port + '/api/value/' + value_id,
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(new_value),
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    console.log(errorThrown);
+                }
+            });
+        }
+
+        function new_free_text_property(category_id, attribute_id, value) {
+            new_property = {
+                                "shelter_id": {{ shelter_id }},
+                                "attribute_id": attribute_id,
+                                "category_id": category_id,
+                                "values": [{name:value}]
+                            }
+            $.ajax({
+                type: 'POST',
+                url: 'http://' + document.domain + ':' + location.port + '/api/property',
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(new_property),
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    console.log(errorThrown);
+                }
+            });
+        }
+
+        function new_property(category_id, attribute_id, id_of_values) {
+            new_property = {
+                                "shelter_id": {{ shelter_id }},
+                                "attribute_id": attribute_id,
+                                "category_id": category_id,
+                                "values": []
+                            }
+            id_of_values.map(function(id) {
+                new_property["values"].push({"id":parseInt(id)})
+            })
+
+            $.ajax({
+                type: 'POST',
+                url: 'http://' + document.domain + ':' + location.port + '/api/property',
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(new_property),
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    console.log(errorThrown);
+                }
+            });
+        }
+
+        function update_property(property_id, id_of_values) {
+            new_property = {values: []}
+            id_of_values.map(function(id) {
+                new_property["values"].push({"id":parseInt(id)})
+            })
+
+            $.ajax({
+                type: 'PUT',
+                url: 'http://' + document.domain + ':' + location.port + '/api/property/' + property_id,
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(new_property),
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    console.log(errorThrown);
+                }
+            });
+        }
         </script>
 </section>
 </div><!-- /.container -->

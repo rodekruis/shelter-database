@@ -44,10 +44,10 @@
                             {% for property  in categories[category]  %}
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <b>{{ property.attribute.name }}</b>
+                                        <p><b>{{ property.attribute.name }}</b></p>
                                     </div>
                                     <div class="col-md-4">
-                                        {{ property.get_values() }}
+                                        <p>{{ property.get_values() }}</p>
                                     </div>
                                 </div>
                             {% endfor %}

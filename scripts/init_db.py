@@ -49,11 +49,14 @@ def init_db():
                 for value in row[4].split(';'):
                     value_name = value.strip()
                     value = models.Value(name=value_name,
-                                            attribute_id=attribute.id)
+                                        attribute_id=attribute.id)
                     db.session.add(value)
                     attribute.associated_values.append(value)
             else:
                 attribute.free_text = True
+
+            attribute.is_editable = row[6].strip() != "automatic"
+            attribute.is_mandatory = row[6].strip() == "mandatory"
 
             db.session.add(attribute)
             db.session.commit()

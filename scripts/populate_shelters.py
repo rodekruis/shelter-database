@@ -65,9 +65,8 @@ def populate_shelters():
 
                         else:
 
-
-
-                            value_obj = models.Value(name=current_value)
+                            value_obj = models.Value(name=current_value,
+                                                attribute_id=attribute.id)
                             db.session.add(value_obj)
                             attribute.associated_values.append(value_obj)
                             db.session.commit()
