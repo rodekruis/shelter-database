@@ -27,7 +27,7 @@ from flask_login import login_required, current_user
 import conf
 from bootstrap import app, db
 from web.forms import LoginForm
-from web.models import User
+from web.models import User, Shelter
 
 #
 # Default errors
@@ -75,7 +75,6 @@ def before_request():
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
-
 
 @app.route('/dashboard', methods=['GET'])
 @login_required

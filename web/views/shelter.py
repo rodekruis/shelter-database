@@ -31,6 +31,40 @@ from web.forms import LoginForm
 from web.models import User, Shelter, Property, Attribute, Category
 
 
+from collections import defaultdict
+
+def tree():
+    return defaultdict(tree)
+
+
+@app.route('/shelters_for_map', methods=['GET'])
+def shelters_for_map():
+    latitude_properties = Property.query.filter(
+                            Property.attribute.has(name="GPS Latitude"),
+                            )
+    longitude_properties = Property.query.filter(
+                            Property.attribute.has(name="GPS Longitude"),
+                            )
+    name_properties = Property.query.filter(
+                            Property.attribute.has(name="Name of shelter"),
+                            )
+    city_properties = Property.query.filter(
+                            Property.attribute.has(name="City / Village"),
+                            )
+
+    result = tree()
+    for latitude_property in latitude_properties:
+        result[latitude_property.shelter_id]["latitude"] = float(latitude_property.values[0].name.replace(",","."))
+    for longitude_property in longitude_properties:
+        result[longitude_property.shelter_id]["longitude"] = float(longitude_property.values[0].name.replace(",","."))
+    for name_property in name_properties:
+        result[name_property.shelter_id]["name"] = name_property.values[0].name
+    for city_property in city_properties:
+        result[city_property.shelter_id]["city"] = city_property.values[0].name
+
+    return jsonify(result)
+
+
 
 @app.route('/details/<int:shelter_id>/<section_name>', methods=['GET'])
 def details(shelter_id=0, section_name=""):

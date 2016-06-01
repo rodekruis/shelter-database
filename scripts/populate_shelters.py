@@ -10,15 +10,15 @@ from bootstrap import db
 def populate_shelters():
     print("Importing shelters...")
 
-    user = models.User(email="cedric.bonhomme@list.lu",
-                        name="admin",
-                        pwdhash=generate_password_hash("password"),
-                        is_admin=True,
-                        is_active=True)
-    db.session.add(user)
-    db.session.commit()
+    # user = models.User(email="cedric.bonhomme@list.lu",
+    #                     name="admin",
+    #                     pwdhash=generate_password_hash("password"),
+    #                     is_admin=True,
+    #                     is_active=True)
+    # db.session.add(user)
+    # db.session.commit()
 
-    with open('data/20150518_Haiti_shelters.csv', newline='') as csvfile:
+    with open('data/Phil-Bangla-Burundi.csv', newline='') as csvfile:
         shelters = csv.reader(csvfile, delimiter=',')
 
         for index, row in enumerate(shelters):
@@ -38,7 +38,7 @@ def populate_shelters():
 
 
             # Creation of a new shelter
-            shelter = models.Shelter(user_id=user.id)
+            shelter = models.Shelter(user_id=1)
             db.session.add(shelter)
             db.session.commit()
 
