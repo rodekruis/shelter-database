@@ -34,6 +34,7 @@ def uml_graph():
 @manager.command
 def db_empty():
     "Will drop the database."
+    print("Dropping database...")
     with app.app_context():
         populate_g()
         web.models.db_empty(db)
@@ -41,21 +42,39 @@ def db_empty():
 @manager.command
 def db_create():
     "Will create the database."
+    print("Creation of the database...")
     with app.app_context():
         populate_g()
         web.models.db_create(db)
 
 @manager.command
-def init_db_structure():
+def init_db_structure(csv_file):
     "Will initialize the database with the attribute for the shelters."
+    print("Importing base structure of shelters from '{}' ...".format(csv_file))
     with app.app_context():
-        scripts.init_db()
+        scripts.init_db(csv_file)
 
 @manager.command
-def import_shelters():
-    "Will import the shelters in the database."
+def create_admin_user():
+    "Initializes the administrator of the platform"
+    from werkzeug import generate_password_hash
+    print("Creation of the admin user...")
     with app.app_context():
-        scripts.populate_shelters()
+        user = web.models.User(email="cedric.bonhomme@list.lu",
+                            name="admin",
+                            pwdhash=generate_password_hash("password"),
+                            is_admin=True,
+                            is_active=True)
+        db.session.add(user)
+        db.session.commit()
+
+
+@manager.command
+def import_shelters(shelters_owner, csv_file):
+    "Will import the shelters in the database."
+    print("Importing shelters from '{}' ...".format(csv_file))
+    with app.app_context():
+        scripts.populate_shelters(shelters_owner, csv_file)
 
 if __name__ == '__main__':
     manager.run()

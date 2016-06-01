@@ -6,9 +6,9 @@ import csv
 from web import models
 from bootstrap import db
 
-def init_db():
-    print("Importing base structure of shelters...")
-    with open('data/Shelters_Structure.csv', newline='') as csvfile:
+def init_db(csv_file):
+
+    with open(csv_file, newline='') as csvfile:
         structure = csv.reader(csvfile, delimiter=',')
         category = None
         sub_category = None

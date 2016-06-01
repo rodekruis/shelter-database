@@ -1,24 +1,17 @@
 #! /usr/bin/python
 #-*- coding:utf-8 -*
 
+import sys
 import csv
-from werkzeug import generate_password_hash
 
 from web import models
 from bootstrap import db
 
-def populate_shelters():
-    print("Importing shelters...")
+def populate_shelters(shelters_owner, csv_file):
 
-    # user = models.User(email="cedric.bonhomme@list.lu",
-    #                     name="admin",
-    #                     pwdhash=generate_password_hash("password"),
-    #                     is_admin=True,
-    #                     is_active=True)
-    # db.session.add(user)
-    # db.session.commit()
+    user = models.User.query.filter(models.User.name==shelters_owner).first()
 
-    with open('data/Phil-Bangla-Burundi.csv', newline='') as csvfile:
+    with open(csv_file, newline='') as csvfile:
         shelters = csv.reader(csvfile, delimiter=',')
 
         for index, row in enumerate(shelters):
@@ -35,10 +28,8 @@ def populate_shelters():
                 attributes = row
                 continue
 
-
-
             # Creation of a new shelter
-            shelter = models.Shelter(user_id=1)
+            shelter = models.Shelter(user_id=user.id)
             db.session.add(shelter)
             db.session.commit()
 
@@ -64,9 +55,8 @@ def populate_shelters():
                                 continue #TODO: check
 
                         else:
-
                             value_obj = models.Value(name=current_value,
-                                                attribute_id=attribute.id)
+                                                    attribute_id=attribute.id)
                             db.session.add(value_obj)
                             attribute.associated_values.append(value_obj)
                             db.session.commit()
@@ -82,5 +72,3 @@ def populate_shelters():
                                                 values=values)
                         db.session.add(shelter_property)
                         db.session.commit()
-
-            print()
