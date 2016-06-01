@@ -52,7 +52,7 @@
 
                                     <div class="col-md-4">
                                         {% if not attribute.is_editable %}
-                                            {{ shelter.get_values_of_attribute(attribute.id)[0].name }}
+                                            {{ shelter.get_values_of_attribute(attribute.id) }}
                                         {% elif not attribute.free_text %}
                                             <select class="form-control select-attribute selectpicker show-tick"
                                             property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"

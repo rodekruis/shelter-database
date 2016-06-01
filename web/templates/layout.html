@@ -51,9 +51,9 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <form action="#" class="navbar-form  navbar-left" method="GET" name="save">
+                                        <form id="createShelterForm" action="#" class="navbar-form  navbar-left" method="GET" name="save">
                                           <div class="input-group input-group-inline">
-                                              <input class="form-control" name="url" type="url" placeholder="Name" required="required"/>
+                                              <input class="form-control" name="name" type="text" placeholder="Name" required="required"/>
                                               <span class="input-group-btn">
                                                     <button type="submit" class="btn btn-default" /><span class="glyphicon glyphicon-plus"></span></button>
                                               </span>
@@ -128,6 +128,51 @@
     <script>
     $(document).ready(function() {
         $('ul.navbar-right > li.dropdown').show();
+
+        //Attach a submit handler to the form
+        $( "#createShelterForm" ).submit(function( event ) {
+            // Stop form from submitting normally
+            event.preventDefault();
+
+            // Get some values from elements on the page:
+            var $form = $(this);
+            var values = {};
+            form_complete = true;
+            $.each($form.serializeArray(), function(i, field) {
+                if (field.value == '') {
+                    form_complete = false;
+                }
+                values[field.name] = field.value;
+            });
+            url = $form.attr("action");
+
+            if (form_complete) {
+                // Send the data using post
+                console.log(values)
+
+                new_shelter = {
+                                    "user_id": 1
+                                }
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://' + document.domain + ':' + location.port + '/api/shelter',
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: JSON.stringify(new_shelter),
+                    success: function (result) {
+                        console.log(result);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                        console.log(errorThrown);
+                    }
+                });
+
+
+
+            } else {
+                alert("Please fill all the fields of the form.");
+            }
+        });
     });
     </script>
   </body>
