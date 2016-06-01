@@ -32,7 +32,7 @@ If you have chosen another database name, username or password:
     $ sed -i '/database/d' conf/conf.cfg
     $ sed -i '/database_url/d' conf/conf.cfg
     $ echo '[database]' >> conf/conf.cfg
-    $ echo 'database_url = postgres://pgsqluser:pgsqlpwd@127.0.0.1:5433/warroom' >> conf/conf.cfg
+    $ echo 'database_url = postgres://pgsqluser:pgsqlpwd@127.0.0.1:5433/shelter' >> conf/conf.cfg
 
 Update appropriately the line just above.
 
