@@ -25,5 +25,8 @@ build
 conf/conf.cfg
 .coverage
 
+# bower
+web/static/lib
+
 # node files
 node_modules
