@@ -4,7 +4,6 @@ alembic
 Flask
 Flask-SQLAlchemy
 Flask-Restless
-Flask-SocketIO
 Flask-Login
 Flask-WTF
 Flask-Script
