@@ -68,13 +68,19 @@ def create_admin_user():
         db.session.add(user)
         db.session.commit()
 
-
 @manager.command
 def import_shelters(shelters_owner, csv_file):
     "Will import the shelters in the database."
     print("Importing shelters from '{}' ...".format(csv_file))
     with app.app_context():
         scripts.populate_shelters(shelters_owner, csv_file)
+
+@manager.command
+def import_page(name, html_file, language_code):
+    "Import a page (HTML file) in the database"
+    print("Importing page from '{}' ...".format(html_file))
+    with app.app_context():
+        scripts.init_page(name, html_file, language_code)
 
 if __name__ == '__main__':
     manager.run()

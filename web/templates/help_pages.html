@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="page-title">{{ page.name }}</h1>
+     {{ page.content | safe }}
+</div>
+{% endblock %}

@@ -42,9 +42,9 @@
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="{{ url_for('about') }}">About</a></li>
-                        <li><a href="">Recommendations</a></li>
-                        <li><a href="">Bibliography</a></li>
-                        <li><a href="{{ url_for('glossary') }}">Glossary of terms</a></li>
+                        <li><a href="{{ url_for('recommendations', page_name='Recommendations') }}">Recommendations</a></li>
+                        <li><a href="{{ url_for('recommendations', page_name='Bibliography') }}">Bibliography</a></li>
+                        <li><a href="{{ url_for('recommendations', page_name='Glossary') }}">Glossary</a></li>
                         {% if g.user.is_authenticated %}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -74,10 +74,10 @@
                                         <li><a href="{{ url_for('shelters') }}">Shelters</a></li>
                                         <li><a href="#">Users</a></li>
                                         <li role="presentation" class="divider"></li>
-                                        <li><a href="#">Recommendations</a></li>
-                                        <li><a href="#">Bibliography</a></li>
-                                        <li><a href="#">Glossary</a></li>
-                                        <li><a href="#">About</a></li>
+                                        <li><a href="">Recommendations</a></li>
+                                        <li><a href="">Bibliography</a></li>
+                                        <li><a href="">Glossary</a></li>
+                                        <li><a href="">About</a></li>
                                         <li role="presentation" class="divider"></li>
                                     {% endif %}
                                     <li><a href="{{ url_for("logout") }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>

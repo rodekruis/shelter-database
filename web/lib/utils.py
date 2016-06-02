@@ -17,7 +17,7 @@ __revision__ = "$Date: 2016/03/01 $"
 __copyright__ = "Copyright (c) Luxembourg Institute of Science and Technology"
 __license__ = ""
 
-from flask import request
+from flask import request, url_for
 try:
     from urlparse import urlparse, parse_qs, urljoin
 except:
@@ -41,3 +41,6 @@ def get_redirect_target():
             continue
         if is_safe_url(target):
             return target
+
+def redirect_url(default='index'):
+    return request.args.get('next') or request.referrer or url_for(default)

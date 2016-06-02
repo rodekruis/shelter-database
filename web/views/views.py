@@ -26,6 +26,7 @@ from flask_login import login_required, current_user
 
 import conf
 from bootstrap import app, db
+from web.lib.utils import redirect_url
 from web.forms import LoginForm
 from web.models import User, Shelter
 
@@ -45,21 +46,18 @@ def internal_server_error(e):
     return render_template('errors/500.html'), 500
 
 
-def redirect_url(default='start'):
-    return request.args.get('next') or \
-           request.referrer or \
-           url_for(default)
+
 
 
 @app.errorhandler(403)
 def authentication_failed(e):
     flash('You do not have enough rights.', 'danger')
-    return redirect(url_for('login'))
+    return redirect(url_for('join'))
 
 @app.errorhandler(401)
 def authentication_required(e):
     flash('Authenticated required.', 'info')
-    return redirect(url_for('login'))
+    return redirect(url_for('join'))
 
 
 @app.before_request
