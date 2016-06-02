@@ -70,10 +70,15 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;Profile</a></li>
-                                    <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;Your data</a></li>
                                     {% if current_user.is_admin %}
                                         <li role="presentation" class="divider"></li>
-                                        <li><a href="{{ url_for("dashboard") }}"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Dashboard</a></li>
+                                        <li><a href="#">Shelters</a></li>
+                                        <li><a href="#">Users</a></li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li><a href="#">Recommendations</a></li>
+                                        <li><a href="#">Bibliography</a></li>
+                                        <li><a href="#">Glossary</a></li>
+                                        <li><a href="#">About</a></li>
                                         <li role="presentation" class="divider"></li>
                                     {% endif %}
                                     <li><a href="{{ url_for("logout") }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
