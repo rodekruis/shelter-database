@@ -64,7 +64,14 @@ def load_user(user_id):
     return User.query.filter(User.id==user_id, User.is_active==True).first()
 
 
-@current_app.route('/login', methods=['GET', 'POST'])
+@current_app.route('/join', methods=['GET'])
+def join():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = LoginForm()
+    return render_template('join.html', loginForm=form)
+
+@current_app.route('/login', methods=['POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -89,7 +96,7 @@ def logout():
     identity_changed.send(current_app, identity=AnonymousIdentity())
     session_identity_loader()
 
-    return redirect(url_for('login'))
+    return redirect(url_for('index'))
 
 
 @current_app.route('/signup', methods=['GET', 'POST'])

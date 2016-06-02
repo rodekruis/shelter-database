@@ -90,6 +90,10 @@ def dashboard_user(user_id):
     return render_template('dashboard_user.html', user=g.user,
                                 employee=employee)
 
+@app.route('/glossary', methods=['GET'])
+def glossary():
+    return render_template('glossary.html')
+
 @app.route('/contributors', methods=['GET'])
 def contributors():
     return render_template('contributors.html')
