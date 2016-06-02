@@ -55,6 +55,16 @@ with app.app_context():
                         methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
     app.register_blueprint(blueprint_property)
 
+    # 'Page' Web service
+    blueprint_page = manager.create_api_blueprint(models.Page,
+                        methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
+    app.register_blueprint(blueprint_page)
+
+    # 'Translation' Web service
+    blueprint_translation = manager.create_api_blueprint(models.Translation,
+                        methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
+    app.register_blueprint(blueprint_translation)
+
 
 if __name__ == "__main__":
     app.run(host=conf.WEBSERVER_HOST,

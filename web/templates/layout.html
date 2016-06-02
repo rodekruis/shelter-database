@@ -73,11 +73,7 @@
                                         <li role="presentation" class="divider"></li>
                                         <li><a href="{{ url_for('shelters') }}">Shelters</a></li>
                                         <li><a href="#">Users</a></li>
-                                        <li role="presentation" class="divider"></li>
-                                        <li><a href="">Recommendations</a></li>
-                                        <li><a href="">Bibliography</a></li>
-                                        <li><a href="">Glossary</a></li>
-                                        <li><a href="">About</a></li>
+                                        <li><a href="{{ url_for('admin_recommendations') }}">Edit pages</a></li>
                                         <li role="presentation" class="divider"></li>
                                     {% endif %}
                                     <li><a href="{{ url_for("logout") }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>

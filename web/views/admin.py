@@ -26,8 +26,7 @@ def shelters():
     shelters = Shelter.query.filter().all()
     return render_template('admin/shelters.html', shelters=shelters)
 
-@current_app.route('/admin/<string:page_name>', methods=['GET'])
-def admin_recommendations(page_name):
-    page = Page.query.filter(Page.name==page_name).first()
-    if page:
-        return render_template('admin/help_pages.html', page=page)
+@current_app.route('/admin/edit_pages', methods=['GET'])
+def admin_recommendations():
+    language_code = "en"
+    return render_template('admin/help_pages.html')

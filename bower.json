@@ -13,6 +13,7 @@
     "bootstrap-select": "~1.7.5",
     "bootstrap": "~3.3.5",
     "datatables.net": "~1.10.10",
-    "datatables.net-bs": "~1.10.10"
+    "datatables.net-bs": "~1.10.10",
+    "tinymce": "^4.3.12"
   }
 }

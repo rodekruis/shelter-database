@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% block head %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='lib/tinymce/tinymce.min.js') }}"></script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Edit pages</h1>
+
+    <div class="form-group">
+        <select id="pagesList" class="form-control selectpicker show-tick">
+            <option value=""></option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <select id="languagesList" class="form-control selectpicker show-tick">
+            <option value=""></option>
+        </select>
+    </div>
+
+    <textarea id="pages_editor" class="pages_editor" rows="15"></textarea>
+
+
+</div>
+<script type="text/javascript" class="source">
+$(document).ready(function() {
+
+    tinymce.init({
+        mode : "specific_textareas",
+        statusbar : false,
+        editor_selector : "pages_editor",
+        entity_encoding : "numeric",
+        browser_spellcheck : false,
+        menubar : false,
+        plugins: "table, link, save, code",
+        tools: "inserttable",
+        toolbar: "save | undo redo | styleselect | fontsizeselect | removeformat | cut copy paste | link | bullist numlist | table | code",
+        min_height: 290,
+        save_onsavecallback: function() {save_page();}
+    });
+
+    $('.form-group').change(function(evt) {
+        page_name = $("#pagesList").val()
+        language_code = $("#languagesList").val()
+
+        if (page_name != "null" && language_code != null) {
+            set_editor_content(page_name)
+        }
+    });
+
+    var filters = [{"name":"language_code","op":"eq","val":"en"}];
+    $.ajax({
+        type: 'GET',
+        url: 'http://' + document.domain + ':' + location.port + '/api/page',
+        contentType: "application/json",
+        dataType: "json",
+        data: {"q": JSON.stringify({"filters": filters})},
+        success: function (result) {
+            result.objects.map(function(page) {
+                $('#pagesList')
+                    .append($("<option></option>")
+                    .attr("value", page.name)
+                    .text(page.name));
+            });
+            $('.selectpicker').selectpicker({});
+
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown){
+            console.log(errorThrown);
+        }
+    });
+
+});
+
+function set_editor_content(page_name) {
+    var filters = [{"name":"name","op":"eq","val":page_name},
+                    {"name":"language_code","op":"eq","val":"en"}];
+    $.ajax({
+        type: 'GET',
+        url: 'http://' + document.domain + ':' + location.port + '/api/page',
+        contentType: "application/json",
+        dataType: "json",
+        data: {"q": JSON.stringify({"filters": filters})},
+        success: function (result) {
+            tinymce.get('pages_editor').setContent(result.objects[0].content) ;
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown){
+            console.log(errorThrown);
+        }
+    });
+}
+
+function save_page() {
+    
+}
+</script>
+{% endblock %}
