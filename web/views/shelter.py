@@ -86,7 +86,7 @@ def details(shelter_id=0, section_name=""):
         categories_list = ["Cladding", "Openings", "Insulation"]
     elif section_name == "services":
         categories_list = ["Services"]
-    elif section_name == "spaceplan":
+    elif section_name == "spacePlan":
         categories_list = ["Spaceplan"]
     elif section_name == "documents":
         categories_list = ["Documents"]
@@ -131,7 +131,7 @@ def edit(shelter_id=0, section_name=""):
         categories_list = ["Cladding", "Openings", "Insulation"]
     elif section_name == "services":
         categories_list = ["Services"]
-    elif section_name == "spaceplan":
+    elif section_name == "spacePlan":
         categories_list = ["Spaceplan"]
     elif section_name == "documents":
         categories_list = ["Documents"]

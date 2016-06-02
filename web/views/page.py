@@ -22,7 +22,7 @@ from flask import flash, render_template, url_for, current_app
 from web.lib.utils import redirect_url
 from web.models import Page
 
-@current_app.route('/<string:page_name>', methods=['GET'])
+@current_app.route('/page/<string:page_name>', methods=['GET'])
 def recommendations(page_name):
     language_code = "en"
     page = Page.query.filter(Page.name==page_name,
