@@ -52,7 +52,7 @@
 
                                     <div class="col-md-4">
                                         {% if not attribute.is_editable %}
-                                            {{ shelter.get_values_of_attribute(attribute.id) }}
+                                            {{ shelter.get_values_of_attribute(attribute_id=attribute.id) }}
                                         {% elif not attribute.free_text %}
                                             <select class="form-control select-attribute selectpicker show-tick"
                                             property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
@@ -68,12 +68,12 @@
                                                 {% endfor %}
                                             </select>
                                         {% else %}
-                                            {% if shelter.get_values_of_attribute(attribute.id) %}
+                                            {% if shelter.get_values_of_attribute(attribute_id=attribute.id) %}
                                                 <input type="text"
                                                 class="form-control free-text-attribute"
                                                 property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}" id="{{ attribute.associated_values.first().id }}"
-                                                value-id="{{ shelter.get_values_of_attribute(attribute.id)[0].id }}"
-                                                value="{{ shelter.get_values_of_attribute(attribute.id)[0].name }}" />
+                                                value-id="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].id }}"
+                                                value="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name }}" />
                                             {% else %}
                                                 <input type="text"
                                                 class="form-control free-text-attribute"

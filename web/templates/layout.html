@@ -15,7 +15,6 @@
             <!-- Bootstrap core CSS -->
             <link href="{{ url_for('static', filename='lib/bootstrap/dist/css/bootstrap.css') }}" rel="stylesheet" media="screen" />
             <link href="{{ url_for('static', filename='lib/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet" media="screen" />
-            <link href="{{ url_for('static', filename='lib/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" media="screen" >
 
             <!-- Add custom CSS here -->
             <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" media="screen" />
@@ -72,7 +71,7 @@
                                     <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;Profile</a></li>
                                     {% if current_user.is_admin %}
                                         <li role="presentation" class="divider"></li>
-                                        <li><a href="#">Shelters</a></li>
+                                        <li><a href="{{ url_for('shelters') }}">Shelters</a></li>
                                         <li><a href="#">Users</a></li>
                                         <li role="presentation" class="divider"></li>
                                         <li><a href="#">Recommendations</a></li>

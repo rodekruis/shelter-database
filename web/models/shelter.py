@@ -38,15 +38,21 @@ class Shelter(db.Model):
                                 order_by=desc('Property.id'))
 
 
-    def get_values_of_attribute(self, attribute_id):
+    def get_values_of_attribute(self, attribute_id=None, attribute_name=None):
         """
         """
-        props = Property.query.filter(
+        if attribute_id:
+            props = Property.query.filter(
                             Property.shelter_id==self.id,
                             Property.attribute_id==attribute_id)
+        else:
+            props = Property.query.filter(
+                            Property.shelter_id==self.id,
+                            Property.attribute.has(name=attribute_name))
 
         for property_elem in props:
-            if property_elem.attribute.id == attribute_id:
+            if property_elem.attribute.id == attribute_id or \
+                property_elem.attribute.name == attribute_name:
                 return property_elem.values
         else:
             return []
