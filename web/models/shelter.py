@@ -29,6 +29,8 @@ class Shelter(db.Model):
     """
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime(), default=datetime.now)
+    is_published = db.Column(db.Boolean(), default=False)
+    is_commercial = db.Column(db.Boolean(), default=False)
 
     # relationship
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

@@ -26,10 +26,11 @@ from .category import Category
 from .attribute import Attribute
 
 from .page import Page
+from .translation import Translation
 
 
 __all__ = ['User', 'Shelter', 'Property', 'Category', 'Attribute', 'Value',
-            'Page']
+            'Page', 'Translation']
 
 import os
 
@@ -52,7 +53,7 @@ def uml_graph(db):
     graph = sasd.create_uml_graph(
                         mappers(User, Shelter, Property,
                                 Category, Attribute, Value,
-                                Page),
+                                Page, Translation),
                         show_operations=False,
                         show_multiplicity_one=True
     )

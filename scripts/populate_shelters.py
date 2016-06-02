@@ -28,7 +28,7 @@ def populate_shelters(shelters_owner, csv_file):
                 continue
 
             # Creation of a new shelter
-            shelter = models.Shelter(user_id=user.id)
+            shelter = models.Shelter(user_id=user.id, is_published=True)
             db.session.add(shelter)
             db.session.commit()
 
