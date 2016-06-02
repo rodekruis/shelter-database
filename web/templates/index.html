@@ -287,8 +287,6 @@ function place_shelters() {
 
         var f = new OpenLayers.Feature.Vector( new OpenLayers.Geometry.Point(shelter_marker.lon, shelter_marker.lat));
         features.push(f);
-        console.log(shelter_marker);
-        console.log(shelters[shelter]["longitude"]);
     }
     vector.addFeatures(features);
 }
