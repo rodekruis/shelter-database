@@ -8,12 +8,14 @@
     <h1>Edit pages</h1>
 
     <div class="form-group">
+        Select a page
         <select id="pagesList" class="form-control selectpicker show-tick">
             <option value=""></option>
         </select>
     </div>
 
     <div class="form-group">
+        Select a language
         <select id="languagesList" class="form-control selectpicker show-tick">
             <option value=""></option>
         </select>
@@ -43,26 +45,32 @@ $(document).ready(function() {
     $('.form-group').change(function(evt) {
         page_name = $("#pagesList").val()
         language_code = $("#languagesList").val()
-
-        if (page_name != "null" && language_code != null) {
-            set_editor_content(page_name)
+        if (page_name != "" && language_code != "") {
+            set_editor_content(page_name, language_code)
         }
     });
 
-    var filters = [{"name":"language_code","op":"eq","val":"en"}];
     $.ajax({
         type: 'GET',
         url: 'http://' + document.domain + ':' + location.port + '/api/page',
         contentType: "application/json",
-        dataType: "json",
-        data: {"q": JSON.stringify({"filters": filters})},
         success: function (result) {
+            languages = [];
             result.objects.map(function(page) {
-                $('#pagesList')
-                    .append($("<option></option>")
-                    .attr("value", page.name)
-                    .text(page.name));
+                if (page.language_code == "en") {
+                    $('#pagesList')
+                        .append($("<option></option>")
+                        .attr("value", page.name)
+                        .text(page.name));
+                }
+                languages.push(page.language_code)
             });
+            $.unique( languages ).map(function(language_code) {
+                $('#languagesList')
+                    .append($("<option></option>")
+                    .attr("value", language_code)
+                    .text(language_code));
+            })
             $('.selectpicker').selectpicker({});
 
         },
@@ -73,7 +81,7 @@ $(document).ready(function() {
 
 });
 
-function set_editor_content(page_name) {
+function set_editor_content(page_name, language_code) {
     var filters = [{"name":"name","op":"eq","val":page_name},
                     {"name":"language_code","op":"eq","val":"en"}];
     $.ajax({
@@ -92,7 +100,7 @@ function set_editor_content(page_name) {
 }
 
 function save_page() {
-    
+
 }
 </script>
 {% endblock %}
