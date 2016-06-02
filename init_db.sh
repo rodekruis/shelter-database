@@ -7,6 +7,7 @@ python3.5 manager.py db_create
 python3.5 manager.py import_page Bibliography data/pages/bibliography.html en
 python3.5 manager.py import_page Recommendations data/pages/recommendations.html en
 python3.5 manager.py import_page Glossary data/pages/glossary.html en
+python3.5 manager.py import_page About data/pages/about.html en
 
 # Initializes the structure of the shelters
 python3.5 manager.py init_db_structure data/Shelters_Structure.csv

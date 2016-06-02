@@ -30,4 +30,4 @@ def recommendations(page_name):
     if page:
         return render_template('help_pages.html', page=page)
     else:
-        return redirect(redirect_url())
+        return render_template('errors/404.html'), 404
