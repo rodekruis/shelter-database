@@ -6,19 +6,21 @@
 {% endblock %}
 {% block content %}
     <div align="center">
-        <form id="login-form" action="{{ url_for('login') }}" method="POST" role="form">
+        <form id="login-form form-horizontal" action="{{ url_for('login') }}" method="POST" role="form">
             {{ loginForm.hidden_tag() }}
 
-            {{ loginForm.email(placeholder="Your email address") }}
-            {% for message in loginForm.email.errors %}
-                <div><b>{{ message }}</b></div>
-            {% endfor %}
-            <br />
-            {{ loginForm.password(placeholder="Your password") }}
-            {% for message in loginForm.password.errors %}
-                <div><b>{{ message }}</b></div>
-            {% endfor %}
-            <br />
+            <div class="form-group">
+                {{ loginForm.email(placeholder="Your email address") }}
+                {% for message in loginForm.email.errors %}
+                    <div><b>{{ message }}</b></div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{ loginForm.password(placeholder="Your password") }}
+                {% for message in loginForm.password.errors %}
+                    <div><b>{{ message }}</b></div>
+                {% endfor %}
+            </div>
             {{ loginForm.submit(class_="clickButton") }}
         </form>
     </div>

@@ -282,7 +282,7 @@ function place_shelters() {
 
         popupContentHTML += '<p><b>Name:</b> ' + shelters[shelter]["name"] + '</p>' +
         '<p><b>City:</b> '+ shelters[shelter]["city"] + '</p><br />' +
-        '<p><a href="/details/' + shelter + '/generalInformation" target="_blank">More details</a></p>';
+        '<p><a href="/details/' + shelter + '/generalInformation">More details</a></p>';
         addMarker(shelter_marker, popupClass, popupContentHTML, true, true, picto, shelters_location);
 
         var f = new OpenLayers.Feature.Vector( new OpenLayers.Geometry.Point(shelter_marker.lon, shelter_marker.lat));
