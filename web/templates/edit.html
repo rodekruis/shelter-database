@@ -52,7 +52,7 @@
 
                                     <div class="col-md-4">
                                         {% if not attribute.is_editable %}
-                                            {{ shelter.get_values_of_attribute(attribute_id=attribute.id) }}
+                                            {{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name }}
                                         {% elif not attribute.free_text %}
                                             <select class="form-control select-attribute selectpicker show-tick"
                                             property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
@@ -188,7 +188,12 @@
                                 "shelter_id": {{ shelter_id }},
                                 "attribute_id": attribute_id,
                                 "category_id": category_id,
-                                "values": [{name:value}]
+                                "values": [
+                                    {
+                                        name:value,
+                                        attribute_id:attribute_id
+                                    }
+                                ]
                             }
             $.ajax({
                 type: 'POST',

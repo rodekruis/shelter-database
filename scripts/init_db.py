@@ -55,8 +55,9 @@ def init_db(csv_file):
             else:
                 attribute.free_text = True
 
-            attribute.is_editable = row[6].strip() != "automatic"
-            attribute.is_mandatory = row[6].strip() == "mandatory"
+            attribute.is_editable = "automatic" not in row[6] and \
+                                            "not_editable" not in row[6]
+            attribute.is_mandatory = "mandatory" not in row[6]
 
             db.session.add(attribute)
             db.session.commit()
