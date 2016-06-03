@@ -43,10 +43,10 @@ $(document).ready(function() {
     });
 
     $('.form-group').change(function(evt) {
-        page_id = $("#pagesList").val();
+        page_name = $("#pagesList").val();
         language_code = $("#languagesList").val();
-        if (page_id != "" && language_code != "") {
-            set_editor_content(page_id, language_code);
+        if (page_name != "" && language_code != "") {
+            set_editor_content(page_name, language_code);
         }
     });
 
@@ -60,7 +60,7 @@ $(document).ready(function() {
                 if (page.language_code == "en") {
                     $('#pagesList')
                         .append($("<option></option>")
-                        .attr("value", page.id)
+                        .attr("value", page.name)
                         .text(page.name));
                 }
                 languages.push(page.language_code)
@@ -81,8 +81,8 @@ $(document).ready(function() {
 
 });
 
-function set_editor_content(page_id, language_code) {
-    var filters = [{"name":"id","op":"eq","val":page_id},
+function set_editor_content(page_name, language_code) {
+    var filters = [{"name":"name","op":"eq","val":page_name},
                     {"name":"language_code","op":"eq","val":language_code}];
     $.ajax({
         type: 'GET',
@@ -100,7 +100,7 @@ function set_editor_content(page_id, language_code) {
 }
 
 function save_page() {
-    page_id = $("#pagesList").val()
+    page_name = $("#pagesList").val()
     language_code = $("#languagesList").val()
     if (page_id != "" && language_code != "") {
         content = tinymce.get('pages_editor').getContent({format : 'raw'});

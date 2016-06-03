@@ -24,6 +24,6 @@ class Page(db.Model):
     Represent a page.
     """
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(), unique=True, default='')
+    name = db.Column(db.String(), default='')
     content = db.Column(db.String(), default='')
     language_code = db.Column(db.String(), default='')

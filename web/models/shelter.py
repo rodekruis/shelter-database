@@ -57,7 +57,8 @@ class Shelter(db.Model):
                 property_elem.attribute.name == attribute_name:
                 return property_elem.values
         else:
-            return []
+            empty_value = Value(name="")
+            return [empty_value]
 
     def get_idvalues_of_attribute(self, attribute_id):
         return [value.id for value in self.get_values_of_attribute(attribute_id)]
