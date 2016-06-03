@@ -47,18 +47,23 @@
                         <li><a href="{{ url_for('recommendations', page_name='Glossary') }}">Glossary</a></li>
                         {% if g.user.is_authenticated %}
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <a id="newShelter" href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <div><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;New shelter</div>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <form id="createShelterForm" action="#" class="navbar-form  navbar-left" method="GET" name="save">
-                                          <div class="input-group input-group-inline">
-                                              <input class="form-control" name="name" type="text" placeholder="Name" required="required"/>
-                                              <span class="input-group-btn">
-                                                    <button type="submit" class="btn btn-default" /><span class="glyphicon glyphicon-plus"></span></button>
-                                              </span>
-                                          </div><!-- /input-group -->
+                                        <form id="createShelterForm" action="#" class="navbar-form navbar-left" method="GET" name="save">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="name" placeholder="Name" required="required"></input>
+                                            </div>
+                                            <br /><br />
+                                            <div class="form-group">
+                                                <select  id="countrySelect" name="country" class="form-control" data-live-search="true"></select>
+                                            </div>
+                                            <br /><br />
+                                            <div class="navbar-right">
+                                                <button type="submit" id="createShelter" class="btn btn-default" value="Create">Create</button>
+                                            </div>
                                         </form>
                                     </li>
                                 </ul>
@@ -130,6 +135,27 @@
     $(document).ready(function() {
         $('ul.navbar-right > li.dropdown').show();
 
+        $("#newShelter").click(function(evt) {
+            var filters = [{"name":"name","op":"eq","val":"Country"}];
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + document.domain + ':' + location.port + '/api/attribute',
+                contentType: "application/json",
+                dataType: "json",
+                data: {"q": JSON.stringify({"filters": filters})},
+                success: function(result) {
+                    result.objects[0].associated_values.map(function(country) {
+                        $("#countrySelect").append(new Option(country.name, country.id));
+                    })
+                    $('.selectpicker').selectpicker({style: 'btn-default',
+                        size: false});
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    //alert(errorThrown);
+                }
+            }) ;
+        });
+
         //Attach a submit handler to the form
         $( "#createShelterForm" ).submit(function( event ) {
             // Stop form from submitting normally
@@ -149,19 +175,101 @@
 
             if (form_complete) {
                 // Send the data using post
-                console.log(values)
+                name_of_shelter = values["name"]
+                country_value_id = values["country"];
 
-                new_shelter = {
-                                    "user_id": 1
-                                }
+                new_shelter_dict = {"user_id": 1}
                 $.ajax({
                     type: 'POST',
                     url: 'http://' + document.domain + ':' + location.port + '/api/shelter',
                     contentType: "application/json",
                     dataType: "json",
-                    data: JSON.stringify(new_shelter),
-                    success: function (result) {
-                        console.log(result);
+                    data: JSON.stringify(new_shelter_dict),
+                    success: function (new_shelter) {
+                        console.log(new_shelter);
+                        // creation of the shelter OK
+
+
+                        // creation of the property: Name of shelter
+                        var filters = [{"name":"name","op":"eq","val":"Name of shelter"}];
+                        $.ajax({
+                            type: 'GET',
+                            url: 'http://' + document.domain + ':' + location.port + '/api/attribute',
+                            contentType: "application/json",
+                            dataType: "json",
+                            data: {"q": JSON.stringify({"filters": filters})},
+                            success: function(result) {
+                                attribute_id = result.objects[0].id;
+                                category_id = result.objects[0].category_id;
+                                new_property = {
+                                    shelter_id: new_shelter.id,
+                                    attribute_id: attribute_id,
+                                    category_id: category_id,
+                                    values : [{
+                                        name: name_of_shelter,
+                                        attribute_id: attribute_id
+                                    }]
+                                }
+                                $.ajax({
+                                    type: 'POST',
+                                    url: 'http://' + document.domain + ':' + location.port + '/api/property',
+                                    contentType: "application/json",
+                                    dataType: "json",
+                                    data: JSON.stringify(new_property),
+                                    success: function (result) {
+                                        console.log(result);
+                                    },
+                                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                                        console.log(errorThrown);
+                                    }
+                                });
+                            },
+                            error: function(XMLHttpRequest, textStatus, errorThrown){
+                                //alert(errorThrown);
+                            }
+                        })
+
+
+
+                        // creation of the property: Country
+                        var filters = [{"name":"name","op":"eq","val":"Country"}];
+                        $.ajax({
+                            type: 'GET',
+                            url: 'http://' + document.domain + ':' + location.port + '/api/attribute',
+                            contentType: "application/json",
+                            dataType: "json",
+                            data: {"q": JSON.stringify({"filters": filters})},
+                            success: function(result) {
+                                attribute_id = result.objects[0].id;
+                                category_id = result.objects[0].category_id;
+                                new_property = {
+                                    shelter_id: new_shelter.id,
+                                    attribute_id: attribute_id,
+                                    category_id: category_id,
+                                    values : [{
+                                        id: country_value_id
+                                    }]
+                                }
+                                $.ajax({
+                                    type: 'POST',
+                                    url: 'http://' + document.domain + ':' + location.port + '/api/property',
+                                    contentType: "application/json",
+                                    dataType: "json",
+                                    data: JSON.stringify(new_property),
+                                    success: function (result) {
+                                        console.log(result);
+                                        window.location = 'http://' + document.domain + ':' + location.port + '/details/' + new_shelter.id + '/generalInformation';
+                                    },
+                                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                                        console.log(errorThrown);
+                                    }
+                                });
+                            },
+                            error: function(XMLHttpRequest, textStatus, errorThrown){
+                                //alert(errorThrown);
+                            }
+                        })
+
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown){
                         console.log(errorThrown);
