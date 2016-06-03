@@ -36,7 +36,6 @@ from collections import defaultdict
 def tree():
     return defaultdict(tree)
 
-
 @app.route('/shelters_for_map', methods=['GET'])
 def shelters_for_map():
     latitude_properties = Property.query.filter(
@@ -54,9 +53,9 @@ def shelters_for_map():
 
     result = tree()
     for latitude_property in latitude_properties:
-        result[latitude_property.shelter_id]["latitude"] = float(latitude_property.values[0].name.replace(",","."))
+        result[latitude_property.shelter_id]["latitude"] = latitude_property.values[0].name
     for longitude_property in longitude_properties:
-        result[longitude_property.shelter_id]["longitude"] = float(longitude_property.values[0].name.replace(",","."))
+        result[longitude_property.shelter_id]["longitude"] = longitude_property.values[0].name
     for name_property in name_properties:
         result[name_property.shelter_id]["name"] = name_property.values[0].name
     for city_property in city_properties:

@@ -36,7 +36,7 @@ class Attribute(db.Model):
     display_position = db.Column(db.Integer, default=0)
 
     # relationships
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     category = db.relationship("Category", back_populates="attributes")
 
     associated_values = db.relationship('Value', backref='attribute', lazy='dynamic',

@@ -17,7 +17,7 @@ __revision__ = "$Date: 2016/04/01 $"
 __copyright__ = "Copyright (c) "
 __license__ = ""
 
-from sqlalchemy import desc
+from sqlalchemy import desc, event
 from bootstrap import db
 
 class Value(db.Model):
@@ -28,8 +28,22 @@ class Value(db.Model):
     name = db.Column(db.String(), nullable=False)
 
     # relationship
-    attribute_id = db.Column(db.Integer, db.ForeignKey('attribute.id'))
+    attribute_id = db.Column(db.Integer, db.ForeignKey('attribute.id'), nullable=False)
 
     #properties = db.relationship('Property', backref='value', lazy='dynamic',
                                 #cascade='all, delete-orphan',
                                 #order_by=desc('Property.id'))
+
+"""
+def my_after_update_listener(mapper, connection, target):
+    shelter_table = Shelter.__table__
+    connection.execute(
+            shelter_table.update().
+             where(shelter_table.c.id==target.material_id).
+             values(last_event=target.id)
+    )
+
+
+# associate the listener function with SomeMappedClass,
+# to execute during the "after_insert" hook
+event.listen(Value, 'after_update', my_after_update_listener)"""

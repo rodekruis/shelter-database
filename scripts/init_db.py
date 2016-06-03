@@ -39,7 +39,7 @@ def init_db(csv_file):
             attribute = models.Attribute(name=attribute_name,
                                         category_id=sub_category.id,
                                         display_position=display_position)
-            attribute_type = row[3] # TODO: do something with row[3] ...
+            attribute.type = row[3]
 
             cardinality = row[5]
             attribute.multiple = cardinality=='multiple choice'
