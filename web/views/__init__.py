@@ -19,8 +19,8 @@ def get_locale():
     # example.  The best match wins.
     return request.accept_languages.best_match(conf.LANGUAGES.keys())
 
-@g.babel.timezoneselector
-def get_timezone():
-    user = getattr(g, 'user', None)
-    if user is not None:
-        return user.timezone
+# @g.babel.timezoneselector
+# def get_timezone():
+#     user = getattr(g, 'user', None)
+#     if user is not None:
+#         return user.timezone
