@@ -45,7 +45,7 @@
         {% for category_name in categories_list %}
             <fieldset id="{{ category }}" class="border">
                 <legend class="border">
-                    <span class="section-title">{{ category_name }}</span>
+                    <span class="section-title">{{ category_name | translate }}</span>
                 </legend>
                 <div class="col-md-8">
                     {% for category  in categories[category_name]  %}
@@ -53,12 +53,12 @@
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-md-4">
-                                        <b>{{ attribute.name }}</b>
+                                        <b>{{ attribute.name | translate }}</b>
                                     </div>
 
                                     <div class="col-md-4">
                                         {% if not attribute.is_editable %}
-                                            {{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name }}
+                                            {{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name  | translate }}
                                         {% elif not attribute.free_text %}
                                             <select class="form-control select-attribute selectpicker show-tick"
                                             property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
@@ -69,7 +69,7 @@
                                                 <option value=""></option>
                                                 {% for value in attribute.associated_values %}
                                                     <option value="{{value.id}}"
-                                                        {% if value.id in shelter.get_idvalues_of_attribute(attribute.id)  %}selected="selected"{% endif %}>{{ value.name }}
+                                                        {% if value.id in shelter.get_idvalues_of_attribute(attribute.id)  %}selected="selected"{% endif %}>{{ value.name | translate }}
                                                     </option>
                                                 {% endfor %}
                                             </select>
@@ -80,7 +80,7 @@
                                                 property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
                                                 attribute-id="{{ attribute.id }}"
                                                 category-id="{{ attribute.category_id }}"
-                                                value-id="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].id }}">{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name }}</textarea>
+                                                value-id="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].id }}">{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name | translate }}</textarea>
                                             {% elif attribute.type == "Date" %}
                                                 <input type="date"
                                                 id="{{ attribute.associated_values.first().id }}"
@@ -98,7 +98,7 @@
                                                 attribute-id="{{ attribute.id }}"
                                                 category-id="{{ attribute.category_id }}"
                                                 value-id="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].id }}"
-                                                value="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name }}" />
+                                                value="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name | translate }}" />
                                             {% endif %}
                                         {% endif %}
                                     </div>

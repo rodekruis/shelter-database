@@ -45,5 +45,5 @@ class Property(db.Model):
     values = db.relationship("Value", secondary=association_table,
                             backref="properties")
 
-    def get_values(self):
+    def get_values_as_string(self):
         return ", ".join([value.name for value in self.values])

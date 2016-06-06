@@ -46,6 +46,23 @@ db = SQLAlchemy(app)
 # Create the Flask-Restless API manager.
 manager = flask_restless.APIManager(app, flask_sqlalchemy_db=db)
 
+
+from flask_babel import Babel, format_datetime
+from web.models import Translation
+# Jinja filters
+def translate(original, language_code='fr'):
+    translation = Translation.query.filter(
+                            Translation.original==original,
+                            Translation.language_code==language_code,
+                            ).first()
+    if translation:
+        return translation.translated
+    else:
+        return original
+app.jinja_env.filters['translate'] = translate
+
+
+
 def populate_g():
     from flask import g
     g.db = db

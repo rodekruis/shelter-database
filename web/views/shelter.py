@@ -82,7 +82,7 @@ def details(shelter_id=0, section_name=""):
                             Property.shelter_id==shelter_id,
                             Property.category.has(name="Walls & Frame")).first()
         categories_list = ["Foundation", "Walls & Frame",
-                            superstructure_type.get_values(),
+                            superstructure_type.get_values_as_string(),
                             "Beams & Floor",
                             "Beams & Floor (ground floor)", "Roof"]
     elif section_name == "skin":
@@ -131,7 +131,7 @@ def edit(shelter_id=0, section_name=""):
                             Property.shelter_id==shelter_id,
                             Property.category.has(name="Walls & Frame")).first()
         categories_list = ["Foundation", "Walls & Frame",
-                            superstructure_type.get_values(),
+                            superstructure_type.get_values_as_string(),
                             "Beams & Floor",
                             "Beams & Floor (ground floor)", "Roof"]
     elif section_name == "skin":

@@ -38,16 +38,21 @@
                 {% for category in categories_list %}
                     <fieldset id="{{ category }}" class="border">
                         <legend class="border">
-                            <span class="section-title">{{ category }}</span>
+                            <span class="section-title">{{ category | translate }}</span>
                         </legend>
                         <div class="col-md-8">
                             {% for property  in categories[category]  %}
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <p><b>{{ property.attribute.name }}</b></p>
+                                        <p><b>{{ property.attribute.name | translate }}</b></p>
                                     </div>
                                     <div class="col-md-4">
-                                        <p>{{ property.get_values() }}</p>
+                                        <p>
+                                            {% for value in property.values[:-1] %}
+                                                {{ value.name | translate }},&nbsp;
+                                            {% endfor %}
+                                            {{ property.values[-1].name | translate }}
+                                        </p>
                                     </div>
                                 </div>
                             {% endfor %}
