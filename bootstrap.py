@@ -62,6 +62,17 @@ def translate(original, language_code='fr'):
 app.jinja_env.filters['translate'] = translate
 
 
+# Flask-Admin
+from flask_admin import Admin, AdminIndexView
+from flask_admin.contrib.sqla import ModelView
+
+class TranslationView(ModelView):
+    column_searchable_list = (Translation.original, Translation.translated)
+
+admin = Admin(app, name='Management of translations', template_mode='bootstrap3')
+admin.add_view(TranslationView(Translation, db.session))
+
+
 
 def populate_g():
     from flask import g
