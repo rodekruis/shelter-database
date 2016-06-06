@@ -13,20 +13,16 @@ def import_translation(translation_file, language_code):
 
 
         for translation_line in translations:
-            #print(translation[:3])
-
             for index, original_string in enumerate(translation_line[:3]):
                 if original_string:
                     #print("{} -> {}".format(original_string,
                                             #translation_line[index+3]))
-
                     if index==2:
                         # column for the values
                         originals = original_string.split(";")
                         translations = translation_line[index+3].split(";")
 
                         for original_string, translated_string in zip(originals, translations):
-                            print(original_string)
                             translation = Translation(
                                             original=original_string.strip(),
                                             translated=translated_string.strip(),
