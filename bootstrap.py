@@ -27,9 +27,10 @@ import sys
 import logging
 import conf
 
-from flask import Flask
+from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 import flask_restless
+
 
 # Create Flask app
 app = Flask('web')
@@ -47,10 +48,12 @@ db = SQLAlchemy(app)
 manager = flask_restless.APIManager(app, flask_sqlalchemy_db=db)
 
 # Jinja filters
-from flask_babel import Babel, format_datetime
+from flask_babel import Babel, format_datetime, get_locale
 from web.models import Translation
 babel = Babel(app)
-def translate(original, language_code='fr'):
+def translate(original, language_code=''):
+    if language_code == '':
+        language_code = get_locale().language
     translation = Translation.query.filter(
                             Translation.original==original,
                             Translation.language_code==language_code,
@@ -74,8 +77,8 @@ class TranslationView(ModelView):
 # admin.add_view(TranslationView(Translation, db.session))
 
 
-
 def populate_g():
     from flask import g
     g.db = db
     g.app = app
+    g.babel = babel

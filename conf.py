@@ -33,6 +33,17 @@ except:
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 PATH = os.path.abspath(".")
 
+# available languages
+LANGUAGES = {
+    'en': 'English',
+    'fr': 'French'
+}
+
+TIME_ZONE = {
+    "en": "US/Eastern",
+    "fr": "Europe/Paris"
+}
+
 DEFAULTS = {"platform_url": "http://127.0.0.1:5000",
             "host": "0.0.0.0",
             "port": "5000",

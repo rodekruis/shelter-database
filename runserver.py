@@ -13,18 +13,23 @@
 __author__ = "Cedric Bonhomme"
 __version__ = "$Revision: 0.1 $"
 __date__ = "$Date: 2016/03/30$"
-__revision__ = "$Date: 2016/03/30 $"
+__revision__ = "$Date: 2016/06/06 $"
 __copyright__ = "Copyright (c) "
 __license__ = ""
 
-from bootstrap import conf, app, manager
+from bootstrap import conf, app, manager, populate_g
 from web import models
 #from web import websocketprocessors as processors
 
 with app.app_context():
-    # Views to render the HTML files
-    from web import views
+    populate_g()
 
+    # HTML views
+    from web import views
+    app.register_blueprint(views.user_bp)
+    app.register_blueprint(views.admin_bp)
+
+    # API
     # 'User' Web service
     blueprint_user = manager.create_api_blueprint(models.User,
                         methods=['GET', 'POST', 'PUT', 'DELETE'])
@@ -65,9 +70,6 @@ with app.app_context():
                         methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
     app.register_blueprint(blueprint_translation)
 
-    from web import views
-    app.register_blueprint(views.user_bp)
-    app.register_blueprint(views.admin_bp)
 
 if __name__ == "__main__":
     app.run(host=conf.WEBSERVER_HOST,

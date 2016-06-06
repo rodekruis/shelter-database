@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+    #! /usr/bin/env python
 #-*- coding: utf-8 -*-
 
 # ***** BEGIN LICENSE BLOCK *****
@@ -21,11 +21,11 @@ import string
 import datetime
 import subprocess
 from flask import request, flash,render_template, session, url_for, redirect, \
-    g, abort, jsonify
+    g, abort, jsonify, current_app
 from flask_login import login_required, current_user
 
 import conf
-from bootstrap import app, db
+from bootstrap import db
 from web.lib.utils import redirect_url
 from web.forms import LoginForm
 from web.models import User, Shelter
@@ -33,15 +33,15 @@ from web.models import User, Shelter
 #
 # Default errors
 #
-@app.errorhandler(404)
+@current_app.errorhandler(404)
 def page_not_found(e):
     return render_template('errors/404.html'), 404
 
-@app.errorhandler(405)
+@current_app.errorhandler(405)
 def method_not_allowed(e):
     return render_template('errors/405.html'), 405
 
-@app.errorhandler(500)
+@current_app.errorhandler(500)
 def internal_server_error(e):
     return render_template('errors/500.html'), 500
 
@@ -49,18 +49,18 @@ def internal_server_error(e):
 
 
 
-@app.errorhandler(403)
+@current_app.errorhandler(403)
 def authentication_failed(e):
     flash('You do not have enough rights.', 'danger')
     return redirect(url_for('join'))
 
-@app.errorhandler(401)
+@current_app.errorhandler(401)
 def authentication_required(e):
     flash('Authenticated required.', 'info')
     return redirect(url_for('join'))
 
 
-@app.before_request
+@current_app.before_request
 def before_request():
     g.user = current_user
     if g.user.is_authenticated:
@@ -70,33 +70,20 @@ def before_request():
 #
 # Views.
 #
-@app.route('/', methods=['GET'])
+@current_app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
 
-@app.route('/dashboard', methods=['GET'])
-@login_required
-def dashboard():
-    return render_template('dashboard.html', user=g.user,
-                                users=User.query.all())
 
-
-@app.route('/dashboard/user/<user_id>', methods=['GET'])
-@login_required
-def dashboard_user(user_id):
-    employee = User.query.filter(User.id == user_id).first()
-    return render_template('dashboard_user.html', user=g.user,
-                                employee=employee)
-
-@app.route('/glossary', methods=['GET'])
+@current_app.route('/glossary', methods=['GET'])
 def glossary():
     return render_template('glossary.html')
 
-@app.route('/contributors', methods=['GET'])
+@current_app.route('/contributors', methods=['GET'])
 def contributors():
     return render_template('contributors.html')
 
-@app.route('/db_initialization', methods=['GET'])
+@current_app.route('/db_initialization', methods=['GET'])
 def db_initialization():
     cmd = ['./init_db.sh']
     try:
