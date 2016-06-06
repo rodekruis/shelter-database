@@ -27,6 +27,7 @@ from flask_login import login_required, current_user
 from sqlalchemy import asc
 
 from bootstrap import app
+from web.lib.utils import redirect_url
 from web.forms import LoginForm
 from web.models import User, Shelter, Property, Attribute, Category
 
@@ -67,7 +68,10 @@ def shelters_for_map():
 
 @app.route('/details/<int:shelter_id>/<section_name>', methods=['GET'])
 def details(shelter_id=0, section_name=""):
-    #shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+    shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+    if not shelter:
+        flash("No such shelter", "warning")
+        return redirect(redirect_url())
 
     if section_name == "generalInformation":
         categories_list = ["Identification", "Disaster & Response", "Site"]
@@ -90,7 +94,8 @@ def details(shelter_id=0, section_name=""):
     elif section_name == "documents":
         categories_list = ["Documents"]
     else:
-        categories_list = []
+        flash("No such section", "warning")
+        return redirect(redirect_url())
 
     categories = defaultdict(list)
     for category in categories_list:
@@ -113,6 +118,9 @@ def details(shelter_id=0, section_name=""):
 @app.route('/edit/<int:shelter_id>/<section_name>', methods=['GET'])
 def edit(shelter_id=0, section_name=""):
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+    if not shelter:
+        flash("No such shelter", "warning")
+        return redirect(redirect_url())
 
     if section_name == "generalInformation":
         categories_list = ["Identification", "Disaster & Response", "Site"]
@@ -135,7 +143,8 @@ def edit(shelter_id=0, section_name=""):
     elif section_name == "documents":
         categories_list = ["Documents"]
     else:
-        categories_list = []
+        flash("No such section", "warning")
+        return redirect(redirect_url())
 
 
     categories = defaultdict(list)
