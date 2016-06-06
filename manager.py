@@ -82,5 +82,12 @@ def import_page(name, html_file, language_code):
     with app.app_context():
         scripts.init_page(name, html_file, language_code)
 
+@manager.command
+def import_translation(translation_file, language_code):
+    "Import a translation file in the database"
+    print("Importing translation file from '{}' ...".format(translation_file))
+    with app.app_context():
+        scripts.import_translation(translation_file, language_code)
+
 if __name__ == '__main__':
     manager.run()
