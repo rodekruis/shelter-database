@@ -32,7 +32,7 @@ from flask_principal import (Principal, AnonymousIdentity, UserNeed,
                                  session_identity_loader)
 
 import conf
-from web.views.common import admin_role, api_role, login_user_bundle
+from web.views.common import admin_role, login_user_bundle
 from web.models import User
 from web.forms import LoginForm
 #from notifications import notifications

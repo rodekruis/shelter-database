@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <h1>Registered users</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Member since</th>
+            <th>Last seen</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+        <tr {% if not user.is_active  %}class="warning"{% endif %}>
+            <td>{{ loop.index }}</td>
+            <td>{{ user.name }}{% if user.id == current_user.id %} (It's you!){% endif %}</td>
+            <td><a href="mailto:{{ user.email }}">{{ user.email  }}</a></td>
+            <td class="date">{{ user.created_at | datetime }}</td>
+            <td class="date">{{ user.last_seen | datetime }}</td>
+            <td>
+                <a href=""><i class="glyphicon glyphicon-edit" title="{{ _('Edit this user') }}"></i></a>
+                {% if user.id != current_user.id %}
+                    <a href="{{ url_for("admin.toggle_user", user_id=user.id) }}">
+                    {% if user.is_active %}
+                        <i class="glyphicon glyphicon-ban-circle" title="{{ _("Disable this account") }}"></i>
+                    {% else %}
+                        <i class="glyphicon glyphicon-ok-circle" title="{{ _("Enable this account") }}"></i>
+                    {% endif %}
+                    </a>
+                    <a href="{{ url_for("admin.delete_user", user_id=user.id) }}"><i class="glyphicon glyphicon-remove" title="{{ _('Delete this user') }}" onclick="return confirm('{{ _('You are going to delete this account.') }}');"></i></a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

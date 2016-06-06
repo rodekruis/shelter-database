@@ -35,7 +35,7 @@ import flask_restless
 app = Flask('web')
 
 # Create a random secrey key so we can use sessions
-app.config['SECRET_KEY'] = os.urandom(12)
+app.config['SECRET_KEY'] = "42"#os.urandom(12)
 
 app.debug = conf.LOG_LEVEL <= logging.DEBUG
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
@@ -46,10 +46,10 @@ db = SQLAlchemy(app)
 # Create the Flask-Restless API manager.
 manager = flask_restless.APIManager(app, flask_sqlalchemy_db=db)
 
-
+# Jinja filters
 from flask_babel import Babel, format_datetime
 from web.models import Translation
-# Jinja filters
+babel = Babel(app)
 def translate(original, language_code='fr'):
     translation = Translation.query.filter(
                             Translation.original==original,
@@ -60,6 +60,7 @@ def translate(original, language_code='fr'):
     else:
         return original
 app.jinja_env.filters['translate'] = translate
+app.jinja_env.filters['datetime'] = format_datetime
 
 
 # Flask-Admin
@@ -69,8 +70,8 @@ from flask_admin.contrib.sqla import ModelView
 class TranslationView(ModelView):
     column_searchable_list = (Translation.original, Translation.translated)
 
-admin = Admin(app, name='Management of translations', template_mode='bootstrap3')
-admin.add_view(TranslationView(Translation, db.session))
+# admin = Admin(app, name='Management of translations', template_mode='bootstrap3')
+# admin.add_view(TranslationView(Translation, db.session))
 
 
 

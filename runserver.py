@@ -65,6 +65,9 @@ with app.app_context():
                         methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
     app.register_blueprint(blueprint_translation)
 
+    from web import views
+    app.register_blueprint(views.user_bp)
+    app.register_blueprint(views.admin_bp)
 
 if __name__ == "__main__":
     app.run(host=conf.WEBSERVER_HOST,

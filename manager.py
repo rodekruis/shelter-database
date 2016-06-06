@@ -69,6 +69,13 @@ def create_admin_user():
         db.session.commit()
 
 @manager.command
+def create_user(email, name, password):
+    "Initializes a user"
+    print("Creation of the user {} ...".format(name))
+    with app.app_context():
+        scripts.create_user(email, name, password)
+
+@manager.command
 def import_shelters(shelters_owner, csv_file):
     "Will import the shelters in the database."
     print("Importing shelters from '{}' ...".format(csv_file))

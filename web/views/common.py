@@ -9,12 +9,8 @@ from web.models import User
 #from web.lib.utils import default_handler
 
 admin_role = RoleNeed('admin')
-api_role = RoleNeed('api')
 
 admin_permission = Permission(admin_role)
-api_permission = Permission(api_role)
-
-
 
 
 def jsonify(func):
