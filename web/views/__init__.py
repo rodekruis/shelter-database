@@ -1,8 +1,9 @@
-from web.views import views
 from web.views.shelter import shelter_bp, shelters_bp
-from web.views.page import recommendations
 from web.views.user import user_bp
-from web.views.admin import admin_bp
+from web.views.administration import admin_bp
+from web.views import views
+from web.views.page import recommendations
+from web.views.admin import *
 from web.views.session_mgmt import *
 
 import conf
