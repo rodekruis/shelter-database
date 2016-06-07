@@ -25,6 +25,7 @@ from flask_login import login_required, current_user
 
 from bootstrap import db
 from web.lib.utils import redirect_url
+from web.models import Attribute
 
 #
 # Default errors
@@ -63,7 +64,20 @@ def before_request():
 #
 @current_app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    climate_zones = Attribute.query.filter(Attribute.name=="Climate zone").\
+                                first().associated_values
+    zones = Attribute.query.filter(Attribute.name=="Zone").\
+                                first().associated_values
+    disasters = Attribute.query.filter(
+                    Attribute.name=="Associated disaster / Immediate cause").\
+                                first().associated_values
+
+
+
+    return render_template('index.html',
+                            climate_zones=climate_zones,
+                            zones=zones,
+                            disasters=disasters)
 
 @current_app.route('/contributors', methods=['GET'])
 def contributors():

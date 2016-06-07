@@ -29,6 +29,38 @@
         </div>
         <div class="col-md-2">
             <h4>Search</h4>
+            <form class="form-group" method="post" action="/" role="form">
+                <div class="form-group">
+                    <select   id="climateZoneSelect" name="climateZone" class="form-control" data-live-search="true">
+                        <option value="" selected="selected">Select a climate Zone</option>
+                        {% for climate_zone in climate_zones %}
+                            <option value="{{ climate_zone.name }}">{{ climate_zone.name | translate }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select   id="zoneSelect" name="zone" class="form-control" data-live-search="true">
+                        <option value="" selected="selected">Select a zone</option>
+                        {% for zone in zones %}
+                            <option value="{{ zone.name }}">{{ zone.name | translate }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select   id="associatedDisasterSelect" name="associatedDisaster" class="form-control" data-live-search="true">
+                        <option value="" selected="selected">Select an associated Disaster</option>
+                        {% for disaster in disasters %}
+                            <option value="{{ disaster.name }}">{{ disaster.name | translate }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select   id="materialSelect" name="material" class="form-control" data-live-search="true">
+                        <option value="" selected="selected">Select a material</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
             <h4>Legend</h4>
         </div>
     </div>
