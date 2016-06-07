@@ -46,7 +46,7 @@ def profile():
             db.session.commit()
 
             flash('User successfully updated', 'success')
-            return redirect(url_for('user.profile'))
+            return redirect(url_for('user_bp.profile'))
         else:
             return render_template('profile.html', user=user, form=form)
 
