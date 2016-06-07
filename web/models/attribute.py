@@ -18,8 +18,10 @@ __copyright__ = "Copyright (c) "
 __license__ = ""
 
 import datetime
-from sqlalchemy import desc
+from sqlalchemy import asc
 from bootstrap import db
+
+from web.models import Value
 
 class Attribute(db.Model):
     """
@@ -41,7 +43,7 @@ class Attribute(db.Model):
 
     associated_values = db.relationship('Value', backref='attribute', lazy='dynamic',
                            cascade='all, delete-orphan',
-                           order_by=desc('Value.id'))
+                           order_by=asc(Value.name))
 
     properties = db.relationship("Property", back_populates="attribute")
 

@@ -34,6 +34,12 @@ class Value(db.Model):
                                 #cascade='all, delete-orphan',
                                 #order_by=desc('Property.id'))
 
+    def __str__(self):
+        """
+        Required for administrative interface.
+        """
+        return str(self.id)
+
 """
 def my_after_update_listener(mapper, connection, target):
     shelter_table = Shelter.__table__
