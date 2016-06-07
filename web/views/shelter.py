@@ -119,6 +119,7 @@ def details(shelter_id=0, section_name=""):
 
 
 @shelter_bp.route('/edit/<int:shelter_id>/<section_name>', methods=['GET'])
+@login_required
 def edit(shelter_id=0, section_name=""):
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
     if not shelter:
