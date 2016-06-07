@@ -61,8 +61,8 @@
                                                 <select  id="countrySelect" name="country" class="form-control" data-live-search="true"></select>
                                             </div>
                                             <br /><br />
-                                            <div class="navbar-right">
-                                                <button type="submit" id="createShelter" class="btn btn-default" value="Create">Create</button>
+                                            <div class="form-group">
+                                                <button type="submit" id="createShelter" class="btn btn-default form-control" value="Create">Create</button>
                                             </div>
                                         </form>
                                     </li>
@@ -76,6 +76,7 @@
                                     <li><a href="{{ url_for('user.profile') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Profile</a></li>
                                     {% if current_user.is_admin %}
                                         <li role="presentation" class="divider"></li>
+                                        <li><a href="{{ url_for('administration.dashboard') }}">Dashboard</a></li>
                                         <li><a href="{{ url_for('administration.shelters') }}">Shelters</a></li>
                                         <li><a href="{{ url_for('administration.users') }}">Users</a></li>
                                         <li><a href="{{ url_for('administration.pages') }}">Edit pages</a></li>
@@ -259,7 +260,7 @@
                                     data: JSON.stringify(new_property),
                                     success: function (result) {
                                         console.log(result);
-                                        window.location = 'http://' + document.domain + ':' + location.port + '/details/' + new_shelter.id + '/generalInformation';
+                                        window.location = 'http://' + document.domain + ':' + location.port + '/shelter/' + new_shelter.id + '/generalInformation';
                                     },
                                     error: function(XMLHttpRequest, textStatus, errorThrown){
                                         console.log(errorThrown);

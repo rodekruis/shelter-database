@@ -70,7 +70,8 @@ app.jinja_env.filters['datetime'] = format_datetime
 from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.menu import MenuLink
-menu_link_back_home = MenuLink(name='Back Home', url='/')
+menu_link_back_home = MenuLink(name='Back to dashboard',
+                                url='/admin/dashboard')
 
 class TranslationView(ModelView):
     column_searchable_list = (Translation.original, Translation.translated)

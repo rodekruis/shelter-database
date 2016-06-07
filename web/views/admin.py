@@ -28,6 +28,12 @@ from web.models import Shelter, Page, User
 
 admin_bp = Blueprint('administration', __name__, url_prefix='/admin')
 
+@admin_bp.route('/dashboard', methods=['GET', 'POST'])
+@login_required
+@admin_permission.require(http_exception=403)
+def dashboard():
+    return render_template('admin/dashboard.html')
+
 @admin_bp.route('/shelters', methods=['GET', 'POST'])
 @login_required
 @admin_permission.require(http_exception=403)
