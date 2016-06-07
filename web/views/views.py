@@ -11,24 +11,20 @@
 # ***** END LICENSE BLOCK *****
 
 __author__ = "Cedric Bonhomme"
-__version__ = "$Revision: 0.2 $"
+__version__ = "$Revision: 0.2.1 $"
 __date__ = "$Date: 2016/03/30$"
-__revision__ = "$Date: 2016/05/31 $"
+__revision__ = "$Date: 2016/06/07 $"
 __copyright__ = "Copyright (c) "
 __license__ = ""
 
-import string
 import datetime
-import subprocess
-from flask import request, flash,render_template, session, url_for, redirect, \
-    g, abort, jsonify, current_app
+#import subprocess
+from flask import request, flash, render_template, session, url_for, redirect, \
+    g, current_app
 from flask_login import login_required, current_user
 
-import conf
 from bootstrap import db
 from web.lib.utils import redirect_url
-from web.forms import LoginForm
-from web.models import User, Shelter
 
 #
 # Default errors
@@ -45,10 +41,6 @@ def method_not_allowed(e):
 def internal_server_error(e):
     return render_template('errors/500.html'), 500
 
-
-
-
-
 @current_app.errorhandler(403)
 def authentication_failed(e):
     flash('You do not have enough rights.', 'danger')
@@ -58,7 +50,6 @@ def authentication_failed(e):
 def authentication_required(e):
     flash('Authenticated required.', 'info')
     return redirect(url_for('join'))
-
 
 @current_app.before_request
 def before_request():
@@ -74,21 +65,16 @@ def before_request():
 def index():
     return render_template('index.html')
 
-
-@current_app.route('/glossary', methods=['GET'])
-def glossary():
-    return render_template('glossary.html')
-
 @current_app.route('/contributors', methods=['GET'])
 def contributors():
     return render_template('contributors.html')
 
-@current_app.route('/db_initialization', methods=['GET'])
-def db_initialization():
-    cmd = ['./init_db.sh']
-    try:
-        subprocess.Popen(cmd, stdout=subprocess.PIPE)
-        flash('Re-initialization of the database in progress...', 'success')
-    except:
-        flash('An error occured.', 'danger')
-    return redirect(redirect_url())
+# @current_app.route('/db_initialization', methods=['GET'])
+# def db_initialization():
+#     cmd = ['./init_db.sh']
+#     try:
+#         subprocess.Popen(cmd, stdout=subprocess.PIPE)
+#         flash('Re-initialization of the database in progress...', 'success')
+#     except:
+#         flash('An error occured.', 'danger')
+#     return redirect(redirect_url())

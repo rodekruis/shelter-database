@@ -42,7 +42,7 @@ Principal(current_app)
 
 login_manager = LoginManager()
 login_manager.init_app(current_app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'join'
 
 logger = logging.getLogger(__name__)
 
