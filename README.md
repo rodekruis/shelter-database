@@ -6,12 +6,13 @@ Shelter Database
 Shelter Database.
 
 
+
 # Deployment
 
 Tested with Python 3.5 and Python 2.7.
 
 
-## Configure the database
+## Install and configure the database
 
     $ sudo apt-get install -y postgresql postgresql-server-dev-9.4 postgresql-client
     $ echo "127.0.0.1:5433:shelter:pgsqluser:pgsqlpwd" > ~/.pgpass
@@ -63,31 +64,51 @@ Update appropriately the line just above.
     Importing shelters from 'data/shelters/Phil-Bangla-Burundi.csv' ...
     Importing translation file from 'data/translations/sheltersDataTraduction_FR_rev_ED.csv' ...
 
+An admin user with the password *password* will be created. You can create
+an other user:
+
+    $ python manager.py create_user firstname.lastname@mail.org name password
 
 ## Launch the application
 
     $ python runserver.py
      * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 
+The application is now running in standalone mode. For a use in production it is
+recommended to run the applicaiton behind Apache or NGINX.
+
+
+
 # Generation of the database UML graph
 
     $ python manager.py uml_graph
 
+
+
 # Example of requests to the Web Service
 
+    # Get the list of root category
     $ GET http://127.0.0.1:5000/api/category?q={"filters":[{"name":"parent_id","op":"is_null"}]}
+    # Get the list of child category
     $ GET http://127.0.0.1:5000/api/category?q={"filters":[{"name":"parent_id","op":"is_not_null"}]}
+    # Get information about the child category "Walls & Frame"
     $ GET http://127.0.0.1:5000/api/category?q={"filters":[{"name":"parent_id","op":"is_not_null"},{"name":"name","op":"eq","val":"Walls %26 frame"}]}
 
+    # Get information about an attribute
     $ GET http://127.0.0.1:5000/api/attribute?q={"filters":[{"name":"name","op":"eq","val":"Landform"}]}
     $ GET http://127.0.0.1:5000/api/attribute?q={"filters":[{"name":"name","op":"eq","val":"Main hazards in country"}]}
 
-    $ GET http://127.0.0.1:5000/api/attribute?q={"filters":[{"name":"name","op":"eq","val":"Country"}]}
-
+    # Get the translations of a string
     $ GET http://127.0.0.1:5000/api/translation?q={"filters":[{"name":"original","op":"eq","val":"Name of shelter"}]}
+
 
 
 # License
 
+This application is under **TO BE DEFINED** license.
+
+
 
 # Contact
+
+[Luxembourg Institute of Science and Technology](http://www.list.lu)
