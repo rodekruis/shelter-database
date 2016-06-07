@@ -11,29 +11,29 @@
     <section layout:fragment="content">
         <ul id="myTab" class="nav nav-tabs" role="tablist">
             <li id="tab-general">
-                <a href="{{ url_for('edit', shelter_id=shelter_id, section_name='generalInformation') }}">General Information</a>
+                <a href="{{ url_for('shelter.edit', shelter_id=shelter_id, section_name='generalInformation') }}">General Information</a>
             </li>
             <li id="tab-details">
-                <a href="{{ url_for('edit', shelter_id=shelter_id, section_name='implementationDetails') }}">Implementation details</a>
+                <a href="{{ url_for('shelter.edit', shelter_id=shelter_id, section_name='implementationDetails') }}">Implementation details</a>
             </li>
             <li id="tab-structure">
-                <a href="{{ url_for('edit', shelter_id=shelter_id, section_name='structure') }}">Structure</a>
+                <a href="{{ url_for('shelter.edit', shelter_id=shelter_id, section_name='structure') }}">Structure</a>
             </li>
             <li id="tab-skin">
-                <a href="{{ url_for('edit', shelter_id=shelter_id, section_name='skin') }}">Skin</a>
+                <a href="{{ url_for('shelter.edit', shelter_id=shelter_id, section_name='skin') }}">Skin</a>
             </li>
             <li id="tab-services">
-                <a href="{{ url_for('edit', shelter_id=shelter_id, section_name='services') }}">Services</a>
+                <a href="{{ url_for('shelter.edit', shelter_id=shelter_id, section_name='services') }}">Services</a>
             </li>
             <li id="tab-spaceplan">
-                <a href="{{ url_for('edit', shelter_id=shelter_id, section_name='spacePlan') }}">Spaceplan</a>
+                <a href="{{ url_for('shelter.edit', shelter_id=shelter_id, section_name='spacePlan') }}">Spaceplan</a>
             </li>
             <li id="tab-documents">
-                <a href="{{ url_for('edit', shelter_id=shelter_id, section_name='documents') }}">Documents</a>
+                <a href="{{ url_for('shelter.edit', shelter_id=shelter_id, section_name='documents') }}">Documents</a>
             </li>
 
             <li id="tab-edit" class="pull-right" >
-                <a id="btn-edit" class="btn" style="font-weight: bold;" href="{{ url_for('details', shelter_id=shelter_id, section_name=section_name) }}">Edit</a>
+                <a id="btn-edit" class="btn" style="font-weight: bold;" href="{{ url_for('shelter.details', shelter_id=shelter_id, section_name=section_name) }}">Edit</a>
             </li>
         </ul>
 

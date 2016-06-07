@@ -1,5 +1,5 @@
 from web.views import views
-from web.views.shelter import *
+from web.views.shelter import shelter_bp
 from web.views.page import recommendations
 from web.views.user import user_bp
 from web.views.admin import admin_bp

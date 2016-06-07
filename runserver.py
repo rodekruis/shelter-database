@@ -27,6 +27,8 @@ with app.app_context():
     # HTML views
     from web import views
     app.register_blueprint(views.user_bp)
+    app.register_blueprint(views.shelter_bp)
+    app.register_blueprint(views.shelters_bp)
     app.register_blueprint(views.admin_bp)
 
     # API

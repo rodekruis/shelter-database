@@ -20,8 +20,8 @@ __license__ = ""
 import datetime
 import subprocess
 from collections import defaultdict
-from flask import request, flash, render_template, session, url_for, redirect, \
-    g, abort, jsonify
+from flask import Blueprint, request, flash, render_template, \
+                    session, url_for, redirect, g, abort, jsonify
 from flask_login import login_required, current_user
 
 from sqlalchemy import asc
@@ -34,10 +34,13 @@ from web.models import User, Shelter, Property, Attribute, Category
 
 from collections import defaultdict
 
+shelter_bp = Blueprint('shelter', __name__, url_prefix='/shelter')
+shelters_bp = Blueprint('shelters', __name__, url_prefix='/shelters')
+
 def tree():
     return defaultdict(tree)
 
-@app.route('/shelters_for_map', methods=['GET'])
+@shelter_bp.route('/shelters_for_map', methods=['GET'])
 def shelters_for_map():
     latitude_properties = Property.query.filter(
                             Property.attribute.has(name="GPS Latitude"),
@@ -66,7 +69,7 @@ def shelters_for_map():
 
 
 
-@app.route('/details/<int:shelter_id>/<section_name>', methods=['GET'])
+@shelter_bp.route('/<int:shelter_id>/<section_name>', methods=['GET'])
 def details(shelter_id=0, section_name=""):
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
     if not shelter:
@@ -115,7 +118,7 @@ def details(shelter_id=0, section_name=""):
                             categories=categories)
 
 
-@app.route('/edit/<int:shelter_id>/<section_name>', methods=['GET'])
+@shelter_bp.route('/edit/<int:shelter_id>/<section_name>', methods=['GET'])
 def edit(shelter_id=0, section_name=""):
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
     if not shelter:
