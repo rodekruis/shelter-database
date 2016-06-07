@@ -180,7 +180,7 @@
                 name_of_shelter = values["name"]
                 country_value_id = values["country"];
 
-                new_shelter_dict = {"user_id": 1}
+                new_shelter_dict = {} // the id of the shelter's owner is controlled by a POST preprocessor function
                 $.ajax({
                     type: 'POST',
                     url: 'http://' + document.domain + ':' + location.port + '/api/shelter',

@@ -19,7 +19,6 @@ __license__ = ""
 
 from bootstrap import conf, app, manager, populate_g
 from web import models
-#from web import websocketprocessors as processors
 
 with app.app_context():
     populate_g()
@@ -32,6 +31,7 @@ with app.app_context():
     app.register_blueprint(views.admin_bp)
 
     # API
+    from web import processors
     # 'User' Web service
     blueprint_user = manager.create_api_blueprint(models.User,
                         methods=['GET', 'POST', 'PUT', 'DELETE'])
@@ -39,7 +39,11 @@ with app.app_context():
 
     # 'Shelter' Web service
     blueprint_shelter = manager.create_api_blueprint(models.Shelter,
-                        methods=['GET', 'POST', 'PUT', 'DELETE'])
+                        methods=['GET', 'POST', 'PUT', 'DELETE'],
+                        preprocessors=dict(
+                                POST=[processors.auth_func,
+                                    processors.shelter_POST_preprocessor],
+                                DELETE=[processors.auth_func]))
     app.register_blueprint(blueprint_shelter)
 
     # 'Category' Web service
