@@ -19,8 +19,8 @@
         <tbody>
         {% for shelter in shelters %}
             <tr>
-                <td>{{ loop.index }}</td>
-                <td><a href="{{ url_for('shelter.details', shelter_id=shelter.id, section_name='generalInformation') }}">{{ shelter.get_values_of_attribute(attribute_name='Name of shelter')[0].name }}</a></td>
+                <td><a href="{{ url_for('shelter.edit_view', id=shelter.id) }}">{{ loop.index }}</a></td>
+                <td><a href="{{ url_for('shelter_bp.details', shelter_id=shelter.id, section_name='generalInformation') }}">{{ shelter.get_values_of_attribute(attribute_name='Name of shelter')[0].name }}</a></td>
                 <td>{{ shelter.created_at }}</td>
                 <td>{{ shelter.responsible }}</td>
             </tr>

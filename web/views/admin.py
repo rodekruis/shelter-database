@@ -77,4 +77,4 @@ def toggle_user(user_id=None):
     user = User.query.filter(User.id==user_id).first()
     user.is_active = not user.is_active
     db.session.commit()
-    return redirect(url_for('admin.users'))
+    return redirect(url_for('administration.users'))
