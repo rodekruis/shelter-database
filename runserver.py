@@ -34,7 +34,11 @@ with app.app_context():
     from web import processors
     # 'User' Web service
     blueprint_user = manager.create_api_blueprint(models.User,
-                        methods=['GET', 'POST', 'PUT', 'DELETE'])
+                        methods=['GET', 'POST', 'PUT', 'DELETE'],
+                        preprocessors=dict(
+                                POST=[processors.auth_func,
+                                    processors.shelter_POST_preprocessor],
+                                DELETE=[processors.auth_func]))
     app.register_blueprint(blueprint_user)
 
     # 'Shelter' Web service
@@ -63,7 +67,10 @@ with app.app_context():
 
     # 'Property' Web service
     blueprint_property = manager.create_api_blueprint(models.Property,
-                        methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
+                        methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+                        preprocessors=dict(
+                                POST=[processors.auth_func],
+                                DELETE=[processors.auth_func]))
     app.register_blueprint(blueprint_property)
 
     # 'Page' Web service
