@@ -106,9 +106,9 @@ $ python manager.py uml_graph
 # Example of requests to the Web Service
 
 ```shell
-# Get the list of root category
+# Get the list of root categories
 $ GET http://127.0.0.1:5000/api/category?q={"filters":[{"name":"parent_id","op":"is_null"}]}
-# Get the list of child category
+# Get the list of child categories
 $ GET http://127.0.0.1:5000/api/category?q={"filters":[{"name":"parent_id","op":"is_not_null"}]}
 # Get information about the child category "Walls & Frame"
 $ GET http://127.0.0.1:5000/api/category?q={"filters":[{"name":"parent_id","op":"is_not_null"},{"name":"name","op":"eq","val":"Walls %26 frame"}]}
