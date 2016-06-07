@@ -26,11 +26,9 @@ import os
 import sys
 import logging
 import conf
-
+import flask_restless
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
-import flask_restless
-
 
 # Create Flask app
 app = Flask('web')
@@ -47,9 +45,9 @@ db = SQLAlchemy(app)
 # Create the Flask-Restless API manager.
 manager = flask_restless.APIManager(app, flask_sqlalchemy_db=db)
 
+from web.models import Translation
 # Jinja filters
 from flask_babel import Babel, format_datetime, get_locale
-from web.models import Translation
 babel = Babel(app)
 def translate(original, language_code=''):
     if language_code == '':
@@ -70,21 +68,37 @@ app.jinja_env.filters['datetime'] = format_datetime
 from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.menu import MenuLink
+from web.models import Value, User, Shelter
 menu_link_back_home = MenuLink(name='Back to dashboard',
                                 url='/admin/dashboard')
 
 class TranslationView(ModelView):
-    column_searchable_list = (Translation.original, Translation.translated)
-    column_filters = [Translation.language_code]
+    column_searchable_list = ('original', 'translated')
+    column_filters = ['language_code']
+    column_editable_list = ['translated']
 
+class ValueView(ModelView):
+    column_searchable_list = ('name',)
+    column_filters = ['attribute_id']
+
+class UserView(ModelView):
+    column_exclude_list = ['pwdhash']
+    column_editable_list = ['email', 'name']
+
+class ShelterView(ModelView):
+    column_exclude_list = ['properties']
+    form_excluded_columns = ['properties']
 
 admin = Admin(app,
-                name='Management of translations',
+                name='Management of data',
                 template_mode='bootstrap3',
                 index_view=AdminIndexView(
                         name='Home',
-                        url='/admin/translations_management'
+                        url='/admin/data_management'
                     ))
+admin.add_view(UserView(User, db.session))
+admin.add_view(ShelterView(Shelter, db.session))
+admin.add_view(ValueView(Value, db.session))
 admin.add_view(TranslationView(Translation, db.session))
 admin.add_link(menu_link_back_home)
 

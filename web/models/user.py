@@ -65,8 +65,8 @@ class User(db.Model, UserMixin):
         """
         return check_password_hash(self.pwdhash, password)
 
-    def __eq__(self, other):
-        return self.id == other.id
+    # def __eq__(self, other):
+    #     return self.id == other.id
 
     def __str__(self):
         """

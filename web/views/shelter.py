@@ -34,7 +34,7 @@ from web.models import User, Shelter, Property, Attribute, Category
 
 from collections import defaultdict
 
-shelter_bp = Blueprint('shelter', __name__, url_prefix='/shelter')
+shelter_bp = Blueprint('shelter_bp', __name__, url_prefix='/shelter')
 shelters_bp = Blueprint('shelters', __name__, url_prefix='/shelters')
 
 def tree():

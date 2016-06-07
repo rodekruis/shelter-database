@@ -35,7 +35,7 @@ class Shelter(db.Model):
     # relationship
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    properties = db.relationship('Property', backref='shelter', lazy='dynamic',
+    properties = db.relationship('Property', backref='shelter', lazy='noload',
                                 cascade='all, delete-orphan',
                                 order_by=desc('Property.id'))
 
@@ -76,4 +76,4 @@ class Shelter(db.Model):
         """
         Required for administrative interface.
         """
-        return self.id
+        return str(self.id)

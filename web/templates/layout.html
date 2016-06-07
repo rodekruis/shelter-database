@@ -73,14 +73,14 @@
                                     <div><span class="glyphicon glyphicon-user"></span>&nbsp;{{ current_user.name }}<b class="caret"></b></div>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{ url_for('user.profile') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Profile</a></li>
+                                    <li><a href="{{ url_for('user_bp.profile') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Profile</a></li>
                                     {% if current_user.is_admin %}
                                         <li role="presentation" class="divider"></li>
                                         <li><a href="{{ url_for('administration.dashboard') }}">Dashboard</a></li>
                                         <li><a href="{{ url_for('administration.shelters') }}">Shelters</a></li>
                                         <li><a href="{{ url_for('administration.users') }}">Users</a></li>
                                         <li><a href="{{ url_for('administration.pages') }}">Edit pages</a></li>
-                                        <li><a href="{{ url_for('translation.index_view') }}">Translations management</a></li>
+                                        <li><a href="{{ url_for('admin.index') }}">Data management</a></li>
                                         <li role="presentation" class="divider"></li>
                                     {% endif %}
                                     <li><a href="{{ url_for("logout") }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>

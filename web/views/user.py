@@ -26,7 +26,7 @@ from web.models import User
 from web.forms import ProfileForm
 from web.lib.utils import redirect_url
 
-user_bp = Blueprint('user', __name__, url_prefix='/user')
+user_bp = Blueprint('user_bp', __name__, url_prefix='/user')
 
 @user_bp.route('/profile', methods=['GET', 'POST'])
 @login_required

@@ -47,3 +47,9 @@ class Property(db.Model):
 
     def get_values_as_string(self):
         return ", ".join([value.name for value in self.values])
+
+    def __str__(self):
+        """
+        Required for administrative interface.
+        """
+        return str(self.id)

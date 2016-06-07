@@ -44,3 +44,9 @@ class Attribute(db.Model):
                            order_by=desc('Value.id'))
 
     properties = db.relationship("Property", back_populates="attribute")
+
+    def __str__(self):
+        """
+        Required for administrative interface.
+        """
+        return self.name
