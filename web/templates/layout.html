@@ -76,9 +76,10 @@
                                     <li><a href="{{ url_for('user.profile') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Profile</a></li>
                                     {% if current_user.is_admin %}
                                         <li role="presentation" class="divider"></li>
-                                        <li><a href="{{ url_for('admin.shelters') }}">Shelters</a></li>
-                                        <li><a href="{{ url_for('admin.users') }}">Users</a></li>
-                                        <li><a href="{{ url_for('admin.pages') }}">Edit pages</a></li>
+                                        <li><a href="{{ url_for('administration.shelters') }}">Shelters</a></li>
+                                        <li><a href="{{ url_for('administration.users') }}">Users</a></li>
+                                        <li><a href="{{ url_for('administration.pages') }}">Edit pages</a></li>
+                                        <li><a href="{{ url_for('translation.index_view') }}">Translations management</a></li>
                                         <li role="presentation" class="divider"></li>
                                     {% endif %}
                                     <li><a href="{{ url_for("logout") }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>

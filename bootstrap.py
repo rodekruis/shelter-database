@@ -69,12 +69,23 @@ app.jinja_env.filters['datetime'] = format_datetime
 # Flask-Admin
 from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
+from flask_admin.menu import MenuLink
+menu_link_back_home = MenuLink(name='Back Home', url='/')
 
 class TranslationView(ModelView):
     column_searchable_list = (Translation.original, Translation.translated)
+    column_filters = [Translation.language_code]
 
-# admin = Admin(app, name='Management of translations', template_mode='bootstrap3')
-# admin.add_view(TranslationView(Translation, db.session))
+
+admin = Admin(app,
+                name='Management of translations',
+                template_mode='bootstrap3',
+                index_view=AdminIndexView(
+                        name='Home',
+                        url='/admin/translations_management'
+                    ))
+admin.add_view(TranslationView(Translation, db.session))
+admin.add_link(menu_link_back_home)
 
 
 def populate_g():

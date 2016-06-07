@@ -26,7 +26,7 @@ from web.views.common import admin_permission
 from web.lib.utils import redirect_url
 from web.models import Shelter, Page, User
 
-admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
+admin_bp = Blueprint('administration', __name__, url_prefix='/admin')
 
 @admin_bp.route('/shelters', methods=['GET', 'POST'])
 @login_required
