@@ -17,14 +17,19 @@ __revision__ = "$Date: 2016/06/02 $"
 __copyright__ = "Copyright (c) "
 __license__ = ""
 
+import os
 from flask import Blueprint, flash, render_template, current_app, redirect, \
-                    url_for
+                    url_for, request
+from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
 
+import conf
 from bootstrap import db
 from web.views.common import admin_permission
 from web.lib.utils import redirect_url
-from web.models import Shelter, Page, User
+from web.models import Shelter, Page, User, Category, Attribute, Value, \
+                        AttributePicture, Translation
+from web.forms import CategoryForm, AttributeForm
 
 admin_bp = Blueprint('administration', __name__, url_prefix='/admin')
 
@@ -34,21 +39,21 @@ admin_bp = Blueprint('administration', __name__, url_prefix='/admin')
 def dashboard():
     return render_template('admin/dashboard.html')
 
-@admin_bp.route('/shelters', methods=['GET', 'POST'])
+@admin_bp.route('/shelters', methods=['GET'])
 @login_required
 @admin_permission.require(http_exception=403)
 def shelters():
     shelters = Shelter.query.filter().all()
     return render_template('admin/shelters.html', shelters=shelters)
 
-@admin_bp.route('/pages', methods=['GET', 'POST'])
+@admin_bp.route('/pages', methods=['GET'])
 @login_required
 @admin_permission.require(http_exception=403)
 def pages():
     language_code = "en"
     return render_template('admin/help_pages.html')
 
-@admin_bp.route('/users', methods=['GET', 'POST'])
+@admin_bp.route('/users', methods=['GET'])
 @login_required
 @admin_permission.require(http_exception=403)
 def users():
@@ -78,3 +83,83 @@ def toggle_user(user_id=None):
     user.is_active = not user.is_active
     db.session.commit()
     return redirect(url_for('administration.users'))
+
+
+@admin_bp.route('/attributes', methods=['GET'])
+@admin_bp.route('/attributes/<int:category_id>', methods=['GET'])
+@admin_bp.route('/attributes/<int:category_id>/<int:attribute_id>', methods=['GET'])
+@login_required
+@admin_permission.require(http_exception=403)
+def attributes(category_id=None, attribute_id=None):
+    if attribute_id:
+        attribute = Attribute.query.filter(Attribute.id==attribute_id).first()
+        form = AttributeForm(obj=attribute)
+        return render_template('admin/values.html',
+                            attribute=attribute,
+                            form=form)
+
+    if category_id:
+        category = Category.query.filter(Category.id==category_id).first()
+        form = CategoryForm(obj=category)
+        return render_template('admin/attributes.html',
+                            category=category,
+                            form=form)
+
+    categories = Category.query.filter(Category.parent_id!=None)
+    return render_template('admin/categories.html', categories=categories)
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in conf.ALLOWED_EXTENSIONS_PICTURE
+
+@admin_bp.route('/attributes/<int:category_id>/<int:attribute_id>', methods=['POST'])
+@login_required
+@admin_permission.require(http_exception=403)
+def attributes_add_pitures(category_id=None, attribute_id=None):
+    attribute = Attribute.query.filter(Attribute.id==attribute_id).first()
+    form = AttributeForm(obj=attribute)
+
+    if form.validate_on_submit():
+
+        if form.name.data != attribute.name:
+            # update the name of the attribute
+            old_name = attribute.name
+            form.populate_obj(attribute)
+
+            # update the translations appropriately
+            Translation.query.filter(Translation.original==old_name).\
+                            update({Translation.original: form.name.data})
+            db.session.commit()
+
+    else:
+        print("not submited")
+
+    # A picture has been submited
+    file = request.files.get('imagefile', None)
+    if file and file.filename == '':
+        flash('No selected file', 'warning')
+        return redirect(request.url)
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(current_app.config['PUBLIC_PATH'] + 'pictures/en/attributes', filename))
+
+        new_picture = AttributePicture(file_name=filename,
+                language_code='en', attribute_id=attribute_id)
+        db.session.add(new_picture)
+        db.session.commit()
+
+
+    return render_template('admin/values.html',
+                        attribute=attribute,
+                        form=form)
+
+@admin_bp.route('/delete_attribute_picture/<int:picture_id>', methods=['GET'])
+@login_required
+@admin_permission.require(http_exception=403)
+def delete_attribute_picture(picture_id=None):
+    picture = AttributePicture.query.filter(AttributePicture.id==picture_id).first()
+    if picture:
+        # TODO: delete physically
+        db.session.delete(picture)
+        db.session.commit()
+    return redirect(redirect_url())

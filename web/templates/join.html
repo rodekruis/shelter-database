@@ -11,7 +11,7 @@
         <div class="col-md-4 pull-right">
             <div class="well">
                 <h3><span>Log In</span> <span class="glyphicon glyphicon-log-in"></span></h3>
-                    <form id="login-form  form-horizontal" action="{{ url_for('login') }}" method="POST" role="form">
+                    <form id="login-form"  class="form-horizontal" action="{{ url_for('login') }}" method="POST" role="form">
                         {{ loginForm.hidden_tag() }}
 
                         <div class="form-group">

@@ -76,10 +76,10 @@
                                     <li><a href="{{ url_for('user_bp.profile') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Profile</a></li>
                                     {% if current_user.is_admin %}
                                         <li role="presentation" class="divider"></li>
-                                        <li><a href="{{ url_for('administration.dashboard') }}">Dashboard</a></li>
                                         <li><a href="{{ url_for('administration.shelters') }}">Shelters</a></li>
                                         <li><a href="{{ url_for('administration.users') }}">Users</a></li>
                                         <li><a href="{{ url_for('administration.pages') }}">Edit pages</a></li>
+                                        <li><a href="{{ url_for('administration.attributes') }}">Attributes</a></li>
                                         <li><a href="{{ url_for('admin.index') }}">Data management</a></li>
                                         <li role="presentation" class="divider"></li>
                                     {% endif %}

@@ -71,3 +71,5 @@ LOG_LEVEL = {'debug': logging.DEBUG,
              'warn': logging.WARN,
              'error': logging.ERROR,
              'fatal': logging.FATAL}[config.get('misc', 'log_level')]
+
+ALLOWED_EXTENSIONS_PICTURE = set(['png', 'jpg', 'jpeg', 'gif'])

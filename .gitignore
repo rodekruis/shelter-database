@@ -30,3 +30,5 @@ web/static/lib
 
 # node files
 node_modules
+
+web/public/pictures
