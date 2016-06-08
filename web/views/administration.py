@@ -20,6 +20,7 @@ __license__ = ""
 import os
 from flask import Blueprint, flash, render_template, current_app, redirect, \
                     url_for, request
+from werkzeug import generate_password_hash
 from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
 
@@ -29,7 +30,7 @@ from web.views.common import admin_permission
 from web.lib.utils import redirect_url
 from web.models import Shelter, Page, User, Category, Attribute, Value, \
                         AttributePicture, Translation
-from web.forms import CategoryForm, AttributeForm
+from web.forms import CategoryForm, AttributeForm, UserForm
 
 admin_bp = Blueprint('administration', __name__, url_prefix='/admin')
 
@@ -71,6 +72,54 @@ def delete_user(user_id=None):
     db.session.delete(user)
     db.session.commit()
     return redirect(redirect_url())
+
+@admin_bp.route('/user/create', methods=['GET'])
+@admin_bp.route('/user/edit/<int:user_id>', methods=['GET'])
+@login_required
+@admin_permission.require(http_exception=403)
+def user_form(user_id=None):
+    if user_id is not None:
+        user = User.query.filter(User.id==user_id).first()
+        form = UserForm(obj=user)
+        message = 'Edit the user <i>{}</i>'.format(user.name)
+    else:
+        form = UserForm()
+        message = 'Add a new user'
+    return render_template('/admin/create_user.html',
+                           form=form, message=message)
+
+@admin_bp.route('/user/create', methods=['POST'])
+@admin_bp.route('/user/edit/<int:user_id>', methods=['POST'])
+@login_required
+@admin_permission.require(http_exception=403)
+def process_user_form(user_id=None):
+    """
+    Create or edit a user.
+    """
+    form = UserForm()
+
+    if not form.validate():
+        return render_template('/admin/create_user.html', form=form,
+                               message='Some errors were found')
+
+    if user_id is not None:
+        # Edit a user
+        user = User.query.filter(User.id==user_id).first()
+        form.populate_obj(user)
+        db.session.commit()
+        flash('User successfully updated', 'success')
+    else:
+        # Create a new user (by the admin)
+        user = User(name=form.name.data,
+                    email=form.email.data,
+                    pwdhash=generate_password_hash(form.password.data),
+                    is_admin=False,
+                    is_active=True)
+        db.session.add(user)
+        db.session.commit()
+        flash('User successfully created', 'success')
+    return redirect(url_for('administration.user_form', user_id=user.id))
+
 
 @admin_bp.route('/toggle_user/<int:user_id>', methods=['GET'])
 @login_required

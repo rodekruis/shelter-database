@@ -2,6 +2,7 @@
 {% block content %}
 <div class="container">
     <h1>Attribute: <i>{{ attribute.name }}</i></h1>
+    <h2>Change the name of the attribute</h2>
     <form action="" method="POST" role="form">
         {{ form.hidden_tag() }}
 
@@ -13,13 +14,14 @@
         </div>
         {{ form.submit(class_="clickButton") }}
     </form>
+    <p>Translations will be updated appropriately.</p>
 
 
     <h2>Pictures</h2>
     <h3>Upload new picture</h3>
     <form action="" method="post" enctype="multipart/form-data">
-        <input type="file" name="imagefile" accept="image/*" />
-        <input type="submit" value="Submit" />
+        <input class="form-group" type="file" name="imagefile" accept="image/*" />
+        <input class="form-group" type="submit" value="Submit" />
     </form>
     <h3>Current pictures</h3>
     {% for picture in attribute.pictures %}
