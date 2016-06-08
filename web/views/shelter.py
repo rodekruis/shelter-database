@@ -75,6 +75,8 @@ def shelters_for_map():
             shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
 
             for attribute_name, value in request.args.items():
+                if not value:
+                    continue
 
                 values = [current_value.name for current_value in \
                     shelter.get_values_of_attribute(attribute_name=attribute_name)]
