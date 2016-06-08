@@ -85,11 +85,12 @@ def shelters_for_map():
                     result.pop(shelter_id, None)
                     break
 
-                result[shelter_id]["name"] = \
-                        shelter.get_values_of_attribute(attribute_name="Name of shelter")[0].name
-
-                result[shelter_id]["city"] = \
-                        shelter.get_values_of_attribute(attribute_name="City / Village")[0].name
+    for shelter_id in result:
+        shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+        result[shelter_id]["name"] = \
+            shelter.get_values_of_attribute(attribute_name="Name of shelter")[0].name
+        result[shelter_id]["city"] = \
+            shelter.get_values_of_attribute(attribute_name="City / Village")[0].name
 
 
     return jsonify(result)
