@@ -20,7 +20,7 @@ __license__ = ""
 import datetime
 #import subprocess
 from flask import request, flash, render_template, session, url_for, redirect, \
-    g, current_app
+    g, current_app, send_from_directory
 from flask_login import login_required, current_user
 
 from bootstrap import db
@@ -82,6 +82,14 @@ def index():
 @current_app.route('/contributors', methods=['GET'])
 def contributors():
     return render_template('contributors.html')
+
+
+@current_app.route('/public/<path:filename>', methods=['GET'])
+def public_file(filename):
+    print(current_app.config['PUBLIC_PATH'] + filename)
+    #return current_app.send_static_file(current_app.config['PUBLIC_PATH'] + filename)
+
+    return send_from_directory(current_app.config['PUBLIC_PATH'], filename)
 
 # @current_app.route('/db_initialization', methods=['GET'])
 # def db_initialization():

@@ -1,12 +1,18 @@
 #! /usr/bin/python
 #-*- coding:utf-8 -*
 
+import os
+import glob
+import shutil
 import csv
 
 from web import models
 from bootstrap import db
 
-def init_db(csv_file):
+def init_shelters_structure(csv_file, drawnings):
+
+
+    drawnings = glob.glob(drawnings+"/*.jpg")
 
     with open(csv_file, newline='') as csvfile:
         structure = csv.reader(csvfile, delimiter=',')
@@ -59,7 +65,23 @@ def init_db(csv_file):
                                             "not_editable" not in row[6]
             attribute.is_mandatory = "mandatory" not in row[6]
 
+
+            pictures = row[7].split(";")
+            for picture in pictures:
+                if picture:
+                    number = '_' + picture.replace('D', '') + '_'
+                    for drawning in drawnings:
+                        if number in drawning:
+                            new_picture = models.AttributePicture(
+                                            file_name=os.path.basename(drawning),
+                                            language_code='en')
+                            attribute.pictures.append(new_picture)
+                            db.session.add(new_picture)
+
+                            shutil.copy(drawning, './web/public/pictures/en/attributes/')
+
+                            break
+
+
             db.session.add(attribute)
             db.session.commit()
-
-            #images = row[7]

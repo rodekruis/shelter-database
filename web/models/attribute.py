@@ -29,7 +29,6 @@ class Attribute(db.Model):
     """
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), nullable=False)
-    image = db.Column(db.String(), default='')
     multiple = db.Column(db.Boolean(), default=True)
     free_text = db.Column(db.Boolean(), default=False)
     is_editable = db.Column(db.Boolean(), default=True)
@@ -46,6 +45,9 @@ class Attribute(db.Model):
                            order_by=asc(Value.name))
 
     properties = db.relationship("Property", back_populates="attribute")
+
+    pictures = db.relationship('AttributePicture', backref='attribute', lazy='dynamic',
+                           cascade='all, delete-orphan')
 
     def __str__(self):
         """

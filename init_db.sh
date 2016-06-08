@@ -11,14 +11,14 @@ python3.5 manager.py import_page About data/pages/about.html en
 python3.5 manager.py import_page About data/pages/about_fr.html fr
 
 # Initializes the structure of the shelters
-python3.5 manager.py init_db_structure data/shelters/Shelters_Structure.csv
+python3.5 manager.py init_shelters_structure data/shelters/Shelters_Structure.csv data/shelters/drawning
 
 # Initializes the administrator (owner of the imported shelters)
 python3.5 manager.py create_admin_user
 
 # Import of the shelters from the CSV files
 python3.5 manager.py import_shelters admin data/shelters/20150518_Haiti_shelters.csv
-python3.5 manager.py import_shelters admin data/shelters/Phil-Bangla-Burundi.csv
+#python3.5 manager.py import_shelters admin data/shelters/Phil-Bangla-Burundi.csv
 
 # Import of the translations
 python3.5 manager.py import_translation data/translations/sheltersDataTraduction_FR_rev_ED.csv fr

@@ -40,6 +40,8 @@ app.debug = conf.LOG_LEVEL <= logging.DEBUG
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = conf.SQLALCHEMY_DATABASE_URI
 
+app.config['PUBLIC_PATH'] = conf.PATH + '/web/public/'
+
 db = SQLAlchemy(app)
 
 # Create the Flask-Restless API manager.

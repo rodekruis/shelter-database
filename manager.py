@@ -48,11 +48,11 @@ def db_create():
         web.models.db_create(db)
 
 @manager.command
-def init_db_structure(csv_file):
+def init_shelters_structure(csv_file, drawnings):
     "Will initialize the database with the attribute for the shelters."
     print("Importing base structure of shelters from '{}' ...".format(csv_file))
     with app.app_context():
-        scripts.init_db(csv_file)
+        scripts.init_shelters_structure(csv_file, drawnings)
 
 @manager.command
 def create_admin_user():

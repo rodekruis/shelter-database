@@ -60,6 +60,11 @@ with app.app_context():
                         methods=['GET', 'POST', 'PUT', 'DELETE'])
     app.register_blueprint(blueprint_attribute)
 
+    # 'AttributePicture' Web service
+    blueprint_attribute_picture = manager.create_api_blueprint(models.AttributePicture,
+                        methods=['GET', 'POST', 'PUT', 'DELETE'])
+    app.register_blueprint(blueprint_attribute_picture)
+
     # 'Value' Web service
     blueprint_value = manager.create_api_blueprint(models.Value,
                         methods=['GET', 'POST', 'PUT', 'DELETE'])

@@ -44,7 +44,7 @@
                             {% for property  in categories[category]  %}
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <p><b>{{ property.attribute.name | translate }}</b></p>
+                                        <p><b {% if property.attribute.pictures.count() != 0 %}style="border-bottom: 1px dotted #000000; cursor:pointer;" attrId="{{ property.attribute.id }}" class="attribute-multimedia-asset"{% endif %}>{{ property.attribute.name | translate }}</b></p>
                                     </div>
                                     <div class="col-md-4">
                                         <p>
@@ -61,47 +61,110 @@
                 {% endfor %}
 
 
+<div class="modal fade bs-example-modal-lg" id="infoDialog" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span th:text="#{shelter.closeButton}" class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel"><span id="infoDialogTitle"></span></h4>
+      </div>
+      <div class="modal-body">
+        <div align="center" id="listOfPictures"></div>
+      </div>
+      <div class="modal-footer">
+        <button th:text="#{shelter.closeButton}" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript" class="source">
+$(document).ready(function() {
+    if (window.location.href.indexOf("generalInformation") > -1){
+        $("#tab-general").attr('class', "active");
+        $("#title").text("Shelter details - General Information");
+    }
+    if (window.location.href.indexOf("implementationDetails") > -1) {
+        $("#tab-details").attr('class', "active");
+        $("#title").text("Shelter details - Implementation details");
+    }
+    if (window.location.href.indexOf("structure") > -1) {
+        $("#tab-structure").attr('class', "active");
+        $("#title").text("Shelter details - Structure");
+    }
+    if (window.location.href.indexOf("skin") > -1) {
+        $("#tab-skin").attr('class', "active");
+        $("#title").text("Shelter details - Skin");
+    }
+    if (window.location.href.indexOf("services") > -1) {
+        $("#tab-services").attr('class', "active");
+        $("#title").text("Shelter details - Services");
+    }
+    if (window.location.href.indexOf("spacePlan") > -1) {
+        $("#tab-spaceplan").attr('class', "active");
+        $("#title").text("Shelter details - Spaceplan");
+    }
+    if (window.location.href.indexOf("documents") > -1) {
+        $("#tab-documents").attr('class', "active");
+        $("#title").text("Shelter details - Documents");
+    }
+
+    if (window.location.href.indexOf("/edit/") > -1) {
+        var value = $("#btn-edit").attr('href');
+        $("#btn-edit").attr('href',  value.replace('/edit/', '/details/'));
+        $("#btn-edit").text('Details');
+    }
+
+    $( ".attribute-multimedia-asset" ).click(show_multimedia_assets);
+});
+
+
+function retrieve_and_display_multimedia_asset(attributeId) {
+    var filters = [{"name":"id","op":"eq","val":attributeId}];
+    $.ajax({
+        type: 'GET',
+        url: 'http://' + document.domain + ':' + location.port + '/api/attribute',
+        contentType: "application/json",
+        dataType: "json",
+        data: {"q": JSON.stringify({"filters": filters})},
+        success: function(result) {
+            $('#listOfPictures').empty();
+            result.objects[0].pictures.map(function(picture) {
+                oImg = document.createElement("img");
+                oImg.setAttribute('src', '/public/pictures/en/attributes/' + picture.file_name );
+                //oImg.setAttribute('alt', pictures[picture]["name"]);
+                //oImg.setAttribute('title', pictures[picture]["name"]);
+                oImg.setAttribute('height', '600px');
+                oImg.setAttribute('width', '600px');
+                $('#listOfPictures').append(oImg);
+                $('#listOfPictures').append(document.createElement("hr"));
+            })
 
 
 
-        <script type="text/javascript" class="source">
-        $(document).ready(function() {
-            if (window.location.href.indexOf("generalInformation") > -1){
-                $("#tab-general").attr('class', "active");
-                $("#title").text("Shelter details - General Information");
-            }
-            if (window.location.href.indexOf("implementationDetails") > -1) {
-                $("#tab-details").attr('class', "active");
-                $("#title").text("Shelter details - Implementation details");
-            }
-            if (window.location.href.indexOf("structure") > -1) {
-                $("#tab-structure").attr('class', "active");
-                $("#title").text("Shelter details - Structure");
-            }
-            if (window.location.href.indexOf("skin") > -1) {
-                $("#tab-skin").attr('class', "active");
-                $("#title").text("Shelter details - Skin");
-            }
-            if (window.location.href.indexOf("services") > -1) {
-                $("#tab-services").attr('class', "active");
-                $("#title").text("Shelter details - Services");
-            }
-            if (window.location.href.indexOf("spacePlan") > -1) {
-                $("#tab-spaceplan").attr('class', "active");
-                $("#title").text("Shelter details - Spaceplan");
-            }
-            if (window.location.href.indexOf("documents") > -1) {
-                $("#tab-documents").attr('class', "active");
-                $("#title").text("Shelter details - Documents");
-            }
+            $('#listOfPictures hr:last-child').remove();
+            $('#infoDialog').modal({backdrop:'static', keyboard:false});
 
-            if (window.location.href.indexOf("/edit/") > -1) {
-                var value = $("#btn-edit").attr('href');
-                $("#btn-edit").attr('href',  value.replace('/edit/', '/details/'));
-                $("#btn-edit").text('Details');
-            }
-        });
-        </script>
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown){
+            //document.getElementById("geolocation").innerHTML = XMLHttpRequest.responseText;
+        }
+        }); // ajax closed
+}
+
+function show_multimedia_assets(evt) {
+    evt = evt || window.event; // The event that was fired
+    var targ = evt.target || evt.srcElement; // the element that was clicked
+    var el = this; // the element that fired the event
+
+    $('#infoDialogTitle').text("Description");
+    var attrId = $(el).attr('attrId');
+
+    retrieve_and_display_multimedia_asset(attrId);
+
+}
+</script>
 
 
 
