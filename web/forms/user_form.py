@@ -18,30 +18,57 @@ __copyright__ = "Copyright (c) "
 __license__ = ""
 
 from flask_wtf import Form
-from flask import url_for, redirect
+from flask import url_for, redirect, flash
 from wtforms import validators, TextField, PasswordField, \
                     SubmitField
 from flask_wtf.html5 import EmailField
 
 from web.models import User
 
-class UserForm(Form):
+class CreateUserForm(Form):
     """
-    Create or edit a user (for the administrator).
+    Create a user (for the administrator).
     """
     name = TextField("Name",
             [validators.Required("Please enter your name.")])
     email = EmailField("Email",
-               [validators.Length(min=6, max=35),
-                validators.Required("Please enter your email.")])
+                [validators.Length(min=6, max=35),
+                validators.Required("Please enter an email.")])
+    password = PasswordField("Password",
+                [validators.Length(min=6, max=100),
+                validators.Required("Please enter a password.")])
+    submit = SubmitField("Save")
+
+    def validate(self):
+        validated = super(CreateUserForm, self).validate()
+        if self.name.data != User.make_valid_name(self.name.data):
+            self.name.errors.append(
+                    'This name has invalid characters. '
+                    'Please use letters, numbers, dots and underscores only.')
+            validated = False
+        user = User.query.filter(User.email==self.email.data).first()
+        if user:
+            self.email.errors.append('This email is already used.')
+            validated = False
+        return validated
+
+class EditUserForm(Form):
+    """
+    Edit a user (for the administrator).
+    """
+    name = TextField("Name",
+            [validators.Required("Please enter your name.")])
+    email = EmailField("Email",
+                [validators.Length(min=6, max=35),
+                validators.Required("Please enter an email.")])
     password = PasswordField("Password")
     submit = SubmitField("Save")
 
     def validate(self):
-        validated = super(UserForm, self).validate()
+        validated = super(EditUserForm, self).validate()
         if self.name.data != User.make_valid_name(self.name.data):
             self.name.errors.append(
-                    'This nickname has invalid characters. '
+                    'This name has invalid characters. '
                     'Please use letters, numbers, dots and underscores only.')
             validated = False
         return validated

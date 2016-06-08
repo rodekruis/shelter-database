@@ -30,7 +30,7 @@ from web.views.common import admin_permission
 from web.lib.utils import redirect_url
 from web.models import Shelter, Page, User, Category, Attribute, Value, \
                         AttributePicture, Translation
-from web.forms import CategoryForm, AttributeForm, UserForm
+from web.forms import CategoryForm, AttributeForm, CreateUserForm, EditUserForm
 
 admin_bp = Blueprint('administration', __name__, url_prefix='/admin')
 
@@ -80,11 +80,13 @@ def delete_user(user_id=None):
 def user_form(user_id=None):
     if user_id is not None:
         user = User.query.filter(User.id==user_id).first()
-        form = UserForm(obj=user)
+        form = EditUserForm(obj=user)
+        form.password.data = "***"
         message = 'Edit the user <i>{}</i>'.format(user.name)
     else:
-        form = UserForm()
+        form = CreateUserForm()
         message = 'Add a new user'
+    print(form.password.data)
     return render_template('/admin/create_user.html',
                            form=form, message=message)
 
@@ -96,20 +98,22 @@ def process_user_form(user_id=None):
     """
     Create or edit a user.
     """
-    form = UserForm()
-
-    if not form.validate():
-        return render_template('/admin/create_user.html', form=form,
-                               message='Some errors were found')
-
     if user_id is not None:
         # Edit a user
+        form = EditUserForm()
+        if not form.validate():
+            return render_template('/admin/create_user.html', form=form,
+                                   message='Some errors were found')
         user = User.query.filter(User.id==user_id).first()
         form.populate_obj(user)
         db.session.commit()
         flash('User successfully updated', 'success')
     else:
         # Create a new user (by the admin)
+        form = CreateUserForm()
+        if not form.validate():
+            return render_template('/admin/create_user.html', form=form,
+                                   message='Some errors were found')
         user = User(name=form.name.data,
                     email=form.email.data,
                     pwdhash=generate_password_hash(form.password.data),
