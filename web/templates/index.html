@@ -32,7 +32,7 @@
             <div class="form-group">
                 <div class="form-group">
                     <select id="climateZoneSelect" name="climateZone" class="form-control" data-live-search="true">
-                        <option value="" selected="selected">Select a climate Zone</option>
+                        <option value="" selected="selected">Climate zone</option>
                         {% for climate_zone in climate_zones %}
                             <option value="{{ climate_zone.name }}">{{ climate_zone.name | translate }}</option>
                         {% endfor %}
@@ -40,7 +40,7 @@
                 </div>
                 <div class="form-group">
                     <select id="zoneSelect" name="zone" class="form-control" data-live-search="true">
-                        <option value="" selected="selected">Select a zone</option>
+                        <option value="" selected="selected">Zones</option>
                         {% for zone in zones %}
                             <option value="{{ zone.name }}">{{ zone.name | translate }}</option>
                         {% endfor %}
@@ -48,7 +48,7 @@
                 </div>
                 <div class="form-group">
                     <select id="associatedDisasterSelect" name="associatedDisaster" class="form-control" data-live-search="true">
-                        <option value="" selected="selected">Select an associated Disaster</option>
+                        <option value="" selected="selected">Associated disaster</option>
                         {% for disaster in disasters %}
                             <option value="{{ disaster.name }}">{{ disaster.name | translate }}</option>
                         {% endfor %}
@@ -56,7 +56,7 @@
                 </div>
                 <div class="form-group">
                     <select   id="materialSelect" name="material" class="form-control" data-live-search="true">
-                        <option value="" selected="selected">Select a material</option>
+                        <option value="" selected="selected">Materials</option>
                     </select>
                 </div>
                 <div class="form-group">
