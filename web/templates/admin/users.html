@@ -10,22 +10,24 @@
 <table id="allusers" class="table table-striped">
     <thead>
         <tr>
-            <th>#</th>
             <th>Name</th>
             <th>Email</th>
             <th>Member since</th>
             <th>Last seen</th>
+            <th>Active</th>
+            <th>Admin</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
     {% for user in users %}
         <tr {% if not user.is_active  %}class="warning"{% endif %}>
-            <td>{{ loop.index }}</td>
             <td>{{ user.name }}{% if user.id == current_user.id %} (It's you!){% endif %}</td>
             <td><a href="mailto:{{ user.email }}">{{ user.email  }}</a></td>
             <td class="date">{{ user.created_at | datetime }}</td>
             <td class="date">{{ user.last_seen | datetime }}</td>
+            <td>{% if user.is_active %}Yes{% else %}No{% endif %}</td>
+            <td>{% if user.is_admin %}Yes{% else %}No{% endif %}</td>
             <td>
                 <a href="{{ url_for("administration.user_form", user_id=user.id) }}"><i class="glyphicon glyphicon-edit" title="{{ _('Edit this user') }}"></i></a>
                 {% if user.id != current_user.id %}
@@ -49,20 +51,22 @@
 $(document).ready(function() {
     $('#allusers').DataTable({
         "bStateSave": true, // on sauvegarde l'état dans un cookie
-        "aaSorting": [[1, "asc" ]], // on trie par défaut sur la colonne "Name"
+        "aaSorting": [[0, "asc" ]], // on trie par défaut sur la colonne "Name"
         "bJQueryUI": false,
         "bInfo": false,
         "aoColumnDefs": [
                             {
-                                "bSortable": false, "aTargets": [ 0 ],
-                                "bSortable": false, "aTargets": [ 5 ]
+                                "bSortable": false, "aTargets": [ 6 ]
                             }
                         ],
        "aoColumns": [
-                        null,
                         { "sSortDataType": "dom-checkbox" },
                         { "sSortDataType": "dom-checkbox" },
-                        { "sSortDataType": "dom-checkbox" }
+                        { "sSortDataType": "dom-checkbox" },
+                        { "sSortDataType": "dom-checkbox" },
+                        { "sSortDataType": "dom-checkbox" },
+                        { "sSortDataType": "dom-checkbox" },
+                        null
                     ]
     });
 });

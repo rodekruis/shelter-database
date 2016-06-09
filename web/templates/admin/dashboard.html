@@ -1,7 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container">
-    <h1>Dashboard</h1>
+    <div class="row">
+        <div class="col-md-5">
+            <p>Number of <a href="{{ url_for('administration.shelters') }}">shelters</a>: {{ nb_shelters }}</p>
+            <p>Number of <a href="{{ url_for('administration.users') }}">users</a>: {{ nb_users }}</p>
+        </div>
+    </div>
+
     <div class="well">
         <h2>Import shelters</h2>
         <form action="" method="post" enctype="multipart/form-data">

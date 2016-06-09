@@ -74,7 +74,12 @@ def dashboard():
             else:
                 flash('File not allowed', 'danger')
 
-    return render_template('admin/dashboard.html')
+    nb_shelters = Shelter.query.count()
+    nb_users = User.query.count()
+
+    return render_template('admin/dashboard.html',
+                            nb_shelters=nb_shelters,
+                            nb_users=nb_users)
 
 @admin_bp.route('/shelters', methods=['GET'])
 @login_required
