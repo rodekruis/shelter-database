@@ -23,6 +23,8 @@ try:
 except:
     from urllib.parse import urlparse, parse_qs, urljoin
 
+import conf
+
 def is_safe_url(target):
     """
     Ensures that a redirect target will lead to the same server.
@@ -44,3 +46,7 @@ def get_redirect_target():
 
 def redirect_url(default='index'):
     return request.args.get('next') or request.referrer or url_for(default)
+
+def allowed_file(filename, allowed_extensions):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in allowed_extensions

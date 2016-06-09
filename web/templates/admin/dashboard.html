@@ -3,7 +3,20 @@
 <div class="container">
     <h1>Dashboard</h1>
     <h2>Import shelters</h2>
+
+
     <h2>Import translations</h2>
+    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="file" name="translationfile" accept="text/*" />
+        </div>
+        <div class="form-group">
+            <input type="text" name="language_code" accept="image/*" placeholder="Language code" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
     <h2>Import pictures</h2>
 </div>
 {% endblock %}

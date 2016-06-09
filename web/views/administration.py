@@ -25,9 +25,10 @@ from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
 
 import conf
+from scripts import import_translation
 from bootstrap import db
 from web.views.common import admin_permission
-from web.lib.utils import redirect_url
+from web.lib.utils import redirect_url, allowed_file
 from web.models import Shelter, Page, User, Category, Attribute, Value, \
                         AttributePicture, Translation
 from web.forms import CategoryForm, AttributeForm, CreateUserForm, EditUserForm
@@ -38,6 +39,26 @@ admin_bp = Blueprint('administration', __name__, url_prefix='/admin')
 @login_required
 @admin_permission.require(http_exception=403)
 def dashboard():
+    if request.method == 'POST':
+        file = request.files.get('translationfile', None)
+
+
+        if file and file.filename == '':
+            flash('No selected file', 'warning')
+            return redirect(request.url)
+        if file and allowed_file(file.filename, conf.ALLOWED_EXTENSIONS_CSV):
+            language_code = request.form.get('language_code')
+            if language_code:
+                filename = secure_filename(file.filename)
+                filepath = os.path.join('/tmp', filename)
+                file.save(filepath)
+                import_translation(filepath, language_code)
+                flash('Translations imported', 'success')
+            else:
+                flash('Bad language code', 'danger')
+        else:
+            flash('File not allowed', 'danger')
+
     return render_template('admin/dashboard.html')
 
 @admin_bp.route('/shelters', methods=['GET'])
@@ -161,9 +182,7 @@ def attributes(category_id=None, attribute_id=None):
     categories = Category.query.filter(Category.parent_id!=None)
     return render_template('admin/categories.html', categories=categories)
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1] in conf.ALLOWED_EXTENSIONS_PICTURE
+
 
 @admin_bp.route('/attributes/<int:category_id>/<int:attribute_id>', methods=['POST'])
 @login_required
@@ -192,7 +211,7 @@ def attributes_add_pitures(category_id=None, attribute_id=None):
     if file and file.filename == '':
         flash('No selected file', 'warning')
         return redirect(request.url)
-    if file and allowed_file(file.filename):
+    if file and allowed_file(file.filename, conf.ALLOWED_EXTENSIONS_CSV):
         filename = secure_filename(file.filename)
         file.save(os.path.join(current_app.config['PUBLIC_PATH'] + 'pictures/en/attributes', filename))
 
