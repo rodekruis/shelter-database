@@ -66,7 +66,7 @@
                             {% for picture in pictures[category] %}
                                 <div class="col-md-1 thumbShelterPicture">
                                     <a href="/public/pictures/shelters/{{ picture.file_name }}" data-lightbox="{{ category }}">
-                                        <img src="/public/pictures/shelters/{{ picture.file_name }}" style="padding-top:3px;" />
+                                        <img src="/public/pictures/shelters/{{ shelter_id }}/{{ picture.file_name }}" style="padding-top:3px;" />
                                     </a>
                                 </div>
                             {% endfor %}
