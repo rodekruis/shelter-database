@@ -79,6 +79,7 @@ LOG_LEVEL = {'debug': logging.DEBUG,
 
 ALLOWED_EXTENSIONS_PICTURE = set(['png', 'jpg', 'jpeg', 'gif'])
 ALLOWED_EXTENSIONS_CSV = set(['csv'])
+ALLOWED_EXTENSIONS_ARCHIVE = set(['zip'])
 
 PUBLIC_PATH = os.path.join(PATH,
                             config.get('misc', 'public_path'))

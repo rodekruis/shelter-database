@@ -18,6 +18,7 @@ __copyright__ = "Copyright (c) "
 __license__ = ""
 
 import os
+import zipfile
 from flask import Blueprint, flash, render_template, current_app, redirect, \
                     url_for, request
 from werkzeug import generate_password_hash
@@ -73,6 +74,21 @@ def dashboard():
                     flash('Bad language code', 'danger')
             else:
                 flash('File not allowed', 'danger')
+
+
+        elif 'pictures' in request.form:
+            file = request.files.get('picturesfile', None)
+            if file and file.filename == '':
+                flash('No selected file', 'warning')
+            if file and allowed_file(file.filename, conf.ALLOWED_EXTENSIONS_ARCHIVE):
+                filename = secure_filename(file.filename)
+                filepath = os.path.join('/tmp', filename)
+                file.save(filepath)
+                with zipfile.ZipFile(filepath, 'r') as z:
+                    z.extractall('/tmp/sdPictures')
+                launch_background_process(['import_shelters_pictures', '/tmp/sdPictures/'])
+                flash('Importing pictures of shelters in background...', 'success')
+
 
     nb_shelters = Shelter.query.count()
     nb_users = User.query.count()
