@@ -11,9 +11,9 @@
 # ***** END LICENSE BLOCK *****
 
 __author__ = "Cedric Bonhomme"
-__version__ = "$Revision: 0.1 $"
+__version__ = "$Revision: 0.4 $"
 __date__ = "$Date: 2016/03/30$"
-__revision__ = "$Date: 2016/03/30 $"
+__revision__ = "$Date: 2016/06/09 $"
 __copyright__ = "Copyright (c) "
 __license__ = ""
 
@@ -34,13 +34,16 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask('web')
 
 # Create a random secrey key so we can use sessions
-app.config['SECRET_KEY'] = "42"#os.urandom(12)
+if conf.WEBSERVER_SECRET_KEY:
+    app.config['SECRET_KEY'] = conf.WEBSERVER_SECRET_KEY
+else:
+    app.config['SECRET_KEY'] = os.urandom(12)
 
 app.debug = conf.LOG_LEVEL <= logging.DEBUG
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = conf.SQLALCHEMY_DATABASE_URI
 
-app.config['PUBLIC_PATH'] = conf.PATH + '/web/public/'
+app.config['PUBLIC_PATH'] = conf.PUBLIC_PATH
 
 db = SQLAlchemy(app)
 

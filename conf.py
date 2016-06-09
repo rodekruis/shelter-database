@@ -2,8 +2,8 @@
 #-*- coding: utf-8 -*-
 
 # ***** BEGIN LICENSE BLOCK *****
-# This file is part of LPS - Abstraction Layer.
-# Copyright (c) 2015-2016 Luxembourg Institute of Science and Technology.
+# This file is part of Shelter Database.
+# Copyright (c) 2016 Luxembourg Institute of Science and Technology.
 # All rights reserved.
 #
 #
@@ -12,8 +12,8 @@
 
 __author__ = "Cedric Bonhomme"
 __version__ = "$Revision: 0.1 $"
-__date__ = "$Date: 2015/12/09$"
-__revision__ = "$Date: 2015/12/09 $"
+__date__ = "$Date: 2016/05/20$"
+__revision__ = "$Date: 2016/6/09 $"
 __copyright__ = "Copyright (c) Luxembourg Institute of Science and Technology"
 __license__ = ""
 
@@ -49,9 +49,13 @@ DEFAULTS = {"platform_url": "http://127.0.0.1:5000",
             "port": "5000",
             "https": "false",
             "debug": "true",
-            "log_path": "warroom.log",
-            "log_level": "info"
-            }
+            "secret_key": "secret_key_of_the_web_application",
+            "log_path": "shelterdatabase.log",
+            "log_level": "info",
+            "public_path": "web/public",
+            "shelters_pictures_path": "web/public/pictures/shelters",
+            "attributes_pictures_path": "web/public/pictures/attributes"
+}
 
 config = confparser.SafeConfigParser(defaults=DEFAULTS)
 config.read(os.path.join(BASE_DIR, "conf/conf.cfg"))
@@ -64,6 +68,7 @@ WEBSERVER_DEBUG = config.getboolean('webserver', 'debug')
 WEBSERVER_HOST = config.get('webserver', 'host')
 WEBSERVER_PORT = config.getint('webserver', 'port')
 WEBSERVER_HTTPS = config.getboolean('webserver', 'https')
+WEBSERVER_SECRET_KEY = config.get('webserver', 'secret_key')
 
 LOG_PATH = config.get('misc', 'log_path')
 LOG_LEVEL = {'debug': logging.DEBUG,
@@ -74,3 +79,10 @@ LOG_LEVEL = {'debug': logging.DEBUG,
 
 ALLOWED_EXTENSIONS_PICTURE = set(['png', 'jpg', 'jpeg', 'gif'])
 ALLOWED_EXTENSIONS_CSV = set(['csv'])
+
+PUBLIC_PATH = os.path.join(PATH,
+                            config.get('misc', 'public_path'))
+SHELTERS_PICTURES_PATH = os.path.join(PATH,
+                            config.get('misc', 'shelters_pictures_path'))
+ATTRIBUTES_PICTURES_PATH = os.path.join(PATH,
+                            config.get('misc', 'attributes_pictures_path'))

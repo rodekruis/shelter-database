@@ -2,7 +2,6 @@
 {% block head %}
     {{ super() }}
     <script src="{{ url_for('static', filename='js/lightbox.min.js') }}"></script>
-
     <link href="{{ url_for('static', filename='css/lightbox.css') }}" rel="stylesheet" media="screen" />
 {% endblock %}
 {% block content %}
@@ -146,9 +145,9 @@ function retrieve_and_display_multimedia_asset(attributeId) {
             $('#listOfPictures').empty();
             result.objects[0].pictures.map(function(picture) {
                 oImg = document.createElement("img");
-                oImg.setAttribute('src', '/public/pictures/en/attributes/' + picture.file_name );
-                //oImg.setAttribute('alt', pictures[picture]["name"]);
-                //oImg.setAttribute('title', pictures[picture]["name"]);
+                oImg.setAttribute('src', '/public/pictures/attributes/en/' + picture.file_name );
+                oImg.setAttribute('alt', picture.file_name);
+                oImg.setAttribute('title', picture.file_name);
                 oImg.setAttribute('height', '600px');
                 oImg.setAttribute('width', '600px');
                 $('#listOfPictures').append(oImg);

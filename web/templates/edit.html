@@ -2,8 +2,9 @@
 {% block head %}
     {{ super() }}
     <script src="{{ url_for('static', filename='lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-
+    <script src="{{ url_for('static', filename='js/lightbox.min.js') }}"></script>
     <link href="{{ url_for('static', filename='lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" media="screen" />
+    <link href="{{ url_for('static', filename='css/lightbox.css') }}" rel="stylesheet" media="screen" />
 {% endblock %}
 {% block content %}
 <div class="container-fluid">
@@ -115,7 +116,7 @@
                     </form>
                     {% for picture in pictures[category_name] %}
                         <div class="col-md-1 thumbShelterPicture">
-                            <a href="/public/pictures/shelters/{{ picture.file_name }}" data-lightbox="{{ category_name }}">
+                            <a href="/public/pictures/shelters/{{ shelter.id }}/{{ picture.file_name }}" data-lightbox="{{ category_name }}">
                                 <div><img height="150px" src="/public/pictures/shelters/{{ shelter.id }}/{{ picture.file_name }}" style="padding-top:3px;" /></div>
                             </a>
                             <a href="{{ url_for('shelter_bp.delete_picture', picture_id=picture.id) }}"><span class="glyphicon glyphicon-remove" title="Remove"></span></a>

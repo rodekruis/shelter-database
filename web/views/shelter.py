@@ -11,9 +11,9 @@
 # ***** END LICENSE BLOCK *****
 
 __author__ = "Cedric Bonhomme"
-__version__ = "$Revision: 0.1 $"
+__version__ = "$Revision: 0.7 $"
 __date__ = "$Date: 2016/05/31$"
-__revision__ = "$Date: 2016/05/31 $"
+__revision__ = "$Date: 2016/06/09 $"
 __copyright__ = "Copyright (c) "
 __license__ = ""
 
@@ -231,7 +231,7 @@ def get_media(shelter_id=0, section_name=""):
         flash('No selected file', 'warning')
         return redirect(request.url)
     if file and allowed_file(file.filename, conf.ALLOWED_EXTENSIONS_PICTURE):
-        path = os.path.join(current_app.config['PUBLIC_PATH'] + 'pictures/shelters', str(shelter.id))
+        path = os.path.join(conf.SHELTERS_PICTURES_PATH, str(shelter.id))
         if not os.path.exists(path):
             os.makedirs(path)
         filename = secure_filename(file.filename)
@@ -252,6 +252,11 @@ def get_media(shelter_id=0, section_name=""):
 def delete_picture(picture_id=None):
     picture = ShelterPicture.query.filter(ShelterPicture.id==picture_id).first()
     if picture:
+        os.unlink(os.path.join(conf.SHELTERS_PICTURES_PATH,
+                                str(picture.shelter_id),
+                                str(picture.file_name)))
         db.session.delete(picture)
         db.session.commit()
-    return redirect(redirect_url())
+
+    return redirect(url_for('shelter_bp.edit', shelter_id=picture.shelter_id,
+                                section_name="generalInformation"))

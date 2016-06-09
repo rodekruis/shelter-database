@@ -6,13 +6,13 @@ import glob
 import shutil
 import csv
 
+import conf
 from web import models
 from bootstrap import db
 
-def init_shelters_structure(csv_file, drawnings):
+def init_shelters_structure(csv_file, drawnings_folder):
 
-
-    drawnings = glob.glob(drawnings+"/*.jpg")
+    drawnings = glob.glob(drawnings_folder+"/*.jpg")
 
     with open(csv_file, newline='') as csvfile:
         structure = csv.reader(csvfile, delimiter=',')
@@ -78,7 +78,12 @@ def init_shelters_structure(csv_file, drawnings):
                             attribute.pictures.append(new_picture)
                             db.session.add(new_picture)
 
-                            shutil.copy(drawning, './web/public/pictures/en/attributes/')
+                            path = os.path.join(conf.ATTRIBUTES_PICTURES_PATH,
+                                                'en')
+                            if not os.path.exists(path):
+                                os.makedirs(path)
+
+                            shutil.copy(drawning, path)
 
                             break
 

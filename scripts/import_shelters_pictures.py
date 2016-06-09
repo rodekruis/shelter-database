@@ -5,6 +5,7 @@ import os
 import glob
 import shutil
 
+import conf
 from web.models import Shelter, Category, ShelterPicture
 from bootstrap import db
 
@@ -31,10 +32,9 @@ def import_shelters_pictures(folder):
                 db.session.add(new_picture)
                 db.session.commit()
 
-                path = os.path.join('./web/public/pictures/shelters/', str(shelter.id))
+                path = os.path.join(conf.SHELTERS_PICTURES_PATH,
+                                                            str(shelter.id))
                 if not os.path.exists(path):
                     os.makedirs(path)
 
                 shutil.copy(picture, path)
-
-        print()
