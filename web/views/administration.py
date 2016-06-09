@@ -25,10 +25,12 @@ from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
 
 import conf
+import manager
 from scripts import import_translation
 from bootstrap import db
 from web.views.common import admin_permission
 from web.lib.utils import redirect_url, allowed_file
+from web.lib.misc_utils import launch_background_process
 from web.models import Shelter, Page, User, Category, Attribute, Value, \
                         AttributePicture, Translation
 from web.forms import CategoryForm, AttributeForm, CreateUserForm, EditUserForm
@@ -40,24 +42,37 @@ admin_bp = Blueprint('administration', __name__, url_prefix='/admin')
 @admin_permission.require(http_exception=403)
 def dashboard():
     if request.method == 'POST':
-        file = request.files.get('translationfile', None)
-
-
-        if file and file.filename == '':
-            flash('No selected file', 'warning')
-            return redirect(request.url)
-        if file and allowed_file(file.filename, conf.ALLOWED_EXTENSIONS_CSV):
-            language_code = request.form.get('language_code')
-            if language_code:
+        if 'shelters' in request.form:
+            file = request.files.get('shelterfile', None)
+            if file and file.filename == '':
+                flash('No selected file', 'warning')
+            if file and allowed_file(file.filename, conf.ALLOWED_EXTENSIONS_CSV):
                 filename = secure_filename(file.filename)
                 filepath = os.path.join('/tmp', filename)
                 file.save(filepath)
-                import_translation(filepath, language_code)
-                flash('Translations imported', 'success')
+                launch_background_process(['import_shelters',
+                                            current_user.name, filepath])
+                flash('Importing shelters in background...', 'success')
+
+
+        elif 'translations' in request.form:
+            file = request.files.get('translationfile', None)
+            if file and file.filename == '':
+                flash('No selected file', 'warning')
+                return redirect(request.url)
+            if file and allowed_file(file.filename, conf.ALLOWED_EXTENSIONS_CSV):
+                language_code = request.form.get('language_code')
+                if language_code:
+                    filename = secure_filename(file.filename)
+                    filepath = os.path.join('/tmp', filename)
+                    file.save(filepath)
+                    launch_background_process(['import_translation',
+                                                filepath, language_code])
+                    flash('Importing translations in background...', 'success')
+                else:
+                    flash('Bad language code', 'danger')
             else:
-                flash('Bad language code', 'danger')
-        else:
-            flash('File not allowed', 'danger')
+                flash('File not allowed', 'danger')
 
     return render_template('admin/dashboard.html')
 
