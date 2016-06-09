@@ -19,8 +19,9 @@ __license__ = ""
 
 from flask_wtf import Form
 from flask import url_for, redirect
-from wtforms import validators, TextField, PasswordField, BooleanField, \
+from wtforms import validators, TextField, PasswordField, \
                     SubmitField, HiddenField
+from flask_wtf.html5 import EmailField
 
 from web.models import User
 from web.lib import utils
@@ -50,7 +51,6 @@ class LoginForm(RedirectForm):
         [validators.Required("Please enter your email address.")])
     password = PasswordField('Password',
         [validators.Required("Please enter a password.")])
-    remember_me = BooleanField("Remember me", default=False)
     submit = SubmitField("Log In")
 
     def __init__(self, *args, **kwargs):
@@ -68,3 +68,25 @@ class LoginForm(RedirectForm):
         else:
             self.email.errors.append("Invalid name or password")
             return False
+
+class SignupForm(RedirectForm):
+    """
+    Sign up form (registration).
+    """
+    name = TextField("Name",
+            [validators.Required("Please enter your name.")])
+    email = EmailField("Email",
+            [validators.Length(min=6, max=35),
+             validators.Required("Please enter your email address.")])
+    password = PasswordField("Password",
+            [validators.Required("Please enter a password."),
+             validators.Length(min=6, max=100)])
+    submit = SubmitField("Sign up")
+
+    def validate(self):
+        validated = super().validate()
+        user = User.query.filter(User.email==self.email.data).first()
+        if user:
+            self.email.errors.append('Email already taken')
+            validated = False
+        return validated

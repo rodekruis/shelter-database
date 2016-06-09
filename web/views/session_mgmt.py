@@ -32,9 +32,10 @@ from flask_principal import (Principal, AnonymousIdentity, UserNeed,
                                  session_identity_loader)
 
 import conf
+from bootstrap import db
 from web.views.common import admin_role, login_user_bundle
 from web.models import User
-from web.forms import LoginForm
+from web.forms import LoginForm, SignupForm
 #from notifications import notifications
 
 Principal(current_app)
@@ -69,7 +70,8 @@ def join():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
-    return render_template('join.html', loginForm=form)
+    signup = SignupForm()
+    return render_template('join.html', loginForm=form, signupForm=signup)
 
 @current_app.route('/login', methods=['POST'])
 def login():
@@ -99,20 +101,23 @@ def logout():
     return redirect(url_for('index'))
 
 
-@current_app.route('/signup', methods=['GET', 'POST'])
+@current_app.route('/signup', methods=['POST'])
 def signup():
-    if not conf.SELF_REGISTRATION:
-        flash(gettext("Self-registration is disabled."), 'warning')
-        return redirect(url_for('home'))
+    """if not conf.SELF_REGISTRATION:
+        flash("Self-registration is disabled.", 'warning')
+        return redirect(url_for('index'))"""
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('index'))
 
     form = SignupForm()
     if form.validate_on_submit():
-        user = UserController().create(nickname=form.nickname.data,
-                            email=form.email.data,
-                            pwdhash=generate_password_hash(form.password.data))
-
+        user = User(name=form.name.data,
+                    email=form.email.data,
+                    pwdhash=generate_password_hash(form.password.data),
+                    is_active=True)
+        db.session.add(user)
+        db.session.commit()
+        """
         # Send the confirmation email
         try:
             notifications.new_account_notification(user)
@@ -123,7 +128,11 @@ def signup():
 
         flash(gettext('Your account has been created. '
                       'Check your mail to confirm it.'), 'success')
+        """
+        flash('Your account has been created. ', 'success')
+        login_user_bundle(user) # automatically log the user
 
-        return redirect(url_for('home'))
+        return form.redirect('index')
 
-    return render_template('signup.html', form=form)
+    loginForm = LoginForm()
+    return render_template('join.html', loginForm=loginForm, signupForm=form)
