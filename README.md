@@ -18,7 +18,7 @@ Tested with Python 3.5 and Python 2.7.
 $ sudo apt-get install -y postgresql postgresql-server-dev-9.4 postgresql-client
 $ echo "127.0.0.1:5433:shelter:pgsqluser:pgsqlpwd" > ~/.pgpass
 $ chmod 0600 ~/.pgpass
-$ sudo -u postgres createuser shelter --no-superuser --createdb --no-createrole
+$ sudo -u postgres createuser pgsqluser --no-superuser --createdb --no-createrole
 $ sudo -u postgres createdb shelter --no-password
 $ echo "ALTER USER pgsqluser WITH ENCRYPTED PASSWORD 'pgsqlpwd';" | sudo -u postgres psql
 $ echo "GRANT ALL PRIVILEGES ON DATABASE shelter TO pgsqluser;" | sudo -u postgres psql
