@@ -17,17 +17,20 @@ __revision__ = "$Date: 2016/05/31 $"
 __copyright__ = "Copyright (c) "
 __license__ = ""
 
+import os
 import datetime
 import subprocess
 from collections import defaultdict
-from flask import Blueprint, request, flash, render_template, \
+from werkzeug.utils import secure_filename
+from flask import Blueprint, request, flash, render_template, current_app, \
                     session, url_for, redirect, g, abort, jsonify
 from flask_login import login_required, current_user
 
 from sqlalchemy import asc
 
-from bootstrap import app
-from web.lib.utils import redirect_url
+import conf
+from bootstrap import app, db
+from web.lib.utils import redirect_url, allowed_file
 from web.forms import LoginForm
 from web.models import User, Shelter, Property, Attribute, Category, Value, \
                         ShelterPicture
@@ -148,8 +151,6 @@ def details(shelter_id=0, section_name=""):
                                 ShelterPicture.shelter_id==shelter_id,
                                 ShelterPicture.category_id==category_obj.id)
                             )
-    print(pictures)
-
 
     return render_template('details.html',
                             section_name=section_name,
@@ -191,14 +192,21 @@ def edit(shelter_id=0, section_name=""):
         flash("No such section", "warning")
         return redirect(redirect_url())
 
-
+    pictures = defaultdict(list)
     categories = defaultdict(list)
     for category in categories_list:
+        category_obj = Category.query.filter(Category.name==category,
+                                            Category.parent_id!=None).first()
+
         categories[category].extend(
                         Category.query.filter(Category.name==category,
                                                 Category.parent_id!=None)
                                                 )
-
+        pictures[category].extend(
+            ShelterPicture.query.filter(
+                                ShelterPicture.shelter_id==shelter_id,
+                                ShelterPicture.category_id==category_obj.id)
+                            )
 
 
     return render_template('edit.html',
@@ -206,4 +214,41 @@ def edit(shelter_id=0, section_name=""):
                             shelter=shelter,
                             shelter_id=shelter_id,
                             categories_list=categories_list,
-                            categories=categories)
+                            categories=categories,
+                            pictures=pictures)
+
+
+@shelter_bp.route('/edit/<int:shelter_id>/<section_name>', methods=['POST'])
+@login_required
+def get_media(shelter_id=0, section_name=""):
+    shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+    if not shelter:
+        flash("No such shelter", "warning")
+        return redirect(redirect_url())
+
+    file = request.files.get('imagefile', None)
+    if file and file.filename == '':
+        flash('No selected file', 'warning')
+        return redirect(request.url)
+    if file and allowed_file(file.filename, conf.ALLOWED_EXTENSIONS_PICTURE):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(current_app.config['PUBLIC_PATH'] + 'pictures/shelters', filename))
+
+        category_id = request.form['category_id']
+        if category_id:
+            new_picture = ShelterPicture(file_name=filename,
+                    shelter_id=shelter.id, category_id=category_id)
+            db.session.add(new_picture)
+            db.session.commit()
+
+    return redirect(request.url)
+
+
+@shelter_bp.route('/delete_picture/<int:picture_id>', methods=['GET'])
+@login_required
+def delete_picture(picture_id=None):
+    picture = ShelterPicture.query.filter(ShelterPicture.id==picture_id).first()
+    if picture:
+        db.session.delete(picture)
+        db.session.commit()
+    return redirect(redirect_url())
