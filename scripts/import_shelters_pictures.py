@@ -30,6 +30,11 @@ def import_shelters_pictures(folder):
                                 category_id=category.id)
                 db.session.add(new_picture)
                 db.session.commit()
-                shutil.copy(picture, './web/public/pictures/shelters/')
+
+                path = os.path.join('./web/public/pictures/shelters/', str(shelter.id))
+                if not os.path.exists(path):
+                    os.makedirs(path)
+
+                shutil.copy(picture, path)
 
         print()

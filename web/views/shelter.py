@@ -231,8 +231,11 @@ def get_media(shelter_id=0, section_name=""):
         flash('No selected file', 'warning')
         return redirect(request.url)
     if file and allowed_file(file.filename, conf.ALLOWED_EXTENSIONS_PICTURE):
+        path = os.path.join(current_app.config['PUBLIC_PATH'] + 'pictures/shelters', str(shelter.id))
+        if not os.path.exists(path):
+            os.makedirs(path)
         filename = secure_filename(file.filename)
-        file.save(os.path.join(current_app.config['PUBLIC_PATH'] + 'pictures/shelters', filename))
+        file.save(os.path.join(path , filename))
 
         category_id = request.form['category_id']
         if category_id:
