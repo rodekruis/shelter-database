@@ -6,3 +6,4 @@ from .populate_shelters import populate_shelters
 from .create_user import create_user
 from .init_page import init_page
 from .import_translation import import_translation
+from .import_shelters_pictures import import_shelters_pictures

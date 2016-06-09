@@ -15,6 +15,7 @@
     "datatables.net": "~1.10.10",
     "datatables.net-bs": "~1.10.10",
     "tinymce": "^4.3.12",
-    "bootstrap-datepicker": "^1.6.1"
+    "bootstrap-datepicker": "^1.6.1",
+    "lightbox2": "lightbox#^2.8.2"
   }
 }

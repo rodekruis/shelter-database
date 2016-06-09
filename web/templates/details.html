@@ -1,7 +1,12 @@
 {% extends "layout.html" %}
+{% block head %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/lightbox.min.js') }}"></script>
+
+    <link href="{{ url_for('static', filename='css/lightbox.css') }}" rel="stylesheet" media="screen" />
+{% endblock %}
 {% block content %}
 <div class="container-fluid">
-
     <section layout:fragment="content">
         <ul id="myTab" class="nav nav-tabs" role="tablist">
             <li id="tab-general">
@@ -54,6 +59,15 @@
                                             {{ property.values[-1].name | translate }}
                                         </p>
                                     </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-4">
+                            {% for picture in pictures[category] %}
+                                <div class="col-md-1 thumbShelterPicture">
+                                    <a href="/public/pictures/shelters/{{ picture.file_name }}" data-lightbox="{{ category }}">
+                                        <img src="/public/pictures/shelters/{{ picture.file_name }}" style="padding-top:3px;" />
+                                    </a>
                                 </div>
                             {% endfor %}
                         </div>

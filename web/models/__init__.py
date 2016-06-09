@@ -25,13 +25,14 @@ from .shelter import Shelter
 from .category import Category
 from .attribute import Attribute
 from .attribute_picture import AttributePicture
+from .shelter_picture import ShelterPicture
 
 from .page import Page
 from .translation import Translation
 
 
 __all__ = ['User', 'Shelter', 'Property', 'Category', 'Attribute', 'Value',
-            'Page', 'Translation', 'AttributePicture']
+            'Page', 'Translation', 'AttributePicture', 'ShelterPicture']
 
 import os
 
@@ -54,7 +55,8 @@ def uml_graph(db):
     graph = sasd.create_uml_graph(
                         mappers(User, Shelter, Property,
                                 Category, Attribute, Value,
-                                Page, Translation, AttributePicture),
+                                Page, Translation,
+                                ShelterPicture, AttributePicture),
                         show_operations=False,
                         show_multiplicity_one=True
     )

@@ -29,7 +29,8 @@ from sqlalchemy import asc
 from bootstrap import app
 from web.lib.utils import redirect_url
 from web.forms import LoginForm
-from web.models import User, Shelter, Property, Attribute, Category, Value
+from web.models import User, Shelter, Property, Attribute, Category, Value, \
+                        ShelterPicture
 
 
 from collections import defaultdict
@@ -128,8 +129,12 @@ def details(shelter_id=0, section_name=""):
         flash("No such section", "warning")
         return redirect(redirect_url())
 
+    pictures = defaultdict(list)
     categories = defaultdict(list)
     for category in categories_list:
+        category_obj = Category.query.filter(Category.name==category,
+                                            Category.parent_id!=None).first()
+
         categories[category].extend(
             Property.query.filter(
                                 Property.shelter_id==shelter_id,
@@ -138,12 +143,20 @@ def details(shelter_id=0, section_name=""):
                             .order_by(Attribute.display_position.asc())
                             )
 
+        pictures[category].extend(
+            ShelterPicture.query.filter(
+                                ShelterPicture.shelter_id==shelter_id,
+                                ShelterPicture.category_id==category_obj.id)
+                            )
+    print(pictures)
+
 
     return render_template('details.html',
                             section_name=section_name,
                             shelter_id=shelter_id,
                             categories_list=categories_list,
-                            categories=categories)
+                            categories=categories,
+                            pictures=pictures)
 
 
 @shelter_bp.route('/edit/<int:shelter_id>/<section_name>', methods=['GET'])

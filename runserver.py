@@ -50,6 +50,11 @@ with app.app_context():
                                 DELETE=[processors.auth_func]))
     app.register_blueprint(blueprint_shelter)
 
+    # 'ShelterPicture' Web service
+    blueprint_shelter_picture = manager.create_api_blueprint(models.ShelterPicture,
+                        methods=['GET', 'POST', 'PUT', 'DELETE'])
+    app.register_blueprint(blueprint_shelter_picture)
+
     # 'Category' Web service
     blueprint_category = manager.create_api_blueprint(models.Category,
                         methods=['GET', 'POST', 'PUT', 'DELETE'])

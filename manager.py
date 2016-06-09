@@ -96,5 +96,12 @@ def import_translation(translation_file, language_code):
     with app.app_context():
         scripts.import_translation(translation_file, language_code)
 
+@manager.command
+def import_shelters_pictures(folder):
+    "Import pictures for shelters"
+    print("Importing pictures from '{}' ...".format(folder))
+    with app.app_context():
+        scripts.import_shelters_pictures(folder)
+
 if __name__ == '__main__':
     manager.run()

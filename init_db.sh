@@ -20,5 +20,8 @@ python3.5 manager.py create_admin_user
 python3.5 manager.py import_shelters admin data/shelters/20150518_Haiti_shelters.csv
 #python3.5 manager.py import_shelters admin data/shelters/Phil-Bangla-Burundi.csv
 
+# Import pictures of the shelters
+python3.5 manager.py import_shelters_pictures data/shelters/pictures/
+
 # Import of the translations
 #python3.5 manager.py import_translation data/translations/sheltersDataTraduction_FR_rev_ED.csv fr
