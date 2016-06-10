@@ -9,7 +9,6 @@
 {% endblock %}
 {% block content %}
 <div class="container-fluid">
-
     <section layout:fragment="content">
         <ul id="myTab" class="nav nav-tabs" role="tablist">
             <li id="tab-general">
@@ -190,7 +189,9 @@ $(document).ready(function() {
         if (property_id==""){
             category_id = $(evt.target).attr("category-id");
             attribute_id = $(evt.target).attr("attribute-id");
-            new_property({{ shelter_id }}, category_id, attribute_id, id_of_values)
+            new_property({{ shelter_id }},
+                            category_id, attribute_id, id_of_values,
+                            $(evt.target))
         } else {
             update_property(property_id, id_of_values)
         }
