@@ -81,7 +81,8 @@ def login():
     if form.validate_on_submit():
         login_user_bundle(form.user)
         return form.redirect('index')
-    return render_template('join.html', loginForm=form)
+    signup = SignupForm()
+    return render_template('join.html', loginForm=form, signupForm=signup)
 
 
 @current_app.route('/logout')

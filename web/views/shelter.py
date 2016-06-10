@@ -49,13 +49,17 @@ def shelters_for_map():
 
     result = tree()
 
-
     latitude_properties = Property.query.filter(
                             Property.attribute.has(name="GPS Latitude"),
                             )
     longitude_properties = Property.query.filter(
                             Property.attribute.has(name="GPS Longitude"),
                             )
+    if not current_user.is_authenticated:
+        latitude_properties = latitude_properties.filter(
+                                Property.shelter.has(is_published = True))
+        longitude_properties = longitude_properties.filter(
+                                Property.shelter.has(is_published = True))
     # name_properties = Property.query.filter(
     #                         Property.attribute.has(name="Name of shelter"),
     #                         )
@@ -105,7 +109,17 @@ def shelters_for_map():
 @shelter_bp.route('/<int:shelter_id>/<section_name>', methods=['GET'])
 def details(shelter_id=0, section_name=""):
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+
     if not shelter:
+        flash("No such shelter", "warning")
+        return redirect(redirect_url())
+
+    if not current_user.is_authenticated and not shelter.is_published:
+        flash("No such shelter", "warning")
+        return redirect(redirect_url())
+
+    if not shelter.is_published and shelter.responsible.id != current_user.id \
+            and not current_user.is_admin:
         flash("No such shelter", "warning")
         return redirect(redirect_url())
 
@@ -170,7 +184,13 @@ def details(shelter_id=0, section_name=""):
 @login_required
 def edit(shelter_id=0, section_name=""):
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+
     if not shelter:
+        flash("No such shelter", "warning")
+        return redirect(redirect_url())
+
+    if not shelter.is_published and shelter.responsible.id != current_user.id \
+            and not current_user.is_admin:
         flash("No such shelter", "warning")
         return redirect(redirect_url())
 
