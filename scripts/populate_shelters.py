@@ -10,7 +10,7 @@ def populate_shelters(shelters_owner, csv_file):
 
     user = models.User.query.filter(models.User.name==shelters_owner).first()
 
-    with open(csv_file, newline='') as csvfile:
+    with open(csv_file, newline='', encoding='utf-8') as csvfile:
         shelters = csv.reader(csvfile, delimiter=',')
 
         for index, row in enumerate(shelters):

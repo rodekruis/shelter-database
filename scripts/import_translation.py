@@ -8,7 +8,7 @@ from bootstrap import db
 
 def import_translation(translation_file, language_code):
 
-    with open(translation_file, newline='') as translation:
+    with open(translation_file, newline='', encoding='utf-8') as translation:
         translations = csv.reader(translation, delimiter=',')
 
 
