@@ -115,9 +115,14 @@ def details(shelter_id=0, section_name=""):
     elif section_name == "structure":
         superstructure_type = Property.query.filter(
                             Property.shelter_id==shelter_id,
-                            Property.category.has(name="Walls & Frame")).first()
+                            Property.category.has(name="Walls & Frame"),
+                            Property.category.has(Category.parent_id!=None)).first()
+        if not superstructure_type:
+            superstructure_type_string = "Framed walls"
+        else:
+            superstructure_type_string = superstructure_type.get_values_as_string()
         categories_list = ["Foundation", "Walls & Frame",
-                            superstructure_type.get_values_as_string(),
+                            superstructure_type_string,
                             "Beams & Floor",
                             "Beams & Floor (ground floor)", "Roof"]
     elif section_name == "skin":
@@ -176,8 +181,12 @@ def edit(shelter_id=0, section_name=""):
         superstructure_type = Property.query.filter(
                             Property.shelter_id==shelter_id,
                             Property.category.has(name="Walls & Frame")).first()
+        if not superstructure_type:
+            superstructure_type_string = "Framed walls"
+        else:
+            superstructure_type_string = superstructure_type.get_values_as_string()
         categories_list = ["Foundation", "Walls & Frame",
-                            superstructure_type.get_values_as_string(),
+                            superstructure_type_string,
                             "Beams & Floor",
                             "Beams & Floor (ground floor)", "Roof"]
     elif section_name == "skin":
