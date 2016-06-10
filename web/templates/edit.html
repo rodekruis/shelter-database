@@ -179,9 +179,8 @@ $(document).ready(function() {
         }
 
         if (property_id==""){
-            category_id = $(evt.target).attr("category-id")
-            attribute_id = $(evt.target).attr("attribute-id")
-            console.log("new_property...");
+            category_id = $(evt.target).attr("category-id");
+            attribute_id = $(evt.target).attr("attribute-id");
             new_property({{ shelter_id }}, category_id, attribute_id, id_of_values)
         } else {
             update_property(property_id, id_of_values)
@@ -189,15 +188,14 @@ $(document).ready(function() {
     });
 
     $('.free-text-attribute').change(function(evt) {
-        value = $(evt.target).val()
-        value_id = $(evt.target).attr("value-id")
+        value = $(evt.target).val();
+        value_id = $(evt.target).attr("value-id");
 
         if (value_id != "None") {
             update_free_text_value(value_id, value);
         } else {
-            console.log(value_id);
-            category_id = $(evt.target).attr("category-id")
-            attribute_id = $(evt.target).attr("attribute-id")
+            category_id = $(evt.target).attr("category-id");
+            attribute_id = $(evt.target).attr("attribute-id");
             new_free_text_property({{ shelter_id }}, category_id, attribute_id, value);
         }
     });
