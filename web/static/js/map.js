@@ -227,14 +227,12 @@ function place_shelters() {
         // if (shelters[shelter]["picture_path"] != "") {
         //     popupContentHTML += '<img src="' + application_root+'/shelters_images/' + shelters[shelter]['picture_path']  + '" width="160px"></img><br /><br />';
         // }
-
-        // if (shelters[shelter]["isCommercial"] == true) {
-        //     var picto = application_root+"/resources/img/CommercialShelter.png";
-        //     $("#commercialPicto").show();
-        // } else {
-        //     var picto = application_root+"/resources/img/HumanitarianShelter.png";
-        // }
-        var picto = "/static/img/HumanitarianShelter.png";
+        if (shelters[shelter]["isCommercial"] == true) {
+            var picto = "/static/img/CommercialShelter.png";
+            $("#commercialPicto").show();
+        } else {
+            var picto = "/static/img/HumanitarianShelter.png";
+        }
 
         popupContentHTML += '<p><b>Name:</b> ' + shelters[shelter]["name"] + '</p>' +
         '<p><b>City:</b> '+ shelters[shelter]["city"] + '</p><br />' +

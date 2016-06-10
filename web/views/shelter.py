@@ -95,6 +95,7 @@ def shelters_for_map():
             shelter.get_values_of_attribute(attribute_name="Name of shelter")[0].name
         result[shelter_id]["city"] = \
             shelter.get_values_of_attribute(attribute_name="City / Village")[0].name
+        result[shelter_id]["isCommercial"] = shelter.is_commercial
 
 
     return jsonify(result)

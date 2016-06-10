@@ -66,6 +66,9 @@
                 <div id="message" class="alert alert-danger" role="alert" style="display: none;"></div>
             </div>
             <h4>Legend</h4>
+            <img src="/static/img/HumanitarianShelter.png" />&nbsp;&nbsp;&nbsp;<b>Shelter</b>
+            <br /><br />
+            <span id="commercialPicto"><img src="/static/img/CommercialShelter.png" />&nbsp;&nbsp;&nbsp;<b>Commercial shelter</b></span>
         </div>
     </div>
 
@@ -162,21 +165,22 @@ var geoserver_address = "http://shelter-database.org";
 var api_url = "/shelter/shelters_for_map"
 
 $(document).ready(function() {
+    $("#commercialPicto").hide();
+    $("#koppen-classification").hide();
+    $("#redcross-classification").hide();
 
-$('#submit').click(function() {
-    climateZone = $('#climateZoneSelect').val()
-    zone = $('#zoneSelect').val()
-    disaster = $('#associatedDisasterSelect').val()
+    $('#submit').click(function() {
+        climateZone = $('#climateZoneSelect').val()
+        zone = $('#zoneSelect').val()
+        disaster = $('#associatedDisasterSelect').val()
 
-    get_shelters(api_url + '?Climate zone=' + climateZone +
-                            '&Zone=' + zone +
-                            '&Associated disaster / Immediate cause=' + disaster);
-});
-
-create_map();
-get_shelters(api_url);
+        get_shelters(api_url + '?Climate zone=' + climateZone +
+                                '&Zone=' + zone +
+                                '&Associated disaster / Immediate cause=' + disaster);
+    });
+    create_map();
+    get_shelters(api_url);
 })
-
 </script>
 </div><!-- /.container -->
 {% endblock %}
