@@ -29,9 +29,11 @@
             <li id="tab-documents">
                 <a href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name='documents') }}">Documents</a>
             </li>
-
             <li id="tab-edit" class="pull-right" >
                 <a id="btn-edit" class="btn" style="font-weight: bold;" href="{{ url_for('shelter_bp.edit', shelter_id=shelter_id, section_name=section_name) }}">Edit</a>
+            </li>
+            <li id="tab-edit" class="pull-right" >
+                <a id="btn-edit" class="btn" style="font-weight: bold;" href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name=section_name, to_pdf='to_pdf') }}">To PDF</a>
             </li>
         </ul>
 

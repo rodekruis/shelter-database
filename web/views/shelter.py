@@ -23,7 +23,7 @@ import subprocess
 from collections import defaultdict
 from werkzeug.utils import secure_filename
 from flask import Blueprint, request, flash, render_template, current_app, \
-                    session, url_for, redirect, g, abort, jsonify
+                    session, url_for, redirect, g, abort, jsonify, make_response
 from flask_login import login_required, current_user
 
 from sqlalchemy import asc
@@ -31,6 +31,7 @@ from sqlalchemy import asc
 import conf
 from bootstrap import app, db
 from web.lib.utils import redirect_url, allowed_file
+from web.lib.misc_utils import create_pdf
 from web.forms import LoginForm
 from web.models import User, Shelter, Property, Attribute, Category, Value, \
                         ShelterPicture
@@ -107,7 +108,8 @@ def shelters_for_map():
 
 
 @shelter_bp.route('/<int:shelter_id>/<section_name>', methods=['GET'])
-def details(shelter_id=0, section_name=""):
+@shelter_bp.route('/<int:shelter_id>/<section_name>/<to_pdf>', methods=['GET'])
+def details(shelter_id=0, section_name="", to_pdf=None):
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
 
     if not shelter:
@@ -171,6 +173,20 @@ def details(shelter_id=0, section_name=""):
                                 ShelterPicture.shelter_id==shelter_id,
                                 ShelterPicture.category_id==category_obj.id)
                             )
+
+    if to_pdf == "to_pdf":
+        pdf_file = create_pdf(render_template('pdf/template1.html',
+                                        shelter=shelter,
+                                        section_name=section_name,
+                                        shelter_id=shelter_id,
+                                        categories_list=categories_list,
+                                        categories=categories,
+                                        pictures=pictures))
+        response = make_response(pdf_file)
+        response.headers['Content-Type'] = 'application/pdf'
+        response.headers['Content-Disposition'] = \
+            'attachment; filename=%s.pdf' % 'shelter'
+        return response
 
     return render_template('details.html',
                             section_name=section_name,
