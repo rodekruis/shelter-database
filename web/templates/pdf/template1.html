@@ -17,10 +17,14 @@
         </style>
     </head>
     <body>
+        <h1>{{ shelter.get_values_of_attribute(attribute_name="Name of shelter")[0].name }}</i></h1>
+        <p>Responsible: {{ shelter.responsible.name }} ( {{ shelter.responsible.email }} )</p>
+        <p>Date: {{ shelter.created_at | datetime }}</p>
+        <hr />
         {% for category in categories_list %}
-            <h4>{{ category }}</h4>
+            <h2>{{ category }}</h2>
             {% for property  in categories[category]  %}
-                <p><b {% if property.attribute.pictures.count() != 0 %}style="border-bottom: 1px dotted #000000; cursor:pointer;" attrId="{{ property.attribute.id }}" class="attribute-multimedia-asset"{% endif %}>{{ property.attribute.name | translate }}</b></p>
+                <p><b>{{ property.attribute.name | translate }}</b></p>
                 <p>
                     {% if property.attribute.type == 'yes / no' %}
                         {% if property.values[0].name in ("1","on") %}Yes{% else %}No{% endif %}

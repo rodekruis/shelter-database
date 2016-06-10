@@ -180,8 +180,7 @@ def details(shelter_id=0, section_name="", to_pdf=None):
                                         section_name=section_name,
                                         shelter_id=shelter_id,
                                         categories_list=categories_list,
-                                        categories=categories,
-                                        pictures=pictures))
+                                        categories=categories))
         response = make_response(pdf_file)
         response.headers['Content-Type'] = 'application/pdf'
         response.headers['Content-Disposition'] = \
