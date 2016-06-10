@@ -52,10 +52,14 @@
                                     </div>
                                     <div class="col-md-4">
                                         <p>
-                                            {% for value in property.values[:-1] %}
-                                                {{ value.name | translate }},&nbsp;
-                                            {% endfor %}
-                                            {{ property.values[-1].name | translate }}
+                                            {% if property.attribute.type == 'yes / no' %}
+                                                {% if property.values[0].name in ("1","on") %}Yes{% else %}No{% endif %}
+                                            {% else %}
+                                                {% for value in property.values[:-1] %}
+                                                    {{ value.name | translate }},&nbsp;
+                                                {% endfor %}
+                                                {{ property.values[-1].name | translate }}
+                                            {% endif %}
                                         </p>
                                     </div>
                                 </div>

@@ -92,6 +92,15 @@
                                                 category-id="{{ attribute.category_id }}"
                                                 value-id="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].id }}"
                                                 value="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name }}" />
+                                            {% elif attribute.type == "yes / no" %}
+                                                <input type="checkbox" class="form-control free-text-attribute"
+                                                property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
+                                                attribute-id="{{ attribute.id }}"
+                                                category-id="{{ attribute.category_id }}"
+                                                value-id="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].id }}"
+                                                value="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name }}"
+                                                {% if shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name in ("1","on")  %}checked{% endif %}
+                                                 />
                                             {% else %}
                                                 <input type="text"
                                                 id="{{ attribute.associated_values.first().id }}"
@@ -189,6 +198,13 @@ $(document).ready(function() {
 
     $('.free-text-attribute').change(function(evt) {
         value = $(evt.target).val();
+        if ($(evt.target).context.type == "checkbox") {
+            if (value == "on" || value == "1") {
+                value = "0";
+            } else {
+                value = "1";
+            }
+        }
         value_id = $(evt.target).attr("value-id");
 
         if (value_id != "None") {
