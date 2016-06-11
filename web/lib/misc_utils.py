@@ -4,8 +4,10 @@ import sys
 import subprocess
 
 
-from weasyprint import HTML
-HTML('http://weasyprint.org/').write_pdf('/tmp/weasyprint-website.pdf')
+try:
+    from weasyprint import HTML
+except Exception as e:
+    print("Problem with weasyprint: {}".format(e))
 
 import conf
 
