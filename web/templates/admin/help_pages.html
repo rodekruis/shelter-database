@@ -6,27 +6,22 @@
 {% block content %}
 <div class="container">
     <h1>Edit pages</h1>
-
     <div class="form-group">
         Select a page
         <select id="pagesList" class="form-control selectpicker show-tick">
             <option value=""></option>
         </select>
     </div>
-
     <div class="form-group">
         Select a language
         <select id="languagesList" class="form-control selectpicker show-tick">
             <option value=""></option>
         </select>
     </div>
-
-    <textarea id="pages_editor" class="pages_editor" rows="15"></textarea>
-
+    <textarea id="pages_editor" class="pages_editor" rows="15" page-id=""></textarea>
 </div>
 <script type="text/javascript" class="source">
 $(document).ready(function() {
-
     tinymce.init({
         mode : "specific_textareas",
         statusbar : false,
@@ -90,7 +85,10 @@ function set_editor_content(page_name, language_code) {
         dataType: "json",
         data: {"q": JSON.stringify({"filters": filters})},
         success: function (result) {
-            tinymce.get('pages_editor').setContent(result.objects[0].content) ;
+            if (result.num_results != 0) {
+                tinymce.get('pages_editor').setContent(result.objects[0].content);
+                $('#pages_editor').attr('page-id', result.objects[0].id)
+            }
         },
         error: function(XMLHttpRequest, textStatus, errorThrown){
             console.log(errorThrown);
@@ -101,6 +99,7 @@ function set_editor_content(page_name, language_code) {
 function save_page() {
     page_name = $("#pagesList").val()
     language_code = $("#languagesList").val()
+    page_id = $('#pages_editor').attr('page-id');
     if (page_id != "" && language_code != "") {
         content = tinymce.get('pages_editor').getContent({format : 'raw'});
         data = {
