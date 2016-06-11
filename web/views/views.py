@@ -17,13 +17,10 @@ __revision__ = "$Date: 2016/06/07 $"
 __copyright__ = "Copyright (c) "
 __license__ = ""
 
-import datetime
 from flask import request, flash, render_template, session, url_for, \
-                    redirect, g, current_app, send_from_directory
-from flask_login import login_required, current_user
+                    redirect, current_app, send_from_directory
 
 from bootstrap import db
-from web.lib.utils import redirect_url
 from web.models import Attribute
 
 #
@@ -51,18 +48,14 @@ def authentication_required(e):
     flash('Authenticated required.', 'info')
     return redirect(url_for('join'))
 
-@current_app.before_request
-def before_request():
-    g.user = current_user
-    if g.user.is_authenticated:
-        g.user.last_seen = datetime.datetime.now()
-        db.session.commit()
-
 #
 # Views.
 #
 @current_app.route('/', methods=['GET'])
 def index():
+    """
+    This view displays the map.
+    """
     climate_zones = Attribute.query.filter(Attribute.name=="Climate zone").\
                                 first().associated_values
     zones = Attribute.query.filter(Attribute.name=="Zone").\
@@ -71,8 +64,6 @@ def index():
                     Attribute.name=="Associated disaster / Immediate cause").\
                                 first().associated_values
 
-
-
     return render_template('index.html',
                             climate_zones=climate_zones,
                             zones=zones,
@@ -80,8 +71,14 @@ def index():
 
 @current_app.route('/contributors', methods=['GET'])
 def contributors():
+    """
+    List of contributors.
+    """
     return render_template('contributors.html')
 
 @current_app.route('/public/<path:filename>', methods=['GET'])
 def public_file(filename):
+    """
+    Exposes public files (media uploaded by users, etc.).
+    """
     return send_from_directory(current_app.config['PUBLIC_PATH'], filename)

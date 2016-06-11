@@ -17,9 +17,8 @@ __revision__ = "$Date: 2016/06/02 $"
 __copyright__ = "Copyright (c) "
 __license__ = ""
 
-from flask import flash, render_template, url_for, current_app
+from flask import render_template, current_app
 
-from web.lib.utils import redirect_url
 from web.models import Page
 
 @current_app.route('/page/<string:page_name>', methods=['GET'])

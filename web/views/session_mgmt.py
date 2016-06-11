@@ -11,19 +11,18 @@
 # ***** END LICENSE BLOCK *****
 
 __author__ = "Cedric Bonhomme"
-__version__ = "$Revision: 0.1 $"
+__version__ = "$Revision: 0.2 $"
 __date__ = "$Date: 2016/05/31$"
-__revision__ = "$Date: 2016/05/31 $"
+__revision__ = "$Date: 2016/06/11 $"
 __copyright__ = "Copyright (c) "
 __license__ = ""
 
-import json
 import logging
-
+import datetime
 from werkzeug import generate_password_hash
 from werkzeug.exceptions import NotFound
 from flask import (render_template, flash, session, request,
-                   url_for, redirect, current_app)
+                   url_for, redirect, current_app, g)
 from flask_babel import gettext
 from flask_login import LoginManager, logout_user, \
                             login_required, current_user
@@ -47,7 +46,6 @@ login_manager.login_view = 'join'
 
 logger = logging.getLogger(__name__)
 
-
 @identity_loaded.connect_via(current_app._get_current_object())
 def on_identity_loaded(sender, identity):
     # Set the identity user object
@@ -59,11 +57,16 @@ def on_identity_loaded(sender, identity):
         if current_user.is_admin:
             identity.provides.add(admin_role)
 
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.filter(User.id==user_id, User.is_active==True).first()
 
+@current_app.before_request
+def before_request():
+    g.user = current_user
+    if g.user.is_authenticated:
+        g.user.last_seen = datetime.datetime.now()
+        db.session.commit()
 
 @current_app.route('/join', methods=['GET'])
 def join():
@@ -84,7 +87,6 @@ def login():
     signup = SignupForm()
     return render_template('join.html', loginForm=form, signupForm=signup)
 
-
 @current_app.route('/logout')
 @login_required
 def logout():
@@ -100,7 +102,6 @@ def logout():
     session_identity_loader()
 
     return redirect(url_for('index'))
-
 
 @current_app.route('/signup', methods=['POST'])
 def signup():
