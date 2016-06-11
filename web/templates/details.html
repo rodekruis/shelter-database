@@ -30,71 +30,75 @@
                 <a href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name='documents') }}">Documents</a>
             </li>
             <li id="tab-edit" class="pull-right" >
-                <a id="btn-edit" class="btn" style="font-weight: bold;" href="{{ url_for('shelter_bp.edit', shelter_id=shelter_id, section_name=section_name) }}">Edit</a>
+                <a id="btn-edit" class="btn" style="font-weight: bold;"
+                title="Edit"
+                href="{{ url_for('shelter_bp.edit', shelter_id=shelter_id, section_name=section_name) }}">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                </a>
             </li>
             <li id="tab-edit" class="pull-right" >
-                <a id="btn-edit" class="btn" style="font-weight: bold;" href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name=section_name, to_pdf='to_pdf') }}">To PDF</a>
+                <a id="btn-edit" class="btn" style="font-weight: bold;"
+                title="Printer friendly version"
+                href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name=section_name, to_pdf='to_pdf') }}">
+                    <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                </a>
             </li>
         </ul>
 
-        <section layout:fragment="tabcontent">
-            <div class="tab-content"></div>
-        </section>
-
-                {% for category in categories_list %}
-                    <fieldset id="{{ category }}" class="border">
-                        <legend class="border">
-                            <span class="section-title">{{ category | translate }}</span>
-                        </legend>
-                        <div class="col-md-8">
-                            {% for property  in categories[category]  %}
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <p><b {% if property.attribute.pictures.count() != 0 %}style="border-bottom: 1px dotted #000000; cursor:pointer;" attrId="{{ property.attribute.id }}" class="attribute-multimedia-asset"{% endif %}>{{ property.attribute.name | translate }}</b></p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <p>
-                                            {% if property.attribute.type == 'yes / no' %}
-                                                {% if property.values[0].name in ("1","on") %}Yes{% else %}No{% endif %}
-                                            {% else %}
-                                                {% for value in property.values[:-1] %}
-                                                    {{ value.name | translate }},&nbsp;
-                                                {% endfor %}
-                                                {{ property.values[-1].name | translate }}
-                                            {% endif %}
-                                        </p>
-                                    </div>
-                                </div>
-                            {% endfor %}
+        {% for category in categories_list %}
+            <fieldset id="{{ category }}" class="border">
+                <legend class="border">
+                    <span class="section-title">{{ category | translate }}</span>
+                </legend>
+                <div class="col-md-8">
+                    {% for property  in categories[category]  %}
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p><b {% if property.attribute.pictures.count() != 0 %}style="border-bottom: 1px dotted #000000; cursor:pointer;" attrId="{{ property.attribute.id }}" class="attribute-multimedia-asset"{% endif %}>{{ property.attribute.name | translate }}</b></p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>
+                                    {% if property.attribute.type == 'yes / no' %}
+                                        {% if property.values[0].name in ("1","on") %}Yes{% else %}No{% endif %}
+                                    {% else %}
+                                        {% for value in property.values[:-1] %}
+                                            {{ value.name | translate }},&nbsp;
+                                        {% endfor %}
+                                        {{ property.values[-1].name | translate }}
+                                    {% endif %}
+                                </p>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            {% for picture in pictures[category] %}
-                                <div class="col-md-1 thumbShelterPicture">
-                                    <a href="/public/pictures/shelters/{{ shelter_id }}/{{ picture.file_name }}" data-lightbox="{{ category }}">
-                                        <img src="/public/pictures/shelters/{{ shelter_id }}/{{ picture.file_name }}" style="padding-top:3px;" />
-                                    </a>
-                                </div>
-                            {% endfor %}
+                    {% endfor %}
+                </div>
+                <div class="col-md-4">
+                    {% for picture in pictures[category] %}
+                        <div class="col-md-1 thumbShelterPicture">
+                            <a href="/public/pictures/shelters/{{ shelter_id }}/{{ picture.file_name }}" data-lightbox="{{ category }}">
+                                <img src="/public/pictures/shelters/{{ shelter_id }}/{{ picture.file_name }}" style="padding-top:3px;" />
+                            </a>
                         </div>
-                    </fieldset>
-                {% endfor %}
+                    {% endfor %}
+                </div>
+            </fieldset>
+        {% endfor %}
 
 
 <div class="modal fade bs-example-modal-lg" id="infoDialog" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span th:text="#{shelter.closeButton}" class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel"><span id="infoDialogTitle"></span></h4>
-      </div>
-      <div class="modal-body">
-        <div align="center" id="listOfPictures"></div>
-      </div>
-      <div class="modal-footer">
-        <button th:text="#{shelter.closeButton}" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel"><span id="infoDialogTitle"></span></h4>
+            </div>
+            <div class="modal-body">
+                <div align="center" id="listOfPictures"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 
@@ -102,37 +106,24 @@
 $(document).ready(function() {
     if (window.location.href.indexOf("generalInformation") > -1){
         $("#tab-general").attr('class', "active");
-        $("#title").text("Shelter details - General Information");
     }
     if (window.location.href.indexOf("implementationDetails") > -1) {
         $("#tab-details").attr('class', "active");
-        $("#title").text("Shelter details - Implementation details");
     }
     if (window.location.href.indexOf("structure") > -1) {
         $("#tab-structure").attr('class', "active");
-        $("#title").text("Shelter details - Structure");
     }
     if (window.location.href.indexOf("skin") > -1) {
         $("#tab-skin").attr('class', "active");
-        $("#title").text("Shelter details - Skin");
     }
     if (window.location.href.indexOf("services") > -1) {
         $("#tab-services").attr('class', "active");
-        $("#title").text("Shelter details - Services");
     }
     if (window.location.href.indexOf("spacePlan") > -1) {
         $("#tab-spaceplan").attr('class', "active");
-        $("#title").text("Shelter details - Spaceplan");
     }
     if (window.location.href.indexOf("documents") > -1) {
         $("#tab-documents").attr('class', "active");
-        $("#title").text("Shelter details - Documents");
-    }
-
-    if (window.location.href.indexOf("/edit/") > -1) {
-        var value = $("#btn-edit").attr('href');
-        $("#btn-edit").attr('href',  value.replace('/edit/', '/details/'));
-        $("#btn-edit").text('Details');
     }
 
     $( ".attribute-multimedia-asset" ).click(show_multimedia_assets);
@@ -159,12 +150,8 @@ function retrieve_and_display_multimedia_asset(attributeId) {
                 $('#listOfPictures').append(oImg);
                 $('#listOfPictures').append(document.createElement("hr"));
             })
-
-
-
             $('#listOfPictures hr:last-child').remove();
             $('#infoDialog').modal({backdrop:'static', keyboard:false});
-
         },
         error: function(XMLHttpRequest, textStatus, errorThrown){
             //document.getElementById("geolocation").innerHTML = XMLHttpRequest.responseText;
@@ -184,9 +171,6 @@ function show_multimedia_assets(evt) {
 
 }
 </script>
-
-
-
 </section>
 </div><!-- /.container -->
 {% endblock %}

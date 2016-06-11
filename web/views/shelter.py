@@ -175,17 +175,20 @@ def details(shelter_id=0, section_name="", to_pdf=None):
                             )
 
     if to_pdf == "to_pdf":
-        pdf_file = create_pdf(render_template('pdf/template1.html',
-                                        shelter=shelter,
-                                        section_name=section_name,
-                                        shelter_id=shelter_id,
-                                        categories_list=categories_list,
-                                        categories=categories))
-        response = make_response(pdf_file)
-        response.headers['Content-Type'] = 'application/pdf'
-        response.headers['Content-Disposition'] = \
-            'attachment; filename=%s.pdf' % 'shelter'
-        return response
+        try:
+            pdf_file = create_pdf(render_template('pdf/template1.html',
+                                            shelter=shelter,
+                                            section_name=section_name,
+                                            shelter_id=shelter_id,
+                                            categories_list=categories_list,
+                                            categories=categories))
+            response = make_response(pdf_file)
+            response.headers['Content-Type'] = 'application/pdf'
+            response.headers['Content-Disposition'] = \
+                'attachment; filename=%s.pdf' % 'shelter'
+            return response
+        except Exception as e:
+            flash('Error when generating PDF file.', 'danger')
 
     return render_template('details.html',
                             section_name=section_name,
