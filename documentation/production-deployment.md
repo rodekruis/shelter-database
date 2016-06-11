@@ -4,7 +4,8 @@ This procedure details the deployment of the application under Apache.
 Tested with the following configurations:
 
 * Debian 7, Python 3.5.1, PostgreSQL 9.1, Apache 2.2.22, mod_wsgi 4.4.13;
-* Debian 8, Python 3.5.1, PostgreSQL 9.4, Apache 2.4.10, mod_wsgi 4.4.13.
+* Debian 8, Python 3.5.1, PostgreSQL 9.4, Apache 2.4.10, mod_wsgi 4.4.13;
+* Ubuntu 16.04, Python 3.5.1+, PostgreSQL 9.5.3, Apache 2.4.18, mod_wsgi 4.4.13.
 
 
 
@@ -53,7 +54,7 @@ cp conf/conf.cfg-sample conf/conf.cfg
 ### Installation of node
 
 ```shell
-cd    
+cd
 git clone https://github.com/joyent/node.git
 cd node
 
@@ -125,10 +126,9 @@ sudo a2enmod wsgi
 
 ## The WSGI file
 
-Below is an example of WSGI file (**webserver.wsgi**).
+Below is an example of WSGI file (**/var/www/shelter-database/webserver.wsgi**).
 
 ```shell
-cat /var/www/shelter-database/webserver.wsgi
 #!/usr/bin/env python3.5
 
 import sys
@@ -141,8 +141,9 @@ from runserver import app as application
 
 ## The VirtualHost configuration file
 
+Below an example for the file **/etc/apache2/sites-available/shelter-database**
+
 ```shell
-cat /etc/apache2/sites-available/shelter-database
 <VirtualHost *:80>
     ServerName shelter-database.org
     WSGIDaemonProcess webserver user=shelter group=shelter threads=5
@@ -155,13 +156,14 @@ cat /etc/apache2/sites-available/shelter-database
         Order deny,allow
         Allow from all
     </Directory>
-
 </VirtualHost>
 ```
+
+Enable the site:
 
 ```shell
 sudo a2ensite shelter-database
 ```
 
-The web application will be running with a dedicated user and a thread limit set
-to 5.
+The web application is now be running with a dedicated user and a thread limit
+set to 5.
