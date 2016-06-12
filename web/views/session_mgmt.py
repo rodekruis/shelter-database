@@ -42,6 +42,8 @@ Principal(current_app)
 
 login_manager = LoginManager()
 login_manager.init_app(current_app)
+login_manager.login_message = u"Please log in to access this page."
+login_manager.login_message_category = "warning"
 login_manager.login_view = 'join'
 
 logger = logging.getLogger(__name__)
