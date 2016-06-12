@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 # ***** BEGIN LICENSE BLOCK *****
-# This file is part of LPS - Abstraction Layer.
-# Copyright (c) 2015-2016 Luxembourg Institute of Science and Technology.
+# This file is part of Shelter Database.
+# Copyright (c) 2016 Luxembourg Institute of Science and Technology.
 # All rights reserved.
 #
 #

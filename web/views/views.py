@@ -3,7 +3,7 @@
 
 # ***** BEGIN LICENSE BLOCK *****
 # This file is part of Shelter Database.
-# Copyright (c) 2016
+# Copyright (c) 2016 Luxembourg Institute of Science and Technology.
 # All rights reserved.
 #
 #
@@ -14,7 +14,7 @@ __author__ = "Cedric Bonhomme"
 __version__ = "$Revision: 0.2.1 $"
 __date__ = "$Date: 2016/03/30$"
 __revision__ = "$Date: 2016/06/07 $"
-__copyright__ = "Copyright (c) "
+__copyright__ = "Copyright 2016 Luxembourg Institute of Science and Technology"
 __license__ = ""
 
 from flask import request, flash, render_template, session, url_for, \
