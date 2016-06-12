@@ -3,7 +3,7 @@
 
 # ***** BEGIN LICENSE BLOCK *****
 # This file is part of Shelter Database.
-# Copyright (c) 2016
+# Copyright (c) 2016 Luxembourg Institute of Science and Technology.
 # All rights reserved.
 #
 #

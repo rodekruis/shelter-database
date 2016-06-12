@@ -1,8 +1,24 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
 
+# ***** BEGIN LICENSE BLOCK *****
+# This file is part of Shelter Database.
+# Copyright (c) 2016 Luxembourg Institute of Science and Technology.
+# All rights reserved.
+#
+#
+#
+# ***** END LICENSE BLOCK *****
+
+__author__ = "Cedric Bonhomme"
+__version__ = "$Revision: 0.1 $"
+__date__ = "$Date: 2016/06/01$"
+__revision__ = "$Date: 2016/06/10 $"
+__copyright__ = "Copyright (c) Luxembourg Institute of Science and Technology"
+__license__ = ""
 
 import sys
 import subprocess
-
 
 try:
     from weasyprint import HTML
