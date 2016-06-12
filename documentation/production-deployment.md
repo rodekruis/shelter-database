@@ -128,7 +128,7 @@ sudo a2enmod wsgi
 
 Below is an example of WSGI file (**/var/www/shelter-database/webserver.wsgi**).
 
-```shell
+```python
 #!/usr/bin/env python3.5
 
 import sys
