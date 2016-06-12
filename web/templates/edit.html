@@ -60,6 +60,7 @@
                                     <div class="col-md-4">
                                         {% if not attribute.is_editable %}
                                             {{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name  | translate }}
+
                                         {% elif not attribute.free_text %}
                                             <select class="form-control select-attribute selectpicker show-tick"
                                             property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
@@ -70,10 +71,12 @@
                                                 <option value=""></option>
                                                 {% for value in attribute.associated_values %}
                                                     <option value="{{value.id}}"
+                                                        {% if value.name == "other" %}value="{{value.name}}"{% else %}value="{{value.id}}"{% endif %}
                                                         {% if value.id in shelter.get_idvalues_of_attribute(attribute.id)  %}selected="selected"{% endif %}>{{ value.name | translate }}
                                                     </option>
                                                 {% endfor %}
                                             </select>
+
                                         {% else %}
                                             {% if attribute.type == "TextArea" %}
                                                 <textarea rows="10" id="{{ attribute.associated_values.first().id }}"
@@ -166,8 +169,12 @@ $(document).ready(function() {
     $( ".datepicker" ).datepicker();
 
     $('.select-attribute').change(function(evt) {
-        property_id = $(evt.target).attr("property-id")
-        id_of_values = $(evt.target).val()
+        console.log($(this).find(':selected').val());
+        if ($(this).find(':selected').val() === 'other') {
+            alert("other");
+        }
+        property_id = $(evt.target).attr("property-id");
+        id_of_values = $(evt.target).val();
         if (typeof id_of_values === 'string') {
             tmp = []
             tmp.push(id_of_values)

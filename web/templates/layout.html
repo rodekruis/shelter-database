@@ -10,6 +10,7 @@
 
         <script src="{{ url_for('static', filename = 'lib/jquery/dist/jquery.min.js') }}"></script>
         <script src="{{ url_for('static', filename = 'js/create-shelter.js') }}"></script>
+        <script src="{{ url_for('static', filename = 'js/countries.js') }}"></script>
 
         <!-- Bootstrap core CSS -->
         <link href="{{ url_for('static', filename='lib/bootstrap/dist/css/bootstrap.css') }}" rel="stylesheet" media="screen" />
@@ -57,7 +58,7 @@
                                         </div>
                                         <br /><br />
                                         <div class="form-group">
-                                            <select  id="countrySelect" name="country" class="form-control" data-live-search="true"></select>
+                                            <select id="countrySelect" name="country" class="form-control" data-live-search="true"></select>
                                         </div>
                                         <br /><br />
                                         <div class="form-group">
@@ -176,7 +177,8 @@
                 // Send the data using post
                 name_of_shelter = values["name"]
                 country_value_id = values["country"];
-                create_shelter(name_of_shelter, country_value_id);
+                country_name = $('#countrySelect option:selected').text()
+                create_shelter(name_of_shelter, country_value_id, country_name);
             } else {
                 alert("Please fill all the fields of the form.");
             }
