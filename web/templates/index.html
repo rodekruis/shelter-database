@@ -55,8 +55,11 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <select   id="materialSelect" name="material" class="form-control" data-live-search="true">
+                    <select id="materialSelect" name="material" class="form-control" data-live-search="true">
                         <option value="" selected="selected">Materials</option>
+                        {% for material in materials %}
+                            <option value="{{ material.name }}">{{ material.name | translate }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="form-group">
@@ -173,10 +176,12 @@ $(document).ready(function() {
         climateZone = $('#climateZoneSelect').val()
         zone = $('#zoneSelect').val()
         disaster = $('#associatedDisasterSelect').val()
+        material = $('#materialSelect').val()
 
         get_shelters(api_url + '?Climate zone=' + climateZone +
                                 '&Zone=' + zone +
-                                '&Associated disaster / Immediate cause=' + disaster);
+                                '&Associated disaster / Immediate cause=' + disaster +
+                                '&Foundation material=' + material);
     });
     create_map();
     get_shelters(api_url);

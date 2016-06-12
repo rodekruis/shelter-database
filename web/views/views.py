@@ -63,11 +63,15 @@ def index():
     disasters = Attribute.query.filter(
                     Attribute.name=="Associated disaster / Immediate cause").\
                                 first().associated_values
+    materials = Attribute.query.filter(
+                    Attribute.name=="Foundation material").\
+                                first().associated_values
 
     return render_template('index.html',
                             climate_zones=climate_zones,
                             zones=zones,
-                            disasters=disasters)
+                            disasters=disasters,
+                            materials=materials)
 
 @current_app.route('/contributors', methods=['GET'])
 def contributors():
