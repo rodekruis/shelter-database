@@ -67,7 +67,7 @@
                                             {% if attribute.multiple %}multiple="multiple"{% endif %}
                                             attribute-id="{{ attribute.id }}"
                                             category-id="{{ attribute.category_id }}"
-                                            id="{{ attribute.id }}">
+                                            id="select{{ attribute.id }}">
                                                 <option value=""></option>
                                                 {% for value in attribute.associated_values %}
                                                     <option value="{{value.id}}"
@@ -76,6 +76,7 @@
                                                     </option>
                                                 {% endfor %}
                                             </select>
+                                            <h6><span class="glyphicon glyphicon-plus add-value" attribute-id="{{ attribute.id }}" aria-hidden="true"></span></h6>
 
                                         {% else %}
                                             {% if attribute.type == "TextArea" %}
@@ -141,6 +142,27 @@
         {% endfor %}
     </div>
 </section>
+
+
+<div class="modal fade bs-example-modal-lg" id="addValueDialog" attribute-id="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel"><span id="addValueDialogTitle"></span></h4>
+            </div>
+            <div class="modal-body">
+                <input id="new-value-input" type="text" name="valuename" value="New value" />
+            </div>
+            <div class="modal-footer">
+                <button id="add-new-value" type="button" class="btn btn-default" data-dismiss="modal">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </div><!-- /.container -->
 <script type="text/javascript" class="source">
 $(document).ready(function() {
@@ -169,10 +191,6 @@ $(document).ready(function() {
     $( ".datepicker" ).datepicker();
 
     $('.select-attribute').change(function(evt) {
-        console.log($(this).find(':selected').val());
-        if ($(this).find(':selected').val() === 'other') {
-            alert("other");
-        }
         property_id = $(evt.target).attr("property-id");
         id_of_values = $(evt.target).val();
         if (typeof id_of_values === 'string') {
@@ -211,6 +229,37 @@ $(document).ready(function() {
             new_free_text_property({{ shelter_id }}, category_id, attribute_id, value);
         }
     });
+
+    $('.add-value').click(function(evt) {
+        attribute_id = $(evt.target).attr('attribute-id');
+        $('#addValueDialog').attr('attribute-id', attribute_id);
+        $('#addValueDialog').modal({backdrop:'static', keyboard:false});
+    })
+
+    $('#add-new-value').click(function(evt) {
+
+        new_value = {
+            attribute_id: $('#addValueDialog').attr('attribute-id'),
+            name: $('#new-value-input').val()
+        }
+        $.ajax({
+            type: 'POST',
+            url: 'http://' + document.domain + ':' + location.port + '/api/value',
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(new_value),
+            success: function (result) {
+                console.log(result);
+
+                //$('#select'+attribute_id).options[$('#'+attribute_id).options.length] = new Option('Text 1', 'Value1');
+
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown){
+                console.log(errorThrown);
+            }
+        });
+
+    })
 });
 </script>
 {% endblock %}
