@@ -1,99 +1,98 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    xmlns:th="http://www.thymeleaf.org">
-        <head>
-            {% block head %}
-            <meta charset="utf-8" />
-            <meta name="description" content="The Shelter Database is a resource for the wider shelter sector, that can help to deliver humanitarian shelter." />
-            <meta name="author" content="" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>Shelters Database Management</title>
+<html>
+    <head>
+        {% block head %}
+        <meta charset="utf-8" />
+        <meta name="description" content="The Shelter Database is a resource for the wider shelter sector, that can help to deliver humanitarian shelter." />
+        <meta name="author" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Shelters Database Management</title>
 
-            <script src="{{ url_for('static', filename = 'lib/jquery/dist/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename = 'lib/jquery/dist/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename = 'js/create-shelter.js') }}"></script>
 
-            <!-- Bootstrap core CSS -->
-            <link href="{{ url_for('static', filename='lib/bootstrap/dist/css/bootstrap.css') }}" rel="stylesheet" media="screen" />
-            <link href="{{ url_for('static', filename='lib/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet" media="screen" />
+        <!-- Bootstrap core CSS -->
+        <link href="{{ url_for('static', filename='lib/bootstrap/dist/css/bootstrap.css') }}" rel="stylesheet" media="screen" />
+        <link href="{{ url_for('static', filename='lib/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet" media="screen" />
 
-            <!-- Add custom CSS here -->
-            <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" media="screen" />
-            <link href="{{ url_for('static', filename='css/climate.css') }}" rel="stylesheet" media="screen" />
-            {% endblock %}
-        </head>
+        <!-- Add custom CSS here -->
+        <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" media="screen" />
+        <link href="{{ url_for('static', filename='css/climate.css') }}" rel="stylesheet" media="screen" />
+        {% endblock %}
+    </head>
 
-        <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top navbar-default" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <a title="Shelter Database" href="{{ url_for('index') }}">
-                      <img src="{{ url_for('static', filename='img/Header_ShelterDB_v02.png') }}"
-                        alt="Shelters Database" />
-                  </a>
-                </div>
+    <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a title="Shelter Database" href="{{ url_for('index') }}">
+                  <img src="{{ url_for('static', filename='img/Header_ShelterDB_v02.png') }}"
+                    alt="Shelters Database" />
+              </a>
+            </div>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse navbar-ex1-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{ url_for('recommendations', page_name='About') }}">About</a></li>
-                        <li><a href="{{ url_for('recommendations', page_name='Recommendations') }}">Recommendations</a></li>
-                        <li><a href="{{ url_for('recommendations', page_name='Bibliography') }}">Bibliography</a></li>
-                        <li><a href="{{ url_for('recommendations', page_name='Glossary') }}">Glossary</a></li>
-                        {% if g.user.is_authenticated %}
-                            <li class="dropdown">
-                                <a id="newShelter" href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <div><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;New shelter</div>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <form id="createShelterForm" action="#" class="navbar-form navbar-left" method="GET" name="save">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" name="name" placeholder="Name" required="required"></input>
-                                            </div>
-                                            <br /><br />
-                                            <div class="form-group">
-                                                <select  id="countrySelect" name="country" class="form-control" data-live-search="true"></select>
-                                            </div>
-                                            <br /><br />
-                                            <div class="form-group">
-                                                <button type="submit" id="createShelter" class="btn btn-default form-control" value="Create">Create</button>
-                                            </div>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <div><span class="glyphicon glyphicon-user"></span>&nbsp;{{ current_user.name }}<b class="caret"></b></div>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ url_for('user_bp.profile') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Profile</a></li>
-                                    {% if current_user.is_admin %}
-                                        <li role="presentation" class="divider"></li>
-                                        <li><a href="{{ url_for('administration.dashboard') }}">Dashboard</a></li>
-                                        <li><a href="{{ url_for('administration.shelters') }}">Shelters</a></li>
-                                        <li><a href="{{ url_for('administration.users') }}">Users</a></li>
-                                        <li><a href="{{ url_for('administration.pages') }}">Edit pages</a></li>
-                                        <li><a href="{{ url_for('administration.attributes') }}">Attributes</a></li>
-                                        <li><a href="{{ url_for('admin.index') }}">Data management</a></li>
-                                        <li role="presentation" class="divider"></li>
-                                    {% endif %}
-                                    <li><a href="{{ url_for("logout") }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
-                                </ul>
-                            </li>
-                        {% else %}
-                            <li><a href="{{ url_for('join') }}">Join</a></li>
-                        {% endif %}
-              </ul>
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.container -->
-        </nav>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{ url_for('recommendations', page_name='About') }}">About</a></li>
+                    <li><a href="{{ url_for('recommendations', page_name='Recommendations') }}">Recommendations</a></li>
+                    <li><a href="{{ url_for('recommendations', page_name='Bibliography') }}">Bibliography</a></li>
+                    <li><a href="{{ url_for('recommendations', page_name='Glossary') }}">Glossary</a></li>
+                    {% if g.user.is_authenticated %}
+                        <li class="dropdown">
+                            <a id="newShelter" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <div><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;New shelter</div>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <form id="createShelterForm" action="#" class="navbar-form navbar-left" method="GET" name="save">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="name" placeholder="Name" required="required"></input>
+                                        </div>
+                                        <br /><br />
+                                        <div class="form-group">
+                                            <select  id="countrySelect" name="country" class="form-control" data-live-search="true"></select>
+                                        </div>
+                                        <br /><br />
+                                        <div class="form-group">
+                                            <button type="submit" id="createShelter" class="btn btn-default form-control" value="Create">Create</button>
+                                        </div>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <div><span class="glyphicon glyphicon-user"></span>&nbsp;{{ current_user.name }}<b class="caret"></b></div>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ url_for('user_bp.profile') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Profile</a></li>
+                                {% if current_user.is_admin %}
+                                    <li role="presentation" class="divider"></li>
+                                    <li><a href="{{ url_for('administration.dashboard') }}">Dashboard</a></li>
+                                    <li><a href="{{ url_for('administration.shelters') }}">Shelters</a></li>
+                                    <li><a href="{{ url_for('administration.users') }}">Users</a></li>
+                                    <li><a href="{{ url_for('administration.pages') }}">Edit pages</a></li>
+                                    <li><a href="{{ url_for('administration.attributes') }}">Attributes</a></li>
+                                    <li><a href="{{ url_for('admin.index') }}">Data management</a></li>
+                                    <li role="presentation" class="divider"></li>
+                                {% endif %}
+                                <li><a href="{{ url_for("logout") }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li><a href="{{ url_for('join') }}">Join</a></li>
+                    {% endif %}
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+    </nav>
 
     <div class="container">
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -127,7 +126,7 @@
             </div>
         </div>
     </footer>
-
+    </body>
     <!-- Bootstrap core JavaScript -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{ url_for('static', filename = 'lib/bootstrap/dist/js/bootstrap.min.js') }}"></script>
@@ -161,7 +160,6 @@
         $( "#createShelterForm" ).submit(function( event ) {
             // Stop form from submitting normally
             event.preventDefault();
-
             // Get some values from elements on the page:
             var $form = $(this);
             var values = {};
@@ -178,112 +176,11 @@
                 // Send the data using post
                 name_of_shelter = values["name"]
                 country_value_id = values["country"];
-
-                new_shelter_dict = {} // the id of the shelter's owner is controlled by a POST preprocessor function
-                $.ajax({
-                    type: 'POST',
-                    url: 'http://' + document.domain + ':' + location.port + '/api/shelter',
-                    contentType: "application/json",
-                    dataType: "json",
-                    data: JSON.stringify(new_shelter_dict),
-                    success: function (new_shelter) {
-                        console.log(new_shelter);
-                        // creation of the shelter OK
-
-
-                        // creation of the property: Name of shelter
-                        var filters = [{"name":"name","op":"eq","val":"Name of shelter"}];
-                        $.ajax({
-                            type: 'GET',
-                            url: 'http://' + document.domain + ':' + location.port + '/api/attribute',
-                            contentType: "application/json",
-                            dataType: "json",
-                            data: {"q": JSON.stringify({"filters": filters})},
-                            success: function(result) {
-                                attribute_id = result.objects[0].id;
-                                category_id = result.objects[0].category_id;
-                                new_property = {
-                                    shelter_id: new_shelter.id,
-                                    attribute_id: attribute_id,
-                                    category_id: category_id,
-                                    values : [{
-                                        name: name_of_shelter,
-                                        attribute_id: attribute_id
-                                    }]
-                                }
-                                $.ajax({
-                                    type: 'POST',
-                                    url: 'http://' + document.domain + ':' + location.port + '/api/property',
-                                    contentType: "application/json",
-                                    dataType: "json",
-                                    data: JSON.stringify(new_property),
-                                    success: function (result) {
-                                        console.log(result);
-                                    },
-                                    error: function(XMLHttpRequest, textStatus, errorThrown){
-                                        console.log(errorThrown);
-                                    }
-                                });
-                            },
-                            error: function(XMLHttpRequest, textStatus, errorThrown){
-                                //alert(errorThrown);
-                            }
-                        })
-
-
-
-                        // creation of the property: Country
-                        var filters = [{"name":"name","op":"eq","val":"Country"}];
-                        $.ajax({
-                            type: 'GET',
-                            url: 'http://' + document.domain + ':' + location.port + '/api/attribute',
-                            contentType: "application/json",
-                            dataType: "json",
-                            data: {"q": JSON.stringify({"filters": filters})},
-                            success: function(result) {
-                                attribute_id = result.objects[0].id;
-                                category_id = result.objects[0].category_id;
-                                new_property = {
-                                    shelter_id: new_shelter.id,
-                                    attribute_id: attribute_id,
-                                    category_id: category_id,
-                                    values : [{
-                                        id: country_value_id
-                                    }]
-                                }
-                                $.ajax({
-                                    type: 'POST',
-                                    url: 'http://' + document.domain + ':' + location.port + '/api/property',
-                                    contentType: "application/json",
-                                    dataType: "json",
-                                    data: JSON.stringify(new_property),
-                                    success: function (result) {
-                                        console.log(result);
-                                        window.location = 'http://' + document.domain + ':' + location.port + '/shelter/' + new_shelter.id + '/generalInformation';
-                                    },
-                                    error: function(XMLHttpRequest, textStatus, errorThrown){
-                                        console.log(errorThrown);
-                                    }
-                                });
-                            },
-                            error: function(XMLHttpRequest, textStatus, errorThrown){
-                                //alert(errorThrown);
-                            }
-                        })
-
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown){
-                        console.log(errorThrown);
-                    }
-                });
-
-
-
+                create_shelter(name_of_shelter, country_value_id);
             } else {
                 alert("Please fill all the fields of the form.");
             }
         });
     });
     </script>
-  </body>
 </html>
