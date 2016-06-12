@@ -17,7 +17,7 @@ __revision__ = "$Date: 2016/06/02 $"
 __copyright__ = "Copyright (c) "
 __license__ = ""
 
-from bootstrap import app, db, populate_g, conf
+from bootstrap import app, db, populate_g
 from flask_script import Manager
 
 import scripts

@@ -19,11 +19,9 @@ __license__ = ""
 
 from flask import request, url_for
 try:
-    from urlparse import urlparse, parse_qs, urljoin
+    from urlparse import urlparse, urljoin
 except:
-    from urllib.parse import urlparse, parse_qs, urljoin
-
-import conf
+    from urllib.parse import urlparse, urljoin
 
 def is_safe_url(target):
     """

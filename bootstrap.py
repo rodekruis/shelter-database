@@ -23,11 +23,10 @@ Required imports and code execution for basic functionning.
 """
 
 import os
-import sys
 import logging
 import conf
 import flask_restless
-from flask import Flask, request
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 # Create Flask app
@@ -67,7 +66,6 @@ def translate(original, language_code=''):
         return original
 app.jinja_env.filters['translate'] = translate
 app.jinja_env.filters['datetime'] = format_datetime
-
 
 def populate_g():
     from flask import g
