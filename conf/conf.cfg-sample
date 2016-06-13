@@ -13,3 +13,5 @@ https = false
 secret_key = secret_key_of_the_web_application
 [database]
 database_url = postgres://pgsqluser:pgsqlpwd@127.0.0.1:5432/shelter
+[geoserver]
+geoserver_url = http://charism.tudor.lu

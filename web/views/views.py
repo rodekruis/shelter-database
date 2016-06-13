@@ -20,6 +20,7 @@ __license__ = ""
 from flask import request, flash, render_template, session, url_for, \
                     redirect, current_app, send_from_directory
 
+import conf
 from bootstrap import db
 from web.models import Attribute
 
@@ -66,8 +67,8 @@ def index():
     materials = Attribute.query.filter(
                     Attribute.name=="Foundation material").\
                                 first().associated_values
-
     return render_template('index.html',
+                            geoserver_url = conf.GEOSERVER_URL,
                             climate_zones=climate_zones,
                             zones=zones,
                             disasters=disasters,

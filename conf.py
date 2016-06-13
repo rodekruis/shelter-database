@@ -56,7 +56,8 @@ DEFAULTS = {"platform_url": "http://127.0.0.1:5000",
             "log_level": "info",
             "public_path": "web/public",
             "shelters_pictures_path": "web/public/pictures/shelters",
-            "attributes_pictures_path": "web/public/pictures/attributes"
+            "attributes_pictures_path": "web/public/pictures/attributes",
+            "geoserver_url": "http://charism.tudor.lu"
 }
 
 config = confparser.SafeConfigParser(defaults=DEFAULTS)
@@ -89,3 +90,5 @@ SHELTERS_PICTURES_PATH = os.path.join(PATH,
                             config.get('misc', 'shelters_pictures_path'))
 ATTRIBUTES_PICTURES_PATH = os.path.join(PATH,
                             config.get('misc', 'attributes_pictures_path'))
+
+GEOSERVER_URL = config.get('geoserver', 'geoserver_url')
