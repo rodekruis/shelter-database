@@ -33,6 +33,7 @@ class Attribute(db.Model):
     free_text = db.Column(db.Boolean(), default=False)
     is_editable = db.Column(db.Boolean(), default=True)
     is_mandatory = db.Column(db.Boolean(), default=False)
+    user_can_add_values = db.Column(db.Boolean(), default=False)
     type = db.Column(db.String(), default='')
     display_position = db.Column(db.Integer, default=0)
 

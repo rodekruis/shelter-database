@@ -49,15 +49,20 @@ def init_shelters_structure(csv_file, drawnings_folder):
 
             cardinality = row[5]
             attribute.multiple = cardinality=='multiple choice'
-            #if cardinality == '':
-                # free text for the value of this attribute
+
             if cardinality in ('single choice', 'multiple choice'):
                 for value in row[4].split(';'):
                     value_name = value.strip()
+                    if value_name == 'other':
+                        # the user will be able to add new values for this
+                        # attribute, when the proposed ones are not suitable
+                        attribute.user_can_add_values = True
+                        continue
                     value = models.Value(name=value_name,
                                         attribute_id=attribute.id)
                     db.session.add(value)
                     attribute.associated_values.append(value)
+
             else:
                 attribute.free_text = True
 

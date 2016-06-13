@@ -71,12 +71,18 @@
                                                 <option value=""></option>
                                                 {% for value in attribute.associated_values %}
                                                     <option value="{{value.id}}"
-                                                        {% if value.name == "other" %}value="{{value.name}}"{% else %}value="{{value.id}}"{% endif %}
                                                         {% if value.id in shelter.get_idvalues_of_attribute(attribute.id)  %}selected="selected"{% endif %}>{{ value.name | translate }}
                                                     </option>
                                                 {% endfor %}
                                             </select>
-                                            <h6><span class="glyphicon glyphicon-plus add-value" attribute-id="{{ attribute.id }}" aria-hidden="true"></span></h6>
+                                            {% if attribute.user_can_add_values %}
+                                                <h6>
+                                                    <span class="glyphicon glyphicon-plus add-value"
+                                                    title="Other"
+                                                    attribute-id="{{ attribute.id }}"
+                                                    aria-hidden="true"></span>
+                                                </h6>
+                                            {% endif %}
 
                                         {% else %}
                                             {% if attribute.type == "TextArea" %}
@@ -144,15 +150,16 @@
 </section>
 
 
-<div class="modal fade bs-example-modal-lg" id="addValueDialog" attribute-id="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade bs-example-modal-sm" id="addValueDialog" attribute-id="" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel"><span id="addValueDialogTitle"></span></h4>
+                <h4 class="modal-title" id="myModalLabel">Add a new choice</h4>
             </div>
             <div class="modal-body">
-                <input id="new-value-input" type="text" name="valuename" value="New value" />
+                <input id="new-value-input" type="text" name="valuename" placeholder="New value name" />
+                <p>This new value will be available for this attribute in the future for <b>all users</b>.</p>
             </div>
             <div class="modal-footer">
                 <button id="add-new-value" type="button" class="btn btn-default" data-dismiss="modal">Add</button>
@@ -249,9 +256,12 @@ $(document).ready(function() {
             dataType: "json",
             data: JSON.stringify(new_value),
             success: function (result) {
-                console.log(result);
 
-                //$('#select'+attribute_id).options[$('#'+attribute_id).options.length] = new Option('Text 1', 'Value1');
+                $('#select'+attribute_id)
+                    .append($("<option></option>")
+                                .attr("value", result.id)
+                                .text(result.name));
+                $('.selectpicker').selectpicker('refresh');
 
             },
             error: function(XMLHttpRequest, textStatus, errorThrown){
