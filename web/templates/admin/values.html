@@ -25,26 +25,28 @@
     </form>
     <h3>Current pictures</h3>
     {% for picture in attribute.pictures %}
-        <img width="200px" src="/public/pictures/en/attributes/{{picture.file_name}}" >
+        <img width="200px" src="/public/pictures/attributes/en/{{picture.file_name}}" >
         <a href="{{ url_for('administration.delete_attribute_picture', picture_id=picture.id, next='admin/attributes/'+attribute.category_id | string +'/'+attribute.id |string) }}">Delete</a>
         <br />
     {% endfor %}
 
 
-    <h1>Values</h1>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Value name</th>
-            </tr>
-        </thead>
-        <body>
-        {% for value in attribute.associated_values %}
-            <tr>
-                <td><b>{{ value.name }}</b></td>
-            </tr>
-        {% endfor  %}
-    </tbody>
+    {% if not attribute.free_text %}
+        <h1>Values</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Value name</th>
+                </tr>
+            </thead>
+            <body>
+            {% for value in attribute.associated_values %}
+                <tr>
+                    <td><b>{{ value.name }}</b></td>
+                </tr>
+            {% endfor  %}
+        </tbody>
+    {% endif %}
 </table>
 </div>
 {% endblock %}

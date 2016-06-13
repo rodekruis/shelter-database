@@ -16,11 +16,7 @@
             </tr>
             {% for attribute in category.attributes %}
                 <tr>
-                    {% if not attribute.free_text %}
-                        <td colspan="2" align="right"><b><a href="{{ url_for('administration.attributes', category_id=attribute.category_id, attribute_id=attribute.id) }}">{{ attribute.name }}</a></b></td>
-                    {% else %}
-                        <td colspan="2" align="right"><b>{{ attribute.name }}</b></td>
-                    {% endif %}
+                    <td colspan="2" align="right"><b><a href="{{ url_for('administration.attributes', category_id=attribute.category_id, attribute_id=attribute.id) }}">{{ attribute.name }}</a></b></td>
                 </tr>
             {% endfor %}
         {% endfor  %}

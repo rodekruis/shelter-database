@@ -239,17 +239,15 @@ def attributes_add_pitures(category_id=None, attribute_id=None):
                             update({Translation.original: form.name.data})
             db.session.commit()
 
-    else:
-        print("not submited")
 
     # A picture has been submited
     file = request.files.get('imagefile', None)
     if file and file.filename == '':
         flash('No selected file', 'warning')
         return redirect(request.url)
-    if file and allowed_file(file.filename, conf.ALLOWED_EXTENSIONS_CSV):
+    if file and allowed_file(file.filename, conf.ALLOWED_EXTENSIONS_PICTURE):
         filename = secure_filename(file.filename)
-        file.save(os.path.join(current_app.config['PUBLIC_PATH'] + 'pictures/en/attributes', filename))
+        file.save(os.path.join(current_app.config['PUBLIC_PATH'] + '/pictures/attributes/en', filename))
 
         new_picture = AttributePicture(file_name=filename,
                 language_code='en', attribute_id=attribute_id)
