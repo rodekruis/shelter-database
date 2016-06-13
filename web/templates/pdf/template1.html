@@ -22,7 +22,7 @@
         <p>Created at: {{ shelter.created_at | datetime }}</p>
         <hr />
         {% for category in categories_list %}
-            <h2>{{ category }}</h2>
+            <h2>{{ category | translate }}</h2>
             {% for property  in categories[category]  %}
                 <p><b>{{ property.attribute.name | translate }}</b>&nbsp;
 
