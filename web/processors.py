@@ -45,7 +45,7 @@ def shelter_POST_preprocessor(data=None, **kw):
     """
     data["user_id"] = current_user.id
     if current_user.is_admin:
-        data["is_active"] = True
+        data["is_published"] = True
         flash("Your shelter has been created.", 'success')
     else:
         flash("Thank you! Your shelter has been created but is not yet public." +
