@@ -53,3 +53,8 @@ def profile():
     if request.method == 'GET':
         form = ProfileForm(obj=user)
         return render_template('profile.html', user=user, form=form)
+
+@user_bp.route('/shelters', methods=['GET'])
+def shelters():
+    user = User.query.filter(User.id==current_user.id).first()
+    return render_template('shelters.html', shelters=user.shelters)
