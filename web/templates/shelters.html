@@ -13,18 +13,18 @@
                 <th>#</th>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Zone</th>
                 <th>Created at</th>
-                <th>Responsible</th>
             </tr>
         </thead>
         <tbody>
         {% for shelter in shelters %}
             <tr>
-                <td><a href="{{ url_for('shelter.edit_view', id=shelter.id) }}">{{ loop.index }}</a></td>
+                <td>{{ loop.index }}</td>
                 <td>{{ shelter.get_values_of_attribute(attribute_name='ID')[0].name }}</td>
                 <td><a href="{{ url_for('shelter_bp.details', shelter_id=shelter.id, section_name='generalInformation') }}">{{ shelter.get_values_of_attribute(attribute_name='Name of shelter')[0].name }}</a></td>
+                <td>{{ shelter.get_values_of_attribute(attribute_name='Zone')[0].name }}</td>
                 <td>{{ shelter.created_at }}</td>
-                <td>{{ shelter.responsible }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -40,13 +40,12 @@ $(document).ready(function() {
             "bInfo": false,
             "aoColumnDefs": [
                                 {
-                                    "bSortable": false, "aTargets": [ 0 ],
-                                    "bSortable": false, "aTargets": [ 1 ]
+                                    "bSortable": false, "aTargets": [ 0 ]
                                 }
                             ],
            "aoColumns": [
                         null,
-                        null,
+                        { "sSortDataType": "dom-checkbox" },
                         { "sSortDataType": "dom-checkbox" },
                         { "sSortDataType": "dom-checkbox" },
                         { "sSortDataType": "dom-checkbox" }

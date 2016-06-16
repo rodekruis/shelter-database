@@ -22,7 +22,7 @@ from flask import request, flash, render_template, session, url_for, \
 
 import conf
 from bootstrap import db
-from web.models import Attribute
+from web.models import Shelter, Attribute
 
 #
 # Default errors
@@ -73,6 +73,11 @@ def index():
                             zones=zones,
                             disasters=disasters,
                             materials=materials)
+
+@current_app.route('/shelters', methods=['GET'])
+def shelters():
+    shelters = Shelter.query.filter(Shelter.is_published==True).all()
+    return render_template('shelters.html', shelters=shelters)
 
 @current_app.route('/contributors', methods=['GET'])
 def contributors():
