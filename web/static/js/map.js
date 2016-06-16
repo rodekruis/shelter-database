@@ -234,9 +234,10 @@ function place_shelters() {
             var picto = "/static/img/HumanitarianShelter.png";
         }
 
-        popupContentHTML += '<p><b>Name:</b> ' + shelters[shelter]["name"] + '</p>' +
-        '<p><b>City:</b> '+ shelters[shelter]["city"] + '</p><br />' +
-        '<p><a href="/shelter/' + shelter + '/generalInformation">More details</a></p>';
+        popupContentHTML += '<p><b>ID:</b> '+ shelters[shelter]["id"] + '<br />' +
+        '<b>Name:</b> ' + shelters[shelter]["name"] + '<br />' +
+        '<b>City:</b> '+ shelters[shelter]["city"] + '<br />' +
+        '<a href="/shelter/' + shelter + '/generalInformation" target="_blank">More details</a></p>';
         addMarker(shelter_marker, popupClass, popupContentHTML, true, true, picto, shelters_location);
 
         var f = new OpenLayers.Feature.Vector( new OpenLayers.Geometry.Point(shelter_marker.lon, shelter_marker.lat));
