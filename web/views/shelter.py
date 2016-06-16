@@ -183,13 +183,15 @@ def details(shelter_id=0, section_name="", to_pdf=None):
                                             section_name=section_name,
                                             shelter_id=shelter_id,
                                             categories_list=categories_list,
-                                            categories=categories))
+                                            categories=categories,
+                                            pictures=pictures))
             response = make_response(pdf_file)
             response.headers['Content-Type'] = 'application/pdf'
             response.headers['Content-Disposition'] = \
                 'attachment; filename=%s.pdf' % 'shelter'
             return response
         except Exception as e:
+            print(e)
             flash('Error when generating PDF file.', 'danger')
 
     return render_template('details.html',

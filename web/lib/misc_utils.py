@@ -39,5 +39,6 @@ def launch_background_process(parameters=[]):
 def create_pdf(html_code):
     """
     """
-    pdf_file = HTML(string=html_code).write_pdf()
+    pdf_file = HTML(string=html_code,
+                    base_url=conf.SHELTERS_PICTURES_PATH).write_pdf()
     return pdf_file

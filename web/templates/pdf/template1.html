@@ -5,11 +5,13 @@
         <title>Shelter Database</title>
         <style type="text/css">
             table.item {
-                padding:2;
+                padding: 2;
                 border: 0px solid black;
             }
             img {
-                border:0;
+                border: 0;
+                width: 50%;
+
             }
             @page {
                 size: A4;
@@ -35,6 +37,10 @@
                         {{ property.values[-1].name | translate }}
                     {% endif %}
                 </p>
+            {% endfor %}
+            <h3>Related pictures</h3>
+            {% for picture in pictures[category] %}
+                <img src="{{ shelter_id }}/{{ picture.file_name }}" />
             {% endfor %}
         {% endfor %}
     </body>
