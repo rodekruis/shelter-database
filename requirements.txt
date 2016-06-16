@@ -10,4 +10,3 @@ Flask-Script
 Flask-Admin
 Flask-Principal
 Flask-Babel
-weasyprint
