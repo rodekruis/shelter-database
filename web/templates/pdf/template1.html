@@ -25,6 +25,8 @@
         <h1>{{ shelter.get_values_of_attribute(attribute_name="Name of shelter")[0].name }}</i></h1>
         <p>Responsible: {{ shelter.responsible.name }} ( {{ shelter.responsible.email }} )</p>
         <p>Created at: {{ shelter.created_at | datetime }}</p>
+        <p>Updated at: {{ shelter.updated_at | datetime }}</p>
+        <p>Commercial: {% if shelter.is_commercial %}Yes{% else %}No{% endif %}</p>
         <hr />
         {% for category in categories_list %}
             <h2>{{ category | translate }}</h2>

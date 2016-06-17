@@ -17,12 +17,13 @@ __revision__ = "$Date: 2016/06/12 $"
 __copyright__ = "Copyright (c) "
 __license__ = ""
 
+import datetime
 from flask import request, flash
 from flask_login import current_user
 from flask_restless import ProcessingException
 
 from web.views.common import login_user_bundle
-from web.models import User
+from web.models import User, Shelter
 
 def auth_func(*args, **kw):
     if request.authorization:
@@ -51,3 +52,11 @@ def shelter_POST_preprocessor(data=None, **kw):
         flash("Thank you! Your shelter has been created but is not yet public." +
             " An administrator will review it. You can already edit it.",
             'success')
+
+
+def property_preprocessor(data=None, **kw):
+    """
+    preprocessor for the creation/update of properties.
+    """
+    Shelter.query.filter(Shelter.id==data["shelter_id"]). \
+                        update({"updated_at": datetime.datetime.now()})
