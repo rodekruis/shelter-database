@@ -43,10 +43,12 @@
                     {% endif %}
                 </p>
             {% endfor %}
-            <h3>Related pictures</h3>
-            {% for picture in pictures[category] %}
-                <img src="{{ shelter_id }}/{{ picture.file_name }}" />
-            {% endfor %}
+            {% if pictures[category] | length != 0 %}
+                <h3>Related pictures</h3>
+                {% for picture in pictures[category] %}
+                    <img src="{{ shelter_id }}/{{ picture.file_name }}" />
+                {% endfor %}
+            {% endif %}
         {% endfor %}
     </body>
 </html>
