@@ -251,7 +251,7 @@ $(document).ready(function() {
         }
         $.ajax({
             type: 'POST',
-            url: 'http://' + document.domain + ':' + location.port + '/api/value',
+            url: '/api/value',
             contentType: "application/json",
             dataType: "json",
             data: JSON.stringify(new_value),

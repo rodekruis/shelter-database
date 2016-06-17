@@ -134,7 +134,7 @@ function retrieve_and_display_multimedia_asset(attributeId) {
     var filters = [{"name":"id","op":"eq","val":attributeId}];
     $.ajax({
         type: 'GET',
-        url: 'http://' + document.domain + ':' + location.port + '/api/attribute',
+        url: '/api/attribute',
         contentType: "application/json",
         dataType: "json",
         data: {"q": JSON.stringify({"filters": filters})},
