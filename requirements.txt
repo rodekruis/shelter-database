@@ -10,3 +10,5 @@ Flask-Script
 Flask-Admin
 Flask-Principal
 Flask-Babel
+Flask-Migrate
+alembic
