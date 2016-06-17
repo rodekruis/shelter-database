@@ -79,7 +79,10 @@ with app.app_context():
     blueprint_property = manager.create_api_blueprint(models.Property,
                         methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
                         preprocessors=dict(
-                                POST=[processors.auth_func],
+                                POST=[processors.auth_func,
+                                        processors.property_preprocessor],
+                                PUT=[processors.auth_func,
+                                        processors.property_preprocessor],
                                 DELETE=[processors.auth_func]))
     app.register_blueprint(blueprint_property)
 
