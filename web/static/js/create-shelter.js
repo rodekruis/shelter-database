@@ -2,7 +2,7 @@ function create_shelter (name_of_shelter, country_value_id, country_name) {
     new_shelter_dict = {} // the id of the shelter's owner is controlled by a POST preprocessor function
     $.ajax({
         type: 'POST',
-        url: 'http://' + document.domain + ':' + location.port + '/api/shelter',
+        url: '/api/shelter',
         contentType: "application/json",
         dataType: "json",
         data: JSON.stringify(new_shelter_dict),
@@ -15,7 +15,7 @@ function create_shelter (name_of_shelter, country_value_id, country_name) {
             var filters = [{"name":"name","op":"eq","val":"Name of shelter"}];
             $.ajax({
                 type: 'GET',
-                url: 'http://' + document.domain + ':' + location.port + '/api/attribute',
+                url: '/api/attribute',
                 contentType: "application/json",
                 dataType: "json",
                 data: {"q": JSON.stringify({"filters": filters})},
@@ -33,7 +33,7 @@ function create_shelter (name_of_shelter, country_value_id, country_name) {
                     }
                     $.ajax({
                         type: 'POST',
-                        url: 'http://' + document.domain + ':' + location.port + '/api/property',
+                        url: '/api/property',
                         contentType: "application/json",
                         dataType: "json",
                         data: JSON.stringify(new_property),
@@ -49,7 +49,7 @@ function create_shelter (name_of_shelter, country_value_id, country_name) {
                             var filters = [{"name":"name","op":"eq","val":"Country"}];
                             $.ajax({
                                 type: 'GET',
-                                url: 'http://' + document.domain + ':' + location.port + '/api/attribute',
+                                url: '/api/attribute',
                                 contentType: "application/json",
                                 dataType: "json",
                                 data: {"q": JSON.stringify({"filters": filters})},
@@ -66,7 +66,7 @@ function create_shelter (name_of_shelter, country_value_id, country_name) {
                                     }
                                     $.ajax({
                                         type: 'POST',
-                                        url: 'http://' + document.domain + ':' + location.port + '/api/property',
+                                        url: '/api/property',
                                         contentType: "application/json",
                                         dataType: "json",
                                         data: JSON.stringify(new_property),
@@ -78,7 +78,7 @@ function create_shelter (name_of_shelter, country_value_id, country_name) {
                                             var filters = [{"name":"name","op":"eq","val":"ID"}];
                                             $.ajax({
                                                 type: 'GET',
-                                                url: 'http://' + document.domain + ':' + location.port + '/api/attribute',
+                                                url: '/api/attribute',
                                                 contentType: "application/json",
                                                 dataType: "json",
                                                 data: {"q": JSON.stringify({"filters": filters})},
@@ -94,14 +94,14 @@ function create_shelter (name_of_shelter, country_value_id, country_name) {
                                                     }
                                                     $.ajax({
                                                         type: 'POST',
-                                                        url: 'http://' + document.domain + ':' + location.port + '/api/property',
+                                                        url: '/api/property',
                                                         contentType: "application/json",
                                                         dataType: "json",
                                                         data: JSON.stringify(new_property),
                                                         success: function (result) {
                                                             console.log(result);
 
-                                                            window.location = 'http://' + document.domain + ':' + location.port + '/shelter/' + new_shelter.id + '/generalInformation';
+                                                            window.location = '/shelter/' + new_shelter.id + '/generalInformation';
                                                         },
                                                         error: function(XMLHttpRequest, textStatus, errorThrown){
                                                             console.log(errorThrown);

@@ -3,7 +3,7 @@ function update_free_text_value(value_id, value) {
 
     $.ajax({
         type: 'PUT',
-        url: 'http://' + document.domain + ':' + location.port + '/api/value/' + value_id,
+        url: '/api/value/' + value_id,
         contentType: "application/json",
         dataType: "json",
         data: JSON.stringify(new_value),
@@ -30,7 +30,7 @@ function new_free_text_property(shelter_id, category_id, attribute_id, value) {
                     }
     $.ajax({
         type: 'POST',
-        url: 'http://' + document.domain + ':' + location.port + '/api/property',
+        url: '/api/property',
         contentType: "application/json",
         dataType: "json",
         data: JSON.stringify(new_property_dict),
@@ -57,7 +57,7 @@ function new_property(shelter_id, category_id, attribute_id, id_of_values,
 
     $.ajax({
         type: 'POST',
-        url: 'http://' + document.domain + ':' + location.port + '/api/property',
+        url: '/api/property',
         contentType: "application/json",
         dataType: "json",
         data: JSON.stringify(new_property_dict),
@@ -82,7 +82,7 @@ function update_property(property_id, id_of_values) {
 
     $.ajax({
         type: 'PUT',
-        url: 'http://' + document.domain + ':' + location.port + '/api/property/' + property_id,
+        url: '/api/property/' + property_id,
         contentType: "application/json",
         dataType: "json",
         data: JSON.stringify(new_property_dict),
