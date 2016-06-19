@@ -45,7 +45,9 @@ Install and configure the database
     echo "127.0.0.1:5432:shelter:pgsqluser:pgsqlpwd" > ~/.pgpass
     chmod 0600 ~/.pgpass
     sudo -u postgres createuser pgsqluser --no-superuser --createdb --no-createrole
-    sudo -u postgres createdb shelter --no-password sudo -u postgres psql
+    sudo -u postgres createdb aggregator --no-password
+    echo "ALTER USER pgsqluser WITH ENCRYPTED PASSWORD 'pgsqlpwd';" | sudo -u postgres psql
+    echo "GRANT ALL PRIVILEGES ON DATABASE shelter TO pgsqluser;" | sudo -u postgres psql
 
 
 Retrieve the application *Shelter Database*
@@ -57,6 +59,32 @@ Retrieve the application *Shelter Database*
     cd shelter-database/
     sudo pip3.5 install --upgrade -r requirements.txt
     cp conf/conf.cfg-sample conf/conf.cfg
+
+Initialization of the database
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: shell
+
+    $ ./init_db.sh
+    Dropping database...
+    Creation of the database...
+    Importing page from 'data/pages/bibliography.html' ...
+    Importing page from 'data/pages/recommendations.html' ...
+    Importing page from 'data/pages/glossary.html' ...
+    Importing page from 'data/pages/about.html' ...
+    Importing page from 'data/pages/about_fr.html' ...
+    Importing base structure of shelters from 'data/shelters/Shelters_Structure.csv' ...
+    Creation of the admin user...
+    Importing shelters from 'data/shelters/20150518_Haiti_shelters.csv' ...
+    Importing shelters from 'data/shelters/Phil-Bangla-Burundi.csv' ...
+    Importing translation file from 'data/translations/sheltersDataTraduction_FR_rev_ED.csv' ...
+
+An admin user with the password *password* will be created. You can create an
+other user:
+
+.. code-block:: shell
+
+    $ python manager.py create_user firstname.lastname@mail.org name password
 
 
 Install the JavaScript requirements with Bower
