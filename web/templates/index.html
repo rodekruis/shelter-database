@@ -173,10 +173,10 @@ $(document).ready(function() {
     $("#redcross-classification").hide();
 
     $('#submit').click(function() {
-        climateZone = $('#climateZoneSelect').val()
-        zone = $('#zoneSelect').val()
-        disaster = $('#associatedDisasterSelect').val()
-        material = $('#materialSelect').val()
+        climateZone = encodeURIComponent($('#climateZoneSelect').val());
+        zone = encodeURIComponent($('#zoneSelect').val());
+        disaster = encodeURIComponent($('#associatedDisasterSelect').val());
+        material = encodeURIComponent($('#materialSelect').val());
 
         get_shelters(api_url + '?Climate zone=' + climateZone +
                                 '&Zone=' + zone +
