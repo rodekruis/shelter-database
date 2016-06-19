@@ -1,19 +1,27 @@
-# Add a new migration scripts
+Database migrations
+===================
 
-```shell
-python3.5 manager.py db revision -m "comment about the changes"
-```
+Add a new migration script
+--------------------------
+
+.. code-block:: shell
+
+    python3.5 manager.py db revision -m "comment about the changes"
 
 Then edit appropriately the generated file.
 
-# Update the database to the last version
 
-```shell
-python3.5 manager.py db upgrade
-```
+Update the database to the last version
+---------------------------------------
 
-# See the history of the migrations on the current database
+.. code-block:: shell
 
-```shell
-python3.5 manager.py db history
-```
+    python3.5 manager.py db upgrade
+
+
+See the history of the migrations on the current database
+---------------------------------------------------------
+
+.. code-block:: shell
+
+    python3.5 manager.py db history
