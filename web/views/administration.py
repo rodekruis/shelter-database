@@ -153,6 +153,17 @@ def delete_user(user_id=None):
     db.session.commit()
     return redirect(redirect_url())
 
+@admin_bp.route('/delete_translation/<string:language_code>', methods=['GET'])
+@login_required
+@admin_permission.require(http_exception=403)
+def delete_translation(language_code=None):
+    """
+    Delete a translation.
+    """
+    Translation.query.filter(Translation.language_code==language_code).delete()
+    db.session.commit()
+    return redirect(redirect_url())
+
 @admin_bp.route('/user/create', methods=['GET'])
 @admin_bp.route('/user/edit/<int:user_id>', methods=['GET'])
 @login_required

@@ -34,10 +34,10 @@
                 <input type="submit" name="translations" value="Submit" />
             </div>
         </form>
-        <h3>Already imported translations</h3>
+        <h3>Available translations</h3>
         <ul>
             {% for translation in imported_translations %}
-                <li>{{ translation[0] }} (delete)</li>
+                <li>{{ translation[0] }} (<a href="{{ url_for('administration.delete_translation', language_code=translation[0], next='/admin/dashboard') }}" onclick="return confirm('You are going to delete this language.');">delete</a>)</li>
             {% endfor %}
         </ul>
     </div>
