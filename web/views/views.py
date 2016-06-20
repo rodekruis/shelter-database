@@ -67,7 +67,7 @@ def index():
     materials = Attribute.query.filter(
                     Attribute.name=="Foundation material").\
                                 first().associated_values
-    return render_template('index.html',
+    return render_template('map.html',
                             geoserver_url = conf.GEOSERVER_URL,
                             climate_zones=climate_zones,
                             zones=zones,
