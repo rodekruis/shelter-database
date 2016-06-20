@@ -46,7 +46,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: 'http://' + document.domain + ':' + location.port + '/api/page',
+        url: '/api/page',
         contentType: "application/json",
         success: function (result) {
             languages = [];
@@ -80,7 +80,7 @@ function set_editor_content(page_name, language_code) {
                     {"name":"language_code","op":"eq","val":language_code}];
     $.ajax({
         type: 'GET',
-        url: 'http://' + document.domain + ':' + location.port + '/api/page',
+        url: '/api/page',
         contentType: "application/json",
         dataType: "json",
         data: {"q": JSON.stringify({"filters": filters})},
@@ -107,7 +107,7 @@ function save_page() {
         }
         $.ajax({
             type: 'PUT',
-            url: 'http://' + document.domain + ':' + location.port + '/api/page/' + page_id,
+            url: '/api/page/' + page_id,
             contentType: "application/json",
             dataType: "json",
             data: JSON.stringify(data),
