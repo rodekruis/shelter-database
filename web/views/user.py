@@ -33,6 +33,7 @@ user_bp = Blueprint('user_bp', __name__, url_prefix='/user')
 def profile():
     user = User.query.filter(User.id==current_user.id).first()
     form = ProfileForm()
+    form.set_languages_choice()
 
     if request.method == 'POST':
         if form.validate():
@@ -52,6 +53,7 @@ def profile():
 
     if request.method == 'GET':
         form = ProfileForm(obj=user)
+        form.set_languages_choice()
         return render_template('profile.html', user=user, form=form)
 
 @user_bp.route('/shelters', methods=['GET'])

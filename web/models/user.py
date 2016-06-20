@@ -37,6 +37,7 @@ class User(db.Model, UserMixin):
     last_seen = db.Column(db.DateTime(), default=datetime.now)
     is_admin = db.Column(db.Boolean(), default=False)
     is_active = db.Column(db.Boolean(), default=False)
+    preferred_language = db.Column(db.String(), default='en')
 
     # relationships
     shelters = db.relationship('Shelter', backref='responsible', lazy='dynamic',

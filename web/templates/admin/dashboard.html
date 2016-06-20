@@ -34,6 +34,12 @@
                 <input type="submit" name="translations" value="Submit" />
             </div>
         </form>
+        <h3>Already imported translations</h3>
+        <ul>
+            {% for translation in imported_translations %}
+                <li>{{ translation[0] }} (delete)</li>
+            {% endfor %}
+        </ul>
     </div>
 
     <div class="well">

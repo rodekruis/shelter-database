@@ -24,6 +24,7 @@ from flask import Blueprint, flash, render_template, current_app, redirect, \
 from werkzeug import generate_password_hash
 from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
+from sqlalchemy import func, distinct
 
 import conf
 import manager
@@ -93,10 +94,12 @@ def dashboard():
 
     nb_shelters = Shelter.query.count()
     nb_users = User.query.count()
+    imported_translations = db.session.query(distinct(Translation.language_code))
 
     return render_template('admin/dashboard.html',
                             nb_shelters=nb_shelters,
-                            nb_users=nb_users)
+                            nb_users=nb_users,
+                            imported_translations=imported_translations)
 
 @admin_bp.route('/shelters', methods=['GET'])
 @login_required

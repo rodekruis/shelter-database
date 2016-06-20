@@ -19,11 +19,13 @@ __license__ = ""
 
 from flask_wtf import Form
 from flask import url_for, redirect
-from wtforms import validators, TextField, PasswordField, \
+from wtforms import validators, TextField, PasswordField, SelectField, \
                     SubmitField, HiddenField
 from flask_wtf.html5 import EmailField
+from sqlalchemy import distinct
 
-from web.models import User
+from bootstrap import db
+from web.models import User, Translation
 
 class ProfileForm(Form):
     """
@@ -34,9 +36,16 @@ class ProfileForm(Form):
     email = EmailField("Email",
                [validators.Length(min=6, max=35),
                 validators.Required("Please enter your email.")])
+    preferred_language = SelectField("Preferred language")
     password = PasswordField("Password")
     password_conf = PasswordField("Password Confirmation")
     submit = SubmitField("Save")
+
+    def set_languages_choice(self):
+        self.preferred_language.choices = [('en', 'en')]
+        languages = [(language[0], language[0]) for language in \
+                        db.session.query(distinct(Translation.language_code))]
+        self.preferred_language.choices.extend(languages)
 
     def validate(self):
         validated = super(ProfileForm, self).validate()
