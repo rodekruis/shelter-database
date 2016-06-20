@@ -6,13 +6,17 @@ function get_shelters(request_url) {
         success: function(data) {
             shelters = data;
 
-            document.getElementById("searchresult").innerHTML = Object.keys(shelters).length + " shelter(s).";
+            $('#search-loading').hide();
+            $('#message').text(Object.keys(shelters).length + " shelter(s).");
+            $('#message').show();
 
             place_shelters();
             },
         error: function(XMLHttpRequest, textStatus, errorThrown){
-            document.getElementById("message").innerHTML = "Error when retrieving the shelters.";
-            $( "#message" ).show();
+            $('#search-loading').hide();
+            $('#message').addClass('alert-danger');
+            $('#message').text("Error when retrieving the shelters.");
+            $('#message').show();
             }
         }); // ajax closed
 }
