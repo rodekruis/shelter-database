@@ -249,11 +249,12 @@ latex_elements = {
 
      # Additional stuff for the LaTeX preamble.
      #
-     # 'preamble': '',
+     'preamble': '''\pagestyle{fancy}
+\pagenumbering{arabic}''',
 
      # Latex figure (float) alignment
      #
-     # 'figure_align': 'htbp',
+     'figure_align': 'H',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -261,7 +262,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'ShelterDatabase.tex', 'Shelter Database Documentation',
-     'Luxembourg Institute of Science and Technology', 'manual'),
+     'Luxembourg Institute of Science and Technology', 'howto'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -276,11 +277,11 @@ latex_logo = '_static/LIST.eps'
 
 # If true, show page references after internal links.
 #
-# latex_show_pagerefs = False
+latex_show_pagerefs = True
 
 # If true, show URL addresses after external links.
 #
-# latex_show_urls = False
+latex_show_urls = True
 
 # Documents to append as an appendix to all manuals.
 #
