@@ -28,8 +28,8 @@ from bootstrap import db
 class Association(db.Model):
     __tablename__ = 'association'
     id = db.Column(db.Integer, primary_key=True)
-    property_id = db.Column(db.Integer, db.ForeignKey('property.id'))
-    value_id = db.Column(db.Integer, db.ForeignKey('value.id'))
+    property_id = db.Column(db.Integer, db.ForeignKey('property.id'), nullable=False)
+    value_id = db.Column(db.Integer, db.ForeignKey('value.id'), nullable=False)
     #property = db.relationship("Property", back_populates="properties")
     #value = db.relationship("Value", back_populates="values")
 
