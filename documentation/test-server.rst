@@ -27,7 +27,9 @@ Security
 
 * `Fail2ban <http://www.fail2ban.org>`_ is running on the server;
 * A TLS (`Let's Encrypt <https://letsencrypt.org/>`_) certificate has been
-  installed with `certbot <https://certbot.eff.org/>`_.
+  installed with `certbot <https://certbot.eff.org/>`_. It is needed to renew
+  it every 90 days with the command
+  :code:`./certbot-auto renew --quiet --no-self-upgrade`.
 
 Administration
 ---------------
