@@ -8,7 +8,7 @@ Presentation
 
 The goal of this application is to list the shelters deployed around the world.
 
-The official instance of is available `here <https://shelter-database.org>`_.
+The official instance is available `here <https://shelter-database.org>`_.
 
 
 Deployment
