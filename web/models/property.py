@@ -20,10 +20,18 @@ __license__ = ""
 from sqlalchemy import desc
 from bootstrap import db
 
-association_table = db.Table('association', db.metadata,
-    db.Column('property_id', db.Integer, db.ForeignKey('property.id')),
-    db.Column('value_id', db.Integer, db.ForeignKey('value.id'))
-)
+# association_table = db.Table('association', db.metadata,
+#     db.Column('property_id', db.Integer, db.ForeignKey('property.id')),
+#     db.Column('value_id', db.Integer, db.ForeignKey('value.id'))
+# )
+
+class Association(db.Model):
+    __tablename__ = 'association'
+    id = db.Column(db.Integer, primary_key=True)
+    property_id = db.Column(db.Integer, db.ForeignKey('property.id'))
+    value_id = db.Column(db.Integer, db.ForeignKey('value.id'))
+    #property = db.relationship("Property", back_populates="properties")
+    #value = db.relationship("Value", back_populates="values")
 
 class Property(db.Model):
     """
@@ -42,8 +50,9 @@ class Property(db.Model):
                             nullable=False)
     category = db.relationship("Category", back_populates="properties")
 
-    values = db.relationship("Value", secondary=association_table,
-                            backref="properties")
+    #values = db.relationship("Value", secondary=association_table,
+                            #backref="properties")
+    values = db.relationship("Value", secondary="association")
 
     def get_values_as_string(self):
         return ", ".join([value.name for value in self.values])

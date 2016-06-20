@@ -33,7 +33,8 @@ from web.views.common import admin_permission
 from web.lib.utils import redirect_url, allowed_file
 from web.lib.misc_utils import launch_background_process
 from web.models import Shelter, Page, User, Category, Attribute, Value, \
-                        AttributePicture, Translation
+                        Property, Association, \
+                        AttributePicture, Translation, ShelterPicture
 from web.forms import CategoryForm, AttributeForm, CreateUserForm, EditUserForm
 
 admin_bp = Blueprint('administration', __name__, url_prefix='/admin')
@@ -117,6 +118,25 @@ def pages():
 def users():
     users = User.query.filter().all()
     return render_template('admin/users.html', users=users)
+
+@admin_bp.route('/delete_shelter/<int:shelter_id>', methods=['GET'])
+@login_required
+@admin_permission.require(http_exception=403)
+def delete_shelter(shelter_id=None):
+    """
+    Delete a shelter.
+    """
+    ShelterPicture.query.filter(ShelterPicture.shelter_id==shelter_id).delete()
+
+    properties = Property.query.filter(Property.shelter_id==shelter_id)
+    for property in properties:
+        Association.query.filter(Association.property_id==property.id).delete()
+        db.session.delete(property)
+
+    Shelter.query.filter(Shelter.id==shelter_id).delete()
+    db.session.commit()
+
+    return redirect(redirect_url())
 
 @admin_bp.route('/delete_user/<int:user_id>', methods=['GET'])
 @login_required

@@ -15,6 +15,7 @@
                 <th>Name</th>
                 <th>Created at</th>
                 <th>Responsible</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +26,11 @@
                 <td><a href="{{ url_for('shelter_bp.details', shelter_id=shelter.id, section_name='generalInformation') }}">{{ shelter.get_values_of_attribute(attribute_name='Name of shelter')[0].name }}</a></td>
                 <td>{{ shelter.created_at }}</td>
                 <td>{{ shelter.responsible }}</td>
+                <td>
+                    <a href="{{ url_for('administration.delete_shelter', shelter_id=shelter.id, next='/admin/shelters') }}">
+                        <i class="glyphicon glyphicon-remove" title="Delete this shelter" onclick="return confirm('You are going to delete this shelter.');"></i>
+                    </a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
@@ -41,7 +47,8 @@ $(document).ready(function() {
             "aoColumnDefs": [
                                 {
                                     "bSortable": false, "aTargets": [ 0 ],
-                                    "bSortable": false, "aTargets": [ 1 ]
+                                    "bSortable": false, "aTargets": [ 1 ],
+                                    "bSortable": false, "aTargets": [ 5 ]
                                 }
                             ],
            "aoColumns": [
@@ -49,7 +56,8 @@ $(document).ready(function() {
                         null,
                         { "sSortDataType": "dom-checkbox" },
                         { "sSortDataType": "dom-checkbox" },
-                        { "sSortDataType": "dom-checkbox" }
+                        { "sSortDataType": "dom-checkbox" },
+                        null
                         ]
         });
 });

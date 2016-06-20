@@ -18,7 +18,7 @@ __copyright__ = "Copyright (c) "
 __license__ = ""
 
 from .user import User
-from .property import Property
+from .property import Property, Association
 from .value import Value
 from .shelter import Shelter
 
@@ -32,7 +32,8 @@ from .translation import Translation
 
 
 __all__ = ['User', 'Shelter', 'Property', 'Category', 'Attribute', 'Value',
-            'Page', 'Translation', 'AttributePicture', 'ShelterPicture']
+            'Page', 'Translation', 'AttributePicture', 'ShelterPicture',
+            'Association']
 
 import os
 
