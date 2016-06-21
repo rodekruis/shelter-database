@@ -117,7 +117,10 @@ def details(shelter_id=0, section_name="", to_pdf=None):
                     Property.shelter_id==shelter_id,
                     Property.category.has(name="Walls & Frame"),
                     Property.category.has(Category.parent_id!=None)).first()
-            superstructure_type_string = superstructure_type.get_values_as_string()
+            if superstructure_type:
+                superstructure_type_string = superstructure_type.get_values_as_string()
+            else:
+                superstructure_type_string = ""
         else:
             superstructure_type_string = ""
 
@@ -185,7 +188,10 @@ def edit(shelter_id=0, section_name=""):
                     Property.shelter_id==shelter_id,
                     Property.category.has(name="Walls & Frame"),
                     Property.category.has(Category.parent_id!=None)).first()
-            superstructure_type_string = superstructure_type.get_values_as_string()
+            if superstructure_type:
+                superstructure_type_string = superstructure_type.get_values_as_string()
+            else:
+                superstructure_type_string = ""
         else:
             superstructure_type_string = ""
 
