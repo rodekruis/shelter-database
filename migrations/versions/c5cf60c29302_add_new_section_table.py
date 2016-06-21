@@ -21,8 +21,8 @@ def upgrade():
             sa.Column('id', sa.INTEGER()),
             sa.Column('name', sa.String(), default=''),
             sa.PrimaryKeyConstraint('id'))
-    op.add_column('category', sa.Column('section_id', sa.INTEGER()),
-                sa.ForeignKeyConstraint(['section_id'], ['section.id'], ))
+    op.add_column('category', sa.Column('section_id', sa.INTEGER()))
+    sa.ForeignKeyConstraint(['section_id'], ['section.id'])
 
 
 def downgrade():
