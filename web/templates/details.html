@@ -6,83 +6,82 @@
 {% endblock %}
 {% block content %}
 <div class="container-fluid">
-    <section layout:fragment="content">
-        <ul id="myTab" class="nav nav-tabs" role="tablist">
-            <li id="tab-general">
-                <a href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name='generalInformation') }}">{{ 'General Information' | translate }}</a>
-            </li>
-            <li id="tab-details">
-                <a href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name='implementationDetails') }}">{{ 'Implementation details' | translate }}</a>
-            </li>
-            <li id="tab-structure">
-                <a href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name='structure') }}">{{ 'Structure' | translate }}</a>
-            </li>
-            <li id="tab-skin">
-                <a href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name='skin') }}">{{ 'Skin' | translate }}</a>
-            </li>
-            <li id="tab-services">
-                <a href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name='services') }}">{{ 'Services' | translate }}</a>
-            </li>
-            <li id="tab-spaceplan">
-                <a href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name='spacePlan') }}">{{ 'Spaceplan' | translate }}</a>
-            </li>
-            <li id="tab-documents">
-                <a href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name='documents') }}">{{ 'Documents' | translate }}</a>
-            </li>
-            <li id="tab-edit" class="pull-right" >
-                <a id="btn-edit" class="btn" style="font-weight: bold;"
-                title="Edit"
-                href="{{ url_for('shelter_bp.edit', shelter_id=shelter_id, section_name=section_name) }}">
-                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                </a>
-            </li>
-            <li id="tab-edit" class="pull-right" >
-                <a id="btn-edit" class="btn" style="font-weight: bold;"
-                title="Printer friendly version"
-                href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name=section_name, to_pdf='to_pdf') }}">
-                    <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
-                </a>
-            </li>
-        </ul>
+    <ul id="myTab" class="nav nav-tabs" role="tablist">
+        <li id="tab-general">
+            <a href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name='generalInformation') }}">{{ 'General Information' | translate }}</a>
+        </li>
+        <li id="tab-details">
+            <a href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name='implementationDetails') }}">{{ 'Implementation details' | translate }}</a>
+        </li>
+        <li id="tab-structure">
+            <a href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name='structure') }}">{{ 'Structure' | translate }}</a>
+        </li>
+        <li id="tab-skin">
+            <a href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name='skin') }}">{{ 'Skin' | translate }}</a>
+        </li>
+        <li id="tab-services">
+            <a href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name='services') }}">{{ 'Services' | translate }}</a>
+        </li>
+        <li id="tab-spaceplan">
+            <a href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name='spacePlan') }}">{{ 'Spaceplan' | translate }}</a>
+        </li>
+        <li id="tab-documents">
+            <a href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name='documents') }}">{{ 'Documents' | translate }}</a>
+        </li>
+        <li id="tab-edit" class="pull-right" >
+            <a id="btn-edit" class="btn" style="font-weight: bold;"
+            title="Edit"
+            href="{{ url_for('shelter_bp.edit', shelter_id=shelter_id, section_name=section_name) }}">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+            </a>
+        </li>
+        <li id="tab-edit" class="pull-right" >
+            <a id="btn-edit" class="btn" style="font-weight: bold;"
+            title="Printer friendly version"
+            href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name=section_name, to_pdf='to_pdf') }}">
+                <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+            </a>
+        </li>
+    </ul>
 
-        {% for category in categories_list %}
-            <fieldset id="{{ category }}" class="border">
-                <legend class="border">
-                    <span class="section-title">{{ category | translate }}</span>
-                </legend>
-                <div class="col-md-8">
-                    {% for property  in categories[category]  %}
-                        <div class="row">
-                            <div class="col-md-4">
-                                <p><b {% if property.attribute.pictures.count() != 0 %}style="border-bottom: 1px dotted #000000; cursor:pointer;" attrId="{{ property.attribute.id }}" class="attribute-multimedia-asset"{% endif %}>{{ property.attribute.name | translate }}</b></p>
-                            </div>
-                            <div class="col-md-4">
-                                <p>
-                                    {% if property.attribute.type == 'yes / no' %}
-                                        {% if property.values[0].name in ("1","on") %}Yes{% else %}No{% endif %}
-                                    {% else %}
-                                        {% for value in property.values[:-1] %}
-                                            {{ value.name | translate }},&nbsp;
-                                        {% endfor %}
-                                        {{ property.values[-1].name | translate }}
-                                    {% endif %}
-                                </p>
-                            </div>
+    {% for category in categories_list %}
+        <fieldset id="{{ category }}" class="border">
+            <legend class="border">
+                <span class="section-title">{{ category | translate }}</span>
+            </legend>
+            <div class="col-md-8">
+                {% for property  in categories[category]  %}
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><b {% if property.attribute.pictures.count() != 0 %}style="border-bottom: 1px dotted #000000; cursor:pointer;" attrId="{{ property.attribute.id }}" class="attribute-multimedia-asset"{% endif %}>{{ property.attribute.name | translate }}</b></p>
                         </div>
-                    {% endfor %}
-                </div>
-                <div class="col-md-4">
-                    {% for picture in pictures[category] %}
-                        <div class="col-md-1 thumbShelterPicture">
-                            <a href="/public/pictures/shelters/{{ shelter_id }}/{{ picture.file_name }}" data-lightbox="{{ category }}">
-                                <img src="/public/pictures/shelters/{{ shelter_id }}/{{ picture.file_name }}" style="padding-top:3px;" />
-                            </a>
+                        <div class="col-md-4">
+                            <p>
+                                {% if property.attribute.type == 'yes / no' %}
+                                    {% if property.values[0].name in ("1","on") %}Yes{% else %}No{% endif %}
+                                {% else %}
+                                    {% for value in property.values[:-1] %}
+                                        {{ value.name | translate }},&nbsp;
+                                    {% endfor %}
+                                    {{ property.values[-1].name | translate }}
+                                {% endif %}
+                            </p>
                         </div>
-                    {% endfor %}
-                </div>
-            </fieldset>
-        {% endfor %}
-
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-4">
+                {% for picture in pictures[category] %}
+                    <div class="col-md-1 thumbShelterPicture">
+                        <a href="/public/pictures/shelters/{{ shelter_id }}/{{ picture.file_name }}" data-lightbox="{{ category }}">
+                            <img src="/public/pictures/shelters/{{ shelter_id }}/{{ picture.file_name }}" style="padding-top:3px;" />
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </fieldset>
+    {% endfor %}
+</div><!-- /.container -->
 
 <div class="modal fade bs-example-modal-lg" id="infoDialog" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -100,7 +99,6 @@
         </div>
     </div>
 </div>
-
 
 <script type="text/javascript" class="source">
 $(document).ready(function() {
@@ -171,6 +169,5 @@ function show_multimedia_assets(evt) {
 
 }
 </script>
-</section>
-</div><!-- /.container -->
+
 {% endblock %}
