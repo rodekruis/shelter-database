@@ -59,13 +59,28 @@
                         {% endfor %}
                     </div>
                     <div class="col-md-4">
-                        {% for picture in pictures[sub_category.name] %}
-                            <div class="col-md-1 thumbShelterPicture">
-                                <a href="/public/pictures/shelters/{{ shelter_id }}/{{ picture.file_name }}" data-lightbox="{{ category }}">
-                                    <img src="/public/pictures/shelters/{{ shelter_id }}/{{ picture.file_name }}" style="padding-top:3px;" />
-                                </a>
+                        <div class="row">
+                            {% for picture in pictures[sub_category.name] %}
+                                <div class="col-md-1 thumbShelterPicture">
+                                    <a href="/public/pictures/shelters/{{ shelter_id }}/{{ picture.file_name }}" data-lightbox="{{ category }}">
+                                        <img src="/public/pictures/shelters/{{ shelter_id }}/{{ picture.file_name }}" style="padding-top:3px;" />
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+
+                        {% if sub_category.name == "Documents"  %}
+                            <div class="row">
+                                {% for document in documents[sub_category.name] %}
+                                    <div>
+                                        <a href="/public/documents/shelters/{{ shelter_id }}/{{ document.file_name }}" download>
+                                            {{ document.file_name }}
+                                        </a>
+                                    </div>
+                                {% endfor %}
                             </div>
-                        {% endfor %}
+                        {% endif %}
                     </div>
                 </fieldset>
             {% endif %}
@@ -92,27 +107,6 @@
 
 <script type="text/javascript" class="source">
 $(document).ready(function() {
-    if (window.location.href.indexOf("generalInformation") > -1){
-        $("#tab-general").attr('class', "active");
-    }
-    if (window.location.href.indexOf("implementationDetails") > -1) {
-        $("#tab-details").attr('class', "active");
-    }
-    if (window.location.href.indexOf("structure") > -1) {
-        $("#tab-structure").attr('class', "active");
-    }
-    if (window.location.href.indexOf("skin") > -1) {
-        $("#tab-skin").attr('class', "active");
-    }
-    if (window.location.href.indexOf("services") > -1) {
-        $("#tab-services").attr('class', "active");
-    }
-    if (window.location.href.indexOf("spacePlan") > -1) {
-        $("#tab-spaceplan").attr('class', "active");
-    }
-    if (window.location.href.indexOf("documents") > -1) {
-        $("#tab-documents").attr('class', "active");
-    }
 
     $( ".attribute-multimedia-asset" ).click(show_multimedia_assets);
 });

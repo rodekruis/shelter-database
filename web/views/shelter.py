@@ -34,7 +34,7 @@ from web.lib.utils import redirect_url, allowed_file
 from web.lib.misc_utils import create_pdf
 from web.forms import LoginForm
 from web.models import User, Shelter, Property, Attribute, Category, Value, \
-                        ShelterPicture, Section
+                        ShelterPicture, ShelterDocument, Section
 
 
 from collections import defaultdict
@@ -109,6 +109,7 @@ def details(shelter_id=0, section_name="", to_pdf=None):
         return redirect(redirect_url())
 
     pictures = defaultdict(list)
+    documents = defaultdict(list)
     categories = defaultdict(list)
     for category in section.categories:
 
@@ -141,6 +142,11 @@ def details(shelter_id=0, section_name="", to_pdf=None):
                 ShelterPicture.query.filter(
                                     ShelterPicture.shelter_id==shelter_id,
                                     ShelterPicture.category_id==sub_category.id)
+                                )
+            documents[sub_category.name].extend(
+                ShelterDocument.query.filter(
+                                    ShelterDocument.shelter_id==shelter_id,
+                                    ShelterDocument.category_id==sub_category.id)
                                 )
 
     if to_pdf == "to_pdf":
@@ -164,7 +170,7 @@ def details(shelter_id=0, section_name="", to_pdf=None):
     return render_template('details.html', section_name=section_name,
                             shelter_id=shelter_id, categories=categories,
                             pictures=pictures, sections=sections,
-                            section=section)
+                            section=section, documents=documents)
 
 
 @shelter_bp.route('/edit/<int:shelter_id>/<section_name>', methods=['GET'])
@@ -180,6 +186,7 @@ def edit(shelter_id=0, section_name=""):
         return redirect(redirect_url())
 
     pictures = defaultdict(list)
+    documents = defaultdict(list)
     categories = defaultdict(list)
     for category in section.categories:
 
@@ -213,27 +220,42 @@ def edit(shelter_id=0, section_name=""):
                                     ShelterPicture.shelter_id==shelter_id,
                                     ShelterPicture.category_id==sub_category.id)
                                 )
+            documents[sub_category.name].extend(
+                ShelterDocument.query.filter(
+                                    ShelterDocument.shelter_id==shelter_id,
+                                    ShelterDocument.category_id==sub_category.id)
+                                )
 
     return render_template('edit.html', section_name=section_name,
                             shelter=shelter, shelter_id=shelter_id,
                             categories=categories, pictures=pictures,
-                            sections=sections, section=section)
+                            sections=sections, section=section,
+                            documents=documents)
 
 
 @shelter_bp.route('/edit/<int:shelter_id>/<section_name>', methods=['POST'])
 @login_required
 def get_media(shelter_id=0, section_name=""):
+    """
+    Get the media (pictures or documents) for the shelter sent via a POST
+    request.
+    """
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
     if not shelter:
         flash("No such shelter", "warning")
         return redirect(redirect_url())
 
-    file = request.files.get('imagefile', None)
+    file = request.files.get('mediafile', None)
     if file and file.filename == '':
         flash('No selected file', 'warning')
         return redirect(request.url)
-    if file and allowed_file(file.filename, conf.ALLOWED_EXTENSIONS_PICTURE):
-        path = os.path.join(conf.SHELTERS_PICTURES_PATH, str(shelter.id))
+    if file and allowed_file(file.filename,
+                                conf.ALLOWED_EXTENSIONS_PICTURE.union(
+                                            conf.ALLOWED_EXTENSIONS_DOCUMENT)):
+        if 'pictures' in request.form:
+            path = os.path.join(conf.SHELTERS_PICTURES_PATH, str(shelter.id))
+        if 'documents' in request.form:
+            path = os.path.join(conf.SHELTERS_DOCUMENTS_PATH, str(shelter.id))
         if not os.path.exists(path):
             os.makedirs(path)
         filename = secure_filename(file.filename)
@@ -241,9 +263,13 @@ def get_media(shelter_id=0, section_name=""):
 
         category_id = request.form['category_id']
         if category_id:
-            new_picture = ShelterPicture(file_name=filename,
-                    shelter_id=shelter.id, category_id=category_id)
-            db.session.add(new_picture)
+            if 'pictures' in request.form:
+                new_media = ShelterPicture(file_name=filename,
+                        shelter_id=shelter.id, category_id=category_id)
+            if 'documents' in request.form:
+                new_media = ShelterDocument(file_name=filename,
+                        shelter_id=shelter.id, category_id=category_id)
+            db.session.add(new_media)
             db.session.commit()
 
     return redirect(request.url)
@@ -261,4 +287,18 @@ def delete_picture(picture_id=None):
         db.session.commit()
 
     return redirect(url_for('shelter_bp.edit', shelter_id=picture.shelter_id,
-                                section_name="generalInformation"))
+                                section_name="general-Information"))
+
+@shelter_bp.route('/delete_document/<int:document_id>', methods=['GET'])
+@login_required
+def delete_document(document_id=None):
+    document = ShelterDocument.query.filter(ShelterDocument.id==document_id).first()
+    if document:
+        os.unlink(os.path.join(conf.SHELTERS_DOCUMENTS_PATH,
+                                str(document.shelter_id),
+                                str(document.file_name)))
+        db.session.delete(document)
+        db.session.commit()
+
+    return redirect(url_for('shelter_bp.edit', shelter_id=document.shelter_id,
+                                section_name="general-Information"))

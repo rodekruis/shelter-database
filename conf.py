@@ -81,6 +81,7 @@ LOG_LEVEL = {'debug': logging.DEBUG,
              'fatal': logging.FATAL}[config.get('misc', 'log_level')]
 
 ALLOWED_EXTENSIONS_PICTURE = set(['png', 'jpg', 'jpeg', 'gif'])
+ALLOWED_EXTENSIONS_DOCUMENT = set(['doc', 'docx', 'pdf', 'odt', 'xls', 'xlsx'])
 ALLOWED_EXTENSIONS_CSV = set(['csv'])
 ALLOWED_EXTENSIONS_ARCHIVE = set(['zip'])
 
@@ -88,6 +89,8 @@ PUBLIC_PATH = os.path.join(PATH,
                             config.get('misc', 'public_path'))
 SHELTERS_PICTURES_PATH = os.path.join(PATH,
                             config.get('misc', 'shelters_pictures_path'))
+SHELTERS_DOCUMENTS_PATH = os.path.join(PATH,
+                            config.get('misc', 'shelters_documents_path'))
 ATTRIBUTES_PICTURES_PATH = os.path.join(PATH,
                             config.get('misc', 'attributes_pictures_path'))
 

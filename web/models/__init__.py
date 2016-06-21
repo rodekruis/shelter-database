@@ -12,8 +12,8 @@
 
 __author__ = "Cedric Bonhomme"
 __version__ = "$Revision: 0.1 $"
-__date__ = "$Date: 2016/03/30$"
-__revision__ = "$Date: 2016/03/30 $"
+__date__ = "$Date: 2016/03/30 $"
+__revision__ = "$Date: 2016/06/21 $"
 __copyright__ = "Copyright (c) "
 __license__ = ""
 
@@ -27,6 +27,7 @@ from .category import Category
 from .attribute import Attribute
 from .attribute_picture import AttributePicture
 from .shelter_picture import ShelterPicture
+from .shelter_document import ShelterDocument
 
 from .page import Page
 from .translation import Translation
@@ -34,7 +35,7 @@ from .translation import Translation
 
 __all__ = ['User', 'Shelter', 'Section', 'Property', 'Category', 'Attribute',
             'Value', 'Page', 'Translation', 'AttributePicture',
-            'ShelterPicture', 'Association']
+            'ShelterPicture', 'ShelterDocument', 'Association']
 
 import os
 
@@ -58,7 +59,8 @@ def uml_graph(db):
                         mappers(User, Shelter, Section, Property,
                                 Category, Attribute, Value,
                                 Page, Translation,
-                                ShelterPicture, AttributePicture),
+                                ShelterPicture, ShelterDocument,
+                                AttributePicture),
                         show_operations=False,
                         show_multiplicity_one=True
     )
