@@ -11,7 +11,7 @@
 <div class="container-fluid">
     <ul id="myTab" class="nav nav-tabs" role="tablist">
         {% for current_section in sections %}
-            <li id="tab-{{ current_section.id }}" {% if current_section.name | lower == section.name | lower  %}class="active"{% endif %}>
+            <li id="tab-{{ current_section.id }}" {% if current_section.id == section.id  %}class="active"{% endif %}>
                 <a href="{{ url_for('shelter_bp.edit', shelter_id=shelter.id, section_name=current_section.name | replace(' ', '-')) }}">{{ current_section.name | translate }}</a>
             </li>
         {% endfor %}
@@ -177,11 +177,8 @@
     </div>
 </div>
 
-
-
 <script type="text/javascript" class="source">
 $(document).ready(function() {
-
     $( ".datepicker" ).datepicker();
 
     $('.select-attribute').change(function(evt) {
@@ -243,19 +240,16 @@ $(document).ready(function() {
             dataType: "json",
             data: JSON.stringify(new_value),
             success: function (result) {
-
                 $('#select'+attribute_id)
                     .append($("<option></option>")
                                 .attr("value", result.id)
                                 .text(result.name));
                 $('.selectpicker').selectpicker('refresh');
-
             },
             error: function(XMLHttpRequest, textStatus, errorThrown){
                 console.log(errorThrown);
             }
         });
-
     })
 });
 </script>

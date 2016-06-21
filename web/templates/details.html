@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <ul id="myTab" class="nav nav-tabs" role="tablist">
         {% for current_section in sections %}
-            <li id="tab-{{ current_section.id }}" {% if current_section.name | lower == section.name | lower  %}class="active"{% endif %}>
+            <li id="tab-{{ current_section.id }}" {% if current_section.id  == section.id  %}class="active"{% endif %}>
                 <a href="{{ url_for('shelter_bp.details', shelter_id=shelter.id, section_name=current_section.name | replace(' ', '-')) }}">{{ current_section.name | translate }}</a>
             </li>
         {% endfor %}
@@ -21,8 +21,8 @@
             </a>
         </li>
 
-        <li id="tab-edit" class="pull-right" >
-            <a id="btn-edit" class="btn" style="font-weight: bold;"
+        <li id="tab-print" class="pull-right" >
+            <a id="btn-print" class="btn" style="font-weight: bold;"
             title="Printer friendly version"
             href="{{ url_for('shelter_bp.details', shelter_id=shelter.id, section_name=section.name | replace(' ', '-'), to_pdf='to_pdf') }}">
                 <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
@@ -69,7 +69,6 @@
                             {% endfor %}
                         </div>
 
-
                         {% if sub_category.name == "Documents"  %}
                             <div class="row">
                                 {% for document in documents[sub_category.name] %}
@@ -107,10 +106,8 @@
 
 <script type="text/javascript" class="source">
 $(document).ready(function() {
-
     $( ".attribute-multimedia-asset" ).click(show_multimedia_assets);
 });
-
 
 function retrieve_and_display_multimedia_asset(attributeId) {
     var filters = [{"name":"id","op":"eq","val":attributeId}];
@@ -153,5 +150,4 @@ function show_multimedia_assets(evt) {
 
 }
 </script>
-
 {% endblock %}
