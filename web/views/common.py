@@ -26,7 +26,6 @@ from web.models import (Category, Property, Attribute, ShelterPicture,
 admin_role = RoleNeed('admin')
 admin_permission = Permission(admin_role)
 
-
 def jsonify(func):
     """Will cast results of func as a result, and try to extract
     a status_code for the Response object"""
@@ -52,14 +51,12 @@ def login_user_bundle(user):
 def load_shelter_info(shelter_id, section_name):
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
     if not shelter:
-        flash("No such shelter", "warning")
-        return redirect(redirect_url())
+        raise Exception("No such shelter")
 
     section = Section.query.filter(
             func.lower(Section.name)==func.lower(section_name.replace('-', ' '))).first()
     if not section:
-        flash("No such section", "warning")
-        return redirect(redirect_url())
+        raise Exception("No such section")
 
     categories = defaultdict(list)
     documents = defaultdict(list)

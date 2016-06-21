@@ -10,9 +10,9 @@
 {% block content %}
 <div class="container-fluid">
     <ul id="myTab" class="nav nav-tabs" role="tablist">
-        {% for section in sections %}
-            <li id="tab-{{ section.id }}" {% if section.name | replace(' ', '-') | lower == section_name | lower  %}class="active"{% endif %}>
-                <a href="{{ url_for('shelter_bp.edit', shelter_id=shelter.id, section_name=section.name | replace(' ', '-')) }}">{{ section.name | translate }}</a>
+        {% for current_section in sections %}
+            <li id="tab-{{ current_section.id }}" {% if current_section.name | lower == section.name | lower  %}class="active"{% endif %}>
+                <a href="{{ url_for('shelter_bp.edit', shelter_id=shelter.id, section_name=current_section.name | replace(' ', '-')) }}">{{ current_section.name | translate }}</a>
             </li>
         {% endfor %}
 

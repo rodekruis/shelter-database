@@ -39,17 +39,18 @@ shelters_bp = Blueprint('shelters', __name__, url_prefix='/shelters')
 @shelter_bp.route('/<int:shelter_id>/<section_name>/<to_pdf>', methods=['GET'])
 def details(shelter_id=0, section_name="", to_pdf=None):
     sections = Section.query.filter()
-    shelter, section, categories, pictures, documents = \
+    try:
+        shelter, section, categories, pictures, documents = \
                                 load_shelter_info(shelter_id, section_name)
+    except Exception as e:
+        flash(str(e), "warning")
+        return redirect(redirect_url())
+
     if to_pdf == "to_pdf":
         try:
             pdf_file = create_pdf(render_template('pdf/template1.html',
-                                            shelter=shelter,
-                                            section=section,
-                                            section_name=section.name,
-                                            shelter_id=shelter_id,
-                                            categories=categories,
-                                            pictures=pictures))
+                                    shelter=shelter, section=section,
+                                    categories=categories))
             response = make_response(pdf_file)
             response.headers['Content-Type'] = 'application/pdf'
             response.headers['Content-Disposition'] = \
@@ -59,10 +60,9 @@ def details(shelter_id=0, section_name="", to_pdf=None):
             print(e)
             flash('Error when generating PDF file.', 'danger')
 
-    return render_template('details.html', section_name=section.name,
-                            shelter=shelter, categories=categories,
-                            pictures=pictures, sections=sections,
-                            section=section, documents=documents)
+    return render_template('details.html', shelter=shelter,
+                        categories=categories, pictures=pictures,
+                        sections=sections, section=section, documents=documents)
 
 
 @shelter_bp.route('/edit/<int:shelter_id>/<section_name>', methods=['GET'])
@@ -72,11 +72,9 @@ def edit(shelter_id=0, section_name=""):
     shelter, section, categories, pictures, documents = \
                                 load_shelter_info(shelter_id, section_name)
 
-    return render_template('edit.html', section_name=section_name,
-                            shelter=shelter,
-                            categories=categories, pictures=pictures,
-                            sections=sections, section=section,
-                            documents=documents)
+    return render_template('edit.html', shelter=shelter, categories=categories,
+                        pictures=pictures, sections=sections, section=section,
+                        documents=documents)
 
 
 @shelter_bp.route('/edit/<int:shelter_id>/<section_name>', methods=['POST'])
