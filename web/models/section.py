@@ -17,7 +17,6 @@ __revision__ = "$Date: 2016/06/21 $"
 __copyright__ = "Copyright (c) "
 __license__ = ""
 
-
 from bootstrap import db
 
 class Section(db.Model):

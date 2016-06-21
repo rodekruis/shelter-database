@@ -161,11 +161,10 @@
             <div class="rectangle hotDRY" title="Hot dry"></div>
         </div>
     </div>
-
+</div><!-- /.container -->
 <script type="text/javascript" class="source">
-
 var geoserver_address = "{{ geoserver_url }}";
-var api_url = "/shelter/shelters_for_map"
+var api_url = "/shelters_for_map"
 
 $(document).ready(function() {
     $("#commercialPicto").hide();
@@ -193,5 +192,4 @@ $(document).ready(function() {
     get_shelters(api_url);
 })
 </script>
-</div><!-- /.container -->
 {% endblock %}

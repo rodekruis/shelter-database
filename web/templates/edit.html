@@ -12,20 +12,20 @@
     <ul id="myTab" class="nav nav-tabs" role="tablist">
         {% for section in sections %}
             <li id="tab-{{ section.id }}" {% if section.name | replace(' ', '-') | lower == section_name | lower  %}class="active"{% endif %}>
-                <a href="{{ url_for('shelter_bp.edit', shelter_id=shelter_id, section_name=section.name | replace(' ', '-')) }}">{{ section.name | translate }}</a>
+                <a href="{{ url_for('shelter_bp.edit', shelter_id=shelter.id, section_name=section.name | replace(' ', '-')) }}">{{ section.name | translate }}</a>
             </li>
         {% endfor %}
 
         <li id="tab-edit" class="pull-right" >
             <a id="btn-edit" class="btn" style="font-weight: bold;"
             title="Details"
-            href="{{ url_for('shelter_bp.details', shelter_id=shelter_id, section_name=section.name | replace(' ', '-')) }}">
+            href="{{ url_for('shelter_bp.details', shelter_id=shelter.id, section_name=section.name | replace(' ', '-')) }}">
                 <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
             </a>
         </li>
     </ul>
 
-    <div class="form-horizontal" role="form" action="" shelterId="{{shelter_id}}" id="shelterForm">
+    <div class="form-horizontal" role="form" action="" shelterId="{{shelter.id}}" id="shelterForm">
         {% for category in section.categories %}
             {% for sub_category in category.sub_categories %}
                 <fieldset id="{{ category }}" class="border">
@@ -196,7 +196,7 @@ $(document).ready(function() {
         if (property_id==""){
             category_id = $(evt.target).attr("category-id");
             attribute_id = $(evt.target).attr("attribute-id");
-            new_property({{ shelter_id }},
+            new_property({{ shelter.id }},
                             category_id, attribute_id, id_of_values,
                             $(evt.target))
         } else {
@@ -220,7 +220,7 @@ $(document).ready(function() {
         } else {
             category_id = $(evt.target).attr("category-id");
             attribute_id = $(evt.target).attr("attribute-id");
-            new_free_text_property({{ shelter_id }}, category_id, attribute_id, value);
+            new_free_text_property({{ shelter.id }}, category_id, attribute_id, value);
         }
     });
 

@@ -73,9 +73,9 @@ def init_shelters_structure(csv_file, drawnings_folder):
             else:
                 attribute.free_text = True
 
-            attribute.is_editable = "automatic" not in row[6] and \
-                                            "not_editable" not in row[6]
-            attribute.is_mandatory = "mandatory" not in row[6]
+            attribute.is_editable = "automatic" not in row[7] and \
+                                            "not_editable" not in row[7]
+            attribute.is_mandatory = "mandatory" not in row[7]
 
 
             pictures = row[8].split(";")

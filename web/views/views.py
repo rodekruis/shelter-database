@@ -17,12 +17,17 @@ __revision__ = "$Date: 2016/06/07 $"
 __copyright__ = "Copyright 2016 Luxembourg Institute of Science and Technology"
 __license__ = ""
 
-from flask import request, flash, render_template, session, url_for, \
-                    redirect, current_app, send_from_directory
+from collections import defaultdict
+from flask import request, flash, render_template, url_for, \
+                    redirect, current_app, send_from_directory, jsonify
+from flask_login import current_user
 
 import conf
 from bootstrap import db
-from web.models import Shelter, Attribute
+from web.models import Shelter, Attribute, Property
+
+def tree():
+    return defaultdict(tree)
 
 #
 # Default errors
@@ -73,6 +78,55 @@ def index():
                             zones=zones,
                             disasters=disasters,
                             materials=materials)
+
+@current_app.route('/shelters_for_map', methods=['GET'])
+def shelters_for_map():
+    result = tree()
+
+    latitude_properties = Property.query.filter(
+                            Property.attribute.has(name="GPS Latitude"),
+                            )
+    longitude_properties = Property.query.filter(
+                            Property.attribute.has(name="GPS Longitude"),
+                            )
+    if not current_user.is_authenticated:
+        latitude_properties = latitude_properties.filter(
+                                Property.shelter.has(is_published = True))
+        longitude_properties = longitude_properties.filter(
+                                Property.shelter.has(is_published = True))
+
+    for latitude_property in latitude_properties:
+        result[latitude_property.shelter_id]["latitude"] = latitude_property.values[0].name
+    for longitude_property in longitude_properties:
+        result[longitude_property.shelter_id]["longitude"] = longitude_property.values[0].name
+
+    if request.args:
+        result_copy = result.copy()
+        for shelter_id in result_copy:
+            shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+
+            for attribute_name, value in request.args.items():
+                if not value:
+                    continue
+
+                values = [current_value.name for current_value in \
+                    shelter.get_values_of_attribute(attribute_name=attribute_name)]
+
+                if value not in values:
+                    result.pop(shelter_id, None)
+                    break
+
+    for shelter_id in result:
+        shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+        result[shelter_id]["name"] = \
+            shelter.get_values_of_attribute(attribute_name="Name of shelter")[0].name
+        result[shelter_id]["city"] = \
+            shelter.get_values_of_attribute(attribute_name="City / Village")[0].name
+        result[shelter_id]["id"] = \
+            shelter.get_values_of_attribute(attribute_name="ID")[0].name
+        result[shelter_id]["isCommercial"] = shelter.is_commercial
+
+    return jsonify(result)
 
 @current_app.route('/shelters', methods=['GET'])
 def shelters():
