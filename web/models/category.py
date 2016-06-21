@@ -32,6 +32,8 @@ class Category(db.Model):
     #attributes = db.relationship('Attribute', backref='category', lazy='dynamic',
                            #cascade='all, delete-orphan',
                            #order_by=desc('Attribute.id'))
+    section_id = db.Column(db.Integer, db.ForeignKey('section.id'))
+
     attributes = db.relationship("Attribute", back_populates="category")
 
     parent_id = db.Column(db.Integer, db.ForeignKey(id))

@@ -20,38 +20,45 @@ def init_shelters_structure(csv_file, drawnings_folder):
         sub_category = None
         sub_category_name = ''
         display_position = 0
-        for index, row in enumerate(structure):
-            if index == 0:
+        for line, row in enumerate(structure):
+            if line == 0:
                 continue
 
             display_position += 1
 
             if row[0] != '':
-                category_name = row[0]
+                section_name = row[0].strip()
+                section = models.Section(name=section_name)
+                db.session.add(section)
+                db.session.commit()
+
+            if row[1] != '':
+                category_name = row[1].strip()
                 category = models.Category(name=category_name)
+                section.categories.append(category)
                 db.session.add(category)
                 db.session.commit()
                 display_position = 1
 
-            if sub_category_name != row[1]:
-                sub_category_name = row[1]
+            if sub_category_name != row[2]:
+                sub_category_name = row[2]
                 sub_category = models.Category(name=sub_category_name)
                 db.session.add(sub_category)
                 category.sub_categories.append(sub_category)
                 db.session.commit()
 
 
-            attribute_name = row[2]
+            attribute_name = row[3]
             attribute = models.Attribute(name=attribute_name,
                                         category_id=sub_category.id,
                                         display_position=display_position)
-            attribute.type = row[3]
+            attribute.type = row[4]
 
-            cardinality = row[5]
+            cardinality = row[6]
             attribute.multiple = cardinality=='multiple choice'
 
             if cardinality in ('single choice', 'multiple choice'):
-                for value in row[4].split(';'):
+                for value in row[5].split(';'):
                     value_name = value.strip()
                     if value_name == 'other':
                         # the user will be able to add new values for this
@@ -71,7 +78,7 @@ def init_shelters_structure(csv_file, drawnings_folder):
             attribute.is_mandatory = "mandatory" not in row[6]
 
 
-            pictures = row[7].split(";")
+            pictures = row[8].split(";")
             for picture in pictures:
                 if picture:
                     number = '_' + picture.replace('D', '') + '_'

@@ -26,7 +26,7 @@ from flask import Blueprint, request, flash, render_template, current_app, \
                     session, url_for, redirect, g, abort, jsonify, make_response
 from flask_login import login_required, current_user
 
-from sqlalchemy import asc
+from sqlalchemy import asc, func
 
 import conf
 from bootstrap import app, db
@@ -34,7 +34,7 @@ from web.lib.utils import redirect_url, allowed_file
 from web.lib.misc_utils import create_pdf
 from web.forms import LoginForm
 from web.models import User, Shelter, Property, Attribute, Category, Value, \
-                        ShelterPicture
+                        ShelterPicture, Section
 
 
 from collections import defaultdict
@@ -61,22 +61,11 @@ def shelters_for_map():
                                 Property.shelter.has(is_published = True))
         longitude_properties = longitude_properties.filter(
                                 Property.shelter.has(is_published = True))
-    # name_properties = Property.query.filter(
-    #                         Property.attribute.has(name="Name of shelter"),
-    #                         )
-    # city_properties = Property.query.filter(
-    #                         Property.attribute.has(name="City / Village"),
-    #                         )
 
     for latitude_property in latitude_properties:
         result[latitude_property.shelter_id]["latitude"] = latitude_property.values[0].name
     for longitude_property in longitude_properties:
         result[longitude_property.shelter_id]["longitude"] = longitude_property.values[0].name
-    # for name_property in name_properties:
-    #     result[name_property.shelter_id]["name"] = name_property.values[0].name
-    # for city_property in city_properties:
-    #     result[city_property.shelter_id]["city"] = city_property.values[0].name
-
 
     if request.args:
         result_copy = result.copy()
@@ -104,85 +93,60 @@ def shelters_for_map():
             shelter.get_values_of_attribute(attribute_name="ID")[0].name
         result[shelter_id]["isCommercial"] = shelter.is_commercial
 
-
     return jsonify(result)
-
 
 
 @shelter_bp.route('/<int:shelter_id>/<section_name>', methods=['GET'])
 @shelter_bp.route('/<int:shelter_id>/<section_name>/<to_pdf>', methods=['GET'])
 def details(shelter_id=0, section_name="", to_pdf=None):
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+    sections = Section.query.filter()
 
-    if not shelter:
-        flash("No such shelter", "warning")
-        return redirect(redirect_url())
-
-    if not current_user.is_authenticated and not shelter.is_published:
-        flash("No such shelter", "warning")
-        return redirect(redirect_url())
-
-    if not shelter.is_published and shelter.responsible.id != current_user.id \
-            and not current_user.is_admin:
-        flash("No such shelter", "warning")
-        return redirect(redirect_url())
-
-    if section_name == "generalInformation":
-        categories_list = ["Identification", "Disaster & Response", "Site"]
-    elif section_name == "implementationDetails":
-        categories_list = ["General"]
-    elif section_name == "structure":
-        superstructure_type = Property.query.filter(
-                            Property.shelter_id==shelter_id,
-                            Property.category.has(name="Walls & Frame"),
-                            Property.category.has(Category.parent_id!=None)).first()
-        if not superstructure_type:
-            superstructure_type_string = "Framed walls"
-        else:
-            superstructure_type_string = superstructure_type.get_values_as_string()
-        categories_list = ["Foundation", "Walls & Frame",
-                            superstructure_type_string,
-                            "Beams & Floor",
-                            "Beams & Floor (ground floor)", "Roof"]
-    elif section_name == "skin":
-        categories_list = ["Cladding", "Openings", "Insulation"]
-    elif section_name == "services":
-        categories_list = ["Services"]
-    elif section_name == "spacePlan":
-        categories_list = ["Spaceplan"]
-    elif section_name == "documents":
-        categories_list = ["Documents"]
-    else:
+    section = Section.query.filter(
+            func.lower(Section.name)==func.lower(section_name.replace('-', ' '))).first()
+    if not section:
         flash("No such section", "warning")
         return redirect(redirect_url())
 
     pictures = defaultdict(list)
     categories = defaultdict(list)
-    for category in categories_list:
-        category_obj = Category.query.filter(Category.name==category,
-                                            Category.parent_id!=None).first()
+    for category in section.categories:
 
-        categories[category].extend(
-            Property.query.filter(
-                                Property.shelter_id==shelter_id,
-                                Property.category.has(name=category))
-                            .join(Attribute)
-                            .order_by(Attribute.display_position.asc())
-                            )
+        if category.name == 'Walls & frame':
+            superstructure_type = Property.query.filter(
+                    Property.shelter_id==shelter_id,
+                    Property.category.has(name="Walls & Frame"),
+                    Property.category.has(Category.parent_id!=None)).first()
+            superstructure_type_string = superstructure_type.get_values_as_string()
+        else:
+            superstructure_type_string = ""
 
-        pictures[category].extend(
-            ShelterPicture.query.filter(
-                                ShelterPicture.shelter_id==shelter_id,
-                                ShelterPicture.category_id==category_obj.id)
-                            )
+        for sub_category in category.sub_categories:
+            if category.name == 'Walls & frame' and \
+                sub_category.name != 'Walls & Frame' and \
+                superstructure_type_string.lower()!=sub_category.name.lower():
+                continue
+
+            categories[sub_category.name].extend(
+                Property.query.filter(
+                                    Property.shelter_id==shelter_id,
+                                    Property.category.has(name=sub_category.name))
+                                .join(Attribute)
+                                .order_by(Attribute.display_position.asc())
+                                )
+            pictures[sub_category.name].extend(
+                ShelterPicture.query.filter(
+                                    ShelterPicture.shelter_id==shelter_id,
+                                    ShelterPicture.category_id==sub_category.id)
+                                )
 
     if to_pdf == "to_pdf":
         try:
             pdf_file = create_pdf(render_template('pdf/template1.html',
                                             shelter=shelter,
+                                            section=section,
                                             section_name=section_name,
                                             shelter_id=shelter_id,
-                                            categories_list=categories_list,
                                             categories=categories,
                                             pictures=pictures))
             response = make_response(pdf_file)
@@ -194,80 +158,60 @@ def details(shelter_id=0, section_name="", to_pdf=None):
             print(e)
             flash('Error when generating PDF file.', 'danger')
 
-    return render_template('details.html',
-                            section_name=section_name,
-                            shelter_id=shelter_id,
-                            categories_list=categories_list,
-                            categories=categories,
-                            pictures=pictures)
+    return render_template('details.html', section_name=section_name,
+                            shelter_id=shelter_id, categories=categories,
+                            pictures=pictures, sections=sections,
+                            section=section)
 
 
 @shelter_bp.route('/edit/<int:shelter_id>/<section_name>', methods=['GET'])
 @login_required
 def edit(shelter_id=0, section_name=""):
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+    sections = Section.query.filter()
 
-    if not shelter:
-        flash("No such shelter", "warning")
-        return redirect(redirect_url())
-
-    if not shelter.is_published and shelter.responsible.id != current_user.id \
-            and not current_user.is_admin:
-        flash("No such shelter", "warning")
-        return redirect(redirect_url())
-
-    if section_name == "generalInformation":
-        categories_list = ["Identification", "Disaster & Response", "Site"]
-    elif section_name == "implementationDetails":
-        categories_list = ["General"]
-    elif section_name == "structure":
-        superstructure_type = Property.query.filter(
-                            Property.shelter_id==shelter_id,
-                            Property.category.has(name="Walls & Frame")).first()
-        if not superstructure_type:
-            superstructure_type_string = "Framed walls"
-        else:
-            superstructure_type_string = superstructure_type.get_values_as_string()
-        categories_list = ["Foundation", "Walls & Frame",
-                            superstructure_type_string,
-                            "Beams & Floor",
-                            "Beams & Floor (ground floor)", "Roof"]
-    elif section_name == "skin":
-        categories_list = ["Cladding", "Openings", "Insulation"]
-    elif section_name == "services":
-        categories_list = ["Services"]
-    elif section_name == "spacePlan":
-        categories_list = ["Spaceplan"]
-    elif section_name == "documents":
-        categories_list = ["Documents"]
-    else:
+    section = Section.query.filter(
+            func.lower(Section.name)==func.lower(section_name.replace('-', ' '))).first()
+    if not section:
         flash("No such section", "warning")
         return redirect(redirect_url())
 
     pictures = defaultdict(list)
     categories = defaultdict(list)
-    for category in categories_list:
-        category_obj = Category.query.filter(Category.name==category,
-                                            Category.parent_id!=None).first()
+    for category in section.categories:
 
-        categories[category].extend(
-                        Category.query.filter(Category.name==category,
-                                                Category.parent_id!=None)
-                                                )
-        pictures[category].extend(
-            ShelterPicture.query.filter(
-                                ShelterPicture.shelter_id==shelter_id,
-                                ShelterPicture.category_id==category_obj.id)
-                            )
+        if category.name == 'Walls & frame':
+            superstructure_type = Property.query.filter(
+                    Property.shelter_id==shelter_id,
+                    Property.category.has(name="Walls & Frame"),
+                    Property.category.has(Category.parent_id!=None)).first()
+            superstructure_type_string = superstructure_type.get_values_as_string()
+        else:
+            superstructure_type_string = ""
 
+        for sub_category in category.sub_categories:
+            if category.name == 'Walls & frame' and \
+                sub_category.name != 'Walls & Frame' and \
+                superstructure_type_string.lower()!=sub_category.name.lower():
+                continue
 
-    return render_template('edit.html',
-                            section_name=section_name,
-                            shelter=shelter,
-                            shelter_id=shelter_id,
-                            categories_list=categories_list,
-                            categories=categories,
-                            pictures=pictures)
+            categories[sub_category.name].extend(
+                Property.query.filter(
+                                    Property.shelter_id==shelter_id,
+                                    Property.category.has(name=sub_category.name))
+                                .join(Attribute)
+                                .order_by(Attribute.display_position.asc())
+                                )
+            pictures[sub_category.name].extend(
+                ShelterPicture.query.filter(
+                                    ShelterPicture.shelter_id==shelter_id,
+                                    ShelterPicture.category_id==sub_category.id)
+                                )
+
+    return render_template('edit.html', section_name=section_name,
+                            shelter=shelter, shelter_id=shelter_id,
+                            categories=categories, pictures=pictures,
+                            sections=sections, section=section)
 
 
 @shelter_bp.route('/edit/<int:shelter_id>/<section_name>', methods=['POST'])

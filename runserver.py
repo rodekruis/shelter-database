@@ -55,6 +55,11 @@ with app.app_context():
                         methods=['GET', 'POST', 'PUT', 'DELETE'])
     app.register_blueprint(blueprint_shelter_picture)
 
+    # 'Section' Web service
+    blueprint_section = manager.create_api_blueprint(models.Section,
+                        methods=['GET', 'POST', 'PUT', 'DELETE'])
+    app.register_blueprint(blueprint_section)
+
     # 'Category' Web service
     blueprint_category = manager.create_api_blueprint(models.Category,
                         methods=['GET', 'POST', 'PUT', 'DELETE'])

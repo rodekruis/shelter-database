@@ -28,27 +28,29 @@
         <p>Updated at: {{ shelter.updated_at | datetime }}</p>
         <p>Commercial: {% if shelter.is_commercial %}Yes{% else %}No{% endif %}</p>
         <hr />
-        {% for category in categories_list %}
-            <h2>{{ category | translate }}</h2>
-            {% for property  in categories[category]  %}
-                <p><b>{{ property.attribute.name | translate }}</b>&nbsp;
+        {% for category in section.categories %}
+            {% for sub_category in category.sub_categories %}
+                <h2>{{ sub_category.name | translate }}</h2>
+                {% for property  in categories[sub_category.name]  %}
+                    <p><b>{{ property.attribute.name | translate }}</b>&nbsp;
 
-                    {% if property.attribute.type == 'yes / no' %}
-                        {% if property.values[0].name in ("1","on") %}Yes{% else %}No{% endif %}
-                    {% else %}
-                        {% for value in property.values[:-1] %}
-                            {{ value.name | translate }},&nbsp;
-                        {% endfor %}
-                        {{ property.values[-1].name | translate }}
-                    {% endif %}
-                </p>
-            {% endfor %}
-            {% if pictures[category] | length != 0 %}
-                <h3>Related pictures</h3>
-                {% for picture in pictures[category] %}
-                    <img src="{{ shelter_id }}/{{ picture.file_name }}" />
+                        {% if property.attribute.type == 'yes / no' %}
+                            {% if property.values[0].name in ("1","on") %}Yes{% else %}No{% endif %}
+                        {% else %}
+                            {% for value in property.values[:-1] %}
+                                {{ value.name | translate }},&nbsp;
+                            {% endfor %}
+                            {{ property.values[-1].name | translate }}
+                        {% endif %}
+                    </p>
                 {% endfor %}
-            {% endif %}
+                {% if pictures[sub_category.name] | length != 0 %}
+                    <h3>Related pictures</h3>
+                    {% for picture in pictures[sub_category.name] %}
+                        <img src="{{ shelter_id }}/{{ picture.file_name }}" />
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
         {% endfor %}
     </body>
 </html>

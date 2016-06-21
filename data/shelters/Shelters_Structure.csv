@@ -1,204 +1,204 @@
-Category,Sub-category,Attribute,Type of data,Options,single / multiple choice,optional/mandatory/automatic,drawing
-Identification,Identification,ID,Text,2 digit country code [XX] + sequence number [000],,automatic,
-,Identification,Name of shelter,Text,< 35 characters,,optional,
-,Identification,Survey date,Date,dd-MM-yyyy,,mandatory,
-,Identification,Zone,Drop down box,Africa; Americas & Caribbean; Asia Pacific; Europe; Middle East & North Africa,single choice,mandatory,
-,Identification,Country,Drop down box,"Afghanistan;Åland Islands;Albania;Algeria;American Samoa;Andorra;Angola;Anguilla;Antarctica;Antigua and Barbuda;Argentina;Armenia;Aruba;Australia;Austria;Azerbaijan;Bahamas;Bahrain;Bangladesh;Barbados;Belarus;Belgium;Belize;Benin;Bermuda;Bhutan;Bolivia, Plurinational State of;Bonaire, Sint Eustatius and Saba;Bosnia and Herzegovina;Botswana;Bouvet Island;Brazil;British Indian Ocean Territory;Brunei Darussalam;Bulgaria;Burkina Faso;Burundi;Cambodia;Cameroon;Canada;Cape Verde;Cayman Islands;Central African Republic;Chad;Chile;China;Christmas Island;Cocos (Keeling) Islands;Colombia;Comoros;Congo;Congo, The Democratic Republic of the;Cook Islands;Costa Rica;Côte d'Ivoire;Croatia;Cuba;Curaçao;Cyprus;Czech Republic;Denmark;Djibouti;Dominica;Dominican Republic;Ecuador;Egypt;El Salvador;Equatorial Guinea;Eritrea;Estonia;Ethiopia;Falkland Islands (Malvinas);Faroe Islands;Fiji;Finland;France;French Guiana;French Polynesia;French Southern Territories;Gabon;Gambia;Georgia;Germany;Ghana;Gibraltar;Greece;Greenland;Grenada;Guadeloupe;Guam;Guatemala;Guernsey;Guinea;Guinea-Bissau;Guyana;Haiti;Heard Island and McDonald Islands;Holy See (Vatican City State);Honduras;Hong Kong;Hungary;Iceland;India;Indonesia;Iran, Islamic Republic of;Iraq;Ireland;Isle of Man;Israel;Italy;Jamaica;Japan;Jersey;Jordan;Kazakhstan;Kenya;Kiribati;Korea, Democratic People's Republic of;Korea, Republic of;Kuwait;Kyrgyzstan;Lao People's Democratic Republic;Latvia;Lebanon;Lesotho;Liberia;Libya;Liechtenstein;Lithuania;Luxembourg;Macao;Macedonia, Republic of;Madagascar;Malawi;Malaysia;Maldives;Mali;Malta;Marshall Islands;Martinique;Mauritania;Mauritius;Mayotte;Mexico;Micronesia, Federated States of;Moldova, Republic of;Monaco;Mongolia;Montenegro;Montserrat;Morocco;Mozambique;Myanmar;Namibia;Nauru;Nepal;Netherlands;New Caledonia;New Zealand;Nicaragua;Niger;Nigeria;Niue;Norfolk Island;Northern Mariana Islands;Norway;Oman;Pakistan;Palau;Palestine, State of;Panama;Papua New Guinea;Paraguay;Peru;Philippines;Pitcairn;Poland;Portugal;Puerto Rico;Qatar;Réunion;Romania;Russian Federation;Rwanda;Saint Barthélemy;Saint Helena, Ascension and Tristan da Cunha;Saint Kitts and Nevis;Saint Lucia;Saint Martin (French part);Saint Pierre and Miquelon;Saint Vincent and the Grenadines;Samoa;San Marino;Sao Tome and Principe;Saudi Arabia;Senegal;Serbia;Seychelles;Sierra Leone;Singapore;Sint Maarten (Dutch part);Slovakia;Slovenia;Solomon Islands;Somalia;South Africa;South Georgia and the South Sandwich Islands;Spain;Sri Lanka;Sudan;Suriname;South Sudan;Svalbard and Jan Mayen;Swaziland;Sweden;Switzerland;Syrian Arab Republic;Taiwan, Province of China;Tajikistan;Tanzania, United Republic of;Thailand;Timor-Leste;Togo;Tokelau;Tonga;Trinidad and Tobago;Tunisia;Turkey;Turkmenistan;Turks and Caicos Islands;Tuvalu;Uganda;Ukraine;United Arab Emirates;United Kingdom;United States;United States Minor Outlying Islands;Uruguay;Uzbekistan;Vanuatu;Venezuela, Bolivarian Republic of;Viet Nam;Virgin Islands, British;Virgin Islands, U.S.;Wallis and Futuna;Western Sahara;Yemen;Zambia;Zimbabwe",single choice,mandatory;not_editable,
-,Identification,Province / District / Region,Text,< 30 characters,,"either fields with province,distirc, region adn city/village mandatory, or GPS coordinates",
-,Identification,City / Village,Text,< 30 characters,,,
-,Identification,GPS Latitude,Number,between -90 to 90,,,
-,Identification,GPS Longitude,Number,between -90 to 90,,,
-,Identification,GPS Altitude,Number,m above sea level,,,
-,Identification,Climate zone,Drop down box,dry polar; dry moderate; dry tropical; moist polar; moist moderate; moist tropical,single choice,optional,
-,Identification,Landform,Drop down box,mountains; plateaus; hills; valley; plain; river delta; desert,single choice,mandatory,
-Disaster & Response,Disaster & Response,Associated disaster / Immediate cause,Drop down box,earthquake; flood; storm/cyclone; volcanic eruption; fire; rockfall/landslide; tsunami; drought/famine; epidemic; conflict related; other,multiple choice,mandatory,
-,Disaster & Response,Main hazards in country,check box,earthquake; flood; storm/cyclone; volcanic eruption; fire; rockfall/landslide; tsunami; drought,multiple choice,mandatory,
-,Disaster & Response,Type of Implementing Agency,Drop down box,by private sector; by government; by NGO/agency; self-built,single choice,mandatory,
-,Disaster & Response,Implementing Agency,Text,< 30 characters,,optional,
-,Disaster & Response,Name of Project Manager,Text,< 255 characters,,optional,
-,Disaster & Response,Name of local partner (NGO/Government),Text,< 30 characters,,optional,
-,Disaster & Response,Name of Governmental Agency in charge of Disaster Management,Text,< 255 characters,,optional,
-,Disaster & Response,Name of Governmental Agency in charge of Construction ,Text,< 255 characters,,optional,
-,Disaster & Response,Type of shelter,Drop down box,emergency shelter; transitional shelter; core shelter; permanent shelter,single choice,mandatory,
-,Disaster & Response,Total number of shelter built during project,Whole number,>0,,mandatory,
-,Disaster & Response,Type of work (construction),Drop down box,retrofit; repair; rebuilding; relocation,single choice,mandatory,
-,Disaster & Response,Type of settlement,Drop down box,in a planned camp; self-settlement with relocation; self-settlement in-situ; in a collective centre; host family; in a planned site,single choice,mandatory,
-,Disaster & Response,Labour methods,Drop down box,direct (beneficiary) labour; community labour; contract labour,multiple choice,mandatory,
-,Disaster & Response,Labour skills,Drop down box,skilled labour; unskilled labour,multiple choice,optional,
-,Disaster & Response,Support provided,Drop down box,"none; technical training; technical support; shelter construction items; cash; vouchers; livelihood support; environmental & resource management; local information centres; insurances; loans & guarantees; advocacy, legal & administrative; market interventions; return & transit items; infrastructure & settlement planning; other",multiple choice,mandatory,
-General,General,Year of construction (first completed shelters),Number,>0,,mandatory,
-,General,Number of inhabitants of the shelter,Whole number,>0,,mandatory,
-,General,Occupancy status (site),Drop down box,occupied with no legal status; land tenant; owner of the land; family land,single choice,mandatory,
-,General,Occupancy status (shelter),Drop down box,not occupied; occupied with no legal status; house tenant; owner-occupier,single choice,mandatory,
-,General,Typology,Drop down box,detached; semi-detached; row unit; apartment,single choice,mandatory,D1-1
-,General,Storeys,Whole number,>0,,mandatory,
-,General,Number of rooms (not including kitchen & bathroom/toilet),Whole number,>0,,mandatory,
-,General,Length (m),Number,>0,,mandatory,D1-2
-,General,Width (m),Number,>0,,mandatory,D1-2
-,General,Total interior area (m2),Number,>0,,mandatory,D1-2
-,General,Covered area (m2),Number,>0,,automatic,D1-2
-,General,Wall height (m),Number,>0,,mandatory,D1-2
-,General,Ridge height (m),Number,>0,,mandatory,D1-2
-,General,Construction cost per unit (USD),Currency,>0,,optional,
-,General,Construction costs breakdown (USD) - local material,Currency,>0,,optional,
-,General,Construction costs breakdown (USD) - imported material,Currency,>0,,optional,
-,General,Construction costs breakdown (USD) - transport and warehousing,Currency,>0,,optional,
-,General,Construction costs breakdown (USD) - local labour,Currency,>0,,optional,
-,General,Construction costs breakdown (USD) - international staff,Currency,>0,,optional,
-,General,Construction costs breakdown (USD) - trainings,Currency,>0,,optional,
-,General,Construction costs breakdown (USD) - administrative costs,Currency,>0,,optional,
-,General,Construction costs breakdown (USD) - other,Currency,>0,,optional,
-,General,Construction labour (number of workers),Whole number,>0,,optional,
-,General,Construction time (number of days per unit),Whole number,>0,,mandatory,
-,General,Comment,TextArea,< 255 characters,,optional,
-Site,Site,Context,Drop down box,urban; peri-urban; slum; semi-rural; rural,single choice,mandatory,
-,Site,Topography,Drop down box,"flat/level (<2%); gentle slope (2-10%); moderate slope (10-15%); strong slope (15-30%); very strong slope (30-45%), extreme slope (45-70%), steep slope (70-100%); very steep slope (>100%)",single choice,mandatory,D2-1
-,Site,Location of the site,Drop down box,exposed crest/edge of a cliff; coastal area; low-lying area; in terrace; undulating; base of a slope; close to a river/pond/lake; on water; other,single choice,mandatory,D2-2
-,Site,Soil type,Drop down box,rock; stone/gravel; sand; clay; wetland/water,single choice,mandatory,
-,Site,Vegetation,Drop down box,trees; shrub; bush; grass; none,single choice,mandatory,
-,Site,Approximate plot area (m2),Whole number,>0,,mandatory,
-,Site,Site access,Drop down box,none; gravel; (permeable) pavement; asphalt; concrete,single choice,mandatory,
-,Site,Accessibility for transport,Drop down box,by truck; by car; by 4x4; by animal; by foot; by boat/raft; other,multiple choice,mandatory,
-Foundation,Foundation,Foundation type,Drop down box,strip footing; isolated footing (pad/ bucket); monolithic slab; on stilts/pillars/piles; helical piles/ screw piles; earth anchor/ mechanical soil anchor; spiral ground anchor; pegs ; ballast; anchor block; none ,single choice,mandatory,D3-0;D3-1;D3-2
-,Foundation,Foundation material,Drop down box,reinforced concrete; reinforcing bars; welded-wire mesh; concrete; mortar; timber; wood; bamboo; steel; galvanized steel; granular fill; stone/rock; backfill; rubble (masonry); squared rubble; concrete block(solid); hollow concrete block; solid brick (fired clay); adobe/sun-dried brick; salvage material; other,multiple choice,optional,D4-0
-,Foundation,Depth of foundation (m),whole number,>0,,optional,D3-1;D3-2
-,Foundation,Section/ surface of footing (m x m),Text,>0,,optional,D3-1
-,Foundation,Width of wall base (m),whole number,>0,,optional,D3-1
-,Foundation,Section of stilt/ pillar/ pile (m x m),Text,>0,,optional,D3-1;D3-2
-,Foundation,Thickness of monolithic concrete slab (m),whole number,>0,,optional,D3-1
-,Foundation,Distance between piles/ stilts/ isoled footing (m),whole number,>0,,optional,D3-2
-,Foundation,Connection between foundation - walls,Drop down box,none; nails; screws; lag screws/lag bolts; bolts and nuts; anchor bolts & washers; anchor plates/ post anchors/bases; straps; reinforcing bars; wire; lashings; dowels/ pins; other,multiple choice,optional,D3-9-1;D3-10-1
-,Foundation,Connection material (foundation - walls),Drop down box,none; cement; steel; galvanized steel; stainless steel; timber; wood; bamboo; polymer; organic;concrete; other,multiple choice,optional,
-,Foundation,Comment,TextArea,< 255 characters,,optional,
-Walls & frame,Walls & Frame,Superstructure type,Drop down box,Bearing walls; Framed walls; Pole-frame; Posts & Beams; other,single choice,mandatory,D3-3;D3-3-1;D3-3-2;D3-3-3;D3-3-4
-,Walls & Frame,Comment,TextArea,< 255 characters,,mandatory,D4-0
-,Bearing walls,Bearing walls material,Drop down box,concrete block (solid); hollow concrete block; solid brick (fired clay); perforated brick (fired clay); hollow brick (fired clay); adobe/ sun-dried brick; rubble (masonry); squared rubble; other,multiple choice,optional,D3-3-1
-,Bearing walls,Bearing walls - width (m),Whole number,>0,,optional,D3-3-1
-,Bearing walls,Bearing walls - bond beams & lintels,Drop down box,none; bond beam/ ring beam; vertical wall reinforcement; lintel (above doors); lintel (above windows); rake beam (top of gable end),multiple choice,optional,D3-3-1
-,Bearing walls,Section of horizontal bond beam (m x m),Text,>0,,optional,D3-3-1
-,Bearing walls,Section of lintel (m x m),Text,>0,,optional,D3-9-3
-,Bearing walls,Connection between bearing walls and roof,Drop down box,none; nails; screws; lag screws/bolts; bolts and nuts; anchor bolts and washers; anchor plates; hurricane straps/ ties/ clips; wire; reinforcing bars; other,multiple choice,optional,
-,Bearing walls,Connection material (walls - roof),Drop down box,none; concrete; steel; galvanized steel; stainless steel; timber; polymer; organic; other,multiple choice,optional,D3-8
-,Bearing walls,Stability measure - bearing walls,Drop down box,none; bond beam/ring beam at plinth level; bond beam/ring beam at lintel level; bond beam/ring beam at roof level; vertical wall reinforcement in corners; vertical wall reinforcement in at each wall intersection; rake beam; tie-bar/ tie rod and tie plate; vertical wall;other,multiple choice,optional,
-,Bearing walls,Stability measure material,Drop down box,none; reinforced concrete; steel; other,multiple choice,mandatory,
-,Framed walls,Framed walls material,Drop down box,steel; galvanized steel; timber; wood; bamboo; mixed; other,multiple choice,optional,D3-3
-,Framed walls,Framed walls - section of corner post (m x m),Text,>0,,optional,D3-3
-,Framed walls,Framed walls - section of stud (m x m),Text,>0,,optional,D3-3
-,Framed walls,Framed walls - section of bottom wall plate/ sill plate (m x m),Text,>0,,optional,D3-3
-,Framed walls,Framed walls - section of top wall plate (m x m),Text,>0,,mandatory,D3-9-4;D3-10-1
-,Framed walls,Connection between framed walls and roof,Drop down box,none; nails; screws; lag screws/bolts; bolts and nuts; anchor bolts and washers; hurricane straps/ ties/ clips; wire; lashings; dowels/ pins; other,multiple choice,mandatory,
-,Framed walls,Connection material (walls - roof),Drop down box,none; steel; galvanized steel; stainless steel; timber; polymer; organic; other,multiple choice,mandatory,D3-8-2
-,Framed walls,Stability measure - framed walls,Drop down box,none; corner brace; K brace; angle brace; sheathing (load bearing shell); studs located every 60 cm (2 ft) or less; cross brace; other,multiple choice,optional,
-,Framed walls,Stability measure material,Drop down box,none; timber; wood; bamboo; plywood; wire; metal cable; rope; other,multiple choice,mandatory,D3-3
-,Pole-frame,Pole-frame - material,Drop down box,timber; wood; coconut tree; bamboo; other,multiple choice,optional,D3-3
-,Pole-frame,Pole-frame - section of pole (m x m),Text,>0,,optional,D3-3
-,Pole-frame,Pole-frame- height of pole (m),number,>0,,mandatory,D3-9-1;D3-10-1
-,Pole-frame,Connection between pole-frame walls and roof,Drop down box,none; nails; screws; lag screws/bolts; bolts and nuts; anchor bolts and washers; hurricane straps/ ties/ clips; wire; lashings; dowels/ pins; other,multiple choice,optional,
-,Pole-frame,Connection material (walls - roof),Drop down box,none; steel; galvanized steel; stainless steel; timber; polymer; organic; other,,mandatory,D3-8-2
-,Pole-frame,Stability measure - pole-frame construction,Drop down box,none; cross brace; V brace; angle brace; gusset plates; other,multiple choice,optional,
-,Pole-frame,Stability measure material,Drop down box,none; timber; wood; bamboo; plywood; wire; metal cable; rope; other,multiple choice,mandatory,D3-3
-,Posts & Beams,Posts & beams framing - material,Drop down box,reinforced concrete; steel; galvanized steel; timber; wood; coconut tree; bamboo; other,multiple choice,optional,D3-3
-,Posts & Beams,Posts & beams framing - section of post (m x m),Text,>0,,optional,D3-3
-,Posts & Beams,Posts & beams framing - height of post (m),number,>0,,mandatory,D3-9-3
-,Posts & Beams,Connection between posts and beams framing walls and roof,Drop down box,none; nails; screws; lag screws/bolts; bolts and nuts; anchor bolts and washers; anchor plates; hurricane straps/ ties/ clips; wire; lashings; dowels/ pins; reinforcing bars; other,multiple choice,optional,
-,Posts & Beams,Connection material (walls - roof),Drop down box,none; concrete; steel; galvanized steel; stainless steel; timber; polymer; organic; other,multiple choice,mandatory,D3-8-2
-,Posts & Beams,Stability measure - posts & beams framing,Drop down box,none; cross brace; V brace; angle brace; gusset plates; other,multiple choice,optional,
-,Posts & Beams,Stability measure material,Drop down box,none; reinforced concrete; steel; timber; bamboo; plywood; rope; wire; metal cable; other,multiple choice,optional,
-Beams & floor,Beams & Floor (ground floor),Ground floor type,Drop down box,earth platform (elevated ground floor); ground slab/ slab on grade; suspended timber ground floor; suspended slab (reinforced concrete); beam and blocks/ beam fill floor (concrete joists and infill blocks); other types of suspended floor; other,single choice,mandatory,D3-4
-,Beams & Floor (ground floor),Ground floor material,Drop down box,backfill compacted; debris; granular fill (gravel); stone; reinforced concrete; welded-wire mesh; concrete; concrete blocks & mortar; timber; wood; steel; galvanized steel; bamboo; concrete joists; infill blocks/ blocks floor; arched bricks; granular fill; other,multiple choice,mandatory,D3-4
-,Beams & Floor (ground floor),Height of ground floor above ground level (m),number,>0,,mandatory,D3-4
-,Beams & Floor (ground floor),Lenght of the beams/joists (m),number,>0,,optional,D3-4
-,Beams & Floor (ground floor),Section of the beams/joists (m x m),Text,>0,,optional,D3-4
-,Beams & Floor (ground floor),Distance between beams/joists (m),number,>0,,optional,D3-4
-,Beams & Floor (ground floor),Thickness of decking/ concrete slab/ compression slab (m),number,>0,,mandatory,
-,Beams & Floor (ground floor),Floor components,Drop down box,concrete; reinforcing bars; welded-wire mesh; steel; galvanized steel; timber; wood; plywood; bamboo; infill blocks; arched bricks; other,multiple choice,optional,
-,Beams & Floor (ground floor),Connection between walls and ground floor,Drop down box,none; nails; screws; lag screws/bolts; bolts and nuts; wire; anchor plates; straps; reinforcing bars; lashings; dowels/ pins; other,multiple choice,mandatory,D3-9-1
-,Beams & Floor (ground floor),Connection material (walls - ground floor),Drop down box,none; concrete; steel; galvanized steel; stainless steel; timber; wood; polymer; organic; other,multiple choice,optional,
-,Beams & Floor (ground floor),Stability measure - elevated ground floor,Drop down box,none; cross brace; angle brace; gusset plates; other,multiple choice,mandatory,D3-8-1
-,Beams & Floor (ground floor),Stability measure material ,Drop down box,none; reinforced concrete; steel; timber; wood; plywood; bamboo; other,multiple choice,optional,
-,Beams & Floor,Floor type (second floor and others),Drop down box,none; suspended timber ground floor; suspended slab (reinforced concrete); beam and blocks/ beam fill floor (concrete joists and infill blocks); other types of suspended floor; other,single choice,mandatory,D3-5
-,Beams & Floor,Beams/ joists material,Drop down box,reinforced concrete; steel; galvanized steel; timber; wood; bamboo; other,multiple choice,mandatory,
-,Beams & Floor,Lenght of the beams/joists (m),number,>0,,optional,D3-5
-,Beams & Floor,Section of the beams/joists (m x m),Text,>0,,optional,D3-5
-,Beams & Floor,Distance between beams/joists (m),number,>0,,optional,D3-5
-,Beams & Floor,Connection between walls and floor (if more than one storey),Drop down box,none; nails; screws; lag screws/bolts; bolts and nuts; wire; anchor plates; straps; ties; reinforcing bars; lashings; dowels/ pins; ,multiple choice,mandatory,D3-9-1
-,Beams & Floor,Connection material (walls - floor),Drop down box,none; concrete; steel; galvanized steel; stainless steel; timber; wood; polymer; organic; other,multiple choice,optional,
-,Beams & Floor,Thickness of decking/ concrete slab/ compression slab (m),number,>0,,mandatory,
-,Beams & Floor,Floor components,Drop down box,concrete; reinforcing bars; welded-wire mesh; steel; galvanized steel; timber; wood; plywood; bamboo; infill blocks; arched bricks; other,multiple choice,optional,
-,Beams & Floor,Comment,TextArea,< 255 characters,,optional,
-Roof,Roof,Roof shape,Drop down box,"shed roof (single-pitch roof, pitch >3°); gable roof (pitched roof); hip-roof (hipped roof); flat roof (pitch <3°); dome; rainbow roof (arched); mansard roof; gambrel roof (roof with several slopes on the same side)",single choice,mandatory,D3-6
-,Roof,Roof pitch (°),Drop down box,<3° (<5%); 3-9° (5-16 %); 10-30° (17-60%) ; 30-45° (60-100%); >45° (>100%),single choice,mandatory,
-,Roof,Roof structure,Drop down box,gable end; truss; purlin; rafter; roof decking; concrete slab,multiple choice,mandatory,D3-7-1
-,Roof,Roof structure material,Drop down box,steel; galvanized steel; timber; wood; plywood; sheathing; bamboo; reinforced concrete; other,multiple choice,mandatory,
-,Roof,Distance between trusses/ gable end/ cross wall (m),number,>0,,optional,D3-7-2
-,Roof,Section of purlin (m x m),Text,>0,,optional,D3-7-2
-,Roof,Distance between purlins (m),number,>0,,optional,D3-7-2
-,Roof,Section of rafter (m x m),Text,>0,,optional,D3-7-2
-,Roof,Distance between rafters (m),number,>0,,optional,D3-7-2
-,Roof,Size of eaves (overhang) (m),number,>0,,mandatory,D3-7-2
-,Roof,Thickness of roof decking/ concrete slab (m),number,>0,,optional,D3-7-2
-,Roof,Section of batten/ lath (m x m),Text,>0,,optional,D3-7-2
-,Roof,Distance between  battens/ laths (m),number,>0,,optional,D3-7-2
-,Roof,Connection between roof elements,Drop down box,none; nails; screws; lag screws/bolts; bolts and nuts; anchor plates; hurricane straps; gusset plates; connectors/ nail plates; lashings; dowels/ pins;,multiple choice,mandatory,D3-9-4;D3-9-5;D3-9-6;D3-10-2
-,Roof,Connection material (roof elements),Drop down box,none; concrete; steel; galvanized steel; stainless steel; timber; polymer; organic; other,multiple choice,optional,
-,Roof,Stability measure - roof,Drop down box,none; tie beam; collar beam/ tie; tie (between ridge beam and king post/ truss); rafter brace; gusset plates; bracing ;other,multiple choice,mandatory,D3-8-4
-,Roof,Stability measure material,Drop down box,none; concrete; steel; timber; bamboo; other,multiple choice,optional,
-,Roof,Comment,TextArea,< 255 characters,,optional,
-Cladding,Cladding,Facade cladding material,Drop down box,none; brick; hollow brick; perforated brick; adobe/ sun-dried brick; mud plaster; concrete block (solid); hollow concrete block; cement plaster; wattle & daub; timber; wood; plywood; fiber cement board/ cement board; bamboo; metal sheeting; plastic sheeting (tarpaulin); canvas; textile; woven mat (organic material); thatch; straw; corrugated galvanized iron (CGI) sheet; shingle; wood shingle; other;,multiple choice,mandatory,
-,Cladding,Thickness of cladding material (mm),number,>0,,optional,
-,Cladding,Roof covering material,Drop down box,corrugated galvanized iron (CGI) sheet; insulated metal roofing sheet; corrugated bitumen roofing panel; aluminium roofing sheet; plastic sheeting (tarpaulin); thatch; leaves; straw; clay tiles; concrete tiles; stone shingle; asphalt shingle; wood shingle; asphalt; bamboo; wood; plywood; GPR (fibreglass) panel; other,multiple choice,mandatory,
-,Cladding,Thickness of roof covering (mm or gauge),Number,>0,single choice,mandatory,
-,Cladding,Floor Finish Material,Drop down box,none; timber; wood; cement plaster; mud plaster; bamboo; ceramic tiles; carpet; plastic floor; organic material; other,multiple choice,mandatory,
-Openings,Openings,Number of doors,Number,>0,single choice,mandatory,
-,Openings,Doors material,Drop down box,timber; wood; plywood; bamboo; plastic sheeting; mesh; insect screening mesh; fibreglass; leaves; other,multiple choice,mandatory,
-,Openings,Number of windows,Whole number,>0,single choice,mandatory,
-,Openings,Windows material,Drop down box,timber; wood; plywood; bamboo; plastic sheeting; insect screening mesh; fibreglass; lattice; other,multiple choice,mandatory,
-,Openings,Number of shutters,Whole number,>0,,optional,
-,Openings,Shutters material,Drop down box,metal; timber; wood; plywood; bamboo; other,multiple choice,optional,
-Insulation,Insulation,Insulation system,Drop down box,none; shading ; insulation of the flooring; insulation on the walls; insulation below the roof; other,multiple choice,mandatory,
-,Insulation,Insulation material,Drop down box,none; shade net;  insulated corrugated roofing sheeting; organic material; other,single choice,mandatory,
-Skin,Skin,Comment,TextArea,< 255 characters,,optional,
-Services,Services,Water Supply location,Drop down box,in shelter; on plot; communal; other,multiple choice,mandatory,
-,Services,Distance to the water supply,number ,>0,single choice,mandatory,
-,Services,Water Supply Type,Drop down box,"piped water; tap/standpipe; tubewell/ borehole; protected dug well; protected spring; rainwater collection; unprotected spring; unprotected dug well; cart with small tank/drum; tanker truck; surface water (from river, pond, lake); bottled water; other",multiple choice,mandatory,
-,Services,Sanitation location,Drop down box,in shelter; on plot; communal; other,single choice,mandatory,
-,Services,Distance to the sanitation,number ,>0,,mandatory,
-,Services,Sanitation Type,Drop down box,flush toilet; pour flush toilet; piped sewer system; septic tank; flush/pour flush to pit latrine; ventilated improved pit latrine (VIP); pit latrine with slab; composting toilet; flush/pour flush to elsewhere; pit latrine without slab; bucket; hanging toilet/ hanging latrine; no facilities or bush or field; other,single choice,mandatory,
-,Services,Sewage system,Drop down box,none; open sewer system; single pit; septic system; piped sewer system; trucking (gully emptier) to sewage plant; trucking (gully emptier) to open dumping; other ,single choice,mandatory,
-,Services,Drainage,Drop down box,none; open drains; covered drains; other,single choice,mandatory,
-,Services,Waste treatment,Drop down box,burn on site; dump on site; door-to-door collection; central collection; other,multiple choice,mandatory,
-,Services,Bathroom location,Drop down box,in shelter; on plot; communal; other,single choice,mandatory,
-,Services,Distance to the bathroom,number ,>0,,mandatory,
-,Services,Type of Bathroom,Drop down box,bucket shower; container; bathtub; shower; river; pond; lake; other,single choice,mandatory,
-,Services,Heating system,Drop down box,none; stove; electrical heater; fireplace/hearth; central heating; other,multiple choice,mandatory,
-,Services,Energy Source for heating system,Drop down box,none; gas; oil; electricity (grid); electricity (battery); wood; coal/charcoal; biomass; wind; solar; other,multiple choice,mandatory,
-,Services,Cooling system,Drop down box,none; natural ventilation; fan; air conditioning,multiple choice,mandatory,
-,Services,Energy Source for cooling system,Drop down box,none; electricity (grid); electricity (battery); wind; solar; other,multiple choice,mandatory,
-,Services,Type of natural ventilation,Drop down box,none; foundation vent; outside-air intake - bottom part of the wall; outside-air intake - above doors and windows; roof vent; air vent between rooms; trickle vent in windows or doors; vent pipe in roof; chimney; other,multiple choice,mandatory,D4-3
-,Services,Number of ventilation openings,Whole number,>0,,mandatory,
-,Services,Lighting,Drop down box,none; candles; torch/flashlight (battery powered); oil/kerosene lamp; electrical powered lamp; solar powered lamp; other,multiple choice,mandatory,
-,Services,Energy Source (Appliances),Drop down box,none; gas; electricity (grid); electricity (battery); wood; coal/charcoal; biomass; wind; solar; other,multiple choice,mandatory,
-,Services,Kitchen location,Drop down box,in shelter; on plot; communal; other,single choice,mandatory,
-,Services,Kitchen Type,Drop down box,none; open fire; portable stove; stove; other,multiple choice,mandatory,
-,Services,Cooking Energy Source,Drop down box,wood; biomass; oil; gas; coal/charcoal; kerosene; electricity; solar; other,multiple choice,mandatory,
-,Services,Comment,TextArea,< 255 characters,,optional,
-spaceplan,Spaceplan,Partitions,Drop down box,none; walls; half walls; screens; curtains,multiple choice,mandatory,
-,Spaceplan,Partition structure material,Drop down box,none; bamboo; timber; wood; brick; concrete block; block; adobe/ sun-dried brick; steel; plastic; textile; other,multiple choice,optional,
-,Spaceplan,Partition finish,Drop down box,none; metal sheeting; timber; wood; plywood; bamboo; cement plaster; mud plaster; wallpaper; paint; hand woven mat (organic material); other,multiple choice,mandatory,
-,Spaceplan,Ceiling structure material,Drop down box,none; timber; wood; plywood; bamboo; other,multiple choice,mandatory,
-,Spaceplan,Ceiling Finish Material,Drop down box,none; cement plaster; mud plaster; wallpaper; paint; organic material; other,multiple choice,mandatory,
-,Spaceplan,Possible extension of the shelter structure,yes / no,1; 0,,optional,
-,Spaceplan,implemented extention to the shelter (at survey date),yes / no,1; 0,,mandatory,
-,Spaceplan,Comment,TextArea,< 255 characters,,optional,
-Documents,Documents,Project narrative,yes / no,1; 0,,optional,
-,Documents,Technical description,yes / no,1; 0,,optional,
-,Documents,(Priced) Bill of Quantity (BoQ),yes / no,1; 0,,optional,
-,Documents,Design Drawings,yes / no,1; 0,,optional,
-,Documents,Site plan,yes / no,1; 0,,optional,
-,Documents,Satellite picture,yes / no,1; 0,,optional,
-,Documents,Pictures/video of setting,yes / no,1; 0,,mandatory,
-,Documents,Pictures/video of elevations,yes / no,1; 0,,mandatory,
-,Documents,Pictures/video of extensions,yes / no,1; 0,,mandatory,
-,Documents,Pictures/video of details,yes / no,1; 0,,mandatory,
-,Documents,Pictures/video of living practices,yes / no,1; 0,,mandatory,
-,Documents,Comment,TextArea,< 255 characters,,optional,
+Section,Category,Sub-category,Attribute,Type of data,Options,single / multiple choice,optional/mandatory/automatic,drawing
+General Information,Identification,Identification,ID,Text,2 digit country code [XX] + sequence number [000],,automatic,
+,,Identification,Name of shelter,Text,< 35 characters,,optional,
+,,Identification,Survey date,Date,dd-MM-yyyy,,mandatory,
+,,Identification,Zone,Drop down box,Africa; Americas & Caribbean; Asia Pacific; Europe; Middle East & North Africa,single choice,mandatory,
+,,Identification,Country,Drop down box,"Afghanistan;Åland Islands;Albania;Algeria;American Samoa;Andorra;Angola;Anguilla;Antarctica;Antigua and Barbuda;Argentina;Armenia;Aruba;Australia;Austria;Azerbaijan;Bahamas;Bahrain;Bangladesh;Barbados;Belarus;Belgium;Belize;Benin;Bermuda;Bhutan;Bolivia, Plurinational State of;Bonaire, Sint Eustatius and Saba;Bosnia and Herzegovina;Botswana;Bouvet Island;Brazil;British Indian Ocean Territory;Brunei Darussalam;Bulgaria;Burkina Faso;Burundi;Cambodia;Cameroon;Canada;Cape Verde;Cayman Islands;Central African Republic;Chad;Chile;China;Christmas Island;Cocos (Keeling) Islands;Colombia;Comoros;Congo;Congo, The Democratic Republic of the;Cook Islands;Costa Rica;Côte d'Ivoire;Croatia;Cuba;Curaçao;Cyprus;Czech Republic;Denmark;Djibouti;Dominica;Dominican Republic;Ecuador;Egypt;El Salvador;Equatorial Guinea;Eritrea;Estonia;Ethiopia;Falkland Islands (Malvinas);Faroe Islands;Fiji;Finland;France;French Guiana;French Polynesia;French Southern Territories;Gabon;Gambia;Georgia;Germany;Ghana;Gibraltar;Greece;Greenland;Grenada;Guadeloupe;Guam;Guatemala;Guernsey;Guinea;Guinea-Bissau;Guyana;Haiti;Heard Island and McDonald Islands;Holy See (Vatican City State);Honduras;Hong Kong;Hungary;Iceland;India;Indonesia;Iran, Islamic Republic of;Iraq;Ireland;Isle of Man;Israel;Italy;Jamaica;Japan;Jersey;Jordan;Kazakhstan;Kenya;Kiribati;Korea, Democratic People's Republic of;Korea, Republic of;Kuwait;Kyrgyzstan;Lao People's Democratic Republic;Latvia;Lebanon;Lesotho;Liberia;Libya;Liechtenstein;Lithuania;Luxembourg;Macao;Macedonia, Republic of;Madagascar;Malawi;Malaysia;Maldives;Mali;Malta;Marshall Islands;Martinique;Mauritania;Mauritius;Mayotte;Mexico;Micronesia, Federated States of;Moldova, Republic of;Monaco;Mongolia;Montenegro;Montserrat;Morocco;Mozambique;Myanmar;Namibia;Nauru;Nepal;Netherlands;New Caledonia;New Zealand;Nicaragua;Niger;Nigeria;Niue;Norfolk Island;Northern Mariana Islands;Norway;Oman;Pakistan;Palau;Palestine, State of;Panama;Papua New Guinea;Paraguay;Peru;Philippines;Pitcairn;Poland;Portugal;Puerto Rico;Qatar;Réunion;Romania;Russian Federation;Rwanda;Saint Barthélemy;Saint Helena, Ascension and Tristan da Cunha;Saint Kitts and Nevis;Saint Lucia;Saint Martin (French part);Saint Pierre and Miquelon;Saint Vincent and the Grenadines;Samoa;San Marino;Sao Tome and Principe;Saudi Arabia;Senegal;Serbia;Seychelles;Sierra Leone;Singapore;Sint Maarten (Dutch part);Slovakia;Slovenia;Solomon Islands;Somalia;South Africa;South Georgia and the South Sandwich Islands;Spain;Sri Lanka;Sudan;Suriname;South Sudan;Svalbard and Jan Mayen;Swaziland;Sweden;Switzerland;Syrian Arab Republic;Taiwan, Province of China;Tajikistan;Tanzania, United Republic of;Thailand;Timor-Leste;Togo;Tokelau;Tonga;Trinidad and Tobago;Tunisia;Turkey;Turkmenistan;Turks and Caicos Islands;Tuvalu;Uganda;Ukraine;United Arab Emirates;United Kingdom;United States;United States Minor Outlying Islands;Uruguay;Uzbekistan;Vanuatu;Venezuela, Bolivarian Republic of;Viet Nam;Virgin Islands, British;Virgin Islands, U.S.;Wallis and Futuna;Western Sahara;Yemen;Zambia;Zimbabwe",single choice,mandatory;not_editable,
+,,Identification,Province / District / Region,Text,< 30 characters,,"either fields with province,distirc, region adn city/village mandatory, or GPS coordinates",
+,,Identification,City / Village,Text,< 30 characters,,,
+,,Identification,GPS Latitude,Number,between -90 to 90,,,
+,,Identification,GPS Longitude,Number,between -90 to 90,,,
+,,Identification,GPS Altitude,Number,m above sea level,,,
+,,Identification,Climate zone,Drop down box,dry polar; dry moderate; dry tropical; moist polar; moist moderate; moist tropical,single choice,optional,
+,,Identification,Landform,Drop down box,mountains; plateaus; hills; valley; plain; river delta; desert,single choice,mandatory,
+,Disaster & Response,Disaster & Response,Associated disaster / Immediate cause,Drop down box,earthquake; flood; storm/cyclone; volcanic eruption; fire; rockfall/landslide; tsunami; drought/famine; epidemic; conflict related; other,multiple choice,mandatory,
+,,Disaster & Response,Main hazards in country,check box,earthquake; flood; storm/cyclone; volcanic eruption; fire; rockfall/landslide; tsunami; drought,multiple choice,mandatory,
+,,Disaster & Response,Type of Implementing Agency,Drop down box,by private sector; by government; by NGO/agency; self-built,single choice,mandatory,
+,,Disaster & Response,Implementing Agency,Text,< 30 characters,,optional,
+,,Disaster & Response,Name of Project Manager,Text,< 255 characters,,optional,
+,,Disaster & Response,Name of local partner (NGO/Government),Text,< 30 characters,,optional,
+,,Disaster & Response,Name of Governmental Agency in charge of Disaster Management,Text,< 255 characters,,optional,
+,,Disaster & Response,Name of Governmental Agency in charge of Construction ,Text,< 255 characters,,optional,
+,,Disaster & Response,Type of shelter,Drop down box,emergency shelter; transitional shelter; core shelter; permanent shelter,single choice,mandatory,
+,,Disaster & Response,Total number of shelter built during project,Whole number,>0,,mandatory,
+,,Disaster & Response,Type of work (construction),Drop down box,retrofit; repair; rebuilding; relocation,single choice,mandatory,
+,,Disaster & Response,Type of settlement,Drop down box,in a planned camp; self-settlement with relocation; self-settlement in-situ; in a collective centre; host family; in a planned site,single choice,mandatory,
+,,Disaster & Response,Labour methods,Drop down box,direct (beneficiary) labour; community labour; contract labour,multiple choice,mandatory,
+,,Disaster & Response,Labour skills,Drop down box,skilled labour; unskilled labour,multiple choice,optional,
+,,Disaster & Response,Support provided,Drop down box,"none; technical training; technical support; shelter construction items; cash; vouchers; livelihood support; environmental & resource management; local information centres; insurances; loans & guarantees; advocacy, legal & administrative; market interventions; return & transit items; infrastructure & settlement planning; other",multiple choice,mandatory,
+,Site,Site,Context,Drop down box,urban; peri-urban; slum; semi-rural; rural,single choice,mandatory,
+,,Site,Topography,Drop down box,"flat/level (<2%); gentle slope (2-10%); moderate slope (10-15%); strong slope (15-30%); very strong slope (30-45%), extreme slope (45-70%), steep slope (70-100%); very steep slope (>100%)",single choice,mandatory,D2-1
+,,Site,Location of the site,Drop down box,exposed crest/edge of a cliff; coastal area; low-lying area; in terrace; undulating; base of a slope; close to a river/pond/lake; on water; other,single choice,mandatory,D2-2
+,,Site,Soil type,Drop down box,rock; stone/gravel; sand; clay; wetland/water,single choice,mandatory,
+,,Site,Vegetation,Drop down box,trees; shrub; bush; grass; none,single choice,mandatory,
+,,Site,Approximate plot area (m2),Whole number,>0,,mandatory,
+,,Site,Site access,Drop down box,none; gravel; (permeable) pavement; asphalt; concrete,single choice,mandatory,
+,,Site,Accessibility for transport,Drop down box,by truck; by car; by 4x4; by animal; by foot; by boat/raft; other,multiple choice,mandatory,
+Implementation details,General,General,Year of construction (first completed shelters),Number,>0,,mandatory,
+,,General,Number of inhabitants of the shelter,Whole number,>0,,mandatory,
+,,General,Occupancy status (site),Drop down box,occupied with no legal status; land tenant; owner of the land; family land,single choice,mandatory,
+,,General,Occupancy status (shelter),Drop down box,not occupied; occupied with no legal status; house tenant; owner-occupier,single choice,mandatory,
+,,General,Typology,Drop down box,detached; semi-detached; row unit; apartment,single choice,mandatory,D1-1
+,,General,Storeys,Whole number,>0,,mandatory,
+,,General,Number of rooms (not including kitchen & bathroom/toilet),Whole number,>0,,mandatory,
+,,General,Length (m),Number,>0,,mandatory,D1-2
+,,General,Width (m),Number,>0,,mandatory,D1-2
+,,General,Total interior area (m2),Number,>0,,mandatory,D1-2
+,,General,Covered area (m2),Number,>0,,automatic,D1-2
+,,General,Wall height (m),Number,>0,,mandatory,D1-2
+,,General,Ridge height (m),Number,>0,,mandatory,D1-2
+,,General,Construction cost per unit (USD),Currency,>0,,optional,
+,,General,Construction costs breakdown (USD) - local material,Currency,>0,,optional,
+,,General,Construction costs breakdown (USD) - imported material,Currency,>0,,optional,
+,,General,Construction costs breakdown (USD) - transport and warehousing,Currency,>0,,optional,
+,,General,Construction costs breakdown (USD) - local labour,Currency,>0,,optional,
+,,General,Construction costs breakdown (USD) - international staff,Currency,>0,,optional,
+,,General,Construction costs breakdown (USD) - trainings,Currency,>0,,optional,
+,,General,Construction costs breakdown (USD) - administrative costs,Currency,>0,,optional,
+,,General,Construction costs breakdown (USD) - other,Currency,>0,,optional,
+,,General,Construction labour (number of workers),Whole number,>0,,optional,
+,,General,Construction time (number of days per unit),Whole number,>0,,mandatory,
+,,General,Comment,TextArea,< 255 characters,,optional,
+Structure,Foundation,Foundation,Foundation type,Drop down box,strip footing; isolated footing (pad/ bucket); monolithic slab; on stilts/pillars/piles; helical piles/ screw piles; earth anchor/ mechanical soil anchor; spiral ground anchor; pegs ; ballast; anchor block; none ,single choice,mandatory,D3-0;D3-1;D3-2
+,,Foundation,Foundation material,Drop down box,reinforced concrete; reinforcing bars; welded-wire mesh; concrete; mortar; timber; wood; bamboo; steel; galvanized steel; granular fill; stone/rock; backfill; rubble (masonry); squared rubble; concrete block(solid); hollow concrete block; solid brick (fired clay); adobe/sun-dried brick; salvage material; other,multiple choice,optional,D4-0
+,,Foundation,Depth of foundation (m),whole number,>0,,optional,D3-1;D3-2
+,,Foundation,Section/ surface of footing (m x m),Text,>0,,optional,D3-1
+,,Foundation,Width of wall base (m),whole number,>0,,optional,D3-1
+,,Foundation,Section of stilt/ pillar/ pile (m x m),Text,>0,,optional,D3-1;D3-2
+,,Foundation,Thickness of monolithic concrete slab (m),whole number,>0,,optional,D3-1
+,,Foundation,Distance between piles/ stilts/ isoled footing (m),whole number,>0,,optional,D3-2
+,,Foundation,Connection between foundation - walls,Drop down box,none; nails; screws; lag screws/lag bolts; bolts and nuts; anchor bolts & washers; anchor plates/ post anchors/bases; straps; reinforcing bars; wire; lashings; dowels/ pins; other,multiple choice,optional,D3-9-1;D3-10-1
+,,Foundation,Connection material (foundation - walls),Drop down box,none; cement; steel; galvanized steel; stainless steel; timber; wood; bamboo; polymer; organic;concrete; other,multiple choice,optional,
+,,Foundation,Comment,TextArea,< 255 characters,,optional,
+,Walls & frame,Walls & Frame,Superstructure type,Drop down box,Bearing walls; Framed walls; Pole-frame; Posts & Beams; other,single choice,mandatory,D3-3;D3-3-1;D3-3-2;D3-3-3;D3-3-4
+,,Walls & Frame,Comment,TextArea,< 255 characters,,mandatory,D4-0
+,,Bearing walls,Bearing walls material,Drop down box,concrete block (solid); hollow concrete block; solid brick (fired clay); perforated brick (fired clay); hollow brick (fired clay); adobe/ sun-dried brick; rubble (masonry); squared rubble; other,multiple choice,optional,D3-3-1
+,,Bearing walls,Bearing walls - width (m),Whole number,>0,,optional,D3-3-1
+,,Bearing walls,Bearing walls - bond beams & lintels,Drop down box,none; bond beam/ ring beam; vertical wall reinforcement; lintel (above doors); lintel (above windows); rake beam (top of gable end),multiple choice,optional,D3-3-1
+,,Bearing walls,Section of horizontal bond beam (m x m),Text,>0,,optional,D3-3-1
+,,Bearing walls,Section of lintel (m x m),Text,>0,,optional,D3-9-3
+,,Bearing walls,Connection between bearing walls and roof,Drop down box,none; nails; screws; lag screws/bolts; bolts and nuts; anchor bolts and washers; anchor plates; hurricane straps/ ties/ clips; wire; reinforcing bars; other,multiple choice,optional,
+,,Bearing walls,Connection material (walls - roof),Drop down box,none; concrete; steel; galvanized steel; stainless steel; timber; polymer; organic; other,multiple choice,optional,D3-8
+,,Bearing walls,Stability measure - bearing walls,Drop down box,none; bond beam/ring beam at plinth level; bond beam/ring beam at lintel level; bond beam/ring beam at roof level; vertical wall reinforcement in corners; vertical wall reinforcement in at each wall intersection; rake beam; tie-bar/ tie rod and tie plate; vertical wall;other,multiple choice,optional,
+,,Bearing walls,Stability measure material,Drop down box,none; reinforced concrete; steel; other,multiple choice,mandatory,
+,,Framed walls,Framed walls material,Drop down box,steel; galvanized steel; timber; wood; bamboo; mixed; other,multiple choice,optional,D3-3
+,,Framed walls,Framed walls - section of corner post (m x m),Text,>0,,optional,D3-3
+,,Framed walls,Framed walls - section of stud (m x m),Text,>0,,optional,D3-3
+,,Framed walls,Framed walls - section of bottom wall plate/ sill plate (m x m),Text,>0,,optional,D3-3
+,,Framed walls,Framed walls - section of top wall plate (m x m),Text,>0,,mandatory,D3-9-4;D3-10-1
+,,Framed walls,Connection between framed walls and roof,Drop down box,none; nails; screws; lag screws/bolts; bolts and nuts; anchor bolts and washers; hurricane straps/ ties/ clips; wire; lashings; dowels/ pins; other,multiple choice,mandatory,
+,,Framed walls,Connection material (walls - roof),Drop down box,none; steel; galvanized steel; stainless steel; timber; polymer; organic; other,multiple choice,mandatory,D3-8-2
+,,Framed walls,Stability measure - framed walls,Drop down box,none; corner brace; K brace; angle brace; sheathing (load bearing shell); studs located every 60 cm (2 ft) or less; cross brace; other,multiple choice,optional,
+,,Framed walls,Stability measure material,Drop down box,none; timber; wood; bamboo; plywood; wire; metal cable; rope; other,multiple choice,mandatory,D3-3
+,,Pole-frame,Pole-frame - material,Drop down box,timber; wood; coconut tree; bamboo; other,multiple choice,optional,D3-3
+,,Pole-frame,Pole-frame - section of pole (m x m),Text,>0,,optional,D3-3
+,,Pole-frame,Pole-frame- height of pole (m),number,>0,,mandatory,D3-9-1;D3-10-1
+,,Pole-frame,Connection between pole-frame walls and roof,Drop down box,none; nails; screws; lag screws/bolts; bolts and nuts; anchor bolts and washers; hurricane straps/ ties/ clips; wire; lashings; dowels/ pins; other,multiple choice,optional,
+,,Pole-frame,Connection material (walls - roof),Drop down box,none; steel; galvanized steel; stainless steel; timber; polymer; organic; other,,mandatory,D3-8-2
+,,Pole-frame,Stability measure - pole-frame construction,Drop down box,none; cross brace; V brace; angle brace; gusset plates; other,multiple choice,optional,
+,,Pole-frame,Stability measure material,Drop down box,none; timber; wood; bamboo; plywood; wire; metal cable; rope; other,multiple choice,mandatory,D3-3
+,,Posts & Beams,Posts & beams framing - material,Drop down box,reinforced concrete; steel; galvanized steel; timber; wood; coconut tree; bamboo; other,multiple choice,optional,D3-3
+,,Posts & Beams,Posts & beams framing - section of post (m x m),Text,>0,,optional,D3-3
+,,Posts & Beams,Posts & beams framing - height of post (m),number,>0,,mandatory,D3-9-3
+,,Posts & Beams,Connection between posts and beams framing walls and roof,Drop down box,none; nails; screws; lag screws/bolts; bolts and nuts; anchor bolts and washers; anchor plates; hurricane straps/ ties/ clips; wire; lashings; dowels/ pins; reinforcing bars; other,multiple choice,optional,
+,,Posts & Beams,Connection material (walls - roof),Drop down box,none; concrete; steel; galvanized steel; stainless steel; timber; polymer; organic; other,multiple choice,mandatory,D3-8-2
+,,Posts & Beams,Stability measure - posts & beams framing,Drop down box,none; cross brace; V brace; angle brace; gusset plates; other,multiple choice,optional,
+,,Posts & Beams,Stability measure material,Drop down box,none; reinforced concrete; steel; timber; bamboo; plywood; rope; wire; metal cable; other,multiple choice,optional,
+,Beams & floor,Beams & Floor (ground floor),Ground floor type,Drop down box,earth platform (elevated ground floor); ground slab/ slab on grade; suspended timber ground floor; suspended slab (reinforced concrete); beam and blocks/ beam fill floor (concrete joists and infill blocks); other types of suspended floor; other,single choice,mandatory,D3-4
+,,Beams & Floor (ground floor),Ground floor material,Drop down box,backfill compacted; debris; granular fill (gravel); stone; reinforced concrete; welded-wire mesh; concrete; concrete blocks & mortar; timber; wood; steel; galvanized steel; bamboo; concrete joists; infill blocks/ blocks floor; arched bricks; granular fill; other,multiple choice,mandatory,D3-4
+,,Beams & Floor (ground floor),Height of ground floor above ground level (m),number,>0,,mandatory,D3-4
+,,Beams & Floor (ground floor),Lenght of the beams/joists (m),number,>0,,optional,D3-4
+,,Beams & Floor (ground floor),Section of the beams/joists (m x m),Text,>0,,optional,D3-4
+,,Beams & Floor (ground floor),Distance between beams/joists (m),number,>0,,optional,D3-4
+,,Beams & Floor (ground floor),Thickness of decking/ concrete slab/ compression slab (m),number,>0,,mandatory,
+,,Beams & Floor (ground floor),Floor components,Drop down box,concrete; reinforcing bars; welded-wire mesh; steel; galvanized steel; timber; wood; plywood; bamboo; infill blocks; arched bricks; other,multiple choice,optional,
+,,Beams & Floor (ground floor),Connection between walls and ground floor,Drop down box,none; nails; screws; lag screws/bolts; bolts and nuts; wire; anchor plates; straps; reinforcing bars; lashings; dowels/ pins; other,multiple choice,mandatory,D3-9-1
+,,Beams & Floor (ground floor),Connection material (walls - ground floor),Drop down box,none; concrete; steel; galvanized steel; stainless steel; timber; wood; polymer; organic; other,multiple choice,optional,
+,,Beams & Floor (ground floor),Stability measure - elevated ground floor,Drop down box,none; cross brace; angle brace; gusset plates; other,multiple choice,mandatory,D3-8-1
+,,Beams & Floor (ground floor),Stability measure material ,Drop down box,none; reinforced concrete; steel; timber; wood; plywood; bamboo; other,multiple choice,optional,
+,,Beams & Floor,Floor type (second floor and others),Drop down box,none; suspended timber ground floor; suspended slab (reinforced concrete); beam and blocks/ beam fill floor (concrete joists and infill blocks); other types of suspended floor; other,single choice,mandatory,D3-5
+,,Beams & Floor,Beams/ joists material,Drop down box,reinforced concrete; steel; galvanized steel; timber; wood; bamboo; other,multiple choice,mandatory,
+,,Beams & Floor,Lenght of the beams/joists (m),number,>0,,optional,D3-5
+,,Beams & Floor,Section of the beams/joists (m x m),Text,>0,,optional,D3-5
+,,Beams & Floor,Distance between beams/joists (m),number,>0,,optional,D3-5
+,,Beams & Floor,Connection between walls and floor (if more than one storey),Drop down box,none; nails; screws; lag screws/bolts; bolts and nuts; wire; anchor plates; straps; ties; reinforcing bars; lashings; dowels/ pins; ,multiple choice,mandatory,D3-9-1
+,,Beams & Floor,Connection material (walls - floor),Drop down box,none; concrete; steel; galvanized steel; stainless steel; timber; wood; polymer; organic; other,multiple choice,optional,
+,,Beams & Floor,Thickness of decking/ concrete slab/ compression slab (m),number,>0,,mandatory,
+,,Beams & Floor,Floor components,Drop down box,concrete; reinforcing bars; welded-wire mesh; steel; galvanized steel; timber; wood; plywood; bamboo; infill blocks; arched bricks; other,multiple choice,optional,
+,,Beams & Floor,Comment,TextArea,< 255 characters,,optional,
+,Roof,Roof,Roof shape,Drop down box,"shed roof (single-pitch roof, pitch >3°); gable roof (pitched roof); hip-roof (hipped roof); flat roof (pitch <3°); dome; rainbow roof (arched); mansard roof; gambrel roof (roof with several slopes on the same side)",single choice,mandatory,D3-6
+,,Roof,Roof pitch (°),Drop down box,<3° (<5%); 3-9° (5-16 %); 10-30° (17-60%) ; 30-45° (60-100%); >45° (>100%),single choice,mandatory,
+,,Roof,Roof structure,Drop down box,gable end; truss; purlin; rafter; roof decking; concrete slab,multiple choice,mandatory,D3-7-1
+,,Roof,Roof structure material,Drop down box,steel; galvanized steel; timber; wood; plywood; sheathing; bamboo; reinforced concrete; other,multiple choice,mandatory,
+,,Roof,Distance between trusses/ gable end/ cross wall (m),number,>0,,optional,D3-7-2
+,,Roof,Section of purlin (m x m),Text,>0,,optional,D3-7-2
+,,Roof,Distance between purlins (m),number,>0,,optional,D3-7-2
+,,Roof,Section of rafter (m x m),Text,>0,,optional,D3-7-2
+,,Roof,Distance between rafters (m),number,>0,,optional,D3-7-2
+,,Roof,Size of eaves (overhang) (m),number,>0,,mandatory,D3-7-2
+,,Roof,Thickness of roof decking/ concrete slab (m),number,>0,,optional,D3-7-2
+,,Roof,Section of batten/ lath (m x m),Text,>0,,optional,D3-7-2
+,,Roof,Distance between  battens/ laths (m),number,>0,,optional,D3-7-2
+,,Roof,Connection between roof elements,Drop down box,none; nails; screws; lag screws/bolts; bolts and nuts; anchor plates; hurricane straps; gusset plates; connectors/ nail plates; lashings; dowels/ pins;,multiple choice,mandatory,D3-9-4;D3-9-5;D3-9-6;D3-10-2
+,,Roof,Connection material (roof elements),Drop down box,none; concrete; steel; galvanized steel; stainless steel; timber; polymer; organic; other,multiple choice,optional,
+,,Roof,Stability measure - roof,Drop down box,none; tie beam; collar beam/ tie; tie (between ridge beam and king post/ truss); rafter brace; gusset plates; bracing ;other,multiple choice,mandatory,D3-8-4
+,,Roof,Stability measure material,Drop down box,none; concrete; steel; timber; bamboo; other,multiple choice,optional,
+,,Roof,Comment,TextArea,< 255 characters,,optional,
+Skin,Cladding,Cladding,Facade cladding material,Drop down box,none; brick; hollow brick; perforated brick; adobe/ sun-dried brick; mud plaster; concrete block (solid); hollow concrete block; cement plaster; wattle & daub; timber; wood; plywood; fiber cement board/ cement board; bamboo; metal sheeting; plastic sheeting (tarpaulin); canvas; textile; woven mat (organic material); thatch; straw; corrugated galvanized iron (CGI) sheet; shingle; wood shingle; other;,multiple choice,mandatory,
+,,Cladding,Thickness of cladding material (mm),number,>0,,optional,
+,,Cladding,Roof covering material,Drop down box,corrugated galvanized iron (CGI) sheet; insulated metal roofing sheet; corrugated bitumen roofing panel; aluminium roofing sheet; plastic sheeting (tarpaulin); thatch; leaves; straw; clay tiles; concrete tiles; stone shingle; asphalt shingle; wood shingle; asphalt; bamboo; wood; plywood; GPR (fibreglass) panel; other,multiple choice,mandatory,
+,,Cladding,Thickness of roof covering (mm or gauge),Number,>0,single choice,mandatory,
+,,Cladding,Floor Finish Material,Drop down box,none; timber; wood; cement plaster; mud plaster; bamboo; ceramic tiles; carpet; plastic floor; organic material; other,multiple choice,mandatory,
+,Openings,Openings,Number of doors,Number,>0,single choice,mandatory,
+,,Openings,Doors material,Drop down box,timber; wood; plywood; bamboo; plastic sheeting; mesh; insect screening mesh; fibreglass; leaves; other,multiple choice,mandatory,
+,,Openings,Number of windows,Whole number,>0,single choice,mandatory,
+,,Openings,Windows material,Drop down box,timber; wood; plywood; bamboo; plastic sheeting; insect screening mesh; fibreglass; lattice; other,multiple choice,mandatory,
+,,Openings,Number of shutters,Whole number,>0,,optional,
+,,Openings,Shutters material,Drop down box,metal; timber; wood; plywood; bamboo; other,multiple choice,optional,
+,Insulation,Insulation,Insulation system,Drop down box,none; shading ; insulation of the flooring; insulation on the walls; insulation below the roof; other,multiple choice,mandatory,
+,,Insulation,Insulation material,Drop down box,none; shade net;  insulated corrugated roofing sheeting; organic material; other,single choice,mandatory,
+,Skin,Skin,Comment,TextArea,< 255 characters,,optional,
+Services,Services,Services,Water Supply location,Drop down box,in shelter; on plot; communal; other,multiple choice,mandatory,
+,,Services,Distance to the water supply,number ,>0,single choice,mandatory,
+,,Services,Water Supply Type,Drop down box,"piped water; tap/standpipe; tubewell/ borehole; protected dug well; protected spring; rainwater collection; unprotected spring; unprotected dug well; cart with small tank/drum; tanker truck; surface water (from river, pond, lake); bottled water; other",multiple choice,mandatory,
+,,Services,Sanitation location,Drop down box,in shelter; on plot; communal; other,single choice,mandatory,
+,,Services,Distance to the sanitation,number ,>0,,mandatory,
+,,Services,Sanitation Type,Drop down box,flush toilet; pour flush toilet; piped sewer system; septic tank; flush/pour flush to pit latrine; ventilated improved pit latrine (VIP); pit latrine with slab; composting toilet; flush/pour flush to elsewhere; pit latrine without slab; bucket; hanging toilet/ hanging latrine; no facilities or bush or field; other,single choice,mandatory,
+,,Services,Sewage system,Drop down box,none; open sewer system; single pit; septic system; piped sewer system; trucking (gully emptier) to sewage plant; trucking (gully emptier) to open dumping; other ,single choice,mandatory,
+,,Services,Drainage,Drop down box,none; open drains; covered drains; other,single choice,mandatory,
+,,Services,Waste treatment,Drop down box,burn on site; dump on site; door-to-door collection; central collection; other,multiple choice,mandatory,
+,,Services,Bathroom location,Drop down box,in shelter; on plot; communal; other,single choice,mandatory,
+,,Services,Distance to the bathroom,number ,>0,,mandatory,
+,,Services,Type of Bathroom,Drop down box,bucket shower; container; bathtub; shower; river; pond; lake; other,single choice,mandatory,
+,,Services,Heating system,Drop down box,none; stove; electrical heater; fireplace/hearth; central heating; other,multiple choice,mandatory,
+,,Services,Energy Source for heating system,Drop down box,none; gas; oil; electricity (grid); electricity (battery); wood; coal/charcoal; biomass; wind; solar; other,multiple choice,mandatory,
+,,Services,Cooling system,Drop down box,none; natural ventilation; fan; air conditioning,multiple choice,mandatory,
+,,Services,Energy Source for cooling system,Drop down box,none; electricity (grid); electricity (battery); wind; solar; other,multiple choice,mandatory,
+,,Services,Type of natural ventilation,Drop down box,none; foundation vent; outside-air intake - bottom part of the wall; outside-air intake - above doors and windows; roof vent; air vent between rooms; trickle vent in windows or doors; vent pipe in roof; chimney; other,multiple choice,mandatory,D4-3
+,,Services,Number of ventilation openings,Whole number,>0,,mandatory,
+,,Services,Lighting,Drop down box,none; candles; torch/flashlight (battery powered); oil/kerosene lamp; electrical powered lamp; solar powered lamp; other,multiple choice,mandatory,
+,,Services,Energy Source (Appliances),Drop down box,none; gas; electricity (grid); electricity (battery); wood; coal/charcoal; biomass; wind; solar; other,multiple choice,mandatory,
+,,Services,Kitchen location,Drop down box,in shelter; on plot; communal; other,single choice,mandatory,
+,,Services,Kitchen Type,Drop down box,none; open fire; portable stove; stove; other,multiple choice,mandatory,
+,,Services,Cooking Energy Source,Drop down box,wood; biomass; oil; gas; coal/charcoal; kerosene; electricity; solar; other,multiple choice,mandatory,
+,,Services,Comment,TextArea,< 255 characters,,optional,
+Spaceplan,Spaceplan,Spaceplan,Partitions,Drop down box,none; walls; half walls; screens; curtains,multiple choice,mandatory,
+,,Spaceplan,Partition structure material,Drop down box,none; bamboo; timber; wood; brick; concrete block; block; adobe/ sun-dried brick; steel; plastic; textile; other,multiple choice,optional,
+,,Spaceplan,Partition finish,Drop down box,none; metal sheeting; timber; wood; plywood; bamboo; cement plaster; mud plaster; wallpaper; paint; hand woven mat (organic material); other,multiple choice,mandatory,
+,,Spaceplan,Ceiling structure material,Drop down box,none; timber; wood; plywood; bamboo; other,multiple choice,mandatory,
+,,Spaceplan,Ceiling Finish Material,Drop down box,none; cement plaster; mud plaster; wallpaper; paint; organic material; other,multiple choice,mandatory,
+,,Spaceplan,Possible extension of the shelter structure,yes / no,1; 0,,optional,
+,,Spaceplan,implemented extention to the shelter (at survey date),yes / no,1; 0,,mandatory,
+,,Spaceplan,Comment,TextArea,< 255 characters,,optional,
+Documents,Documents,Documents,Project narrative,yes / no,1; 0,,optional,
+,,Documents,Technical description,yes / no,1; 0,,optional,
+,,Documents,(Priced) Bill of Quantity (BoQ),yes / no,1; 0,,optional,
+,,Documents,Design Drawings,yes / no,1; 0,,optional,
+,,Documents,Site plan,yes / no,1; 0,,optional,
+,,Documents,Satellite picture,yes / no,1; 0,,optional,
+,,Documents,Pictures/video of setting,yes / no,1; 0,,mandatory,
+,,Documents,Pictures/video of elevations,yes / no,1; 0,,mandatory,
+,,Documents,Pictures/video of extensions,yes / no,1; 0,,mandatory,
+,,Documents,Pictures/video of details,yes / no,1; 0,,mandatory,
+,,Documents,Pictures/video of living practices,yes / no,1; 0,,mandatory,
+,,Documents,Comment,TextArea,< 255 characters,,optional,

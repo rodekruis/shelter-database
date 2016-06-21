@@ -101,7 +101,7 @@ function create_shelter (name_of_shelter, country_value_id, country_name) {
                                                         success: function (result) {
                                                             console.log(result);
 
-                                                            window.location = '/shelter/' + new_shelter.id + '/generalInformation';
+                                                            window.location = '/shelter/' + new_shelter.id + '/general-Information';
                                                         },
                                                         error: function(XMLHttpRequest, textStatus, errorThrown){
                                                             console.log(errorThrown);
