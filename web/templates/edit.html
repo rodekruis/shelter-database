@@ -142,7 +142,7 @@
                                 {% for document in documents[sub_category.name] %}
                                     <div>
                                         <a href="/public/documents/shelters/{{ shelter.id }}/{{ document.file_name }}" download>
-                                            {{ document.file_name }}
+                                            <span class="glyphicon glyphicon-file" title="{{ document.file_name }}"></span>&nbsp;{{ document.file_name }}
                                         </a>
                                         <a href="{{ url_for('shelter_bp.delete_document', document_id=document.id) }}"><span class="glyphicon glyphicon-remove" title="Remove"></span></a>
                                         <br />

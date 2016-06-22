@@ -99,4 +99,4 @@ def load_shelter_info(shelter_id, section_name):
                                     ShelterDocument.shelter_id==shelter.id,
                                     ShelterDocument.category_id==sub_category.id)
                                 )
-    return shelter, section, categories, documents, pictures
+    return shelter, section, categories, pictures, documents
