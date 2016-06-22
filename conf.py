@@ -11,9 +11,9 @@
 # ***** END LICENSE BLOCK *****
 
 __author__ = "Cedric Bonhomme"
-__version__ = "$Revision: 0.1 $"
+__version__ = "$Revision: 0.2 $"
 __date__ = "$Date: 2016/05/20$"
-__revision__ = "$Date: 2016/6/09 $"
+__revision__ = "$Date: 2016/06/22 $"
 __copyright__ = "Copyright (c) Luxembourg Institute of Science and Technology"
 __license__ = ""
 
@@ -56,6 +56,7 @@ DEFAULTS = {"platform_url": "http://127.0.0.1:5000",
             "log_level": "info",
             "public_path": "web/public",
             "shelters_pictures_path": "web/public/pictures/shelters",
+            "shelters_documents_path": "web/public/documents/shelters",
             "attributes_pictures_path": "web/public/pictures/attributes",
             "geoserver_url": "http://charism.tudor.lu"
 }
@@ -81,7 +82,8 @@ LOG_LEVEL = {'debug': logging.DEBUG,
              'fatal': logging.FATAL}[config.get('misc', 'log_level')]
 
 ALLOWED_EXTENSIONS_PICTURE = set(['png', 'jpg', 'jpeg', 'gif'])
-ALLOWED_EXTENSIONS_DOCUMENT = set(['doc', 'docx', 'pdf', 'odt', 'xls', 'xlsx'])
+ALLOWED_EXTENSIONS_DOCUMENT = set(['doc', 'docx', 'pdf', 'odt', 'xls', 'xlsx',
+                                    'csv'])
 ALLOWED_EXTENSIONS_CSV = set(['csv'])
 ALLOWED_EXTENSIONS_ARCHIVE = set(['zip'])
 
