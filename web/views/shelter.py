@@ -50,7 +50,7 @@ def details(shelter_id=0, section_name="", to_pdf=None):
         try:
             pdf_file = create_pdf(render_template('pdf/template1.html',
                                     shelter=shelter, section=section,
-                                    categories=categories))
+                                    categories=categories, pictures=pictures))
             response = make_response(pdf_file)
             response.headers['Content-Type'] = 'application/pdf'
             response.headers['Content-Disposition'] = \
@@ -69,8 +69,12 @@ def details(shelter_id=0, section_name="", to_pdf=None):
 @login_required
 def edit(shelter_id=0, section_name=""):
     sections = Section.query.filter()
-    shelter, section, categories, pictures, documents = \
+    try:
+        shelter, section, categories, pictures, documents = \
                                 load_shelter_info(shelter_id, section_name)
+    except Exception as e:
+        flash(str(e), "warning")
+        return redirect(redirect_url())
 
     return render_template('edit.html', shelter=shelter, categories=categories,
                         pictures=pictures, sections=sections, section=section,
