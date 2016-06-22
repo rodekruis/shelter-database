@@ -22,15 +22,14 @@ eproject.cfg
 venv
 build
 
-documentation/_build/
-
-conf/conf.cfg
-.coverage
-
 # bower
 web/static/lib
 
 # node files
 node_modules
 
-web/public/pictures
+
+.coverage
+documentation/_build/
+conf/conf.cfg
+web/public/
