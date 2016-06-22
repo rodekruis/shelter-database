@@ -111,5 +111,12 @@ def import_shelters_pictures(folder):
     with app.app_context():
         scripts.import_shelters_pictures(folder)
 
+@manager.command
+def import_shelters_documents(folder):
+    "Import documents for shelters"
+    print("Importing documents from '{}' ...".format(folder))
+    with app.app_context():
+        scripts.import_shelters_documents(folder)
+
 if __name__ == '__main__':
     manager.run()
