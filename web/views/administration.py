@@ -56,6 +56,8 @@ def dashboard():
                 launch_background_process(['import_shelters',
                                             current_user.name, filepath])
                 flash('Importing shelters in background...', 'success')
+            else:
+                flash('File not allowed', 'danger')
 
 
         elif 'translations' in request.form:
@@ -90,6 +92,8 @@ def dashboard():
                     z.extractall('/tmp/sdPictures')
                 launch_background_process(['import_shelters_pictures', '/tmp/sdPictures/'])
                 flash('Importing pictures of shelters in background...', 'success')
+            else:
+                flash('File not allowed', 'danger')
 
 
     nb_shelters = Shelter.query.count()
