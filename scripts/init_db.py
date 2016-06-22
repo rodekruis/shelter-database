@@ -58,12 +58,12 @@ def init_shelters_structure(csv_file, drawnings_folder):
             attribute.multiple = cardinality=='multiple choice'
 
             if cardinality in ('single choice', 'multiple choice'):
+                attribute.user_can_add_values = True
                 for value in row[5].split(';'):
                     value_name = value.strip()
                     if value_name == 'other':
-                        # the user will be able to add new values for this
-                        # attribute, when the proposed ones are not suitable
-                        attribute.user_can_add_values = True
+                        # because the user will be able to add new values with
+                        # a dedicated button
                         continue
                     value = models.Value(name=value_name,
                                         attribute_id=attribute.id)
