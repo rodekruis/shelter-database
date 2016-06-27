@@ -18,10 +18,6 @@ To generate the documentation in HTML format:
     ./documentation$ sudo pip install sphinx
     ./documentation$ make html
 
-To generate the documentation in PDF format:
-
-    ./documentation$ make latexpdf
-
 The result will be in the *_build* folder.
 
 
