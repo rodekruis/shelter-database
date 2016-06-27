@@ -12,7 +12,7 @@ Read the documentation for information about the deployment of the application.
 
 # License
 
-This application is under **TO BE DEFINED** license.
+This application is under MIT license.
 
 
 # Contact
