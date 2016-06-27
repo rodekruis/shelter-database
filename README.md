@@ -7,7 +7,22 @@ The goal of this application is to list the shelters deployed around the world.
 
 The official instance is available [here](https://shelter-database.org).
 
-Read the documentation for information about the deployment of the application.
+Read the [documentation](https://git.list.lu/charism/shelter-database/tree/master/documentation)
+for information about the deployment of the application.
+
+
+# Documentation
+
+To generate the documentation in HTML format:
+
+    ./documentation$ sudo pip install sphinx
+    ./documentation$ make html
+
+To generate the documentation in PDF format:
+
+    ./documentation$ make latexpdf
+
+The result will be in the *_build* folder.
 
 
 # License
