@@ -1,0 +1,18 @@
+[misc]
+platform_url = http://127.0.0.1:5000/
+log_path = web/var/shelter.log
+log_level = info
+shelters_pictures_path = web/public/pictures/shelters
+shelters_documents_path = web/public/documents/shelters
+attributes_pictures_path = web/public/pictures/attributes
+public_path = web/public
+[webserver]
+debug = false
+host = 0.0.0.0
+port = 5000
+https = false
+secret_key = secret_key_of_the_web_application
+[database]
+database_url = postgres://pgsqluser:pgsqlpwd@127.0.0.1:5432/shelter
+[geoserver]
+geoserver_url = http://charism.tudor.lu

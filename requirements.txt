@@ -1,0 +1,14 @@
+psycopg2
+SQLAlchemy
+alembic
+Flask
+Flask-SQLAlchemy
+Flask-Restless
+Flask-Login
+Flask-WTF
+Flask-Script
+Flask-Admin
+Flask-Principal
+Flask-Babel
+Flask-Migrate
+alembic

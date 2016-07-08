@@ -1,0 +1,21 @@
+{
+  "name": "shelter-database",
+  "version": "0.0.1",
+  "authors": [
+    "Cédric Bonhomme <cedric.bonhomme@list.lu>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*"
+  ],
+  "dependencies": {
+    "jquery": "~1.11.3",
+    "bootstrap-select": "~1.7.5",
+    "bootstrap": "~3.3.5",
+    "datatables.net": "~1.10.10",
+    "datatables.net-bs": "~1.10.10",
+    "tinymce": "^4.3.12",
+    "bootstrap-datepicker": "^1.6.1",
+    "lightbox2": "lightbox#^2.8.2"
+  }
+}

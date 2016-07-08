@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <h1>List of categories and attributes</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Category name</th>
+                <th>Attribute name</th>
+            </tr>
+        </thead>
+        <body>
+        {% for category in categories %}
+            <tr>
+                <td colspan="2"><b><a href="{{ url_for('administration.attributes', category_id=category.id) }}">{{ category.name }}</a></b></td>
+            </tr>
+            {% for attribute in category.attributes %}
+                <tr>
+                    <td colspan="2" align="right"><b><a href="{{ url_for('administration.attributes', category_id=attribute.category_id, attribute_id=attribute.id) }}">{{ attribute.name }}</a></b></td>
+                </tr>
+            {% endfor %}
+        {% endfor  %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block head %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='lib/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" media="screen" >
+    <script src="{{ url_for('static', filename='lib/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Shelters</h1>
+    <table id="allshelters" class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Zone</th>
+                <th>Created at</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for shelter in shelters %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ shelter.get_values_of_attribute(attribute_name='ID')[0].name }}</td>
+                <td><a href="{{ url_for('shelter_bp.details', shelter_id=shelter.id, section_name='General-Information') }}">{{ shelter.get_values_of_attribute(attribute_name='Name of shelter')[0].name }}</a></td>
+                <td>{{ shelter.get_values_of_attribute(attribute_name='Zone')[0].name }}</td>
+                <td>{{ shelter.created_at }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+$(document).ready(function() {
+
+    $('#allshelters').DataTable({
+            "bStateSave": true, // on sauvegarde l'état dans un cookie
+            "aaSorting": [[2, "asc" ]], // on trie par défaut sur la colonne "Name"
+            "bJQueryUI": false,
+            "bInfo": false,
+            "aoColumnDefs": [
+                                {
+                                    "bSortable": false, "aTargets": [ 0 ]
+                                }
+                            ],
+           "aoColumns": [
+                        null,
+                        { "sSortDataType": "dom-checkbox" },
+                        { "sSortDataType": "dom-checkbox" },
+                        { "sSortDataType": "dom-checkbox" },
+                        { "sSortDataType": "dom-checkbox" }
+                        ]
+        });
+});
+</script>
+{% endblock %}

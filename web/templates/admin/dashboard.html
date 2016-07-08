@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <p>Number of <a href="{{ url_for('administration.shelters') }}">shelters</a>: {{ nb_shelters }}</p>
+            <p>Number of <a href="{{ url_for('administration.users') }}">users</a>: {{ nb_users }}</p>
+        </div>
+    </div>
+
+    <div class="well">
+        <h2>Import shelters</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" name="shelterfile" accept="text/*" />
+            </div>
+            <div class="form-group">
+                <input type="submit" name="shelters" value="Submit" />
+            </div>
+        </form>
+    </div>
+
+
+    <div class="well">
+        <h2>Import translations</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" name="translationfile" accept="text/*" />
+            </div>
+            <div class="form-group">
+                <input type="text" name="language_code" accept="image/*" placeholder="Language code" />
+            </div>
+            <div class="form-group">
+                <input type="submit" name="translations" value="Submit" />
+            </div>
+        </form>
+        <h3>Available translations</h3>
+        <ul>
+            {% for translation in imported_translations %}
+                <li>{{ translation[0] }} (<a href="{{ url_for('administration.delete_translation', language_code=translation[0], next='/admin/dashboard') }}" onclick="return confirm('You are going to delete this language.');">delete</a>)</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="well">
+        <h2>Import pictures</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" name="picturesfile" accept="text/*" />
+            </div>
+            <div class="form-group">
+                <input type="submit" name="pictures" value="Submit" />
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
