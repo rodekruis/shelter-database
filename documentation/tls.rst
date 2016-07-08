@@ -35,6 +35,7 @@ Now that we have our PKCS12 keystore, we can use Java’s keytool to generate a
 JKS from our PKCS12 file like so:
 
 .. code-block:: shell
+
     $ keytool -importkeystore -deststorepass yourJKSpass -destkeypass yourKeyPass -destkeystore MyDSKeyStore.jks -srckeystore fullchain_and_key.p12 -srcstoretype PKCS12 -srcstorepass yourPKCS12pass -alias tomcat
 
 
