@@ -166,6 +166,14 @@ Deployment with Apache and mod_wsgi
 Installation of Apache and mod_wsgi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+If apache2 is already installed:
+
+.. code-block:: shell
+
+    sudo aptitude install libapache2-mod-wsgi
+	
+Else:
+
 .. code-block:: shell
 
     sudo apt-get install apache2 apache2-prefork-dev
