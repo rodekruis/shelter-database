@@ -34,7 +34,14 @@ Installation of Python
     sudo make install
     cd ..
     sudo rm -Rf Python-3.5.1/
+	
+If this doesn't work, try:
 
+.. code-block:: shell
+    sudo add-apt-repository ppa:fkrull/deadsnakes
+    sudo apt-get update
+    sudo apt-get install python3.5
+    sudo pip3.5 install --upgrade pip
 
 Install and configure the database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
