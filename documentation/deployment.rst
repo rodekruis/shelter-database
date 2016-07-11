@@ -26,8 +26,9 @@ Installation of Python
     sudo add-apt-repository ppa:fkrull/deadsnakes
     sudo apt-get update
     sudo apt-get install python3.5 python3.5-dev libncurses5-dev
-	wget https://bootstrap.pypa.io/get-pip.py
+	sudo wget https://bootstrap.pypa.io/get-pip.py
 	sudo python3 get-pip.py
+	sudo apt-get install python3-psycopg2
 
 If this doesn't work, try:
 	
@@ -79,6 +80,7 @@ Initialization of the database
 
 .. code-block:: shell
 
+    chmod +x init_db.sh
     $ ./init_db.sh
     Dropping database...
     Creation of the database...
