@@ -1,5 +1,5 @@
 [misc]
-platform_url = http://127.0.0.1:5000/
+platform_url = https://shelter-database.org
 log_path = web/var/shelter.log
 log_level = info
 shelters_pictures_path = web/public/pictures/shelters
@@ -15,4 +15,11 @@ secret_key = secret_key_of_the_web_application
 [database]
 database_url = postgres://pgsqluser:pgsqlpwd@127.0.0.1:5432/shelter
 [geoserver]
-geoserver_url = http://charism.tudor.lu
+geoserver_url = https://shelter-database.org:8443
+[notification]
+notification_host =
+notification_port =
+notification_email =
+notification_username =
+notification_password =
+notification_starttls =
