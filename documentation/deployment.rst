@@ -111,21 +111,7 @@ Installation of node
 
 .. code-block:: shell
 
-    cd
-    git clone https://github.com/joyent/node.git
-    cd node
-
-    git tag # list all the versions available
-    git checkout v0.12.7
-
-    ./configure
-    make
-    sudo make install
-
-    node -v # check the version
-
-    cd ..
-    rm -Rf node/
+	sudo apt-get install nodejs
 
 
 Installation of NPM
@@ -171,20 +157,18 @@ For a production server continue with the next steps.
 Deployment with Apache and mod_wsgi
 -----------------------------------
 
-Installation of Apache and mod_wsgi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-If apache2 is already installed:
-
-.. code-block:: shell
-
-    sudo aptitude install libapache2-mod-wsgi
-	
-Else:
+Installation of apache2
+-----------------------------------
 
 .. code-block:: shell
 
     sudo apt-get install apache2 apache2-prefork-dev
+
+Installation of mod_wsgi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: shell
+
     wget https://github.com/GrahamDumpleton/mod_wsgi/archive/4.4.13.tar.gz
     tar -xzvf 4.4.13.tar.gz
     rm 4.4.13.tar.gz
