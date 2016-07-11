@@ -15,12 +15,11 @@ Deployment
 ==========
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 3
 
     deployment
     pdf-generation
     test-server
-    tls
 
 
 Database
