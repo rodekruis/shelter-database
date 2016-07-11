@@ -28,7 +28,7 @@ Installation of Python
     sudo apt-get install python3.5 python3.5-dev libncurses5-dev
 	sudo wget https://bootstrap.pypa.io/get-pip.py
 	sudo python3 get-pip.py
-	sudo apt-get install python3-psycopg2
+	sudo apt-get install --reinstall binutils
 
 If this doesn't work, try:
 	
