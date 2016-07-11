@@ -20,7 +20,17 @@ First we install the application for a simple standalone mode.
 Installation of Python
 ~~~~~~~~~~~~~~~~~~~~~~
 
+.. code-block:: shell
+    
+	sudo apt-get install software-properties-common
+    sudo add-apt-repository ppa:fkrull/deadsnakes
+    sudo apt-get update
+    sudo apt-get install python3.5 python3.5-dev libncurses5-dev
+	wget https://bootstrap.pypa.io/get-pip.py
+	sudo python3 get-pip.py
 
+If this doesn't work, try:
+	
 .. code-block:: shell
 
     apt-get install build-essential openssl libssl-dev git
@@ -35,27 +45,22 @@ Installation of Python
     cd ..
     sudo rm -Rf Python-3.5.1/
 	
-If this doesn't work, try:
-
-.. code-block:: shell
-
-    sudo add-apt-repository ppa:fkrull/deadsnakes
-    sudo apt-get update
-    sudo apt-get install python3.5
-    sudo pip3.5 install --upgrade pip
 
 Install and configure the database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: shell
 
-    sudo apt-get install -y postgresql postgresql-server-dev-9.1 postgresql-client
+    sudo apt-get install -y postgresql postgresql-server-dev-9.3 postgresql-client
+	su - postgres
     echo "127.0.0.1:5432:shelter:pgsqluser:pgsqlpwd" > ~/.pgpass
     chmod 0600 ~/.pgpass
-    sudo -u postgres createuser pgsqluser --no-superuser --createdb --no-createrole
-    sudo -u postgres createdb aggregator --no-password
-    echo "ALTER USER pgsqluser WITH ENCRYPTED PASSWORD 'pgsqlpwd';" | sudo -u postgres psql
-    echo "GRANT ALL PRIVILEGES ON DATABASE shelter TO pgsqluser;" | sudo -u postgres psql
+    createuser pgsqluser --no-superuser --createdb --no-createrole
+    createdb aggregator --no-password
+	createdb shelter --no-password
+    echo "ALTER USER pgsqluser WITH ENCRYPTED PASSWORD 'pgsqlpwd';" | psql
+    echo "GRANT ALL PRIVILEGES ON DATABASE shelter TO pgsqluser;" | psql
+	exit
 
 
 Retrieve the application *Shelter Database*
@@ -63,8 +68,9 @@ Retrieve the application *Shelter Database*
 
 .. code-block:: shell
 
-    git clone https://git.list.lu/charism/shelter-database.git
-    cd shelter-database/
+    sudo apt-get install git
+	cd TO YOUR APACHE WWW DIRECTORY FOR THIS INSTANCE
+	git clone https://github.com/rodekruis/shelter-database.git .
     sudo pip3.5 install --upgrade -r requirements.txt
     cp conf/conf.cfg-sample conf/conf.cfg
 
