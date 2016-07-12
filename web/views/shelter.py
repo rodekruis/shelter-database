@@ -20,7 +20,7 @@ __license__ = ""
 import os
 from werkzeug.utils import secure_filename
 from flask import Blueprint, request, flash, render_template, current_app, \
-                    url_for, redirect, g, make_response
+                    url_for, redirect, make_response
 from flask_login import login_required, current_user
 
 import conf

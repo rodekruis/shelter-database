@@ -17,14 +17,12 @@ __revision__ = "$Date: 2016/06/06 $"
 __copyright__ = "Copyright 2016 Luxembourg Institute of Science and Technology"
 __license__ = ""
 
-from flask import Blueprint, flash, render_template, url_for, current_app, \
-                    request, redirect
+from flask import Blueprint, flash, render_template, url_for, request, redirect
 from flask_login import login_required, current_user
 
 from bootstrap import db
 from web.models import User
 from web.forms import ProfileForm
-from web.lib.utils import redirect_url
 
 user_bp = Blueprint('user_bp', __name__, url_prefix='/user')
 
