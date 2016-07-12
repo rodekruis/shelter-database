@@ -29,7 +29,7 @@ from web.models import User, Translation
 
 class ProfileForm(Form):
     """
-    Edit user information.
+    Edit user own information.
     """
     name = TextField("Nickname",
             [validators.Required("Please enter your nickname.")])

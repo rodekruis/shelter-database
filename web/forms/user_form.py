@@ -19,7 +19,7 @@ __license__ = ""
 
 from flask_wtf import Form
 from flask import url_for, redirect, flash
-from wtforms import validators, TextField, PasswordField, \
+from wtforms import validators, TextField, BooleanField, PasswordField, \
                     SubmitField
 from flask_wtf.html5 import EmailField
 
@@ -34,6 +34,7 @@ class CreateUserForm(Form):
     email = EmailField("Email",
                 [validators.Length(min=6, max=35),
                 validators.Required("Please enter an email.")])
+    is_admin = BooleanField("Admin")
     password = PasswordField("Password",
                 [validators.Length(min=6, max=100),
                 validators.Required("Please enter a password.")])
@@ -61,6 +62,7 @@ class EditUserForm(Form):
     email = EmailField("Email",
                 [validators.Length(min=6, max=35),
                 validators.Required("Please enter an email.")])
+    is_admin = BooleanField("Admin")
     password = PasswordField("Password")
     submit = SubmitField("Save")
 
