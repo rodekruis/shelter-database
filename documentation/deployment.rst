@@ -26,7 +26,7 @@ Installation of Python
 	sudo apt-get install software-properties-common
     sudo add-apt-repository ppa:fkrull/deadsnakes
     sudo apt-get update
-    sudo apt-get install python3.5 python3.5-dev libncurses5-dev
+    sudo apt-get install python3.5 python3.5-dev python3-dev libncurses5-dev
 	sudo wget https://bootstrap.pypa.io/get-pip.py
 	sudo python3 get-pip.py
 	sudo apt-get install --reinstall binutils
@@ -73,7 +73,7 @@ Retrieve the application *Shelter Database*
     sudo apt-get install git
 	cd TO YOUR APACHE WWW DIRECTORY FOR THIS INSTANCE
 	git clone https://github.com/rodekruis/shelter-database.git .
-    sudo pip3.5 install --upgrade -r requirements.txt
+    sudo pip3 install --upgrade -r requirements.txt
     cp conf/conf.cfg-sample conf/conf.cfg
 
 Initialization of the database
