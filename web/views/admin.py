@@ -11,9 +11,9 @@
 # ***** END LICENSE BLOCK *****
 
 __author__ = "Cedric Bonhomme"
-__version__ = "$Revision: 0.1 $"
+__version__ = "$Revision: 0.2 $"
 __date__ = "$Date: 2016/06/07 $"
-__revision__ = "$Date: 2016/06/07 $"
+__revision__ = "$Date: 2016/07/12 $"
 __copyright__ = "Copyright 2016 Luxembourg Institute of Science and Technology"
 __license__ = ""
 
