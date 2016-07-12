@@ -139,7 +139,7 @@ Installation of our JavaScript dependencies
 
     cd
     cd shelter-database/
-    npm install
+    bower install
 
 
 You can now run the application in standalone mode:
