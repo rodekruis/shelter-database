@@ -9,6 +9,7 @@ Tested with the following configurations:
 * Debian 7, Python 3.5.1, PostgreSQL 9.1, Apache 2.2.22, mod_wsgi 4.4.13;
 * Debian 8, Python 3.5.1, PostgreSQL 9.4, Apache 2.4.10, mod_wsgi 4.4.13;
 * Ubuntu 16.04, Python 3.5.1+, PostgreSQL 9.5.3, Apache 2.4.18, mod_wsgi 4.4.13.
+* Ubuntu 14.04, Python 3.5.1+, PostgresSQL 9.3.13, Apache 2.4.18, mod_wsgi 4.4.13
 
 
 
@@ -139,7 +140,7 @@ Installation of our JavaScript dependencies
 
     cd
     cd shelter-database/
-    npm install
+    bower install
 
 
 You can now run the application in standalone mode:
