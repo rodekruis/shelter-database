@@ -26,7 +26,7 @@ Installation of Python
 	sudo apt-get install software-properties-common
     sudo add-apt-repository ppa:fkrull/deadsnakes
     sudo apt-get update
-    sudo apt-get install python3.5 python3.5-dev libncurses5-dev
+    sudo apt-get install python3.5 python3.5-dev python3-dev libncurses5-dev
 	sudo wget https://bootstrap.pypa.io/get-pip.py
 	sudo python3 get-pip.py
 	sudo apt-get install --reinstall binutils
@@ -54,7 +54,7 @@ Install and configure the database
 .. code-block:: shell
 
     sudo apt-get install -y postgresql postgresql-server-dev-9.3 postgresql-client
-	su - postgres
+	sudo -u postgres -i
     echo "127.0.0.1:5432:shelter:pgsqluser:pgsqlpwd" > ~/.pgpass
     chmod 0600 ~/.pgpass
     createuser pgsqluser --no-superuser --createdb --no-createrole
@@ -68,6 +68,7 @@ Install and configure the database
 Retrieve the application *Shelter Database*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
 .. code-block:: shell
 
     sudo apt-get install git
@@ -76,6 +77,17 @@ Retrieve the application *Shelter Database*
     sudo pip3 install --upgrade -r requirements.txt
     cp conf/conf.cfg-sample conf/conf.cfg
 
+If pip3 reports an error with line numbers in the requirements.txt, 
+then you need to check your requirements.txt for duplicate lines and remove 
+if there are any. (alembic had a duplicate -- Aron)
+you can edit the text file for example using nano:
+
+.. code-block:: shell
+
+	nano requirements.txt
+	
+then press Ctrl+X to exit and select save.
+	
 Initialization of the database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -113,7 +125,6 @@ Installation of node
 .. code-block:: shell
 
 	sudo apt-get install nodejs
-	ln -s /usr/bin/nodejs /usr/bin/node
 
 
 Installation of NPM
@@ -121,7 +132,9 @@ Installation of NPM
 
 .. code-block:: shell
 
-    sudo apt-get install npm
+    curl -L https://npmjs.org/install.sh | sudo sh
+	sudo chown -R $USER:$GROUP ~/.npm
+    npm -v # check the version
 
 
 Installation of Bower
@@ -129,7 +142,7 @@ Installation of Bower
 
 .. code-block:: shell
 
-    npm install -g bower
+    sudo npm install -g bower
 
 
 Installation of our JavaScript dependencies
@@ -139,7 +152,7 @@ Installation of our JavaScript dependencies
 
     cd
     cd shelter-database/
-    bower install --allow-root
+    bower install
 
 
 You can now run the application in standalone mode:
@@ -157,12 +170,12 @@ For a production server continue with the next steps.
 Deployment with Apache and mod_wsgi
 -----------------------------------
 
-Installation of apache2 dev
+Installation of apache2
 -----------------------------------
 
 .. code-block:: shell
 
-    sudo apt-get install apache2-prefork-dev
+    sudo apt-get install apache2 apache2-prefork-dev
 
 Installation of mod_wsgi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -181,22 +194,8 @@ Installation of mod_wsgi
     echo 'LoadModule wsgi_module /usr/lib/apache2/modules/mod_wsgi.so' > /etc/apache2/mods-available/wsgi.load
     sudo service apache2 restart
     sudo a2enmod wsgi
-	
-To fix errors you can try:
-
-.. code-block:: shell
-
-   ln -s /usr/bin/sw-engine-cgi /var/www/cgi-bin/cgi_wrapper/cgi_wrapper 
-   
-   a2dismod python for conflicts with mod_wsgi
 
 
-To fix plesk:
-
-.. code-block:: shell
-  
-   sh <(curl http://autoinstall.plesk.com/plesk-installer || wget -O - http://autoinstall.plesk.com/plesk-installer)
-   
 The WSGI file
 ~~~~~~~~~~~~~
 
