@@ -173,7 +173,7 @@ Installation of mod_wsgi
     tar -xzvf 4.4.13.tar.gz
     rm 4.4.13.tar.gz
     cd mod_wsgi-4.4.13/
-    ./configure --with-python=/usr/local/bin/python3.5
+    ./configure --with-python=/usr/bin/python3.5
     make
     sudo make install
     cd ..
