@@ -1,1043 +1,1042 @@
-id,original,translated,language_code
-1,ENGLISH,FRENCH,fr
-2,Identification,Identification,fr
-3,ID,ID,fr
-4,Name of shelter,Nom de l'abri,fr
-5,Survey date,Date de l'enquête,fr
-6,Zone,Zone Mouvement CRCR,fr
-7,Africa,Afrique,fr
-8,Americas & Caribbean,Amérique & Caraïbes,fr
-9,Asia Pacific,Asie Pacifique,fr
-10,Europe,Europe,fr
-11,Middle East & North Africa,Moyen Orient & Afrique du Nord,fr
-12,Country,Pays,fr
-13,Province / District / Region,Province / District / Région,fr
-14,City / Village,Ville / Village,fr
-15,GPS Latitude,GPS Latitude,fr
-16,GPS Longitude,GPS Longitude,fr
-17,GPS Altitude,GPS Altitude,fr
-18,Climate zone,Climat,fr
-19,dry polar,polaire (froid sec),fr
-20,dry moderate,continental (tempéré sec),fr
-21,dry tropical,tropical sec (aride),fr
-22,moist polar,subarctique (froid humide),fr
-23,moist moderate,océanique (tempéré humide),fr
-24,moist tropical,tropical humide,fr
-25,Landform,Relief,fr
-26,mountains,montagne,fr
-27,plateaus,plateau,fr
-28,hills,colline,fr
-29,valley,vallée,fr
-30,plain,plaine,fr
-31,river delta,delta (rivière),fr
-32,desert,dune,fr
-33,Disaster & Response,Catastrophe et secours,fr
-34,Associated disaster / Immediate cause,Catastrophe / cause immédiate,fr
-35,earthquake,séisme,fr
-36,flood,inondations,fr
-37,storm/cyclone,tempête/cyclone,fr
-38,volcanic eruption,éruption volcanique,fr
-39,fire,feu,fr
-40,rockfall/landslide,chute de pierres/ glissement de terrain,fr
-41,tsunami,tsunami,fr
-42,drought/famine,sécheresse/famine,fr
-43,epidemic,épidémie,fr
-44,conflict related,conflit,fr
-45,other,autre,fr
-46,Main hazards in country,Principaux aléas dans le pays,fr
-47,earthquake,séisme,fr
-48,flood,inondations,fr
-49,storm/cyclone,tempête/cyclone,fr
-50,volcanic eruption,éruption volcanique,fr
-51,fire,feu,fr
-52,rockfall/landslide,chute de pierres/ glissement de terrain,fr
-53,tsunami,tsunami,fr
-54,drought,sécheresse,fr
-55,Type of Implementing Agency,Type d'organismes d'exécution,fr
-56,by private sector,secteur privé,fr
-57,by government,Gouvernement,fr
-58,by NGO/agency,ONG/organisme,fr
-59,self-built,auto-construction,fr
-60,Implementing Agency,Organisme d'exécution (Gouvernemental),fr
-61,Name of Project Manager,Nom du Directeur de Projet (optionnel),fr
-62,Name of local partner (NGO/Government),Nom du partenaire local  (ONG/Gouvernement),fr
-63,Name of Governmental Agency in charge of Disaster Management,Nom de l'Agence Gouvernementale en charge de la Gestion des Catastrophes,fr
-64,Name of Governmental Agency in charge of Construction,Nom de l'Agence Gouvernementale en charge de la Construction,fr
-65,Type of shelter,Type d'abri/logement,fr
-66,emergency shelter,logement d'urgence,fr
-67,transitional shelter,logement transitoire/de transition,fr
-68,core shelter,unité de logement de base,fr
-69,permanent shelter,logement permanent,fr
-70,Total number of shelter built during project,Nombre total d'abris construits (pendant le projet),fr
-71,Type of work (construction),Type de travaux (construction),fr
-72,retrofit,rénovation/réhabilitation,fr
-73,repair,réparation,fr
-74,rebuilding,reconstruction,fr
-75,relocation,délocalisation,fr
-76,Type of settlement,Type d'établissements humains,fr
-77,in a planned camp,camp planifié,fr
-78,self-settlement with relocation,camp spontané avec délocalisation,fr
-79,self-settlement in-situ,camp spontané sur place,fr
-80,in a collective centre,centre d'accueil collectif,fr
-81,host family,famille d'accueil,fr
-82,in a planned site,site planifié,fr
-83,Labour methods,Type de main d'œuvre,fr
-84,direct (beneficiary) labour,main d'œuvre directe (bénéficiaire),fr
-85,community labour,main d'œuvre communautaire,fr
-86,contract labour,main d'œuvre contractuelle (sous contrat),fr
-87,Labour skills,Qualification de la main d'œuvre,fr
-88,skilled labour,main d'œuvre qualifiée,fr
-89,unskilled labour,main d'œuvre non qualifiée,fr
-90,Support provided,Soutien complémentaire fourni,fr
-91,none,aucun,fr
-92,technical training,formation technique,fr
-93,technical support,soutien technique,fr
-94,shelter construction items,matériaux de construction,fr
-95,cash,versement d'espèces,fr
-96,vouchers,remise de bons d'achat,fr
-97,livelihood support,soutien aux moyens de subsistance,fr
-98,environmental & resource management,gestion de l'environnement et des ressources,fr
-99,local information centres,centre d'information local,fr
-100,insurances,assurances,fr
-101,loans & guarantees,prêts et garanties,fr
-102,"advocacy, legal & administrative",interventions sur le marché,fr
-103,market interventions,échanges de produits,fr
-104,return & transit items,"plaidoyer, aide juridique et administrative",fr
-105,infrastructure & settlement planning,planification des établissements humains et infrastructures,fr
-106,other,autre,fr
-107,General,Propriétés générales,fr
-108,Year of construction (first completed shelters),Année de construction,fr
-214,mortar,mortier,fr
-109,Number of inhabitants of the shelter,Nombre d'habitants par abri,fr
-110,Occupancy status (site),Statut d'occupation (terrain),fr
-111,occupied with no legal status,terrain occupé sans statut légal,fr
-112,land tenant,locataire du terrain,fr
-113,owner of the land,propriétaire du terrain,fr
-114,family land,terrain appartient à la famille,fr
-115,Occupancy status (shelter),Statut d'occupation (logement),fr
-116,not occupied,logement non-occupé,fr
-117,occupied with no legal status,occupé sans statut légal,fr
-118,house tenant,locataire du logement,fr
-119,owner-occupier,propriétaire-occupant,fr
-120,Typology,Typologie,fr
-121,detached,logement individuel,fr
-122,semi-detached,logement jumélé,fr
-123,row unit,logement en rangée,fr
-124,apartment,appartement,fr
-125,Storeys,Nombre d'étage,fr
-126,Number of rooms (not including kitchen & bathroom/toilet),Nombre de pièces (cuisine et salle de bain/toilettes exclus),fr
-127,Length (m),Longueur (m),fr
-128,Width (m),Largeur (m),fr
-129,Total interior area (m2),Surface habitable (m2),fr
-130,Covered area (m2),Surface couverte (m2),fr
-131,Wall height (m),Hauteur des murs (m),fr
-132,Ridge height (m),Hauteur au faitage (m),fr
-133,Construction cost per unit (USD),Coût de la construction par logement (USD),fr
-134,Construction costs breakdown (USD) - local material,Coût de la construction / répartition (USD) - matériaux locaux,fr
-135,Construction costs breakdown (USD) - imported material,Coût de la construction / répartition (USD) - matériaux importés,fr
-136,Construction costs breakdown (USD) - transport and warehousing,Coût de la construction / répartition (USD) - transport,fr
-137,Construction costs breakdown (USD) - local labour,Coût de la construction / répartition (USD) - main d'œuvre locale,fr
-138,Construction costs breakdown (USD) - international staff,Coût de la construction / répartition (USD) - main d'œuvre expatriée (délégués),fr
-139,Construction costs breakdown (USD) - trainings,Coût de la construction / répartition (USD) - réunions et formations,fr
-140,Construction costs breakdown (USD) - administrative costs,Coût de la construction / répartitionn (USD) - coûts administratifs,fr
-141,Construction costs breakdown (USD) - other,Coût de la construction / répartition (USD) - autre,fr
-142,Construction labour (number of workers),Quantité de main d'œuvre (nombre d'ouvriers),fr
-143,Construction time (number of days per unit),Durée de la construction (nombre de jours),fr
-144,Comment,Commentaire,fr
-145,Site,Terrain,fr
-146,Context,Environnement,fr
-147,urban,urbain,fr
-148,peri-urban,péri-urbain,fr
-149,slum,bidonville,fr
-150,semi-rural,semi-rural,fr
-151,rural,rural,fr
-152,Topography,Topographie,fr
-153,flat/level (<2%),plat (<2%),fr
-154,gentle slope (2-10%),pente faible (2-10%),fr
-155,moderate slope (10-15%),pente modérée (10-15%),fr
-156,strong slope (15-30%),pente forte (15-30%),fr
-157,"very strong slope (30-45%), extreme slope (45-70%), steep slope (70-100%)","pente très forte (30-45%), pente raide (45-70%), pente abrupte  (70-100%)",fr
-158,very steep slope (>100%),pente très abrupte (>100%),fr
-159,Location of the site,Situation du terrain,fr
-160,exposed crest/edge of a cliff,au sommet d'une colline/montagne/bord d'une falaise,fr
-161,coastal area,en bord de mer,fr
-162,low-lying area,en zone de terres basses,fr
-163,in terrace,en terrasse,fr
-164,undulating,terrain vallonné,fr
-165,base of a slope,au pied d'une colline/montagne,fr
-166,close to a river/pond/lake,près d'une rivière/étang/lac,fr
-167,on water,sur l'eau,fr
-168,other,autre,fr
-169,Soil type,Type de sol,fr
-170,rock,rocher,fr
-171,stone/gravel,rocailleux,fr
-172,sand,sableux,fr
-173,clay,argileux,fr
-174,wetland/water,marécageux,fr
-175,Vegetation,Végétation,fr
-176,trees,arbres,fr
-177,shrub,arbustes,fr
-178,bush,buissons,fr
-179,grass,herbes,fr
-180,none,aucune,fr
-181,Approximate plot area (m2),Surface du terrain/lot (m2),fr
-182,Site access,Type d'accès au terrain,fr
-183,none,aucun,fr
-184,gravel,gravier/graves,fr
-185,(permeable) pavement,chaussée perméable,fr
-186,asphalt,asphalte,fr
-187,concrete,béton,fr
-188,Accessibility for transport,Accessibilité aux transports,fr
-189,by truck,par camion,fr
-190,by car,par voiture,fr
-191,by 4x4,par 4x4,fr
-192,by animal,à dos d'animal,fr
-193,by foot,à pied,fr
-194,by boat/raft,par bateau/radeau,fr
-195,other,autre,fr
-196,Foundation,Fondation,fr
-197,Foundation type,Type de fondation,fr
-198,strip footing,semelle filante,fr
-199,isolated footing (pad/ bucket),semelle isolée,fr
-200,monolithic slab,dalle avec semelle filante intégrée,fr
-201,on stilts/pillars/piles,pilotis/pieu/pile,fr
-202,helical piles/ screw piles,pieu hélicoïdal,fr
-203,earth anchor/ mechanical soil anchor,ancre enfoncée par percussion,fr
-204,spiral ground anchor,ancrage en spirale,fr
-205,pegs,piquet,fr
-206,ballast,lest,fr
-207,anchor block,massif d'ancrage,fr
-208,none,aucun,fr
-209,Foundation material,Fondations (matériaux),fr
-210,reinforced concrete,béton armé,fr
-211,reinforcing bars,armatures,fr
-212,welded-wire mesh,treillis soudé,fr
-213,concrete,béton,fr
-215,timber,bois (débité),fr
-216,wood,bois (non débité),fr
-217,bamboo,bambou,fr
-218,steel,acier,fr
-219,galvanized steel,acier galvanisé,fr
-220,granular fill,hérisson,fr
-221,stone,pierres,fr
-222,backfill,remblais,fr
-223,rubble (masonry),moellon lité (maçonnerie),fr
-224,squared rubble,moellon équarri,fr
-225,concrete block(solid),bloc plein (en béton),fr
-226,hollow concrete block,bloc creux (en béton),fr
-227,solid brick (fired clay),brique pleine (cuite),fr
-228,adobe/sun-dried brick,brique de terre crue (adobe),fr
-229,salvage material,matériaux de récupération,fr
-230,rocks masonry,autre,fr
-231,Depth of foundation (m),Profondeur des fondations (m),fr
-232,Section/ surface of footing (m x m),Section/ surface de la semelle (m x m),fr
-233,Width of wall base (m),Largeur du soubassement (m),fr
-234,Section of stilt/ pillar/ pile (m x m),Section des pilotis/ piliers / piles (m x m),fr
-235,Thickness of monolithic concrete slab (m),Epaisseur de la dalle en béton (m),fr
-236,Distance between piles/ stilts/ isoled footing (m),Distance entre les pilotis/ piles / semelles isolées (m),fr
-237,Connection between foundation - walls,Connection entre fondations et murs,fr
-238,none,aucune,fr
-239,nails,clous,fr
-240,screws,vis,fr
-241,lag screws/lag bolts,tirefonds,fr
-242,bolts and nuts,boulons et écrous,fr
-243,anchor bolts & washers,tiges d'ancrage et rondelles,fr
-244,anchor plates/ post anchors/bases,platiness,fr
-245,straps,connecteurs métalliques,fr
-246,reinforcing bars,armatures,fr
-247,wire,fil de fer,fr
-248,lashings,liens,fr
-249,dowels/ pins,chevilles/goujons,fr
-250,other,autre,fr
-251,Connection material (foundation - walls),Connection entre fondations et murs (matériaux),fr
-252,none,aucun,fr
-253,cement,ciment,fr
-254,steel,acier,fr
-255,galvanized steel,acier galvanisé,fr
-256,stainless steel,acier inoxydable,fr
-257,timber,bois (débité),fr
-258,wood,bois (non débité),fr
-259,bamboo,bambou,fr
-260,polymer,polymère,fr
-261,organic,matériaux organiques,fr
-262,concrete,béton,fr
-263,other,autre,fr
-264,Comment,Commentaire,fr
-265,Walls & Frame,Mur & Structure,fr
-266,Superstructure type,Type de superstructure,fr
-267,bearing walls,maçonnerie porteuse,fr
-268,framed walls,ossature bois,fr
-269,pole-frame construction,ossature poteaux longs,fr
-270,posts & beams framing,ossature poteaux-poutres,fr
-271,other,autre,fr
-272,Comment,Commentaire,fr
-273,Bearings walls,Maçonnerie,fr
-274,Bearing walls material,Maçonnerie porteuse (matériaux),fr
-275,concrete block (solid),bloc plein (en béton),fr
-276,hollow concrete block,bloc creux (en béton),fr
-277,solid brick (fired clay),brique pleine (cuite),fr
-278,perforated brick (fired clay),brique perforée (cuite),fr
-279,hollow brick (fired clay),brique creuse (cuite),fr
-280,adobe/ sun-dried brick,adobe/brique de terre crue séchée,fr
-281,rubble (masonry),moellon lité,fr
-282,squared rubble,moellon assisé,fr
-283,other,autre,fr
-284,Bearing walls - width (m),Maçonnerie porteuse - largeur (m),fr
-285,Bearing walls - bond beams & lintels,Maçonnerie porteuse - chaînages et linteaux,fr
-286,none,aucun,fr
-287,bond beam/ ring beam,chaînage horizontal,fr
-288,vertical wall reinforcement,chaînage vertical,fr
-289,lintel (above doors),linteau (au-dessus des portes),fr
-290,lintel (above windows),linteau (au-dessus des fenêtres),fr
-291,rake beam (top of gable end),chaînage incliné (sur rampants de pignons),fr
-292,Section of horizontal bond beam (m x m),Section des chaînages horizontaux (m x m),fr
-293,Section of lintel (m x m),Section des linteaux (m x m),fr
-294,Connection between bearing walls and roof,Connection entre Maçonnerie porteuse et toit,fr
-295,none,aucune,fr
-296,nails,clous,fr
-297,screws,vis,fr
-298,lag screws/bolts,tirefonds,fr
-299,bolts and nuts,boulons et écrous,fr
-300,anchor bolts and washers,tiges d'ancrage et rondelles,fr
-301,anchor plates,platines,fr
-302,hurricane straps/ ties/ clips,connecteurs métalliques,fr
-303,wire,fil de fer,fr
-304,reinforcing bars,armatures,fr
-305,other,autre,fr
-306,Connection material (walls - roof),Connection entre Maçonnerie porteuse et toit (matériaux),fr
-307,none,aucune,fr
-308,concrete,béton,fr
-309,steel,acier,fr
-310,galvanized steel,acier galvanisé,fr
-311,stainless steel,acier inoxydable,fr
-312,timber,bois,fr
-313,polymer,polymère,fr
-314,organic,matériau organique,fr
-315,other,autre,fr
-316,Stability measure - bearing walls,Mesures de stabilité - Maçonnerie porteuse,fr
-317,none,aucune,fr
-318,bond beam/ring beam at plinth level,chaînage horizontal en pied de mur,fr
-319,bond beam/ring beam at lintel level,chaînage horizontal au niveau des linteaux,fr
-320,bond beam/ring beam at roof level,chaînage horizontal en tête de mur,fr
-321,vertical wall reinforcement in corners,chaînage vertical dans les angles,fr
-322,vertical wall reinforcement in at each wall intersection,chaînage vertical à chaque intersection de murs,fr
-441,other,autre,fr
-323,rake beam,chaînage incliné (sur rampants de pignons),fr
-324,tie-bar/ tie rod and tie plate,tirant,fr
-325,vertical wall,contrefort,fr
-326,other,autre,fr
-327,Stability measure material,Mesures de stabilité (matériaux),fr
-328,none,aucun,fr
-329,reinforced concrete,béton armé,fr
-330,steel,acier,fr
-331,other,autre,fr
-332,Framed walls,Ossature bois,fr
-333,Framed walls material,Ossature bois (matériaux),fr
-334,steel,acier,fr
-335,galvanized steel,acier galvanisé,fr
-336,timber,bois (débité),fr
-337,wood,bois (non débité),fr
-338,bamboo,bambou,fr
-339,mixed,ossature mixte,fr
-340,other,autre,fr
-341,Framed walls - section of corner post (m x m),Ossature bois - section des poteaux d'angle (m x m),fr
-342,Framed walls - section of stud (m x m),Ossature bois - section des montants (m x m),fr
-343,Framed walls - section of bottom wall plate/ sill plate (m x m),Ossature bois - section de la lisse basse (m x m),fr
-344,Framed walls - section of top wall plate (m x m),Ossature bois - section de la lisse haute/sablière (m x m),fr
-345,Connection between framed walls and roof,Connection entre Ossature bois et toit,fr
-346,none,aucune,fr
-347,nails,clous,fr
-348,screws,vis,fr
-349,lag screws/bolts,tirefonds,fr
-350,bolts and nuts,boulons et écrous,fr
-351,anchor bolts and washers,tiges d'ancrage et rondelles,fr
-352,hurricane straps/ ties/ clips,connecteurs métalliques,fr
-353,wire,fil de fer,fr
-354,lashings,liens,fr
-355,dowels/ pins,cheville/goujon,fr
-356,other,autre,fr
-357,Connection material (walls - roof),Connection entre Ossature bois et toit (matériaux),fr
-358,none,aucun,fr
-359,steel,acier,fr
-360,galvanized steel,acier galvanisé,fr
-361,stainless steel,acier inoxydable,fr
-362,timber,bois,fr
-363,polymer,polymère,fr
-364,organic,matériau organique,fr
-365,other,autre,fr
-366,Stability measure - framed walls,Mesures de stabilité - Ossature bois,fr
-367,none,aucune,fr
-368,corner brace,écharpe,fr
-369,K brace,palée en K,fr
-370,angle brace,gousset/aisselier,fr
-371,sheathing (load bearing shell),contreventement par plaque (coque porteuse),fr
-372,studs located every 60 cm (2 ft) or less,montants placés tous les 60 cm (2 pieds),fr
-373,cross brace,palée en croix de St André,fr
-374,other,autre,fr
-375,Stability measure material,Mesures de stabilité (matériaux),fr
-376,none,aucune,fr
-377,timber,bois (débité),fr
-378,wood,bois (non débité),fr
-379,bamboo,bambou,fr
-380,plywood,contreplaqué,fr
-381,wire,fil de fer,fr
-382,metal cable,cable métallique,fr
-383,rope,corde,fr
-384,other,autre,fr
-385,Pole-frame,Ossature poteaux longs,fr
-386,Pole-frame - material,Ossature poteaux longs - (matériaux),fr
-387,timber,bois (débité),fr
-388,wood,bois (non débité),fr
-389,coconut tree,cocotier,fr
-390,bamboo,bambou,fr
-391,other,autre,fr
-392,Pole-frame - section of pole (m x m),Ossature poteaux longs - section des poteaux (m x m),fr
-393,Pole-frame- height of pole (m),Ossature poteaux longs - hauteur des poteaux (m),fr
-394,Connection between pole-frame walls and roof,Connection entre Ossature poteaux longs et toit,fr
-395,none,aucune,fr
-396,nails,clous,fr
-397,screws,vis,fr
-398,lag screws/bolts,tirefonds,fr
-399,bolts and nuts,boulons et écrous,fr
-400,anchor bolts and washers,tiges d'ancrage et rondelles,fr
-401,hurricane straps/ ties/ clips,connecteurs métalliques,fr
-402,wire,fil de fer,fr
-403,lashings,liens,fr
-404,dowels/ pins,chevilles/goujons,fr
-405,other,autre,fr
-406,Connection material (walls - roof),Connection entre Ossature poteaux longs et toit (matériaux),fr
-407,none,aucune,fr
-408,steel,acier,fr
-409,galvanized steel,acier galvanisé,fr
-410,stainless steel,acier inoxydable,fr
-411,timber,bois (débité),fr
-412,polymer,polymère,fr
-413,organic,matériau organique,fr
-414,other,autre,fr
-415,Stability measure - pole-frame construction,Mesures de stabilité - Ossature poteaux longs,fr
-416,none,aucune,fr
-417,cross brace,palée en croix de St André,fr
-418,V brace,palée en V,fr
-419,angle brace,gousset/aisselier,fr
-420,gusset plates,gousset (plaque),fr
-421,other,autre,fr
-422,Stability measure material,Mesures de stabilité (matériaux),fr
-423,none,aucune,fr
-424,timber,bois (débité),fr
-425,wood,bois (non débité),fr
-426,bamboo,bambou,fr
-427,plywood,contreplaqué,fr
-428,wire,fil de fer,fr
-429,metal cable,cable métallique,fr
-430,rope,corde,fr
-431,other,autre,fr
-432,Posts & Beams,Ossature poteaux & poutres,fr
-433,Posts & beams framing - material,Ossature Poteaux-poutres - (matériaux),fr
-434,reinforced concrete,béton armé,fr
-435,steel,acier,fr
-436,galvanized steel,acier galvanisé,fr
-437,timber,bois (débité),fr
-438,wood,bois (non débité),fr
-439,coconut tree,cocotier,fr
-440,bamboo,bambou,fr
-442,Posts & beams framing - section of post (m x m),Ossature Poteaux-poutres - section des poteaux (m x m),fr
-443,Posts & beams framing - height of post (m),Ossature Poteaux-poutres - hauteur des poteaux (m),fr
-444,Connection between posts and beams framing walls and roof,Connection entre Ossature Poteaux-poutres et toit,fr
-445,none,aucune,fr
-446,nails,clous,fr
-447,screws,vis,fr
-448,lag screws/bolts,tirefonds,fr
-449,bolts and nuts,boulons et écrous,fr
-450,anchor bolts and washers,tiges d'ancrage et rondelles,fr
-451,anchor plates,platiness,fr
-452,hurricane straps/ ties/ clips,connecteurs métalliques,fr
-453,wire,fil de fer,fr
-454,lashings,liens,fr
-455,dowels/ pins,chevilles/goujons,fr
-456,reinforcing bars,armatures,fr
-457,other,autre,fr
-458,Connection material (walls - roof),Connection entre Ossature Poteaux-poutres et toit (matériaux),fr
-459,none,aucun,fr
-460,concrete,béton,fr
-461,steel,acier,fr
-462,galvanized steel,acier galvanisé,fr
-463,stainless steel,acier inoxydable,fr
-464,timber,bois (débité),fr
-465,polymer,polymère,fr
-466,organic,matériau organique,fr
-467,other,autre,fr
-468,Stability measure - posts & beams framing,Mesures de stabilité - Ossature Poteaux-poutres,fr
-469,none,aucune,fr
-470,cross brace,palée en croix de St André,fr
-471,V brace,palée en V,fr
-472,angle brace,gousset/aisselier,fr
-473,gusset plates,gousset (plaque),fr
-474,other,autre,fr
-475,Stability measure material,Mesures de stabilité (matériaux),fr
-476,none,aucun,fr
-477,reinforced concrete,béton armé,fr
-478,steel,acier,fr
-479,timber,bois (débité),fr
-480,bamboo,bambou,fr
-481,plywood,contreplaqué,fr
-482,rope,corde,fr
-483,wire,fil de fer,fr
-484,metal cable,cable métallique,fr
-485,other,autre,fr
-486,Beams & Floor (ground floor),Poutres & Plancher (RDC),fr
-487,Ground floor type,Type de plancher bas (rez-de-chaussée),fr
-488,earth platform (elevated ground floor),plateforme en terre (plancher bas surélevé),fr
-489,ground slab/ slab on grade,dallage sur terre-plein,fr
-490,suspended timber ground floor,plancher en bois (suspendu),fr
-491,suspended slab (reinforced concrete),dalle pleine (en béton armé),fr
-492,beam and blocks/ beam fill floor (concrete joists and infill blocks),plancher poutrelles hourdis,fr
-493,other types of suspended floor,autre type de plancher suspendu,fr
-494,other,autre,fr
-495,Ground floor material,Plancher bas (matériaux),fr
-496,backfill compacted,remblai compacté,fr
-497,debris,décombres,fr
-498,granular fill (gravel),hérisson,fr
-499,stone,pierres,fr
-500,reinforced concrete,béton armé,fr
-501,welded-wire mesh,treillis soudé,fr
-502,concrete,béton,fr
-503,concrete blocks & mortar,blocs de béton et mortier,fr
-504,timber,bois (débité),fr
-505,wood,bois (non débité),fr
-506,steel,acier,fr
-507,galvanized steel,acier galvanisé,fr
-508,bamboo,bambou,fr
-509,concrete joists,poutrelles en béton,fr
-510,infill blocks/ blocks floor,hourdis,fr
-511,arched bricks,voûtains,fr
-512,granular fill,autre,fr
-513,Height of ground floor above ground level (m),Hauteur du plancher bas par rapport au terrain (m),fr
-514,Lenght of the beams/joists (m),Longueur des poutres/solives (m),fr
-515,Section of the beams/joists (m x m),Section des poutres/solives (m x m),fr
-516,Distance between beams/joists (m),Distance entre poutres/solives (m),fr
-517,Thickness of decking/ concrete slab/ compression slab (m),Epaisseur du plancher/ dalle de béton/ dalle de compression (m),fr
-518,Floor components,Composants du plancher bas,fr
-519,concrete,béton,fr
-520,reinforcing bars,armatures,fr
-521,welded-wire mesh,treillis soudé,fr
-522,steel,acier,fr
-523,galvanized steel,acier galvanisé,fr
-524,timber,bois (débité),fr
-525,wood,bois (non débité),fr
-526,plywood,contreplaqué,fr
-527,bamboo,bambou,fr
-528,infill blocks,hourdis,fr
-529,arched bricks,voûtains (briques),fr
-530,other,autre,fr
-531,Connection between walls and ground floor,Connexion entre murs et plancher bas,fr
-532,none,aucune,fr
-533,nails,clous,fr
-534,screws,vis,fr
-535,lag screws/bolts,tirefonds,fr
-536,bolts and nuts,boulons et écrous,fr
-537,wire,fil de fer,fr
-538,anchor plates,platines,fr
-539,straps,connecteurs,fr
-540,reinforcing bars,armatures,fr
-541,lashings,liens,fr
-542,dowels/ pins,chevilles/goujons,fr
-543,other,autre,fr
-544,Connection material (walls - ground floor),Connexion entre murs et plancher bas (matériaux),fr
-545,none,aucun,fr
-546,concrete,béton,fr
-547,steel,acier,fr
-548,galvanized steel,acier galvanisé,fr
-549,stainless steel,acier inoxydable,fr
-550,timber,bois (débité),fr
-551,wood,bois (non débité),fr
-552,polymer,polymère,fr
-553,organic,matériau organique,fr
-554,other,autre,fr
-555,Stability measure - elevated ground floor,Mesures de stabilité - plancher bas surélevé,fr
-556,none,aucune,fr
-557,cross brace,palée en croix de St André,fr
-558,angle brace,gousset/aisselier,fr
-559,gusset plates,gousset (plaque),fr
-560,other,autre,fr
-561,Stability measure material,Mesures de stabilité (matériaux),fr
-562,none,aucun,fr
-563,reinforced concrete,béton armé,fr
-564,steel,acier,fr
-565,timber,bois (débité),fr
-566,wood,bois (non débité),fr
-567,plywood,contreplaqué,fr
-568,bamboo,bambou,fr
-569,other,autre,fr
-570,Beams & Floor,Poutres & Plancher,fr
-571,Floor type (second floor and others),Type de planchers (étages),fr
-572,none,aucun,fr
-573,suspended timber ground floor,plancher bois,fr
-574,suspended slab (reinforced concrete),dalle en béton armé,fr
-575,beam and blocks/ beam fill floor (concrete joists and infill blocks),poutrelles et hourdis,fr
-576,other types of suspended floor,autre type de plancher suspendu,fr
-577,other,autre,fr
-578,Beams/ joists material,Poutres/solives (matériaux),fr
-579,reinforced concrete,béton armé,fr
-580,steel,acier,fr
-581,galvanized steel,acier galvanisé,fr
-582,timber,bois (débité),fr
-583,wood,bois (non débité),fr
-584,bamboo,bambou,fr
-585,other,autre,fr
-586,Lenght of the beams/joists (m),Longueur des poutres/solives (m),fr
-587,Section of the beams/joists (m x m),Section des poutres/solives (m x m),fr
-588,Distance between beams/joists (m),Distance entre poutres/solives (m),fr
-589,Connection between walls and floor (if more than one storey),Connexion entre murs et plancher (si plus d'un étage),fr
-590,none,aucune,fr
-591,nails,clous,fr
-592,screws,vis,fr
-593,lag screws/bolts,tirefonds,fr
-594,bolts and nuts,boulons et écrous,fr
-595,wire,fil de fer,fr
-596,anchor plates,platines,fr
-597,straps,connecteurs,fr
-598,ties,tirant,fr
-599,reinforcing bars,armatures,fr
-600,lashings,liens,fr
-601,dowels/ pins,chevilles/goujons,fr
-602,Connection material (walls - floor),Connexion entre murs et plancher (si plus d'un étage) (matériaux),fr
-603,none,aucun,fr
-604,concrete,béton,fr
-605,steel,acier,fr
-606,galvanized steel,acier galvanisé,fr
-607,stainless steel,acier inoxydable,fr
-608,timber,bois (débité),fr
-609,wood,bois (non débité),fr
-610,polymer,polymère,fr
-611,organic,matériau organique,fr
-612,other,autre,fr
-613,Thickness of decking/ concrete slab/ compression slab (m),Epaisseur du plancher / de la dalle / de la dalle de compression (m),fr
-614,Floor components,Composants du plancher,fr
-615,concrete,béton,fr
-616,reinforcing bars,armatures,fr
-617,welded-wire mesh,treillis soudé,fr
-618,steel,acier,fr
-619,galvanized steel,acier galvanisé,fr
-620,timber,bois (débité),fr
-621,wood,bois (non débité),fr
-622,plywood,contreplaqué,fr
-623,bamboo,bambou,fr
-624,infill blocks,hourdis,fr
-625,arched bricks,voûtains (briques),fr
-626,other,autre,fr
-627,Comment,Commentaire,fr
-628,Roof,Toiture,fr
-629,Roof shape,Type de toiture,fr
-630,"shed roof (single-pitch roof, pitch >3°)",toiture à un versant (pente >3°),fr
-631,gable roof (pitched roof),toiture à deux versants,fr
-632,hip-roof (hipped roof),toiture à quatre versants (toiture à croupe),fr
-633,flat roof (pitch <3°),toiture terrasse (pente <3°),fr
-634,dome,dôme,fr
-635,rainbow roof (arched),comble bombé (comble en carène),fr
-636,mansard roof,comble à la Mansard,fr
-637,gambrel roof (roof with several slopes on the same side),comble retroussé,fr
-638,Roof pitch (°),Pente du toit (°),fr
-639,<3° (<5%),<3° (<5%),fr
-640,3-9° (5-16 %),3-9° (5-16 %),fr
-641,10-30° (17-60%),10-30° (17-60%),fr
-642,30-45° (60-100%),30-45° (60-100%),fr
-643,>45° (>100%),>45° (>100%),fr
-644,Roof structure,Structure du toit,fr
-645,gable end,pointe de pignon,fr
-646,truss,fermes,fr
-647,purlin,pannes,fr
-648,rafter,chevrons,fr
-649,roof decking,voligeage,fr
-650,concrete slab,dalle de béton,fr
-651,Roof structure material,Structure du toit (matériaux),fr
-652,steel,acier,fr
-653,galvanized steel,acier galvanisé,fr
-654,timber,bois (débité),fr
-655,wood,bois (non débité),fr
-656,plywood,contreplaqué,fr
-657,sheathing,revêtement (voligeage),fr
-658,bamboo,bambou,fr
-659,reinforced concrete,béton armé,fr
-660,other,autre,fr
-661,Distance between trusses/ gable end/ cross wall (m),Distance entre fermes/pignons/mur porteur intermédiaire (m),fr
-662,Section of purlin (m x m),Section des pannes (m x m),fr
-663,Distance between purlins (m),Distance entre pannes (m),fr
-664,Section of rafter (m x m),Section des chevrons (m x m),fr
-665,Distance between rafters (m),Distance entre chevrons (m),fr
-666,Size of eaves (overhang) (m),Largeur de l'avant-toit/ forget (m),fr
-667,Thickness of roof decking/ concrete slab (m),Epaisseur du voligeage / de la dalle de toiture (m),fr
-668,Section of batten/ lath (m x m),Section des liteaux/lattes  (m x m),fr
-669,Distance between  battens/ laths (m),Distance entre les liteaux/lattes (m),fr
-905,oil,essence,fr
-670,Connection between roof elements,Connection entre les éléments de toiture (type),fr
-671,none,aucune,fr
-672,nails,clous,fr
-673,screws,vis,fr
-674,lag screws/bolts,tirefonds,fr
-675,bolts and nuts,boulons et écrous,fr
-676,anchor plates,pattes d'ancrage,fr
-677,hurricane straps,connecteurs métalliques,fr
-678,gusset plates,goussets (plaque),fr
-679,connectors/ nail plates,connecteurs (plaque),fr
-680,lashings,liens,fr
-681,dowels/ pins,chevilles/goujons,fr
-682,Connection material (roof elements),Connection entre les éléments de toiture (matériaux),fr
-683,none,aucune,fr
-684,concrete,béton,fr
-685,steel,acier,fr
-686,galvanized steel,acier galvanisé,fr
-687,stainless steel,acier inoxydable,fr
-688,timber,bois (débité),fr
-689,polymer,matériaux polymères,fr
-690,organic,matériaux organiques,fr
-691,other,autre,fr
-692,Stability measure - roof,Mesures de stabilité - toiture,fr
-693,none,aucune,fr
-694,tie beam,entrait,fr
-695,collar beam/ tie,faux entrait,fr
-696,tie (between ridge beam and king post/ truss),lien (entre poinçon et panne faitière),fr
-697,rafter brace,contreventement des chevrons,fr
-698,gusset plates,goussets (plaque),fr
-699,bracing,contreventement des pannes sablières,fr
-700,other,autre,fr
-701,Stability measure material,Mesures de stabilité (matériaux),fr
-702,none,aucun,fr
-703,concrete,béton,fr
-704,steel,acier,fr
-705,timber,bois (débité),fr
-706,bamboo,bambou,fr
-707,other,autre,fr
-708,Comment,Commentaire,fr
-709,Cladding,Bardage,fr
-710,Facade cladding material,Bardage de façade (matériaux),fr
-711,none,aucun,fr
-712,brick,brique pleine,fr
-713,hollow brick,brique creuse,fr
-714,perforated brick,brique perforée,fr
-715,adobe/ sun-dried brick,adobe (brique de terre crue séchée),fr
-716,mud plaster,enduit de terre,fr
-717,concrete block (solid),bloc plein (en béton),fr
-718,hollow concrete block,bloc creux (en béton),fr
-719,cement plaster,enduit de mortier de ciment,fr
-720,wattle & daub,torchis,fr
-721,timber,bois (débité),fr
-722,wood,bois (non débité),fr
-723,plywood,contreplaqué,fr
-724,fiber cement board/ cement board,plaque de fibro-ciment,fr
-725,bamboo,bambou,fr
-726,metal sheeting,tôle métallique,fr
-727,plastic sheeting (tarpaulin),bâche plastique),fr
-728,canvas,toile,fr
-729,textile,tissu,fr
-730,woven mat (organic material),natte (matière organique),fr
-731,thatch,chaume,fr
-732,straw,paille,fr
-733,corrugated galvanized iron (CGI) sheet,tôle ondulée galvanisée (CGI),fr
-734,shingle,bardeaux bitumés,fr
-735,wood shingle,bardeaux de bois,fr
-736,other,autre,fr
-737,Thickness of cladding material (mm),Epaisseur des matériaux de bardage  (mm),fr
-738,Roof covering material,Couverture (matériaux),fr
-739,corrugated galvanized iron (CGI) sheet,tôle ondulée galvanisée (CGI),fr
-740,insulated metal roofing sheet,panneau métallique isolant,fr
-741,corrugated bitumen roofing panel,tôle ondulée bitumée,fr
-742,aluminium roofing sheet,tôle ondulée en aluminium,fr
-743,plastic sheeting (tarpaulin),bâche plastique,fr
-744,thatch,chaume,fr
-745,leaves,feuilles,fr
-746,straw,paille,fr
-747,clay tiles,tuiles (argile cuite),fr
-748,concrete tiles,tuiles en béton,fr
-749,stone shingle,ardoises,fr
-750,asphalt shingle,bardeaux bitumés,fr
-751,wood shingle,bardeaux de bois,fr
-752,asphalt,asphalte,fr
-753,bamboo,bambou,fr
-754,wood,bois (non débité),fr
-755,plywood,contreplaqué,fr
-756,GPR (fibreglass) panel,tôle ondulée en fibres de verre,fr
-757,other,autre,fr
-758,Thickness of roof covering (mm or gauge),Epaisseur des matériaux de couverture (mm ou gauge),fr
-759,Floor Finish Material,Finition du plancher (matériaux),fr
-760,none,aucun,fr
-761,timber,bois (débité),fr
-762,wood,bois (non débité),fr
-763,cement plaster,enduit de ciment,fr
-764,mud plaster,enduit de terre,fr
-765,bamboo,bambou,fr
-766,ceramic tiles,carrelage,fr
-767,carpet,tapis/moquette,fr
-768,plastic floor,revêtement de PVC,fr
-769,organic material,matériau organique,fr
-770,other,autre,fr
-771,Openings,Ouvertures,fr
-772,Number of doors,Nombre de portes,fr
-773,Doors material,Portes (matériaux),fr
-774,timber,bois (débité),fr
-775,wood,bois (non débité),fr
-776,plywood,contreplaqué,fr
-777,bamboo,bambou,fr
-778,plastic sheeting,bâche plastique,fr
-779,mesh,grilllage fin,fr
-780,insect screening mesh,moustiquaire,fr
-781,fibreglass,fibre de verre,fr
-782,leaves,feuilles (nattes),fr
-783,other,autre,fr
-784,Number of windows,Nombre de fenêtres,fr
-785,Windows material,Fenêtres (matériaux),fr
-786,timber,bois (débité),fr
-787,wood,bois (non débité),fr
-788,plywood,contreplaqué,fr
-789,bamboo,bambou,fr
-790,plastic sheeting,bâche plastique,fr
-791,insect screening mesh,moustiquaire,fr
-792,fibreglass,fibre de verre,fr
-793,lattice,lattis,fr
-794,other,autre,fr
-795,Number of shutters,Nombre de volets,fr
-796,Shutters material,Volets (matériaux),fr
-797,metal,métal,fr
-798,timber,bois (débité),fr
-799,wood,bois (non débité),fr
-800,plywood,contreplaqué,fr
-801,bamboo,bambou,fr
-802,other,autre,fr
-803,Insulation,Isolation,fr
-804,Insulation system,Système d'isolation,fr
-805,none,aucun,fr
-806,shading,ombrage,fr
-807,insulation of the flooring,isolation thermique du plancher,fr
-808,insulation on the walls,isolation thermique des murs,fr
-809,insulation below the roof,isolation thermique sous la toiture,fr
-810,other,autre,fr
-811,Insulation material,Matériaux isolants,fr
-812,none,aucun,fr
-813,shade net,filet d'ombrage,fr
-814,insulated corrugated roofing sheeting,panneau métallique isolant,fr
-815,organic material,matériau organique,fr
-816,other,autre,fr
-817,Comment,"",fr
-818,Skin,Enveloppe,fr
-819,Comment,Commentaire,fr
-820,Services,Services,fr
-821,Water Supply location,Emplacement de la source d'approvisionnement en eau,fr
-822,in shelter,dans le logement,fr
-823,on plot,sur le terrain,fr
-824,communal,communale,fr
-825,other,autre,fr
-826,Distance to the water supply,Distance jusqu'à la source d'approvisionnement en eau,fr
-827,Water Supply Type,Type d'approvisionnement en eau,fr
-828,piped water,eau courante,fr
-829,tap/standpipe,borne-fontaine,fr
-830,tubewell/ borehole,puits tubulaire,fr
-831,protected dug well,puits creusé protégé,fr
-832,protected spring,source protégée,fr
-833,rainwater collection,collecte des eaux de pluie,fr
-834,unprotected spring,source non-protégée,fr
-835,unprotected dug well,puits creusé non-protégé,fr
-836,cart with small tank/drum,charrette avec petit bidon/réservoir,fr
-837,tanker truck,camion-citerne,fr
-838,"surface water (from river, pond, lake)","eaux de surface (rivière, étang, lac)",fr
-839,bottled water,eau en bouteille,fr
-840,other,autre,fr
-841,Sanitation location,Emplacement du moyen d'assainissement,fr
-842,in shelter,dans le logement,fr
-843,on plot,sur le terrain,fr
-844,communal,communale,fr
-845,other,autre,fr
-846,Distance to the sanitation,Distance jusqu'au moyen d'assainissement,fr
-847,Sanitation Type,Type d'assainissement,fr
-848,flush toilet,toilettes à chasse d'eau,fr
-849,pour flush toilet,toilettes à chasse d'eau manuelle,fr
-850,piped sewer system,réseau d'égouts,fr
-851,septic tank,fosse septique,fr
-852,flush/pour flush to pit latrine,latrine à fosse à chasse d'eau,fr
-853,ventilated improved pit latrine (VIP),latrine à fosse ventilée,fr
-854,pit latrine with slab,latrine à fosse avec plaque,fr
-855,composting toilet,toilettes compostées,fr
-856,flush/pour flush to elsewhere,toilettes/latrine à chasse d'eau non raccordée,fr
-857,pit latrine without slab,latrine à fosse sans plaque ou à ciel ouvert,fr
-858,bucket,"latrine au ""seau""",fr
-859,hanging toilet/ hanging latrine,toilettes/ latrine suspendues,fr
-860,no facilities or bush or field,aucune installation sanitaire (champs/ nature),fr
-861,other,autre,fr
-862,Sewage system,Système de gestion des eaux usées,fr
-863,none,aucun,fr
-864,open sewer system,système d'égouts à ciel ouvert,fr
-865,single pit,fosse simple,fr
-866,septic system,fosse septique,fr
-867,piped sewer system,réseau d'égouts,fr
-868,trucking (gully emptier) to sewage plant,évacuation par camion de vidange vers une station d'épuration,fr
-869,trucking (gully emptier) to open dumping,évacuation par camion de vidange vers lieu à ciel ouvert,fr
-870,other,autre,fr
-871,Drainage,Système de drainage et d'égouts,fr
-872,none,aucun,fr
-873,open drains,drains ouverts (égouts à ciel ouvert),fr
-874,covered drains,drains couverts,fr
-875,other,autre,fr
-876,Waste treatment,Traitement des déchets,fr
-877,burn on site,brûlés sur place,fr
-878,dump on site,vidés sur place,fr
-879,door-to-door collection,collecte porte-à-porte,fr
-880,central collection,point de collecte central,fr
-881,other,autre,fr
-882,Bathroom location,Emplacement de la salle de bains,fr
-883,in shelter,dans le logement,fr
-884,on plot,sur le terrain,fr
-885,communal,communale,fr
-886,other,autre,fr
-887,Distance to the bathroom,Distance jusqu'à la salle de bains,fr
-888,Type of Bathroom,Type de salle de bains,fr
-889,bucket shower,douche au seau,fr
-890,container,récipient,fr
-891,bathtub,baignoire,fr
-892,shower,douche,fr
-893,"river, pond, lake",rivière,fr
-894,other,étang,fr
-895,Heating system,Système de chauffage,fr
-896,none,aucun,fr
-897,stove,poêle/cuisinière,fr
-898,electrical heater,chauffage électrique,fr
-899,fireplace/hearth,cheminée,fr
-900,central heating,chauffage central,fr
-901,other,autre,fr
-902,Energy Source for heating system,Source d'énergie pour le système de chauffage,fr
-903,none,aucune,fr
-904,gas,gaz,fr
-906,electricity (grid),électricité (réseau),fr
-907,electricity (battery),électricité (batterie),fr
-908,wood,bois,fr
-909,coal/charcoal,charbon,fr
-910,biomass,biomasse,fr
-911,wind,éolienne,fr
-912,solar,solaire,fr
-913,other,autre,fr
-914,Cooling system,Système de refroidissement,fr
-915,none,aucun,fr
-916,natural ventilation,ventilation naturelle,fr
-917,fan,ventilateur,fr
-918,air conditioning,air conditionné,fr
-919,Energy Source for cooling system,Source d'énergie pour le système de refroidissement,fr
-920,none,aucun,fr
-921,electricity (grid),électricité (réseau),fr
-922,electricity (battery),électricité (batterie),fr
-923,wind,éolienne,fr
-924,solar,solaire,fr
-925,other,autre,fr
-926,Type of natural ventilation,Type de ventilation naturelle,fr
-927,none,aucune,fr
-928,foundation vent,prise d'air pour fondations,fr
-929,outside-air intake - bottom part of the wall,prise d'air en partie basse des murs,fr
-930,outside-air intake - above doors and windows,prise d'air au-dessus des portes des fenêtres,fr
-931,roof vent,prise d'air dans les combles,fr
-932,air vent between rooms,bouche d'air (entre pièces),fr
-933,trickle vent in windows or doors,bouche avec déflecteur (portes et fenêtres),fr
-934,vent pipe in roof,conduit de ventilation,fr
-935,chimney,cheminée,fr
-936,other,autre,fr
-937,Number of ventilation openings,Nombre de bouches de ventilation,fr
-938,Lighting,Eclairage,fr
-939,none,aucun,fr
-940,candles,bougies,fr
-941,torch/flashlight (battery powered),torche/lampe de poche (batterie),fr
-942,oil/kerosene lamp,lampe à huile/ kérosène,fr
-943,electrical powered lamp,lampe alimentée par énergie électrique,fr
-944,solar powered lamp,lampe solaire,fr
-945,other,autre,fr
-946,Energy Source (Appliances),Source d'énergie (appareils),fr
-947,none,aucun,fr
-948,gas,gaz,fr
-949,electricity (grid),électricité (réseau),fr
-950,electricity (battery),électricité (batterie),fr
-951,wood,bois,fr
-952,coal/charcoal,charbon,fr
-953,biomass,biomasse,fr
-954,wind,éolienne,fr
-955,solar,solaire,fr
-956,other,autre,fr
-957,Kitchen location,Emplacement de la cuisine,fr
-958,in shelter,dans le logement,fr
-959,on plot,sur le terrain,fr
-960,communal,communale,fr
-961,other,autre,fr
-962,Kitchen Type,Type de cuisine,fr
-963,none,aucune,fr
-964,open fire,feu,fr
-965,portable stove,cuisinière portative,fr
-966,stove,cuisinière,fr
-967,other,autre,fr
-968,Cooking Energy Source,Source d'énergie pour la cuisine,fr
-969,wood,bois,fr
-970,biomass,biomasse,fr
-971,oil,essence/huile,fr
-972,gas,gaz,fr
-973,coal/charcoal,charbon,fr
-974,kerosene,kérosène,fr
-975,electricity,electricité,fr
-976,solar,solaire,fr
-977,other,autre,fr
-978,Comment,Commentaire,fr
-979,Spaceplan,Espace intérieur,fr
-980,Partitions,Cloisons,fr
-981,none,aucun,fr
-982,walls,mur,fr
-983,half walls,demi-mur,fr
-984,screens,écran,fr
-985,curtains,rideaux,fr
-986,Partition structure material,Structure de la cloison (matériaux),fr
-987,none,aucun,fr
-988,bamboo,bambou,fr
-989,timber,bois (débité),fr
-990,wood,bois (non débité),fr
-991,brick,briques,fr
-992,concrete block,blocs (de béton),fr
-993,block,blocs,fr
-994,adobe/ sun-dried brick,briques de terre crue,fr
-995,steel,acier,fr
-996,plastic,plastique,fr
-997,textile,textile,fr
-998,other,autre,fr
-999,Partition finish,Finition des cloisons,fr
-1000,none,aucun,fr
-1001,metal sheeting,tôle métallique,fr
-1002,timber,bois (débité),fr
-1003,wood,bois (non débité),fr
-1004,plywood,contreplaqué,fr
-1005,bamboo,bambou,fr
-1006,cement plaster,enduit de ciment,fr
-1007,mud plaster,enduit de terre,fr
-1008,wallpaper,papier peint,fr
-1009,paint,peinture,fr
-1010,hand woven mat (organic material),natte tissée ou tressée (matériau organique),fr
-1011,other,autre,fr
-1012,Ceiling structure material,Structure du faux-plafond (matériaux),fr
-1013,none,aucun,fr
-1014,timber,bois (débité),fr
-1015,wood,bois (non débité),fr
-1016,plywood,contreplaqué,fr
-1017,bamboo,bambou,fr
-1018,other,autre,fr
-1019,Ceiling Finish Material,Finition du faux-plafond,fr
-1020,none,aucun,fr
-1021,cement plaster,enduit de ciment,fr
-1022,mud plaster,enduit de terre,fr
-1023,wallpaper,papier peint,fr
-1024,paint,peinture,fr
-1025,organic material,matériau organique,fr
-1026,other,autre,fr
-1027,Possible extension of the shelter structure,Agrandissement possible de la structure de l'abri,fr
-1028,implemented extention to the shelter (at survey date),Agrandissement réalisé de l'abri (lors de l'enquête),fr
-1029,Comment,Commentaire,fr
-1030,Documents,Documentation,fr
-1031,Project narrative,Descriptif de projet,fr
-1032,Technical description,Descriptif technique,fr
-1033,(Priced) Bill of Quantity (BoQ),Devis Quantitatif Estimatif (DQE avec les prix),fr
-1034,Design Drawings,Dessins d'exécution,fr
-1035,Site plan,Plan de masse / plan de situation,fr
-1036,Satellite picture,Photo satellite,fr
-1037,Pictures/video of setting,Photos/ vidéo de l'implantation,fr
-1038,Pictures/video of elevations,Photos/ vidéo des élévations (façades),fr
-1039,Pictures/video of extensions,Photos/ vidéo des agrandissements,fr
-1040,Pictures/video of details,Photos/ vidéo des détails,fr
-1041,Pictures/video of living practices,Photos/ vidéo des pratiques de vie,fr
-1042,Comment,Commentaires,fr
+ENGLISH
+Identification
+ID
+Name of shelter
+Survey date
+Zone
+Africa
+Americas & Caribbean
+Asia Pacific
+Europe
+Middle East & North Africa
+Country
+Province / District / Region
+City / Village
+GPS Latitude
+GPS Longitude
+GPS Altitude
+Climate zone
+dry polar
+dry moderate
+dry tropical
+moist polar
+moist moderate
+moist tropical
+Landform
+mountains
+plateaus
+hills
+valley
+plain
+river delta
+desert
+Disaster & Response
+Associated disaster / Immediate cause
+earthquake
+flood
+storm/cyclone
+volcanic eruption
+fire
+rockfall/landslide
+tsunami
+drought/famine
+epidemic
+conflict related
+other
+Main hazards in country
+earthquake
+flood
+storm/cyclone
+volcanic eruption
+fire
+rockfall/landslide
+tsunami
+drought
+Type of Implementing Agency
+by private sector
+by government
+by NGO/agency
+self-built
+Implementing Agency
+Name of Project Manager
+Name of local partner (NGO/Government)
+Name of Governmental Agency in charge of Disaster Management
+Name of Governmental Agency in charge of Construction
+Type of shelter
+emergency shelter
+transitional shelter
+core shelter
+permanent shelter
+Total number of shelter built during project
+Type of work (construction)
+retrofit
+repair
+rebuilding
+relocation
+Type of settlement
+in a planned camp
+self-settlement with relocation
+self-settlement in-situ
+in a collective centre
+host family
+in a planned site
+Labour methods
+direct (beneficiary) labour
+community labour
+contract labour
+Labour skills
+skilled labour
+unskilled labour
+Support provided
+none
+technical training
+technical support
+shelter construction items
+cash
+vouchers
+livelihood support
+environmental & resource management
+local information centres
+insurances
+loans & guarantees
+"advocacy, legal & administrative"
+market interventions
+return & transit items
+infrastructure & settlement planning
+other
+General
+Year of construction (first completed shelters)
+mortar
+Number of inhabitants of the shelter
+Occupancy status (site)
+occupied with no legal status
+land tenant
+owner of the land
+family land
+Occupancy status (shelter)
+not occupied
+occupied with no legal status
+house tenant
+owner-occupier
+Typology
+detached
+semi-detached
+row unit
+apartment
+Storeys
+Number of rooms (not including kitchen & bathroom/toilet)
+Length (m)
+Width (m)
+Total interior area (m2)
+Covered area (m2)
+Wall height (m)
+Ridge height (m)
+Construction cost per unit (USD)
+Construction costs breakdown (USD) - local material
+Construction costs breakdown (USD) - imported material
+Construction costs breakdown (USD) - transport and warehousing
+Construction costs breakdown (USD) - local labour
+Construction costs breakdown (USD) - international staff
+Construction costs breakdown (USD) - trainings
+Construction costs breakdown (USD) - administrative costs
+Construction costs breakdown (USD) - other
+Construction labour (number of workers)
+Construction time (number of days per unit)
+Comment
+Site
+Context
+urban
+peri-urban
+slum
+semi-rural
+rural
+Topography
+flat/level (<2%)
+gentle slope (2-10%)
+moderate slope (10-15%)
+strong slope (15-30%)
+"very strong slope (30-45%), extreme slope (45-70%), steep slope (70-100%)"
+very steep slope (>100%)
+Location of the site
+exposed crest/edge of a cliff
+coastal area
+low-lying area
+in terrace
+undulating
+base of a slope
+close to a river/pond/lake
+on water
+other
+Soil type
+rock
+stone/gravel
+sand
+clay
+wetland/water
+Vegetation
+trees
+shrub
+bush
+grass
+none
+Approximate plot area (m2)
+Site access
+none
+gravel
+(permeable) pavement
+asphalt
+concrete
+Accessibility for transport
+by truck
+by car
+by 4x4
+by animal
+by foot
+by boat/raft
+other
+Foundation
+Foundation type
+strip footing
+isolated footing (pad/ bucket)
+monolithic slab
+on stilts/pillars/piles
+helical piles/ screw piles
+earth anchor/ mechanical soil anchor
+spiral ground anchor
+pegs
+ballast
+anchor block
+none
+Foundation material
+reinforced concrete
+reinforcing bars
+welded-wire mesh
+concrete
+timber
+wood
+bamboo
+steel
+galvanized steel
+granular fill
+stone
+backfill
+rubble (masonry)
+squared rubble
+concrete block(solid)
+hollow concrete block
+solid brick (fired clay)
+adobe/sun-dried brick
+salvage material
+rocks masonry
+Depth of foundation (m)
+Section/ surface of footing (m x m)
+Width of wall base (m)
+Section of stilt/ pillar/ pile (m x m)
+Thickness of monolithic concrete slab (m)
+Distance between piles/ stilts/ isoled footing (m)
+Connection between foundation - walls
+none
+nails
+screws
+lag screws/lag bolts
+bolts and nuts
+anchor bolts & washers
+anchor plates/ post anchors/bases
+straps
+reinforcing bars
+wire
+lashings
+dowels/ pins
+other
+Connection material (foundation - walls)
+none
+cement
+steel
+galvanized steel
+stainless steel
+timber
+wood
+bamboo
+polymer
+organic
+concrete
+other
+Comment
+Walls & Frame
+Superstructure type
+bearing walls
+framed walls
+pole-frame construction
+posts & beams framing
+other
+Comment
+Bearings walls
+Bearing walls material
+concrete block (solid)
+hollow concrete block
+solid brick (fired clay)
+perforated brick (fired clay)
+hollow brick (fired clay)
+adobe/ sun-dried brick
+rubble (masonry)
+squared rubble
+other
+Bearing walls - width (m)
+Bearing walls - bond beams & lintels
+none
+bond beam/ ring beam
+vertical wall reinforcement
+lintel (above doors)
+lintel (above windows)
+rake beam (top of gable end)
+Section of horizontal bond beam (m x m)
+Section of lintel (m x m)
+Connection between bearing walls and roof
+none
+nails
+screws
+lag screws/bolts
+bolts and nuts
+anchor bolts and washers
+anchor plates
+hurricane straps/ ties/ clips
+wire
+reinforcing bars
+other
+Connection material (walls - roof)
+none
+concrete
+steel
+galvanized steel
+stainless steel
+timber
+polymer
+organic
+other
+Stability measure - bearing walls
+none
+bond beam/ring beam at plinth level
+bond beam/ring beam at lintel level
+bond beam/ring beam at roof level
+vertical wall reinforcement in corners
+vertical wall reinforcement in at each wall intersection
+other
+rake beam
+tie-bar/ tie rod and tie plate
+vertical wall
+other
+Stability measure material
+none
+reinforced concrete
+steel
+other
+Framed walls
+Framed walls material
+steel
+galvanized steel
+timber
+wood
+bamboo
+mixed
+other
+Framed walls - section of corner post (m x m)
+Framed walls - section of stud (m x m)
+Framed walls - section of bottom wall plate/ sill plate (m x m)
+Framed walls - section of top wall plate (m x m)
+Connection between framed walls and roof
+none
+nails
+screws
+lag screws/bolts
+bolts and nuts
+anchor bolts and washers
+hurricane straps/ ties/ clips
+wire
+lashings
+dowels/ pins
+other
+Connection material (walls - roof)
+none
+steel
+galvanized steel
+stainless steel
+timber
+polymer
+organic
+other
+Stability measure - framed walls
+none
+corner brace
+K brace
+angle brace
+sheathing (load bearing shell)
+studs located every 60 cm (2 ft) or less
+cross brace
+other
+Stability measure material
+none
+timber
+wood
+bamboo
+plywood
+wire
+metal cable
+rope
+other
+Pole-frame
+Pole-frame - material
+timber
+wood
+coconut tree
+bamboo
+other
+Pole-frame - section of pole (m x m)
+Pole-frame- height of pole (m)
+Connection between pole-frame walls and roof
+none
+nails
+screws
+lag screws/bolts
+bolts and nuts
+anchor bolts and washers
+hurricane straps/ ties/ clips
+wire
+lashings
+dowels/ pins
+other
+Connection material (walls - roof)
+none
+steel
+galvanized steel
+stainless steel
+timber
+polymer
+organic
+other
+Stability measure - pole-frame construction
+none
+cross brace
+V brace
+angle brace
+gusset plates
+other
+Stability measure material
+none
+timber
+wood
+bamboo
+plywood
+wire
+metal cable
+rope
+other
+Posts & Beams
+Posts & beams framing - material
+reinforced concrete
+steel
+galvanized steel
+timber
+wood
+coconut tree
+bamboo
+Posts & beams framing - section of post (m x m)
+Posts & beams framing - height of post (m)
+Connection between posts and beams framing walls and roof
+none
+nails
+screws
+lag screws/bolts
+bolts and nuts
+anchor bolts and washers
+anchor plates
+hurricane straps/ ties/ clips
+wire
+lashings
+dowels/ pins
+reinforcing bars
+other
+Connection material (walls - roof)
+none
+concrete
+steel
+galvanized steel
+stainless steel
+timber
+polymer
+organic
+other
+Stability measure - posts & beams framing
+none
+cross brace
+V brace
+angle brace
+gusset plates
+other
+Stability measure material
+none
+reinforced concrete
+steel
+timber
+bamboo
+plywood
+rope
+wire
+metal cable
+other
+Beams & Floor (ground floor)
+Ground floor type
+earth platform (elevated ground floor)
+ground slab/ slab on grade
+suspended timber ground floor
+suspended slab (reinforced concrete)
+beam and blocks/ beam fill floor (concrete joists and infill blocks)
+other types of suspended floor
+other
+Ground floor material
+backfill compacted
+debris
+granular fill (gravel)
+stone
+reinforced concrete
+welded-wire mesh
+concrete
+concrete blocks & mortar
+timber
+wood
+steel
+galvanized steel
+bamboo
+concrete joists
+infill blocks/ blocks floor
+arched bricks
+granular fill
+Height of ground floor above ground level (m)
+Lenght of the beams/joists (m)
+Section of the beams/joists (m x m)
+Distance between beams/joists (m)
+Thickness of decking/ concrete slab/ compression slab (m)
+Floor components
+concrete
+reinforcing bars
+welded-wire mesh
+steel
+galvanized steel
+timber
+wood
+plywood
+bamboo
+infill blocks
+arched bricks
+other
+Connection between walls and ground floor
+none
+nails
+screws
+lag screws/bolts
+bolts and nuts
+wire
+anchor plates
+straps
+reinforcing bars
+lashings
+dowels/ pins
+other
+Connection material (walls - ground floor)
+none
+concrete
+steel
+galvanized steel
+stainless steel
+timber
+wood
+polymer
+organic
+other
+Stability measure - elevated ground floor
+none
+cross brace
+angle brace
+gusset plates
+other
+Stability measure material
+none
+reinforced concrete
+steel
+timber
+wood
+plywood
+bamboo
+other
+Beams & Floor
+Floor type (second floor and others)
+none
+suspended timber ground floor
+suspended slab (reinforced concrete)
+beam and blocks/ beam fill floor (concrete joists and infill blocks)
+other types of suspended floor
+other
+Beams/ joists material
+reinforced concrete
+steel
+galvanized steel
+timber
+wood
+bamboo
+other
+Lenght of the beams/joists (m)
+Section of the beams/joists (m x m)
+Distance between beams/joists (m)
+Connection between walls and floor (if more than one storey)
+none
+nails
+screws
+lag screws/bolts
+bolts and nuts
+wire
+anchor plates
+straps
+ties
+reinforcing bars
+lashings
+dowels/ pins
+Connection material (walls - floor)
+none
+concrete
+steel
+galvanized steel
+stainless steel
+timber
+wood
+polymer
+organic
+other
+Thickness of decking/ concrete slab/ compression slab (m)
+Floor components
+concrete
+reinforcing bars
+welded-wire mesh
+steel
+galvanized steel
+timber
+wood
+plywood
+bamboo
+infill blocks
+arched bricks
+other
+Comment
+Roof
+Roof shape
+"shed roof (single-pitch roof, pitch >3°)"
+gable roof (pitched roof)
+hip-roof (hipped roof)
+flat roof (pitch <3°)
+dome
+rainbow roof (arched)
+mansard roof
+gambrel roof (roof with several slopes on the same side)
+Roof pitch (°)
+<3° (<5%)
+3-9° (5-16 %)
+10-30° (17-60%)
+30-45° (60-100%)
+>45° (>100%)
+Roof structure
+gable end
+truss
+purlin
+rafter
+roof decking
+concrete slab
+Roof structure material
+steel
+galvanized steel
+timber
+wood
+plywood
+sheathing
+bamboo
+reinforced concrete
+other
+Distance between trusses/ gable end/ cross wall (m)
+Section of purlin (m x m)
+Distance between purlins (m)
+Section of rafter (m x m)
+Distance between rafters (m)
+Size of eaves (overhang) (m)
+Thickness of roof decking/ concrete slab (m)
+Section of batten/ lath (m x m)
+Distance between  battens/ laths (m)
+oil
+Connection between roof elements
+none
+nails
+screws
+lag screws/bolts
+bolts and nuts
+anchor plates
+hurricane straps
+gusset plates
+connectors/ nail plates
+lashings
+dowels/ pins
+Connection material (roof elements)
+none
+concrete
+steel
+galvanized steel
+stainless steel
+timber
+polymer
+organic
+other
+Stability measure - roof
+none
+tie beam
+collar beam/ tie
+tie (between ridge beam and king post/ truss)
+rafter brace
+gusset plates
+bracing
+other
+Stability measure material
+none
+concrete
+steel
+timber
+bamboo
+other
+Comment
+Cladding
+Facade cladding material
+none
+brick
+hollow brick
+perforated brick
+adobe/ sun-dried brick
+mud plaster
+concrete block (solid)
+hollow concrete block
+cement plaster
+wattle & daub
+timber
+wood
+plywood
+fiber cement board/ cement board
+bamboo
+metal sheeting
+plastic sheeting (tarpaulin)
+canvas
+textile
+woven mat (organic material)
+thatch
+straw
+corrugated galvanized iron (CGI) sheet
+shingle
+wood shingle
+other
+Thickness of cladding material (mm)
+Roof covering material
+corrugated galvanized iron (CGI) sheet
+insulated metal roofing sheet
+corrugated bitumen roofing panel
+aluminium roofing sheet
+plastic sheeting (tarpaulin)
+thatch
+leaves
+straw
+clay tiles
+concrete tiles
+stone shingle
+asphalt shingle
+wood shingle
+asphalt
+bamboo
+wood
+plywood
+GPR (fibreglass) panel
+other
+Thickness of roof covering (mm or gauge)
+Floor Finish Material
+none
+timber
+wood
+cement plaster
+mud plaster
+bamboo
+ceramic tiles
+carpet
+plastic floor
+organic material
+other
+Openings
+Number of doors
+Doors material
+timber
+wood
+plywood
+bamboo
+plastic sheeting
+mesh
+insect screening mesh
+fibreglass
+leaves
+other
+Number of windows
+Windows material
+timber
+wood
+plywood
+bamboo
+plastic sheeting
+insect screening mesh
+fibreglass
+lattice
+other
+Number of shutters
+Shutters material
+metal
+timber
+wood
+plywood
+bamboo
+other
+Insulation
+Insulation system
+none
+shading
+insulation of the flooring
+insulation on the walls
+insulation below the roof
+other
+Insulation material
+none
+shade net
+insulated corrugated roofing sheeting
+organic material
+other
+Comment
+Skin
+Comment
+Services
+Water Supply location
+in shelter
+on plot
+communal
+other
+Distance to the water supply
+Water Supply Type
+piped water
+tap/standpipe
+tubewell/ borehole
+protected dug well
+protected spring
+rainwater collection
+unprotected spring
+unprotected dug well
+cart with small tank/drum
+tanker truck
+"surface water (from river, pond, lake)"
+bottled water
+other
+Sanitation location
+in shelter
+on plot
+communal
+other
+Distance to the sanitation
+Sanitation Type
+flush toilet
+pour flush toilet
+piped sewer system
+septic tank
+flush/pour flush to pit latrine
+ventilated improved pit latrine (VIP)
+pit latrine with slab
+composting toilet
+flush/pour flush to elsewhere
+pit latrine without slab
+bucket
+hanging toilet/ hanging latrine
+no facilities or bush or field
+other
+Sewage system
+none
+open sewer system
+single pit
+septic system
+piped sewer system
+trucking (gully emptier) to sewage plant
+trucking (gully emptier) to open dumping
+other
+Drainage
+none
+open drains
+covered drains
+other
+Waste treatment
+burn on site
+dump on site
+door-to-door collection
+central collection
+other
+Bathroom location
+in shelter
+on plot
+communal
+other
+Distance to the bathroom
+Type of Bathroom
+bucket shower
+container
+bathtub
+shower
+"river, pond, lake"
+other
+Heating system
+none
+stove
+electrical heater
+fireplace/hearth
+central heating
+other
+Energy Source for heating system
+none
+gas
+electricity (grid)
+electricity (battery)
+wood
+coal/charcoal
+biomass
+wind
+solar
+other
+Cooling system
+none
+natural ventilation
+fan
+air conditioning
+Energy Source for cooling system
+none
+electricity (grid)
+electricity (battery)
+wind
+solar
+other
+Type of natural ventilation
+none
+foundation vent
+outside-air intake - bottom part of the wall
+outside-air intake - above doors and windows
+roof vent
+air vent between rooms
+trickle vent in windows or doors
+vent pipe in roof
+chimney
+other
+Number of ventilation openings
+Lighting
+none
+candles
+torch/flashlight (battery powered)
+oil/kerosene lamp
+electrical powered lamp
+solar powered lamp
+other
+Energy Source (Appliances)
+none
+gas
+electricity (grid)
+electricity (battery)
+wood
+coal/charcoal
+biomass
+wind
+solar
+other
+Kitchen location
+in shelter
+on plot
+communal
+other
+Kitchen Type
+none
+open fire
+portable stove
+stove
+other
+Cooking Energy Source
+wood
+biomass
+oil
+gas
+coal/charcoal
+kerosene
+electricity
+solar
+other
+Comment
+Spaceplan
+Partitions
+none
+walls
+half walls
+screens
+curtains
+Partition structure material
+none
+bamboo
+timber
+wood
+brick
+concrete block
+block
+adobe/ sun-dried brick
+steel
+plastic
+textile
+other
+Partition finish
+none
+metal sheeting
+timber
+wood
+plywood
+bamboo
+cement plaster
+mud plaster
+wallpaper
+paint
+hand woven mat (organic material)
+other
+Ceiling structure material
+none
+timber
+wood
+plywood
+bamboo
+other
+Ceiling Finish Material
+none
+cement plaster
+mud plaster
+wallpaper
+paint
+organic material
+other
+Possible extension of the shelter structure
+implemented extention to the shelter (at survey date)
+Comment
+Documents
+Project narrative
+Technical description
+(Priced) Bill of Quantity (BoQ)
+Design Drawings
+Site plan
+Satellite picture
+Pictures/video of setting
+Pictures/video of elevations
+Pictures/video of extensions
+Pictures/video of details
+Pictures/video of living practices
+Comment
