@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block head %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='lib/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" media="screen" >
+    <script src="{{ url_for('static', filename='lib/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Registered users</h1>
+<table id="allusers" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Member since</th>
+            <th>Last seen</th>
+            <th>Active</th>
+            <th>Admin</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+        <tr {% if not user.is_active  %}class="warning"{% endif %}>
+            <td>{{ user.name }}{% if user.id == current_user.id %} (It's you!){% endif %}</td>
+            <td><a href="mailto:{{ user.email }}">{{ user.email  }}</a></td>
+            <td class="date">{{ user.created_at | datetime }}</td>
+            <td class="date">{{ user.last_seen | datetime }}</td>
+            <td>{% if user.is_active %}Yes{% else %}No{% endif %}</td>
+            <td>{% if user.is_admin %}Yes{% else %}No{% endif %}</td>
+            <td>
+                <a href="{{ url_for("administration.user_form", user_id=user.id) }}"><i class="glyphicon glyphicon-edit" title="{{ _('Edit this user') }}"></i></a>
+                {% if user.id != current_user.id %}
+                    <a href="{{ url_for("administration.toggle_user", user_id=user.id) }}">
+                    {% if user.is_active %}
+                        <i class="glyphicon glyphicon-ban-circle" title="{{ _("Disable this account") }}"></i>
+                    {% else %}
+                        <i class="glyphicon glyphicon-ok-circle" title="{{ _("Enable this account") }}"></i>
+                    {% endif %}
+                    </a>
+                    <a href="{{ url_for("administration.delete_user", user_id=user.id) }}"><i class="glyphicon glyphicon-remove" title="{{ _('Delete this user') }}" onclick="return confirm('{{ _('You are going to delete this account.') }}');"></i></a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for("administration.user_form") }}" class="btn btn-default">Add a new user</a>
+</div>
+<script>
+$(document).ready(function() {
+    $('#allusers').DataTable({
+        "bStateSave": true, // on sauvegarde l'état dans un cookie
+        "aaSorting": [[0, "asc" ]], // on trie par défaut sur la colonne "Name"
+        "bJQueryUI": false,
+        "bInfo": false,
+        "aoColumnDefs": [
+                            {
+                                "bSortable": false, "aTargets": [ 6 ]
+                            }
+                        ],
+       "aoColumns": [
+                        { "sSortDataType": "dom-checkbox" },
+                        { "sSortDataType": "dom-checkbox" },
+                        { "sSortDataType": "dom-checkbox" },
+                        { "sSortDataType": "dom-checkbox" },
+                        { "sSortDataType": "dom-checkbox" },
+                        { "sSortDataType": "dom-checkbox" },
+                        null
+                    ]
+    });
+});
+</script>
+{% endblock %}

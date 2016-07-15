@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <h1>Attribute: <i>{{ attribute.name }}</i></h1>
+    <h2>Change the name of the attribute</h2>
+    <form action="" method="POST" role="form">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.name(placeholder="Name of the category") }}
+            {% for message in form.name.errors %}
+                <div><b>{{ message }}</b></div>
+            {% endfor %}
+        </div>
+        {{ form.submit(class_="clickButton") }}
+    </form>
+    <p>Translations will be updated appropriately.</p>
+
+
+    <h2>Pictures</h2>
+    <h3>Upload new picture</h3>
+    <form action="" method="post" enctype="multipart/form-data">
+        <input class="form-group" type="file" name="imagefile" accept="image/*" />
+        <input class="form-group" type="submit" value="Submit" />
+    </form>
+    <h3>Current pictures</h3>
+    {% for picture in attribute.pictures %}
+        <img width="200px" src="/public/pictures/attributes/en/{{picture.file_name}}" >
+        <a href="{{ url_for('administration.delete_attribute_picture', picture_id=picture.id, next='admin/attributes/'+attribute.category_id | string +'/'+attribute.id |string) }}">Delete</a>
+        <br />
+    {% endfor %}
+
+
+    {% if not attribute.free_text %}
+        <h1>Values</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Value name</th>
+                </tr>
+            </thead>
+            <body>
+            {% for value in attribute.associated_values %}
+                <tr>
+                    <td><b>{{ value.name }}</b></td>
+                </tr>
+            {% endfor  %}
+        </tbody>
+    {% endif %}
+</table>
+</div>
+{% endblock %}

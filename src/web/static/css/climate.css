@@ -1,0 +1,238 @@
+.rectangle{
+    display: inline-block;
+    width:25px;
+    height:15px;
+    margin-top:2px;
+}
+.right {
+    position: absolute;
+    right: 0px;
+    margin-right: 10px;
+    padding:10px;
+    width: 300px;
+}
+.climate-classification{
+    display: inline-block;
+    width:55px;
+    height:25px;
+    margin-top:2px;
+}
+
+/* Köppen-Geiger code */
+.Af {
+    background-color: #9A0002;
+    stroke: none;
+    opacity: .9;
+}
+
+.Am {
+    background-color: #FD0000;
+    stroke: none;
+    opacity: .9;
+}
+
+.As {
+    background-color: #FE96A1;
+    stroke: none;
+    opacity: .9;
+}
+
+.Aw {
+    background-color: #FDCEC8;
+    stroke: none;
+    opacity: .9;
+}
+
+.BWk {
+    background-color: #F3F96D;
+    stroke: none;
+    opacity: .9;
+}
+
+.BWh {
+    background-color: #FFC904;
+    stroke: none;
+    opacity: .9;
+}
+
+.BSk {
+    background-color: #CCAA52;
+    stroke: none;
+    opacity: .9;
+}
+
+.BSh {
+    background-color: #CB9418;
+    stroke: none;
+    opacity: .9;
+}
+
+.Cfa {
+    background-color: #033000;
+    stroke: none;
+    opacity: .9;
+}
+
+.Cfb {
+    background-color: #005002;
+    stroke: none;
+    opacity: .9;
+}
+
+.Cfc {
+    background-color: #087700;
+    stroke: none;
+    opacity: .9;
+}
+
+.Csa {
+    background-color: #04FC02;
+    stroke: none;
+    opacity: .9;
+}
+
+.Csb {
+    background-color: #95FF00;
+    stroke: none;
+    opacity: .9;
+}
+
+.Csc {
+    background-color: #BEFC00;
+    stroke: none;
+    opacity: .9;
+}
+
+.Cwa {
+    background-color: #A55604;
+    stroke: none;
+    opacity: .9;
+}
+
+.Cwb {
+    background-color: #986204;
+    stroke: none;
+    opacity: .9;
+}
+
+.Cwc {
+    background-color: #5B3D00;
+    stroke: none;
+    opacity: .9;
+}
+
+.Dfa {
+    background-color: #320032;
+    stroke: none;
+    opacity: .9;
+}
+
+.Dfb {
+    background-color: #660065;
+    stroke: none;
+    opacity: .9;
+}
+
+.Dfc {
+    background-color: #C700D1;
+    stroke: none;
+    opacity: .9;
+}
+
+.Dfd {
+    background-color: #C51386;
+    stroke: none;
+    opacity: .9;
+}
+
+.Dsa {
+    background-color: #FD64FA;
+    stroke: none;
+    opacity: .9;
+}
+
+.Dsb {
+    background-color: #FCB8FD;
+    stroke: none;
+    opacity: .9;
+}
+
+.Dsc {
+    background-color: #E4C7FE;
+    stroke: none;
+    opacity: .9;
+}
+
+.Dsd {
+    background-color: #C6C6C6;
+    stroke: none;
+    opacity: .9;
+}
+
+.Dwa {
+    background-color: #C7B5F6;
+    stroke: none;
+    opacity: .9;
+}
+
+.Dwb {
+    background-color: #997CB5;
+    stroke: none;
+    opacity: .9;
+}
+
+.Dwc {
+    background-color: #79569B;
+    stroke: none;
+    opacity: .9;
+}
+
+.Dwd {
+    background-color: #6D23B6;
+    stroke: none;
+    opacity: .9;
+}
+
+.EF {
+    background-color: #6690FF;
+    stroke: none;
+    opacity: .9;
+}
+
+.ET {
+    background-color: #62FFFE;
+    stroke: none;
+    opacity: .9;
+}
+
+/* Red Cross code */
+
+.coldHUMID {
+    background-color: #60A8E6;
+    opacity: .9;
+}
+
+.coldDRY {
+    background-color: #A7CAFC;
+    opacity: .9;
+}
+
+.moderateHUMID {
+    background-color: #A7CA30;
+    opacity: .9;
+}
+
+.moderateDRY {
+    background-color: #FFFF64;
+    opacity: .9;
+}
+
+.hotHUMID {
+    background-color: #7B0000;
+    opacity: .9;
+}
+
+.hotDRY {
+    background-color: #DF6618;
+    opacity: .9;
+}

@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+{% block head %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='lib/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" media="screen" >
+    <script src="{{ url_for('static', filename='lib/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Shelters</h1>
+    <table id="allshelters" class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Created at</th>
+                <th>Responsible</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for shelter in shelters %}
+            <tr>
+                <td><a href="{{ url_for('shelter.edit_view', id=shelter.id) }}">{{ loop.index }}</a></td>
+                <td>{{ shelter.get_values_of_attribute(attribute_name='ID')[0].name }}</td>
+                <td><a href="{{ url_for('shelter_bp.details', shelter_id=shelter.id, section_name='General-Information') }}">{{ shelter.get_values_of_attribute(attribute_name='Name of shelter')[0].name }}</a></td>
+                <td>{{ shelter.created_at }}</td>
+                <td>{{ shelter.responsible }}</td>
+                <td>
+                    <a href="{{ url_for('administration.delete_shelter', shelter_id=shelter.id, next='/admin/shelters') }}">
+                        <i class="glyphicon glyphicon-remove" title="Delete this shelter" onclick="return confirm('You are going to delete this shelter.');"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+$(document).ready(function() {
+
+    $('#allshelters').DataTable({
+            "bStateSave": true, // on sauvegarde l'état dans un cookie
+            "aaSorting": [[2, "asc" ]], // on trie par défaut sur la colonne "Name"
+            "bJQueryUI": false,
+            "bInfo": false,
+            "aoColumnDefs": [
+                                {
+                                    "bSortable": false, "aTargets": [ 0 ],
+                                    "bSortable": false, "aTargets": [ 1 ],
+                                    "bSortable": false, "aTargets": [ 5 ]
+                                }
+                            ],
+           "aoColumns": [
+                        null,
+                        null,
+                        { "sSortDataType": "dom-checkbox" },
+                        { "sSortDataType": "dom-checkbox" },
+                        { "sSortDataType": "dom-checkbox" },
+                        null
+                        ]
+        });
+});
+</script>
+{% endblock %}
