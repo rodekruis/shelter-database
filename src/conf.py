@@ -37,13 +37,15 @@ PATH = os.path.abspath(".")
 LANGUAGES = {
     'en': 'English',
     'fr': 'French',
-    'es': 'Spanish'
+    'es': 'Spanish',
+    'de': 'German'
 }
 
 TIME_ZONE = {
     "en": "US/Eastern",
     "fr": "Europe/Paris",
-    "es": "Europe/Madrid"
+    "es": "Europe/Madrid",
+    "de": "Europe/Berlin"
 }
 
 DEFAULTS = {"platform_url": "http://127.0.0.1:5000",
