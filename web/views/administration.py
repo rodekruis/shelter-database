@@ -97,11 +97,15 @@ def dashboard():
 
 
     nb_shelters = Shelter.query.count()
+    nb_unpublished_shelters = Shelter.query.filter(Shelter.is_published==False).count()
+    nb_commercial_shelters = Shelter.query.filter(Shelter.is_commercial==True).count()
     nb_users = User.query.count()
     imported_translations = db.session.query(distinct(Translation.language_code))
 
     return render_template('admin/dashboard.html',
                             nb_shelters=nb_shelters,
+                            nb_unpublished_shelters=nb_unpublished_shelters,
+                            nb_commercial_shelters=nb_commercial_shelters,
                             nb_users=nb_users,
                             imported_translations=imported_translations)
 
