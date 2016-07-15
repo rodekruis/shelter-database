@@ -87,6 +87,23 @@ you can edit the text file for example using nano:
 	nano requirements.txt
 	
 then press Ctrl+X to exit and select save.
+
+	
+Set Geoserver URL
+~~~~~~~~~~~~~~~~~
+
+open conf.cfg with a text editor, for example with nano:
+
+.. code-bock:: shell
+
+	cd 
+	cd shelter-database/conf
+	nano conf.cfg
+
+	Find the line "geoserver_url" and change the value to "https://shelter-database.org:8443"
+	press Ctrl+X and select yes to save changes.
+	
+	
 	
 Initialization of the database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
