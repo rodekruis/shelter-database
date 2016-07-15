@@ -23,7 +23,7 @@ venv
 build
 
 # bower
-web/static/lib
+src/web/static/lib
 
 # node files
 node_modules
@@ -31,5 +31,5 @@ node_modules
 
 .coverage
 documentation/_build/
-conf/conf.cfg
-web/public/
+src/conf/conf.cfg
+src/web/public/

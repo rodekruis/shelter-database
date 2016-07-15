@@ -1,6 +1,0 @@
-Hi,
-
-The user {{ shelter.responsible.name }} just created a new shelter:
-{{ platform_url }}/shelter/{{ shelter.id }}/General-Information
-
-Cordially,
