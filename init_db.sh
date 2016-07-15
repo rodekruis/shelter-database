@@ -21,10 +21,10 @@ python3.5 src/manager.py import_shelters admin data/shelters/20150518_Haiti_shel
 #python3.5 src/manager.py import_shelters admin data/shelters/Phil-Bangla-Burundi.csv
 
 # Import pictures of the shelters
-#python3.5 src/manager.py import_shelters_pictures data/shelters/pictures/
+python3.5 src/manager.py import_shelters_pictures data/shelters/pictures/
 
 # Import documents of the shelters
-#python3.5 src/manager.py import_shelters_documents data/shelters/documents/
+python3.5 src/manager.py import_shelters_documents data/shelters/documents/
 
 # Import of the translations
 #python3.5 src/manager.py import_translation data/translations/sheltersDataTraduction_FR_rev_ED.csv fr
