@@ -197,6 +197,22 @@ To fix plesk:
   
    sh <(curl http://autoinstall.plesk.com/plesk-installer || wget -O - http://autoinstall.plesk.com/plesk-installer)
    
+The Geoserver
+~~~~~~~~~~~~~
+
+The application `GeoServer <http://geoserver.org>`_ 2.8.4 is deployed with
+Tomcat 8.0.36 and available
+`here <https://shelter-database.org:8443/geoserver>`_.
+
+Except some configurations in order to enable HTTPS no specific settings were
+required. It is just needed to deploy the GeoServer WAR file in Tomcat.
+
+Two layers are used by the Shelter Database application:
+
+* `Köppen–Geiger climate classification system <https://shelter-database.org:8443/geoserver/shelters/wms?service=WMS&version=1.1.0&request=GetMap&layers=shelters:koeppen-geiger&styles=&bbox=-180.24500000476837,-90.2449951171875,180.2449951171875,84.22234392166138&width=768&height=371&srs=EPSG:4326&format=application/openlayers>`_;
+* `Red Cross climate classification system <https://shelter-database.org:8443/geoserver/shelters/wms?service=WMS&version=1.1.0&request=GetMap&layers=shelters:redcross&styles=&bbox=-180.24500000476837,-90.2449951171875,180.2449951171875,84.22234392166138&width=768&height=371&srs=EPSG:4326&format=application/openlayers>`_.   
+   
+   
 The WSGI file
 ~~~~~~~~~~~~~
 
@@ -212,7 +228,7 @@ Below is an example of WSGI file (**/var/www/shelter-database/webserver.wsgi**).
 
     from runserver import app as application
 
-
+Note: make sure there are no tabs/spaces preceding the 
 
 The VirtualHost configuration file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
