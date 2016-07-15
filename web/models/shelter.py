@@ -21,7 +21,7 @@ from datetime import datetime
 from sqlalchemy import desc, event
 from bootstrap import db
 
-from web.models import Value, Property
+from web.models import Value, Property, User
 from web.notifications import notifications
 
 class Shelter(db.Model):
@@ -83,7 +83,8 @@ class Shelter(db.Model):
 
 @event.listens_for(Shelter, "after_insert")
 def after_insert(mapper, connection, target):
-    if not target.responsible.is_admin:
+    user = User.query.filter(User.id==target.user_id).first()
+    if not user.is_admin:
         try:
             notifications.new_shelter_creation(target)
         except Exception as e:
