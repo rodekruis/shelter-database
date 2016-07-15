@@ -9,6 +9,16 @@
         <title>Shelters Database Management</title>
 
         <script src="{{ url_for('static', filename = 'lib/jquery/dist/jquery.min.js') }}"></script>
+
+
+        <script src="{{ url_for('static', filename = 'lib/dc/web/js/d3.js') }}"></script>
+        <script src="{{ url_for('static', filename = 'lib/dc/web/js/crossfilter.js') }}"></script>
+        <script src="{{ url_for('static', filename = 'lib/dc/web/js/colorbrewer.js') }}"></script>
+        <script src="{{ url_for('static', filename = 'lib/dc/dc.js') }}"></script>
+        <script src="{{ url_for('static', filename = 'lib/leaflet/leaflet.js') }}"></script>
+        <script src="{{ url_for('static', filename = 'lib/leaflet/leaflet.markercluster.js') }}"></script>
+        <script src="{{ url_for('static', filename = 'lib/leaflet/dc.leaflet.js') }}"></script>
+
         <script src="{{ url_for('static', filename = 'js/create-shelter.js') }}"></script>
         <script src="{{ url_for('static', filename = 'js/countries.js') }}"></script>
 
@@ -16,9 +26,21 @@
         <link href="{{ url_for('static', filename='lib/bootstrap/dist/css/bootstrap.css') }}" rel="stylesheet" media="screen" />
         <link href="{{ url_for('static', filename='lib/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet" media="screen" />
 
+        <!--leaflet -->
+
+        <link href="{{ url_for('static', filename='lib/leaflet/MarkerCluster.Default.css') }}" rel="stylesheet" media="screen" />
+
+        <link href="{{ url_for('static', filename='lib/leaflet/leaflet.css') }}" rel="stylesheet" media="screen" />
+        <linl href="{{ url_for('static', filename='lib/leaflet/MarkerCluster.css') }}" rel="stylesheet" media="screen" />
+
+        <!-- DC.js  -->
+        <link href="{{ url_for('static', filename='lib/dc/dc.css') }}" rel="stylesheet" media="screen" />
+
         <!-- Add custom CSS here -->
+
         <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" media="screen" />
         <link href="{{ url_for('static', filename='css/climate.css') }}" rel="stylesheet" media="screen" />
+
         {% endblock %}
     </head>
 
@@ -42,6 +64,7 @@
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="{{ url_for('recommendations', page_name='About') }}">About</a></li>
+                        <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
                         <li><a href="{{ url_for('shelters') }}">Shelters</a></li>
                         <li><a href="{{ url_for('recommendations', page_name='Recommendations') }}">Recommendations</a></li>
                         <li><a href="{{ url_for('recommendations', page_name='Bibliography') }}">Bibliography</a></li>

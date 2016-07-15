@@ -1,0 +1,285 @@
+{#To do:#}
+{#1. Search all fields#}
+{#2. Filtering results#}
+{#3. Annotate filtering sliders with amounts#}
+{#4. Add pictures of shelter on link hoover#}
+
+
+{% extends "layout.html" %}
+{% block head %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='lib/datatables.net-bs/css/dataTables.bootstrap.min.css') }}"
+          rel="stylesheet" media="screen">
+    <script src="{{ url_for('static', filename='lib/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row>">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="dc-data-count dc-chart" id="data-count">
+
+                         <h2> Shelters
+                        <small>
+                            <span class="filter-count"></span> selected out of <span class="total-count"></span>
+                            records
+                            |
+                            <a id="all" href="#">Reset All</a>
+
+                        </small>
+                            </h2>
+                        </div>
+
+
+                        <div class="map" id="chart-map">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>By Year of Construction</h4>
+                        <div class="dc-chart" id="chart-timeline"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>By Zone</h4>
+                        <div class="dc-chart" id="chart-ring-zone"></div>
+                    </div>
+                    <div class="col-md-3">
+                        <h4>By Crisis</h4>
+                        <div class="dc-chart" id="chart-ring-crisis"></div>
+                    </div>
+                    <div class="col-md-3">
+                        <h4>By Climate</h4>
+                        <div class="dc-chart" id="chart-ring-climate"></div>
+                    </div>
+                    <div class="col-md-3">
+                        <h4></h4>
+                        <div class="dc-chart" id=""></div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4>By Country</h4>
+                        <div class="dc-chart" id="chart-bar-country"></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+                <h2 class="text-right">
+                    <small>
+                          <a id="download" href="#">Download</a>
+                            |
+                         <a id="share" href="#">Share</a>
+                    </small>
+                </h2>
+
+
+                <table class="table table-bordered table-striped dc-table" id="shelters-table">
+
+                    <thead>
+                    <tr class="header">
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Zone</th>
+                        <th>Country</th>
+                        <th>Crisis</th>
+                        <th>Climate</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            d3.csv('/static/data/shelters-sample.csv', function (data) {
+
+
+                var dateFormat = d3.time.format('%Y');
+                data.forEach(function (d) {
+                    d['Year of first construction'] = dateFormat.parse(d['Year of first construction'])
+                })
+
+                var ndx = crossfilter(data);
+
+                var allDimensions = ndx.dimension(function (d) {
+                    return d;
+                });
+                var all = ndx.groupAll();
+                var dataCount = dc.dataCount('#data-count')
+                var zoneDimension = ndx.dimension(function (d) {
+                    return d.Zone;
+                });
+                var zoneCount = zoneDimension.group().reduceCount()
+                var zoneChart = dc.pieChart('#chart-ring-zone')
+
+                var crisisDimension = ndx.dimension(function (d) {
+                    return d['Associated disaster'];
+                });
+                var crisisCount = crisisDimension.group().reduceCount()
+                var crisisChart = dc.pieChart('#chart-ring-crisis')
+                var climateDimension = ndx.dimension(function (d) {
+                    return d.Climate;
+                });
+                var climateCount = climateDimension.group().reduceCount()
+                var climateChart = dc.pieChart('#chart-ring-climate')
+
+
+                var timeDimension = ndx.dimension(function (d) {
+                    return d3.time.year(d['Year of first construction']);
+                });
+                var timeCount = timeDimension.group().reduceCount(
+                        function (d) {
+                            return d['Year of first construction'];
+                        }
+                );
+
+                var timeChart = dc.barChart('#chart-timeline');
+
+
+                var shelters = ndx.dimension(function (d) {
+
+                    return [d.Lat, d.Lon];
+                });
+
+                var countryDimension = ndx.dimension(function (d) {
+                    return d.Country;
+                })
+                var countryCount = countryDimension.group().reduceCount()
+                var countryChart = dc.rowChart('#chart-bar-country')
+
+                var sheltersGroup = shelters.group().reduceCount();
+
+                var basemaps = {
+                    Countries: L.tileLayer.wms('http://demo.opengeo.org/geoserver/ows?', {
+                        layers: 'ne:ne_10m_admin_0_countries'
+                    }),
+
+                    Boundaries: L.tileLayer.wms('http://demo.opengeo.org/geoserver/ows?', {
+                        layers: 'ne:ne_10m_admin_0_boundary_lines_land'
+                    }),
+
+                    'Countries, then boundaries': L.tileLayer.wms('http://demo.opengeo.org/geoserver/ows?', {
+                        layers: 'ne:ne_10m_admin_0_countries,ne:ne_10m_admin_0_boundary_lines_land'
+                    }),
+
+                    'Boundaries, then countries': L.tileLayer.wms('http://demo.opengeo.org/geoserver/ows?', {
+                        layers: 'ne:ne_10m_admin_0_boundary_lines_land,ne:ne_10m_admin_0_countries'
+                    })
+                };
+                var mapChart = dc_leaflet.markerChart("#chart-map")
+{#                        http://leafletjs.com/examples/wms/wms.html#}
+{#                        .mapOptions({"layers":basemaps})#}
+                        .dimension(shelters)
+                        .group(sheltersGroup)
+                        .width(500)
+                        .height(300)
+                        .center([51.505, -0.09])
+                        .zoom(1)
+                        .filterByArea(true)
+                        .cluster(true);
+
+
+
+
+
+
+
+                zoneChart
+                        .width(100)
+                        .height(100)
+                        .dimension(zoneDimension)
+                        .group(zoneCount)
+                        .innerRadius(20);
+
+                crisisChart
+                        .width(100)
+                        .height(100)
+                        .dimension(crisisDimension)
+                        .group(crisisCount)
+                        .innerRadius(20);
+
+                climateChart
+                        .width(100)
+                        .height(100)
+                        .dimension(climateDimension)
+                        .group(climateCount)
+                        .innerRadius(20);
+
+                timeChart
+                        .width(500)
+                        .height(120)
+                        .dimension(timeDimension)
+                        .group(timeCount)
+                        .barPadding(5)
+                        .x(d3.time.scale().domain([new Date(2008, 01, 01), new Date()]))
+                        .xUnits(d3.time.year)
+                ;
+
+                countryChart
+                        .width(250)
+                        .height(250)
+                        .dimension(countryDimension)
+                        .group(countryCount);
+
+                var tableChart = dc.dataTable("#shelters-table")
+                //    Id,Name,Zone,Country,Associated disaster,Lat,Lon,Climate,Year of first construction
+
+                tableChart
+                        .dimension(allDimensions)
+                        .group(function (d) {
+                            return '';
+                        })
+                        .columns([
+                            function (d) {
+                                return d.Id;
+                            },
+                            function (d) {
+                                return d.Name;
+                            },
+                            function (d) {
+                                return d.Zone;
+                            },
+                            function (d) {
+                                return d.Country;
+                            },
+                            function (d) {
+                                return d['Associated disaster'];
+                            },
+                            function (d) {
+                                return d.Climate;
+                            }
+                        ])
+                        .on('renderlet', function (table) {
+                            // each time table is rendered remove nasty extra row dc.js insists on adding
+                            table.select('tr.dc-table-group').remove();
+                        })
+
+                dataCount
+                        .dimension(ndx)
+                        .group(all)
+
+                dc.renderAll();
+            })
+
+            d3.selectAll('a#all').on('click', function () {
+                dc.filterAll();
+                dc.renderAll();
+            });
+
+
+        })
+        ;
+    </script>
+{% endblock %}

@@ -127,6 +127,9 @@ def shelters_for_map():
         result[shelter_id]["isCommercial"] = shelter.is_commercial
 
     return jsonify(result)
+@current_app.route('/dashboard', methods=['GET'])
+def dashboard():
+    return render_template('dashboard.html')
 
 @current_app.route('/shelters', methods=['GET'])
 def shelters():
