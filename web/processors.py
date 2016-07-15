@@ -50,7 +50,8 @@ def shelter_POST_preprocessor(data=None, **kw):
         flash("Your shelter has been created.", 'success')
     else:
         flash("Thank you! Your shelter has been created but is not yet public." +
-            " An administrator will review it. You can already edit it.",
+            " An administrator will review it." +
+            " You can already edit it by clicking on the pen to the right of the screen.",
             'success')
 
 
