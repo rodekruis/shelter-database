@@ -204,8 +204,55 @@ The application `GeoServer <http://geoserver.org>`_ 2.8.4 is deployed with
 Tomcat 8.0.36 and available
 `here <https://shelter-database.org:8443/geoserver>`_.
 
-Except some configurations in order to enable HTTPS no specific settings were
-required. It is just needed to deploy the GeoServer WAR file in Tomcat.
+.. code-block:: shell
+
+   sudo apt-get install openjdk-7-jre
+   sudo apt-get install tomcat7
+   
+Now we enable SSL
+
+.. code-block:: shell
+
+   keytool -genkey -alias tomcat7 -keyalg RSA
+   (follow instructions)
+    
+   cp ~/.keystore /etc/tomcat7
+   
+Configuring Tomcat to use the Keystore. pen the Apache Tomcat server configuration on /etc/tomcat7/server.xml and find the https configuration like lines below :
+
+.. code-block:: shell
+
+   nano /etc/tomcat7/server.xml
+   
+   add the following under the existing commented out connector for SSL. Make sure to change the keystorepassword and set the maxThreads to 200 * number of CPU cores
+   <Connector SSLEnabled="true" acceptCount="100" clientAuth="false" disableUploadTimeout="true" enableLookups="false" maxThreads="25" port="8443" keystoreFile="/etc/tomcat7/.keystore" keystorePass="verysecretpassword" protocol="org.apache.coyote.http11.Http11NioProtocol" scheme="https" secure="true" sslProtocol="TLS" />
+
+   nano /etc/default/tomcat7
+   
+   in JAVA_OPTS you should set a higher value for the maximum heap size (xmx) for example -Xmx1024m (depending on the ressources available and the expected load) instead of the initial 128. Also you should add the initial heap size parameter (xms) and set it's value to the same one as xsx, e.g. -Xms1024m
+ 
+Now let's restart tomcat 7 to reload the configuration.
+
+.. code-block:: shell
+   sudo service tomcat7 restart  
+   
+Download and install Geoserver
+
+.. code-block:: shell
+
+   wget http://sourceforge.net/projects/geoserver/files/GeoServer/2.8.4/geoserver-2.8.4-war.zip
+   unzip geoserver-2.8.4-war.zip
+   cp geoserver.war /var/lib/tomcat7/webapps
+   sudo service tomcat7 restart 
+   
+Change the config in the shelter-database to match the domain:
+
+.. code-block:: shell
+	
+   nano conf/conf.cfg
+   change the value of 'geoserver_url' to https://[URL]:8443 and replace [URL] with your server url.
+ 
+Except some configurations in order to enable HTTPS no specific settings were required. It is just needed to deploy the GeoServer WAR file in Tomcat.
 
 Two layers are used by the Shelter Database application:
 
