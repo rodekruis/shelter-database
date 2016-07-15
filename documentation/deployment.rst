@@ -225,7 +225,7 @@ Configuring Tomcat to use the Keystore. pen the Apache Tomcat server configurati
    nano /etc/tomcat7/server.xml
    
    add the following under the existing commented out connector for SSL. Make sure to change the keystorepassword and set the maxThreads to 200 * number of CPU cores
-   <Connector SSLEnabled="true" acceptCount="100" clientAuth="false" disableUploadTimeout="true" enableLookups="false" maxThreads="25" port="8443" keystoreFile="/etc/tomcat7/.keystore" keystorePass="verysecretpassword" protocol="org.apache.coyote.http11.Http11NioProtocol" scheme="https" secure="true" sslProtocol="TLS" />
+   <Connector SSLEnabled="true" acceptCount="100" clientAuth="false" disableUploadTimeout="true" enableLookups="false" maxThreads="25" port="8444" keystoreFile="/etc/tomcat7/.keystore" keystorePass="verysecretpassword" protocol="org.apache.coyote.http11.Http11NioProtocol" scheme="https" secure="true" sslProtocol="TLS" />
 
    nano /etc/default/tomcat7
    
@@ -284,18 +284,77 @@ Below an example for the file **/etc/apache2/sites-available/shelter-database**
 
 .. code-block:: shell
 
-    <VirtualHost *:80>
-        ServerName shelter-database.org
-        WSGIDaemonProcess webserver user=shelter group=shelter threads=5
-        WSGIScriptAlias / /var/www/shelter-database/webserver.wsgi
+    <VirtualHost [YOUR-IP]:443>
+        LogLevel info
+        ServerName "shelter-database.humanitariandata.nl:443"
+        ServerAdmin webmaster@humanitariandata.nl
 
-        <Directory /var/www/shelter-database>
-            WSGIProcessGroup webserver
+        DocumentRoot /var/www/vhosts/humanitariandata.nl/shelter-database
+        CustomLog /var/www/vhosts/system/shelter-database.humanitariandata.nl/logs/access_log plesklog
+        ErrorLog "/var/www/vhosts/system/shelter-database.humanitariandata.nl/logs/error_log"
+
+		#Alias /robots.txt /var/www/vhosts/humanitariandata.nl/shelter-database/robots.txt
+		#Alias /favicon.ico /var/www/vhosts/humanitariandata.nl/shelter-database/favicon.ico
+
+        WSGIDaemonProcess shelterdatabasessl user=www-data group=www-data threads=5 display-name=%{GROUP}
+        WSGIScriptAlias / /var/www/vhosts/humanitariandata.nl/shelter-database/webserver.wsgi
+        <Directory /var/www/vhost/humanitariandata.nl/shelter-database>
             WSGIApplicationGroup %{GLOBAL}
+            WSGIProcessGroup shelterdatabasessl
             WSGIPassAuthorization On
+
+            Options Indexes FollowSymLinks
             Order deny,allow
             Allow from all
+            IndexOptions FancyIndexing
         </Directory>
+
+        <Proxy *>
+           Order allow,deny
+           Allow from all
+        </Proxy>
+
+        SSLProxyEngine On
+        SSLProxyCheckPeerCN on
+        SSLProxyCheckPeerExpire on
+        ProxyPreserveHost On
+        ProxyPass /geoserver https://shelter-database.humanitariandata.nl:8080/geoserver
+        ProxyPassReverse /geoserver https://shelter-database.humanitariandata.nl:8080/geoserver
+    </VirtualHost>
+
+     <VirtualHost 85.214.236.120:80>
+        LogLevel info
+        ServerName "shelter-database.humanitariandata.nl:80"
+        ServerAdmin webmaster@humanitariandata.nl
+
+        DocumentRoot /var/www/vhosts/humanitariandata.nl/shelter-database
+        CustomLog /var/www/vhosts/system/shelter-database.humanitariandata.nl/logs/access_log plesklog
+        ErrorLog "/var/www/vhosts/system/shelter-database.humanitariandata.nl/logs/error_log"
+
+        #Alias /robots.txt /var/www/vhosts/humanitariandata.nl/shelter-database/robots.txt
+        #Alias /favicon.ico /var/www/vhosts/humanitariandata.nl/shelter-database/favicon.ico
+
+        WSGIDaemonProcess shelterdatabase user=www-data group=www-data threads=5 display-name=%{GROUP}
+        WSGIScriptAlias / /var/www/vhosts/humanitariandata.nl/shelter-database/webserver.wsgi
+        <Directory /var/www/vhost/humanitariandata.nl/shelter-database>
+            WSGIApplicationGroup %{GLOBAL}
+            WSGIProcessGroup shelterdatabase
+            WSGIPassAuthorization On
+
+            Options Indexes FollowSymLinks
+            Order deny,allow
+            Allow from all
+            IndexOptions FancyIndexing
+        </Directory>
+
+        <Proxy *>
+           Order allow,deny
+           Allow from all
+        </Proxy>
+
+        ProxyPreserveHost On
+        ProxyPass /geoserver http://shelter-database.humanitariandata.nl:8080/geoserver
+		ProxyPassReverse /geoserver http://shelter-database.humanitariandata.nl:8080/geoserver
     </VirtualHost>
 
 
