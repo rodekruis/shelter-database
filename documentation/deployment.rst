@@ -86,7 +86,7 @@ other user:
 
 .. code-block:: shell
 
-    $ python manager.py create_user firstname.lastname@mail.org name password
+    $ python src/manager.py create_user firstname.lastname@mail.org name password
 
 
 Install the JavaScript requirements with Bower
@@ -146,7 +146,7 @@ You can now run the application in standalone mode:
 
 .. code-block:: shell
 
-    $ python3.5 runserver.py
+    $ python3.5 src/runserver.py
      * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 
 
@@ -188,7 +188,7 @@ Below is an example of WSGI file (**/var/www/shelter-database/webserver.wsgi**).
 
     import sys
 
-    sys.path.insert(0, '/home/shelter/shelter-database/')
+    sys.path.insert(0, '/home/shelter/shelter-database/src/')
 
     from runserver import app as application
 
