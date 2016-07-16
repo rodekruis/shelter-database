@@ -33,3 +33,6 @@ node_modules
 documentation/_build/
 conf/conf.cfg
 web/public/
+
+# pycharm
+.idea/
