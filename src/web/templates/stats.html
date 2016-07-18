@@ -1,25 +1,30 @@
 {% extends "layout.html" %}
+{% block head %}
+    {{ super() }}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{% endblock %}
 {% block content %}
-<div class="container">
+<div class="container-fluid">
     <h1>Stats</h1>
     <div class="row">
-        <div class="col-md-5">
-            <div id="piechart1"></div>
+        <div class="col-md-6">
+            <div id="piechart1" style="width: 700px; height: 300px;"></div>
         </div>
-        <div class="col-md-5">
-            <div id="piechart2"></div>
+        <div class="col-md-6">
+            <div id="piechart2" style="width: 700px; height: 300px;"></div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8">
-            <div id="piechart3"></div>
+        <div class="col-md-6">
+            <div id="piechart3" style="width: 700px; height: 300px;"></div>
+        </div>
+        <div class="col-md-6">
+            <div id="piechart4" style="width: 700px; height: 300px;"></div>
         </div>
     </div>
-<script src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
 $(document).ready(function() {
     google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(create_pie_chart);
 
     generate_pie_chart("Landform",
         [{"name":"name","op":"eq","val":"Landform"}], "piechart1");
@@ -27,18 +32,26 @@ $(document).ready(function() {
     generate_pie_chart("Associated disaster / Immediate cause",
         [{"name":"name","op":"eq","val":"Associated disaster / Immediate cause"}], "piechart2");
 
-    generate_pie_chart("Foundation type",
+     generate_pie_chart("Foundation type",
         [{"name":"name","op":"eq","val":"Foundation type"}], "piechart3");
+
+        generate_pie_chart("Type of shelter",
+           [{"name":"name","op":"eq","val":"Type of shelter"}], "piechart4");
 
 })
 
 function create_pie_chart(title, data_list, div_id) {
-    var data = google.visualization.arrayToDataTable(data_list);
-    var options = {
-        title: title
-    };
-    var chart = new google.visualization.PieChart(document.getElementById(div_id));
-    chart.draw(data, options);
+
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable(data_list);
+        var options = {
+            title: title
+        };
+        var chart = new google.visualization.PieChart(document.getElementById(div_id));
+        chart.draw(data, options);
+    }
 }
 
 function generate_pie_chart(pie_name, filters, div_id) {
@@ -51,32 +64,37 @@ function generate_pie_chart(pie_name, filters, div_id) {
         success: function (result) {
 
             if (result.num_results == 1) {
-                var counter = {};
+
+                var filters1_list = [];
+                var filters1 = [];
                 result.objects[0].properties.map(function(property) {
-                    $.ajax({
-                        type: 'GET',
-                        url: '/api/property/' + property.id,
-                        contentType: "application/json",
-                        success: function (property) {
-                            counter[property.values[0].name] = (counter[property.values[0].name]||0)+1;
-
-                            var data_list = [['Type', 'Count']];
-                            $.each(counter, function( attribute, value ) {
-                                data_list.push([attribute, value])
-                            });
-                            create_pie_chart(pie_name, data_list, div_id);
-
-                        },
-                        error: function(XMLHttpRequest, textStatus, errorThrown){
-                            console.log(errorThrown);
-                        },
-
-                    });
+                    filters1_list.push(property.id);
                 })
+                filters1.push({"name":"id","op":"in","val":filters1_list});
 
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/property',
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: {"q": JSON.stringify({"filters": filters1})},
+                    success: function (properties) {
 
+                        var data_list = [['Type', 'Count']];
+                        var counter = {};
+                        properties.objects.map(function(property) {
+                            counter[property.values[0].name] = (counter[property.values[0].name]||0)+1;
+                        })
+                        $.each(counter, function( attribute, value ) {
+                            data_list.push([attribute, value])
+                        });
+                        create_pie_chart(pie_name, data_list, div_id);
 
-
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                        console.log(errorThrown);
+                    },
+                });
             }
 
         },
