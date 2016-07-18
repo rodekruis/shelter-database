@@ -14,14 +14,14 @@
 
                         <div class="dc-data-count dc-chart" id="data-count">
 
-                         <h2> Shelters
-                        <small>
-                            <span class="filter-count"></span> selected out of <span class="total-count"></span>
-                            records
-                            |
-                            <a id="all" href="#">Reset All</a>
+                            <h2> Shelters
+                                <small>
+                                    <span class="filter-count"></span> selected out of <span class="total-count"></span>
+                                    records
+                                    |
+                                    <a id="all" href="#">Reset All</a>
 
-                        </small>
+                                </small>
                             </h2>
                         </div>
 
@@ -67,9 +67,9 @@
 
                 <h2 class="text-right">
                     <small>
-                          <a id="download" href="#">Download</a>
-                            |
-                         <a id="share" href="#">Share</a>
+                        <a id="download" href="#">Download</a>
+                        |
+                        <a id="share" href="#">Share</a>
                     </small>
                 </h2>
 
@@ -154,6 +154,7 @@
 
                 var sheltersGroup = shelters.group().reduceCount();
 
+
                 var mapChart = dc_leaflet.markerChart("#chart-map")
                         .dimension(shelters)
                         .group(sheltersGroup)
@@ -162,13 +163,9 @@
                         .center([51.505, -0.09])
                         .zoom(1)
                         .filterByArea(true)
-                        .cluster(true);
+                        .cluster(true)
 
-
-
-
-
-
+                addLayersToChart(mapChart)
 
                 zoneChart
                         .width(100)
@@ -254,6 +251,67 @@
 
 
         })
+
+        function addLayersToChart(mapChart) {
+            var redCrossLayer = L.tileLayer.wms("https://shelter-database.org:8443/geoserver/ows?service=wms&version=1.1.1&request=GetCapabilities", {
+                layers: 'shelters:redcross',
+                transparent: true,
+                opacity: 0.5
+
+            });
+
+            var koeppenGeigerLayer = L.tileLayer.wms("https://shelter-database.org:8443/geoserver/ows?service=wms&version=1.1.1&request=GetCapabilities", {
+                layers: 'koeppen-geiger',
+                transparent: true,
+                opacity: 0.5
+            })
+
+            mapChart._doRender()
+            var map = mapChart.map()
+
+
+            var googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+                attribution: ''
+            });
+
+            var googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+                attribution: ''
+            });
+
+            var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+                attribution: ''
+            });
+
+            var googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+                attribution: ''
+            });
+
+            var openStreetMap = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            })
+
+            var baseLayers = {
+                "Open Street Map": openStreetMap ,
+                "Google streets": googleStreets,
+                "Google hybrid": googleHybrid,
+                "Google satelite": googleSat,
+                "Google physical": googleTerrain
+            }
+
+            L.control.layers(baseLayers, {
+                "Climate simplified classification": redCrossLayer,
+                "Koeppen-Geiger": koeppenGeigerLayer
+            }).addTo(map);
+
+        }
         ;
     </script>
 {% endblock %}
