@@ -39,6 +39,7 @@ def auth_func(*args, **kw):
         login_user_bundle(user)
     if not current_user.is_authenticated:
         raise ProcessingException(description='Not authenticated!', code=401)
+    return True
 
 def shelter_POST_preprocessor(data=None, **kw):
     """

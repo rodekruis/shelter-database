@@ -34,8 +34,11 @@ with app.app_context():
     from web import processors
     # 'User' Web service
     blueprint_user = manager.create_api_blueprint(models.User,
+                        exclude_columns=['pwdhash'],
                         methods=['GET', 'POST', 'PUT', 'DELETE'],
                         preprocessors=dict(
+                                GET_SINGLE=[processors.auth_func],
+                                GET_MANY=[processors.auth_func],
                                 POST=[processors.auth_func,
                                     processors.shelter_POST_preprocessor],
                                 DELETE=[processors.auth_func]))
@@ -43,6 +46,8 @@ with app.app_context():
 
     # 'Shelter' Web service
     blueprint_shelter = manager.create_api_blueprint(models.Shelter,
+                        exclude_columns=['user_id', 'responsible.pwdhash',
+                                        'responsible.email'],
                         methods=['GET', 'POST', 'PUT', 'DELETE'],
                         preprocessors=dict(
                                 POST=[processors.auth_func,
