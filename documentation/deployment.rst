@@ -47,7 +47,7 @@ Install and configure the database
     echo "127.0.0.1:5432:shelter:pgsqluser:pgsqlpwd" > ~/.pgpass
     chmod 0600 ~/.pgpass
     sudo -u postgres createuser pgsqluser --no-superuser --createdb --no-createrole
-    sudo -u postgres createdb aggregator --no-password
+    sudo -u postgres createdb shelter --no-password
     echo "ALTER USER pgsqluser WITH ENCRYPTED PASSWORD 'pgsqlpwd';" | sudo -u postgres psql
     echo "GRANT ALL PRIVILEGES ON DATABASE shelter TO pgsqluser;" | sudo -u postgres psql
 
@@ -60,7 +60,7 @@ Retrieve the application *Shelter Database*
     git clone https://git.list.lu/charism/shelter-database.git
     cd shelter-database/
     sudo pip3.5 install --upgrade -r requirements.txt
-    cp conf/conf.cfg-sample conf/conf.cfg
+    cp src/conf/conf.cfg-sample src/conf/conf.cfg
 
 Initialization of the database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
