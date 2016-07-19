@@ -26,18 +26,10 @@
 $(document).ready(function() {
     google.charts.load('current', {'packages':['corechart']});
 
-    generate_pie_chart("Landform",
-        [{"name":"name","op":"eq","val":"Landform"}], "piechart1");
-
-    generate_pie_chart("Associated disaster / Immediate cause",
-        [{"name":"name","op":"eq","val":"Associated disaster / Immediate cause"}], "piechart2");
-
-     generate_pie_chart("Foundation type",
-        [{"name":"name","op":"eq","val":"Foundation type"}], "piechart3");
-
-        generate_pie_chart("Type of shelter",
-           [{"name":"name","op":"eq","val":"Type of shelter"}], "piechart4");
-
+    generate_pie_chart("Landform", "piechart1");
+    generate_pie_chart("Associated disaster / Immediate cause", "piechart2");
+    generate_pie_chart("Foundation type", "piechart3");
+    generate_pie_chart("Type of shelter", "piechart4");
 })
 
 function create_pie_chart(title, data_list, div_id) {
@@ -54,7 +46,8 @@ function create_pie_chart(title, data_list, div_id) {
     }
 }
 
-function generate_pie_chart(pie_name, filters, div_id) {
+function generate_pie_chart(pie_name, div_id) {
+    var filters = [{"name":"name","op":"eq","val":pie_name}]
     $.ajax({
         type: 'GET',
         url: '/api/attribute',
@@ -62,9 +55,7 @@ function generate_pie_chart(pie_name, filters, div_id) {
         dataType: "json",
         data: {"q": JSON.stringify({"filters": filters})},
         success: function (result) {
-
             if (result.num_results == 1) {
-
                 var filters1_list = [];
                 var filters1 = [];
                 result.objects[0].properties.map(function(property) {
@@ -79,11 +70,12 @@ function generate_pie_chart(pie_name, filters, div_id) {
                     dataType: "json",
                     data: {"q": JSON.stringify({"filters": filters1})},
                     success: function (properties) {
-
                         var data_list = [['Type', 'Count']];
                         var counter = {};
                         properties.objects.map(function(property) {
-                            counter[property.values[0].name] = (counter[property.values[0].name]||0)+1;
+                            property.values.map(function(prop) {
+                                counter[prop.name] = (counter[prop.name]||0)+1;
+                            })
                         })
                         $.each(counter, function( attribute, value ) {
                             data_list.push([attribute, value])

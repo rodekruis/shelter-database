@@ -72,7 +72,9 @@ with app.app_context():
 
     # 'Attribute' Web service
     blueprint_attribute = manager.create_api_blueprint(models.Attribute,
-                        methods=['GET', 'POST', 'PUT', 'DELETE'])
+                        methods=['GET', 'POST', 'PUT', 'DELETE'],
+                        results_per_page = 10000000,
+                        max_results_per_page = 10000000)
     app.register_blueprint(blueprint_attribute)
 
     # 'AttributePicture' Web service
@@ -88,6 +90,8 @@ with app.app_context():
     # 'Property' Web service
     blueprint_property = manager.create_api_blueprint(models.Property,
                         methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+                        results_per_page = 10000000,
+                        max_results_per_page = 10000000,
                         preprocessors=dict(
                                 POST=[processors.auth_func,
                                         processors.property_preprocessor],
