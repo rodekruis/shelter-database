@@ -228,7 +228,8 @@ $(document).ready(function() {
         } else {
             category_id = $(evt.target).attr("category-id");
             attribute_id = $(evt.target).attr("attribute-id");
-            new_free_text_property({{ shelter.id }}, category_id, attribute_id, value);
+            new_free_text_property({{ shelter.id }}, category_id,
+                                        attribute_id, value, $(evt.target));
         }
     });
 
