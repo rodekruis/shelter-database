@@ -4,6 +4,7 @@
     <link href="{{ url_for('static', filename='lib/datatables.net-bs/css/dataTables.bootstrap.min.css') }}"
           rel="stylesheet" media="screen">
     <script src="{{ url_for('static', filename='lib/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/file-saver/FileSaver.js')}}"></script>
 {% endblock %}
 {% block content %}
     <div class="container">
@@ -67,9 +68,9 @@
 
                 <h2 class="text-right">
                     <small>
-                        <a id="download" href="#">Download</a>
+                        <a id="download">Download</a>
                         |
-                        <a id="share" href="#">Share</a>
+                        <a id="share">Share</a>
                     </small>
                 </h2>
 
@@ -257,13 +258,11 @@
 
 
                 // Init chart filters
+
                 function initFilters() {
-                    // Get hash values
-                    // time[A-Za-z0-9,\:\+\(\)]
-                    //[A-Za-z0-9%./:]
                     var parseHash = /^#zone=([A-Za-z0-9,_\-\/\s]*)&crisis=([A-Za-z0-9,_\-\/\s]*)&climate=([A-Za-z0-9,_\-\/\s]*)&time=([A-Za-z0-9,_\-\/\s\(\):+]*)&country=([A-Za-z0-9,_\-\/\s]*)&map=(.*)$/;
                     var parsed = parseHash.exec(decodeURIComponent(location.hash.replace(/\+/g, ' ')));
-                    console.log("parsed:", parsed)
+{#                    console.log("parsed:", parsed)#}
                     function filter(chart, rank) {
 
                         if (parsed[rank] == "") {
@@ -286,12 +285,9 @@
 
                                 } else {
                                     for (var i = 0; i < filterValues.length; i++) {
-                                        console.log(rank, i, filterValues[i])
                                         chart.filter(filterValues[i]);
                                     }
                                 }
-
-
                             }
 
                         }
@@ -310,11 +306,19 @@
 
                 }
 
+
+                d3.select('#download')
+                .on('click', function() {
+                    var data = allDimensions.top(Infinity);
+                    var blob = new Blob([d3.csv.format(data)], {type: "text/csv;charset=utf-8"});
+                    saveAs(blob, 'data.csv');
+                });
+
                 initFilters()
 
             })
 
-            d3.selectAll('a#all').on('click', function () {
+            d3.selectAll('#all').on('click', function () {
                 dc.filterAll();
                 dc.renderAll();
             });
@@ -331,8 +335,8 @@
                     { name: 'map', value: JSON.stringify(mapChart.filters())}
                     ];
 
-                console.log("map:")
-                console.log(JSON.stringify(mapChart.filters()))
+{#                console.log("map:")#}
+{#                console.log(JSON.stringify(mapChart.filters()))#}
                 var recursiveEncoded = $.param(filters);
                 location.hash = recursiveEncoded;
             }
@@ -400,7 +404,12 @@
                 "Koeppen-Geiger": koeppenGeigerLayer
             }).addTo(map);
 
-        }
-        ;
+        };
+
+        d3.select("#share")
+        .on('click', function() {
+            window.prompt("Link to share:", window.location.href);
+        })
+
     </script>
 {% endblock %}

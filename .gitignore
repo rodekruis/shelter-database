@@ -27,6 +27,7 @@ build
 web/static/lib/*
 !web/static/lib/leaflet
 !web/static/lib/dc
+!web/static/lib/file-saver
 
 
 # node files
