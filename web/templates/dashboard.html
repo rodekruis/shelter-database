@@ -96,7 +96,20 @@
     <script>
         $(document).ready(function () {
 
+            //    Id,Name,Zone,Country,Associated disaster,Lat,Lon,Climate,Year of first construction
+
+
+            var zoneChart = dc.pieChart('#chart-ring-zone')
+            var crisisChart = dc.pieChart('#chart-ring-crisis')
+            var climateChart = dc.pieChart('#chart-ring-climate')
+            var timeChart = dc.barChart('#chart-timeline');
+            var countryChart = dc.rowChart('#chart-bar-country')
+            var mapChart = dc_leaflet.markerChart("#chart-map")
+            var tableChart = dc.dataTable("#shelters-table")
+
+
             d3.csv('/static/data/shelters-sample.csv', function (data) {
+
 
 
                 var dateFormat = d3.time.format('%Y');
@@ -115,18 +128,16 @@
                     return d.Zone;
                 });
                 var zoneCount = zoneDimension.group().reduceCount()
-                var zoneChart = dc.pieChart('#chart-ring-zone')
+
 
                 var crisisDimension = ndx.dimension(function (d) {
                     return d['Associated disaster'];
                 });
                 var crisisCount = crisisDimension.group().reduceCount()
-                var crisisChart = dc.pieChart('#chart-ring-crisis')
                 var climateDimension = ndx.dimension(function (d) {
                     return d.Climate;
                 });
                 var climateCount = climateDimension.group().reduceCount()
-                var climateChart = dc.pieChart('#chart-ring-climate')
 
 
                 var timeDimension = ndx.dimension(function (d) {
@@ -138,9 +149,6 @@
                         }
                 );
 
-                var timeChart = dc.barChart('#chart-timeline');
-
-
                 var shelters = ndx.dimension(function (d) {
 
                     return [d.Lat, d.Lon];
@@ -150,13 +158,11 @@
                     return d.Country;
                 })
                 var countryCount = countryDimension.group().reduceCount()
-                var countryChart = dc.rowChart('#chart-bar-country')
+
 
                 var sheltersGroup = shelters.group().reduceCount();
 
-
-                var mapChart = dc_leaflet.markerChart("#chart-map")
-                        .dimension(shelters)
+                mapChart.dimension(shelters)
                         .group(sheltersGroup)
                         .width(500)
                         .height(300)
@@ -164,6 +170,7 @@
                         .zoom(1)
                         .filterByArea(true)
                         .cluster(true)
+                        .on("filtered", getFiltersValues);
 
                 addLayersToChart(mapChart)
 
@@ -172,21 +179,27 @@
                         .height(100)
                         .dimension(zoneDimension)
                         .group(zoneCount)
-                        .innerRadius(20);
+                        .innerRadius(20)
+                        .on("filtered", getFiltersValues);
+
 
                 crisisChart
                         .width(100)
                         .height(100)
                         .dimension(crisisDimension)
                         .group(crisisCount)
-                        .innerRadius(20);
+                        .innerRadius(20)
+                        .on("filtered", getFiltersValues);
+
 
                 climateChart
                         .width(100)
                         .height(100)
                         .dimension(climateDimension)
                         .group(climateCount)
-                        .innerRadius(20);
+                        .innerRadius(20)
+                        .on("filtered", getFiltersValues);
+                ;
 
                 timeChart
                         .width(500)
@@ -196,16 +209,17 @@
                         .barPadding(5)
                         .x(d3.time.scale().domain([new Date(2008, 01, 01), new Date()]))
                         .xUnits(d3.time.year)
-                ;
+                        .on("filtered", getFiltersValues);
+
 
                 countryChart
                         .width(250)
                         .height(250)
                         .dimension(countryDimension)
-                        .group(countryCount);
+                        .group(countryCount)
+                        .on("filtered", getFiltersValues);
+                ;
 
-                var tableChart = dc.dataTable("#shelters-table")
-                //    Id,Name,Zone,Country,Associated disaster,Lat,Lon,Climate,Year of first construction
 
                 tableChart
                         .dimension(allDimensions)
@@ -241,7 +255,63 @@
                         .dimension(ndx)
                         .group(all)
 
-                dc.renderAll();
+
+                // Init chart filters
+                function initFilters() {
+                    // Get hash values
+                    // time[A-Za-z0-9,\:\+\(\)]
+                    //[A-Za-z0-9%./:]
+                    var parseHash = /^#zone=([A-Za-z0-9,_\-\/\s]*)&crisis=([A-Za-z0-9,_\-\/\s]*)&climate=([A-Za-z0-9,_\-\/\s]*)&time=([A-Za-z0-9,_\-\/\s\(\):+]*)&country=([A-Za-z0-9,_\-\/\s]*)&map=(.*)$/;
+                    var parsed = parseHash.exec(decodeURIComponent(location.hash.replace(/\+/g, ' ')));
+                    console.log("parsed:", parsed)
+                    function filter(chart, rank) {
+
+                        if (parsed[rank] == "") {
+                            chart.filter(null);
+                        }
+                        else {
+                            var filterValues = parsed[rank].split(",");
+
+                            if (rank ==4 && filterValues.length==2) {   //filtering timeChart
+                                filterValues[i] = new Date(filterValues[i])
+                                var start = new Date(filterValues[0])
+                                var end = new Date(filterValues[1])
+                                chart.filter(dc.filters.RangedFilter(start,end))
+                            }
+                            else {
+                                if (rank ==6) {
+{#                                    console.log('parsed:', filterValues)#}
+{#                                    filterValues = JSON.parse(filterValues)#}
+{#                                    console.log(filterValues)#}
+
+                                } else {
+                                    for (var i = 0; i < filterValues.length; i++) {
+                                        console.log(rank, i, filterValues[i])
+                                        chart.filter(filterValues[i]);
+                                    }
+                                }
+
+
+                            }
+
+                        }
+                    }
+
+                    if (parsed) {
+                        filter(zoneChart, 1);
+                        filter(crisisChart, 2);
+                        filter(climateChart, 3);
+                        filter(timeChart, 4);
+                        filter(countryChart, 5)
+                        filter(mapChart, 6);
+                    }
+
+                    dc.renderAll();
+
+                }
+
+                initFilters()
+
             })
 
             d3.selectAll('a#all').on('click', function () {
@@ -250,7 +320,26 @@
             });
 
 
+            // Serializing filters values in URL
+            function getFiltersValues() {
+                var filters = [
+                    {name: 'zone', value: zoneChart.filters()},
+                    {name: 'crisis', value: crisisChart.filters()},
+                    {name: 'climate', value: climateChart.filters()},
+                    {name: 'time', value: timeChart.filters()},
+                    {name: 'country', value: countryChart.filters()},
+                    { name: 'map', value: JSON.stringify(mapChart.filters())}
+                    ];
+
+                console.log("map:")
+                console.log(JSON.stringify(mapChart.filters()))
+                var recursiveEncoded = $.param(filters);
+                location.hash = recursiveEncoded;
+            }
+
+
         })
+
 
         function addLayersToChart(mapChart) {
             var redCrossLayer = L.tileLayer.wms("https://shelter-database.org:8443/geoserver/ows?service=wms&version=1.1.1&request=GetCapabilities", {
@@ -299,7 +388,7 @@
             })
 
             var baseLayers = {
-                "Open Street Map": openStreetMap ,
+                "Open Street Map": openStreetMap,
                 "Google streets": googleStreets,
                 "Google hybrid": googleHybrid,
                 "Google satelite": googleSat,
