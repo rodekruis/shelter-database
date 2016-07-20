@@ -30,7 +30,13 @@ with app.app_context():
     app.register_blueprint(views.shelters_bp)
     app.register_blueprint(views.admin_bp)
 
+    #Development API
+    from web.views import shelterapi
+    app.register_blueprint(shelterapi.api_bp)
+    
     # API
+    
+    
     from web import processors
     # 'User' Web service
     blueprint_user = manager.create_api_blueprint(models.User,
