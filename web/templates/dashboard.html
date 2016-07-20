@@ -33,21 +33,21 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h4>By Year of Construction</h4>
+                        <h4>By Year of Construction <small><a id="year">reset</a></small></h4>
                         <div class="dc-chart" id="chart-timeline"></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <h4>By Zone</h4>
+                        <h4>By Zone <small><a id="zone">reset</a></small></h4>
                         <div class="dc-chart" id="chart-ring-zone"></div>
                     </div>
                     <div class="col-md-3">
-                        <h4>By Crisis</h4>
+                        <h4>By Crisis <small><a id="crisis">reset</a></small></h4>
                         <div class="dc-chart" id="chart-ring-crisis"></div>
                     </div>
                     <div class="col-md-3">
-                        <h4>By Climate</h4>
+                        <h4>By Climate <small><a id="climate">reset</a></small></h4>
                         <div class="dc-chart" id="chart-ring-climate"></div>
                     </div>
                     <div class="col-md-3">
@@ -58,7 +58,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>By Country</h4>
+                        <h4>By Country<small><a id="country">reset</a></small></h4>
                         <div class="dc-chart" id="chart-bar-country"></div>
 
                     </div>
@@ -340,6 +340,27 @@
                 var recursiveEncoded = $.param(filters);
                 location.hash = recursiveEncoded;
             }
+
+            d3.selectAll('#year').on('click', function () {
+                timeChart.filterAll();
+                dc.redrawAll();
+              });
+              d3.selectAll('#zone').on('click', function () {
+                zoneChart.filterAll();
+                dc.redrawAll();
+              });
+              d3.selectAll('#crisis').on('click', function () {
+                crisisChart.filterAll();
+                dc.redrawAll();
+              });
+            d3.selectAll('#climate').on('click', function () {
+                climateChart.filterAll();
+                dc.redrawAll();
+              });
+            d3.selectAll('#country').on('click', function () {
+                countryChart.filterAll();
+                dc.redrawAll();
+              });
 
 
         })
