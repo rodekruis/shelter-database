@@ -38,27 +38,22 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <h4>By Zone <small><a id="zone">reset</a></small></h4>
                         <div class="dc-chart" id="chart-ring-zone"></div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <h4>By Crisis <small><a id="crisis">reset</a></small></h4>
                         <div class="dc-chart" id="chart-ring-crisis"></div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <h4>By Climate <small><a id="climate">reset</a></small></h4>
                         <div class="dc-chart" id="chart-ring-climate"></div>
                     </div>
-                    <div class="col-md-3">
-                        <h4></h4>
-                        <div class="dc-chart" id=""></div>
-
                     </div>
-                </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>By Country<small><a id="country">reset</a></small></h4>
+                        <h4>By Country <small><a id="country">reset</a></small></h4>
                         <div class="dc-chart" id="chart-bar-country"></div>
 
                     </div>
@@ -97,8 +92,6 @@
     <script>
         $(document).ready(function () {
 
-            //    Id,Name,Zone,Country,Associated disaster,Lat,Lon,Climate,Year of first construction
-
 
             var zoneChart = dc.pieChart('#chart-ring-zone')
             var crisisChart = dc.pieChart('#chart-ring-crisis')
@@ -109,14 +102,14 @@
             var tableChart = dc.dataTable("#shelters-table")
 
 
-            d3.csv('/static/data/shelters-sample.csv', function (data) {
+{#            d3.csv('/static/data/shelters-sample.csv', function (data) {#}
+            d3.json("/api/v0.1/shelters", function(dataObject) {
 
-
-
+                var data = []
+                for (var key in dataObject) {
+                   data.push(dataObject[key])
+                }
                 var dateFormat = d3.time.format('%Y');
-                data.forEach(function (d) {
-                    d['Year of first construction'] = dateFormat.parse(d['Year of first construction'])
-                })
 
                 var ndx = crossfilter(data);
 
@@ -132,31 +125,62 @@
 
 
                 var crisisDimension = ndx.dimension(function (d) {
-                    return d['Associated disaster'];
+                    if (d['Associated disaster / Immediate cause']) {
+                        return d['Associated disaster / Immediate cause'];
+                    } else {
+                        return 'No data'
+                    }
+
                 });
                 var crisisCount = crisisDimension.group().reduceCount()
                 var climateDimension = ndx.dimension(function (d) {
-                    return d.Climate;
+                    if (d['Climate zone']) {
+                        return d['Climate zone'];
+                    } else {
+                        return 'No data'
+                    }
+
                 });
                 var climateCount = climateDimension.group().reduceCount()
 
 
                 var timeDimension = ndx.dimension(function (d) {
-                    return d3.time.year(d['Year of first construction']);
+                    if (d['Year of construction (first completed shelters)']) {
+                        return d3.time.year(dateFormat.parse(d['Year of construction (first completed shelters)']));
+                    }
+                    else {
+                        return undefined;
+                    }
+
                 });
                 var timeCount = timeDimension.group().reduceCount(
                         function (d) {
-                            return d['Year of first construction'];
+                            if (d['Year of construction (first completed shelters)']) {
+                                return d['Year of construction (first completed shelters)'];
+                            } else {
+                                return undefined;
+                            }
+
                         }
                 );
 
                 var shelters = ndx.dimension(function (d) {
+                    if (d['GPS Latitude'] && d['GPS Longitude'])
+                    {
+                        return [d['GPS Latitude'], d['GPS Longitude']];
+                    } else {
+                        return undefined;
+                    }
 
-                    return [d.Lat, d.Lon];
                 });
 
                 var countryDimension = ndx.dimension(function (d) {
-                    return d.Country;
+                    if (d.Country) {
+                        return d.Country;
+                    } else {
+                        return 'No data'
+                    }
+
                 })
                 var countryCount = countryDimension.group().reduceCount()
 
@@ -176,8 +200,8 @@
                 addLayersToChart(mapChart)
 
                 zoneChart
-                        .width(100)
-                        .height(100)
+                        .width(120)
+                        .height(120)
                         .dimension(zoneDimension)
                         .group(zoneCount)
                         .innerRadius(20)
@@ -185,8 +209,8 @@
 
 
                 crisisChart
-                        .width(100)
-                        .height(100)
+                        .width(120)
+                        .height(120)
                         .dimension(crisisDimension)
                         .group(crisisCount)
                         .innerRadius(20)
@@ -194,8 +218,8 @@
 
 
                 climateChart
-                        .width(100)
-                        .height(100)
+                        .width(120)
+                        .height(120)
                         .dimension(climateDimension)
                         .group(climateCount)
                         .innerRadius(20)
@@ -210,16 +234,21 @@
                         .barPadding(5)
                         .x(d3.time.scale().domain([new Date(2008, 01, 01), new Date()]))
                         .xUnits(d3.time.year)
-                        .on("filtered", getFiltersValues);
+                        .on("filtered", getFiltersValues)
+                         .yAxis().tickFormat(
+                        function (v) { return d3.format('f')(v) ; });
 
 
                 countryChart
-                        .width(250)
+                        .width(150)
                         .height(250)
+                        .margins({left:0, right:10, top:10, bottom:20})
                         .dimension(countryDimension)
                         .group(countryCount)
-                        .on("filtered", getFiltersValues);
-                ;
+                        .on("filtered", getFiltersValues)
+                        .xAxis().tickFormat(
+                        function (v) { return d3.format('f')(v) ; });
+
 
 
                 tableChart
@@ -229,10 +258,10 @@
                         })
                         .columns([
                             function (d) {
-                                return d.Id;
+                                return d.ID;
                             },
                             function (d) {
-                                return d.Name;
+                                return d['Name of shelter'];
                             },
                             function (d) {
                                 return d.Zone;
@@ -241,10 +270,10 @@
                                 return d.Country;
                             },
                             function (d) {
-                                return d['Associated disaster'];
+                                return d['Associated disaster / Immediate cause'];
                             },
                             function (d) {
-                                return d.Climate;
+                                return d['Climate zone'];
                             }
                         ])
                         .on('renderlet', function (table) {
