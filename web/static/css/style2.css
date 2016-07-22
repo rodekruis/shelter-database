@@ -1,0 +1,819 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, input, textarea {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box; }
+
+:before, :after {
+  box-sizing: border-box; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* -------------------------------------------------------------
+  Sass CSS3 Mixins! The Cross-Browser CSS3 Sass Library
+  By: Matthieu Aussaguel, http://www.mynameismatthieu.com, @matthieu_tweets
+
+  List of CSS3 Sass Mixins File to be @imported and @included as you need
+
+  The purpose of this library is to facilitate the use of CSS3 on different browsers avoiding HARD TO READ and NEVER
+  ENDING css files
+
+  note: All CSS3 Properties are being supported by Safari 5
+  more info: http://www.findmebyip.com/litmus/#css3-properties
+
+  Mixins available:
+    -   css3-prefix             - arguments: Property, Value
+    -   background-gradient     - arguments: Start Color: #3C3C3C, End Color: #999999
+    -   background-radial       - arguments: Start Color: #FFFFFF, Start position: 0%, End Color: #000000, End position: 100%
+    -   background-size         - arguments: Width: 100%, Height: 100%
+    -   background-opacity      - arguments: Color: #000, Opacity: .85
+    -   border-radius           - arguments: Radius: 5px
+    -   border-radius-separate  - arguments: Top Left: 5px, Top Left: 5px, Bottom Left: 5px, Bottom Right: 5px
+    -   box                     - arguments: Orientation: horizontal, Pack: center, Align: center
+    -   box-rgba                - arguments: R: 60, G: 3, B: 12, Opacity: 0.23, Color: #3C3C3C
+    -   box-shadow              - arguments: X: 2px, Y: 2px, Blur: 5px, Color: rgba(0,0,0,.4)
+    -   box-sizing              - arguments: Type: border-box
+    -   columns                 - arguments: Count: 3, Gap: 10
+    -   double-borders          - arguments: Color One: #3C3C3C, Color Two: #999999, Radius: 0
+    -   flex                    - arguments: Value: 1
+    -   flip                    - arguments: ScaleX: -1
+    -   font-face               - arguments: Font Family: myFont, Eot File Src: myFont.eot, Woff File Src: myFont.woff, Ttf File Src: myFont.ttf
+    -   opacity                 - arguments: Opacity: 0.5
+    -   outline radius          - arguments: Radius: 5px
+    -   resize                  - arguments: Direction: both
+    -   rotate                  - arguments: Degree: 0, M11: 0, M12: 0, M21: 0, M22: 0
+    CSS Matrix Rotation Calculator http://www.boogdesign.com/examples/transforms/matrix-calculator.html
+    -   text-shadow             - arguments: X: 2px, Y: 2px, Blur: 5px, Color: rgba(0,0,0,.4)
+    -   transform               - arguments: Parameters: null
+    -   transform-style         - arguments: Style: preserve-3d
+    -   transition              - Default arguments: What: all, Length: 1s, Easing: ease-in-out
+    -                            - Examples: @include transition (all 2s ease-in-out);
+    -                                        @include transition (opacity 1s ease-in 2s, width 2s ease-out);
+    -   triple-borders          - arguments: Color One: #3C3C3C, Color Two: #999999, Color Three: #000000, Radius: 0
+    -   keyframes               - arguments: Animation name
+                                - content:   Animation css
+    -   animation               - arguments: name duration timing-function delay iteration-count direction fill-mode play-state
+                                             (http://www.w3schools.com/cssref/css3_pr_animation.asp)
+
+*/
+/* ADDS A BROWSER PREFIX TO THE PROPERTY */
+/* BACKGROUND GRADIENT */
+/* BACKGROUND RADIAL */
+/* BACKGROUND SIZE */
+/* BACKGROUND COLOR OPACITY */
+/* BORDER RADIUS */
+/* BOX */
+/* BOX RGBA */
+/* BOX SHADOW */
+/* BOX SIZING */
+/* COLUMNS */
+/* DOUBLE BORDERS */
+/* FLEX */
+/* FLIP */
+/* FONT FACE */
+/* OPACITY */
+/* OUTLINE RADIUS */
+/* RESIZE */
+/* ROTATE*/
+/* TEXT SHADOW */
+/* TRANSFORM  */
+/* TRANSFORM3D  */
+/* TRANSFORM STYLE */
+/* TRANSITION */
+/* TRIPLE BORDERS */
+/* KEYFRAMES */
+/* ANIMATION */
+.cover, .map2, .infoboxes .infobox .infobox-img, .mymodal .myimage, .options .option, section.first, section.recommendations, section.contribute .img, section.shelterimg, section.map, .shelters .shelter .image {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat; }
+
+.contain {
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat; }
+
+.fa, .button.button-drop:after, .search-wrapper:before, .mymodal .close:after, table tr td span.info:before, .advanced .advanced-btn:after {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0); }
+
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Chrome/Safari/Opera */
+  -khtml-user-select: none;
+  /* Konqueror */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                  not supported by any browser */ }
+
+.right {
+  float: right; }
+
+.hidden {
+  display: none; }
+
+strong {
+  font-weight: bold; }
+
+.button {
+  position: relative;
+  cursor: pointer;
+  padding: 0 15px;
+  line-height: 40px;
+  border: 1px solid #666;
+  color: #666;
+  text-decoration: none;
+  display: inline-block;
+  letter-spacing: 1px;
+  font-size: 14px;
+  font-weight: 400;
+  vertical-align: top;
+  -webkit-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-transition: background-color 0.1s, color 0.1s, border-color 0.1s;
+  -khtml-transition: background-color 0.1s, color 0.1s, border-color 0.1s;
+  -moz-transition: background-color 0.1s, color 0.1s, border-color 0.1s;
+  -ms-transition: background-color 0.1s, color 0.1s, border-color 0.1s;
+  -o-transition: background-color 0.1s, color 0.1s, border-color 0.1s;
+  transition: background-color 0.1s, color 0.1s, border-color 0.1s; }
+  .button:hover {
+    background-color: #666;
+    color: #FFF; }
+  .button.button-small {
+    height: 34px;
+    line-height: 34px;
+    padding: 0 10px; }
+  .button.button-stretch {
+    width: 100%; }
+    .button.button-stretch:after {
+      float: right;
+      margin-top: 14px; }
+  .button.button-red {
+    color: #CC0000;
+    border-color: #CC0000; }
+    .button.button-red:hover {
+      background-color: #CC0000;
+      color: #FFF; }
+  .button.button-home {
+    font-size: 0.85em;
+    border-color: transparent;
+    color: #FFF;
+    border-width: 2px;
+    text-transform: uppercase; }
+    .button.button-home:hover {
+      border-color: #FFF;
+      background-color: transparent; }
+  .button.button-white {
+    border-color: #FFF;
+    color: #FFF; }
+    .button.button-white:hover {
+      background-color: #FFF;
+      color: #333; }
+  .button.invert {
+    border: 2px solid #FFF; }
+    .button.invert:hover {
+      border: 2px solid #FFF;
+      background-color: #FFF;
+      color: #333; }
+  .button.full {
+    border: 2px solid #CC0000;
+    background-color: #CC0000;
+    color: #FFF; }
+    .button.full:hover {
+      background-color: #fff;
+      border-color: #fff;
+      color: #CC0000; }
+  .button.button-drop:after {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    line-height: inherit;
+    content: "\f0d7";
+    font-size: 1.1em;
+    margin-left: 10px;
+    pointer-events: none; }
+
+.button + .button {
+  margin-left: 10px; }
+
+i + span.text {
+  margin-left: 10px; }
+
+label.button {
+  padding: 0; }
+  label.button select {
+    padding: 0 30px 0 15px; }
+
+body {
+  font-family: "Lato";
+  font-weight: 300;
+  font-size: 17px; }
+
+a {
+  text-decoration: none !important;
+  color: #333; }
+  a:active {
+    text-decoration: none !important;
+    color: #333; }
+  a:hover {
+    text-decoration: none !important;
+    color: #CC0000; }
+
+a + a {
+  margin-left: 10px; }
+
+p {
+  line-height: 1.2; }
+
+main h1 {
+  font-size: 3.7em;
+  color: #FFF;
+  margin: 0px 0 20px 0;
+  font-weight: bold; }
+
+main h2 {
+  font-size: 1.4em;
+  color: #FFF;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9); }
+
+main h3 {
+  color: #CC0000;
+  text-align: center;
+  font-size: 1.8em;
+  margin-bottom: 40px;
+  font-weight: 700; }
+
+main h4 {
+  font-size: 1.2em;
+  margin: 20px 0;
+  font-weight: bold; }
+
+main h5 {
+  font-size: 1.2em;
+  color: #666;
+  margin-bottom: 20px; }
+
+section {
+  position: relative;
+  min-height: 100px;
+  padding: 30px 0; }
+  section.background .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1; }
+  section.background .toplayer {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center; }
+
+footer {
+  min-height: 50px;
+  background-color: #333;
+  color: #EEE;
+  text-align: center;
+  padding: 30px 0; }
+
+.flexbox {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 1 auto;
+  -moz-box-flex: 0;
+  -moz-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto; }
+  .flexbox .box {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 0 20px;
+    display: inline-block;
+    text-align: center; }
+    .flexbox .box i.head {
+      font-size: 3em;
+      display: block;
+      color: rgba(0, 0, 0, 0.2); }
+    .flexbox .box h4 {
+      font-size: 1.2em;
+      margin: 20px 0;
+      font-weight: bold; }
+    .flexbox .box p {
+      text-align: left;
+      min-height: 100px; }
+
+.dropdown {
+  display: inline-block; }
+  .dropdown .btn {
+    font-size: 1em; }
+
+.dropdown + .dropdown {
+  margin-left: 20px; }
+
+form.myform label.button select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  margin: 0;
+  cursor: pointer;
+  color: #666;
+  text-decoration: none;
+  display: inline-block;
+  letter-spacing: 1px;
+  font-size: 14px;
+  font-weight: 400; }
+  form.myform label.button select:hover {
+    color: #FFF; }
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  z-index: 10;
+  border-bottom: 1px solid #CCC;
+  background-color: #FFF;
+  z-index: 100; }
+  header nav .home {
+    margin-left: 20px;
+    color: #333;
+    font-weight: 400; }
+    header nav .home i {
+      line-height: 50px;
+      font-size: 1.3em;
+      display: inline-block;
+      vertical-align: top; }
+    header nav .home span {
+      line-height: 50px;
+      display: inline-block;
+      vertical-align: top;
+      font-size: 1.1em; }
+  header nav ul {
+    float: right;
+    margin-right: 5px; }
+    header nav ul li {
+      display: inline-block; }
+      header nav ul li a {
+        cursor: pointer;
+        padding: 0 10px;
+        border: none;
+        display: inline-block;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.85em;
+        font-weight: 400;
+        line-height: 50px; }
+        header nav ul li a.selected {
+          color: #CC0000; }
+  header.landingpage {
+    position: absolute;
+    color: #FFF;
+    border: none;
+    background-color: transparent; }
+    header.landingpage nav .home {
+      color: #FFF; }
+    header.landingpage nav ul li a {
+      color: #FFF; }
+      header.landingpage nav ul li a:hover {
+        color: #CC0000; }
+
+main.page {
+  margin-top: 50px; }
+
+.content {
+  max-width: 1000px;
+  margin: 0 auto; }
+
+.search-wrapper {
+  position: relative;
+  display: inline-block; }
+  .search-wrapper input {
+    padding: 15px 20px;
+    font-size: 1.1em;
+    line-height: 1.2;
+    background-color: #FFF;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    width: 400px;
+    padding-left: 50px;
+    color: #333; }
+  .search-wrapper:before {
+    position: absolute;
+    top: 15px;
+    left: 16px;
+    content: "\f002";
+    color: #666;
+    font-size: 1.3em; }
+
+.map2 {
+  height: 200px; }
+
+.dots {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 100; }
+  .dots .dot {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0 8px;
+    background-color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    -webkit-border-radius: 50%;
+    -khtml-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%; }
+    .dots .dot.selected {
+      background-color: #FFF; }
+
+.infoboxes {
+  text-align: center; }
+  .infoboxes .infobox {
+    display: inline-block;
+    width: 200px;
+    margin: 0 20px 20px 20px; }
+    .infoboxes .infobox .infobox-title {
+      font-weight: bold;
+      margin-bottom: 20px; }
+    .infoboxes .infobox .infobox-img {
+      height: 140px;
+      border: 1px solid #333; }
+
+.mymodal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  z-index: -1;
+  background-color: rgba(255, 255, 255, 0.95);
+  overflow: scroll; }
+  .mymodal .content {
+    position: relative;
+    padding: 50px 50px;
+    max-width: 600px; }
+    .mymodal .content .page {
+      display: none; }
+    .mymodal .content.page1 .page1 {
+      display: initial; }
+    .mymodal .content.page2 .page2 {
+      display: initial; }
+    .mymodal .content.page3 .page3 {
+      display: initial; }
+    .mymodal .content.page4 .page4 {
+      display: initial; }
+  .mymodal .close {
+    position: absolute;
+    top: 20px;
+    right: 0px; }
+    .mymodal .close:after {
+      content: "\f00d";
+      font-size: 2em;
+      color: #AAA; }
+  .mymodal .mylabel {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 20px; }
+  .mymodal .myimage {
+    height: 200px;
+    width: 100%;
+    cursor: pointer; }
+  .mymodal input {
+    padding: 10px 12px;
+    font-size: 18px;
+    line-height: 1.2;
+    background-color: #FFF;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #666;
+    width: 100%;
+    margin-bottom: 30px;
+    font-weight: 300;
+    color: #333; }
+  .mymodal form.myform label.button {
+    width: 100%; }
+    .mymodal form.myform label.button select {
+      width: 100%;
+      letter-spacing: 0px;
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 300;
+      color: #333; }
+      .mymodal form.myform label.button select:hover {
+        color: #FFF; }
+  .mymodal .buttons {
+    margin-top: 40px; }
+    .mymodal .buttons .right {
+      float: right; }
+
+body.modal-open .mymodal {
+  opacity: 1;
+  z-index: 200; }
+
+.options {
+  text-align: center; }
+  .options .option {
+    width: 150px;
+    height: 120px;
+    margin: 5px;
+    display: inline-block;
+    border: 3px solid #FFF;
+    cursor: pointer; }
+    .options .option.selected {
+      border-color: #425ca9; }
+      .options .option.selected:hover {
+        border-color: #425ca9; }
+    .options .option:hover {
+      border-color: #8396ce; }
+
+/*table {*/
+  /*margin: 0 auto 0 auto;*/
+  /*text-align: left; }*/
+  /*table tr th, table tr td {*/
+    /*padding: 5px 10px; }*/
+  /*table tr td {*/
+    /*font-weight: bold; }*/
+    /*table tr td span.info {*/
+      /*display: inline-block;*/
+      /*margin-left: 100px; }*/
+      /*table tr td span.info:before {*/
+        /*display: inline-block;*/
+        /*text-align: center;*/
+        /*line-height: 30px;*/
+        /*content: "\f129";*/
+        /*font-size: 18px;*/
+        /*color: #CCC;*/
+        /*width: 30px;*/
+        /*height: 30px;*/
+        /*-webkit-border-radius: 50%;*/
+        /*-khtml-border-radius: 50%;*/
+        /*-moz-border-radius: 50%;*/
+        /*-ms-border-radius: 50%;*/
+        /*-o-border-radius: 50%;*/
+        /*border-radius: 50%;*/
+        /*border: 1px solid #CCC;*/
+        /*cursor: pointer; }*/
+      /*table tr td span.info:hover:before {*/
+        /*color: #666;*/
+        /*background-color: #EEE; }*/
+
+section.first {
+  min-height: 540px;
+  color: #FFF;
+  background-color: #303030;
+  height: 100vh; }
+  section.first .toplayer {
+    padding-top: 100px; }
+  section.first .search {
+    position: relative;
+    margin-top: 40px;
+    display: inline-block; }
+  section.first p {
+    margin: 30px 0; }
+
+section.recommendations {
+  padding: 50px 0;
+  color: #FFF; }
+  section.recommendations h3 {
+    color: #FFF;
+    margin-bottom: 20px; }
+  section.recommendations p {
+    margin-bottom: 20px; }
+
+section.contact {
+  padding: 50px 0;
+  background-color: #DDD;
+  text-align: center; }
+
+section.contribute {
+  text-align: center; }
+  section.contribute h1 {
+    color: #333; }
+  section.contribute .img {
+    margin: 20px auto;
+    width: 600px;
+    height: 400px; }
+  section.contribute .bt {
+    margin: 30px 0; }
+
+section.shelterimg {
+  height: 400px; }
+
+section.shelterheader {
+  text-align: center; }
+  section.shelterheader h1 {
+    color: #333;
+    font-size: 2em;
+    margin: 0; }
+
+section.details {
+  text-align: center; }
+  section.details.details-1 {
+    background-color: #EEE; }
+  section.details .detail-label {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    font-weight: bold; }
+
+section.search {
+  min-height: 100px;
+  text-align: center; }
+  section.search .search-wrapper input {
+    color: #333;
+    background-color: #FAFAFA;
+    width: 400px;
+    padding-left: 50px;
+    border: 1px solid #CCC; }
+
+section.filter {
+  text-align: center;
+  padding: 0 0 15px 0; }
+
+section.map {
+  height: 400px; }
+
+.shelters {
+  position: relative; }
+  .shelters .shelter {
+    position: relative;
+    padding-left: 250px;
+    min-height: 150px;
+    margin-bottom: 40px; }
+    .shelters .shelter .image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 150px;
+      background-color: #CCC; }
+    .shelters .shelter h4.title {
+      font-size: 1.3em;
+      font-weight: bold;
+      margin-bottom: 15px; }
+    .shelters .shelter .country {
+      font-size: 1.1em;
+      color: #666;
+      margin-bottom: 12px; }
+
+.advanced .advanced-btn {
+  font-size: 0.9em;
+  margin: 15px 0 0 0;
+  cursor: pointer;
+  color: #999; }
+  .advanced .advanced-btn:after {
+    content: "\f078";
+    margin-left: 10px;
+    -webkit-transition: all 0.2s;
+    -khtml-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s; }
+
+.advanced .advanced-content {
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  -webkit-transition: max-height 0.2s, padding, 0.2s;
+  -khtml-transition: max-height 0.2s, padding, 0.2s;
+  -moz-transition: max-height 0.2s, padding, 0.2s;
+  -ms-transition: max-height 0.2s, padding, 0.2s;
+  -o-transition: max-height 0.2s, padding, 0.2s;
+  transition: max-height 0.2s, padding, 0.2s; }
+
+.advanced.open .advanced-btn:after {
+  -webkit-transform: rotate(-90deg);
+  -khtml-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg); }
+
+.advanced.open .advanced-content {
+  padding: 20px 0 10px 0;
+  max-height: 200px; }
+
+.tabselected, #tabs.tab1 ul.tabs li.tab1, #tabs.tab2 ul.tabs li.tab2 {
+  font-weight: bold;
+  border-bottom: 1px solid #FFF;
+  background-color: #FFF; }
+
+#tabs ul.tabs {
+  display: block;
+  border-bottom: 1px solid #CCC;
+  margin-bottom: 40px;
+  text-align: center; }
+  #tabs ul.tabs li {
+    display: inline-block;
+    line-height: 40px;
+    padding: 0 30px;
+    border: 1px solid #CCC;
+    margin-right: -1px;
+    margin-bottom: -1px;
+    background-color: #FAFAFA;
+    cursor: pointer; }
+
+#tabs .tabcontent {
+  display: none; }
+
+#tabs.tab1 .tabcontent1 {
+  display: initial; }
+
+#tabs.tab2 .tabcontent2 {
+  display: initial; }
+
+.stats {
+  display: inline-block;
+}
+
+.stats .table {
+   font-size: smaller;
+}
