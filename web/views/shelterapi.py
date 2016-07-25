@@ -21,7 +21,7 @@ from web.models import Shelter, Attribute, Property
 api_bp = Blueprint('api for shelter', __name__, url_prefix='/api/v0.1')
 
 def tree():
-	return defaultdict(tree)
+    return defaultdict(tree)
 
 @api_bp.route('/', methods=['GET'])
 def apimessage():
@@ -74,14 +74,27 @@ def shelters(shelter_id):
     
     return jsonify(result)
 
-
-#@api_bp.route('/shelters/<attribute_name>/<attribute_value>', methods=['GET'])
-#def attributes(attribute_name, attribute_value):
-#    """Returns all shelters which match a specific attribute name + value"""
-#    shelter_properties = Property.query.filter(Property.attribute.has(name=attribute_name))
-#    attributes = Attribute.query.filter(Attribute.values.has(value=attribute_value))
-#    
-#    return jsonify(result)
+@api_bp.route('/shelters/<attribute_name>', methods=['GET'])
+@api_bp.route('/shelters/<attribute_name>/<attribute_value>', methods=['GET'])
+def attributes(attribute_name, attribute_value=''):
+    """Returns all shelters which match a specific attribute name or attribute name + value"""
+    result = tree()
+    shelter_properties = Property.query.filter(Property.attribute.has(name=attribute_name))
+    attributes = Attribute.query.all()
+    
+    if not attribute_value:
+    	for shelter_property in shelter_properties:
+    		for attribute in attributes:
+    			if attribute.id == shelter_property.attribute_id:
+    				result[shelter_property.shelter_id][attribute.name] = shelter_property.values[0].name
+    else:
+    	for shelter_property in shelter_properties:
+    		for attribute in attributes:
+    			if attribute.id == shelter_property.attribute_id \
+    			and attribute.name == attribute_name \
+    			and shelter_property.values[0].name == attribute_value:
+    				result[shelter_property.shelter_id][attribute.name] = shelter_property.values[0].name
+    return jsonify(result)
 
 
 

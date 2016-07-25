@@ -17,3 +17,9 @@ Usage of the development API v0.1
     
     http://0.0.0.0:5000/api/v0.1/attributes/Climate zone
     # Get all available values of an attribute
+    
+    http://0.0.0.0:5000/api/v0.1/shelters/Kitchen type
+    #get all shelters which have a specific attribute
+    
+    http://0.0.0.0:5000/api/v0.1/shelters/Kitchen type/open fire
+    #get all shelters which have a specific attribute value
