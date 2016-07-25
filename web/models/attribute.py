@@ -29,6 +29,7 @@ class Attribute(db.Model):
     """
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), nullable=False)
+    uniqueid = db.Column(db.String(), nullable=False)
     multiple = db.Column(db.Boolean(), default=True)
     free_text = db.Column(db.Boolean(), default=False)
     is_editable = db.Column(db.Boolean(), default=True)
