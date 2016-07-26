@@ -181,7 +181,6 @@ def user_form(user_id=None):
     else:
         form = CreateUserForm()
         message = 'Add a new user'
-    print(form.password.data)
     return render_template('/admin/create_user.html',
                            form=form, message=message)
 
@@ -212,7 +211,7 @@ def process_user_form(user_id=None):
         user = User(name=form.name.data,
                     email=form.email.data,
                     pwdhash=generate_password_hash(form.password.data),
-                    is_admin=False,
+                    is_admin=form.is_admin.data,
                     is_active=True)
         db.session.add(user)
         db.session.commit()

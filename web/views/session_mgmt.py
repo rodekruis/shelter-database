@@ -20,10 +20,8 @@ __license__ = ""
 import logging
 import datetime
 from werkzeug import generate_password_hash
-from werkzeug.exceptions import NotFound
 from flask import (render_template, flash, session, request,
                    url_for, redirect, current_app, g)
-from flask_babel import gettext
 from flask_login import LoginManager, logout_user, \
                             login_required, current_user
 from flask_principal import (Principal, AnonymousIdentity, UserNeed,
@@ -121,18 +119,6 @@ def signup():
                     is_active=True)
         db.session.add(user)
         db.session.commit()
-        """
-        # Send the confirmation email
-        try:
-            notifications.new_account_notification(user)
-        except Exception as error:
-            flash(gettext('Problem while sending activation email: %(error)s',
-                          error=error), 'danger')
-            return redirect(url_for('home'))
-
-        flash(gettext('Your account has been created. '
-                      'Check your mail to confirm it.'), 'success')
-        """
         flash('Your account has been created. ', 'success')
         login_user_bundle(user) # automatically log the user
 
