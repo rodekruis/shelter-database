@@ -128,7 +128,7 @@ def shelters_for_map():
 
     return jsonify(result)
 
-	@current_app.route('/dashboard', methods=['GET'])
+@current_app.route('/dashboard', methods=['GET'])
 def dashboard():
     # return render_template('dashboard0.html')
     return render_template('dashboard.html')
