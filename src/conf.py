@@ -73,7 +73,7 @@ DEFAULTS = {"platform_url": "http://127.0.0.1:5000",
 }
 
 config = confparser.SafeConfigParser(defaults=DEFAULTS)
-config.read(os.path.join(BASE_DIR, "conf/conf.cfg"))
+config.read(os.path.join(BASE_DIR, "src/conf/conf.cfg"))
 
 PLATFORM_URL = config.get('misc', 'platform_url')
 
