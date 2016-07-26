@@ -2,6 +2,6 @@
 
 import sys
 
-sys.path.insert(0, '/var/www/vhosts/humanitariandata.nl/shelter-database/src')
+sys.path.insert(0, '/var/www/vhosts/humanitariandata.nl/shelter-database')
 
 from runserver import app as application
