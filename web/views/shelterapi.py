@@ -31,34 +31,23 @@ def apimessage():
     return jsonify(message)
 
 @api_bp.route('/attributes/<attribute_name>', methods=['GET'])
-def getattributes(attribute_name):
+def getattributes(attribute_name, safetext=False):
     """Returns available values for a given attribute name, separated by semicolons"""
     result= tree()
     
     attributes = Attribute.query.filter(Attribute.name==attribute_name).\
                                 first().associated_values
-    
-    for attribute in attributes:
-    	if result[attribute_name]:
-    		result[attribute_name] += (";" + attribute.name)
-    	else:
-    		result[attribute_name] = attribute.name
-    		
+   
+    result[attribute_name] = ";".join([attribute.name for attribute in attributes])
     return jsonify(result)
 
 @api_bp.route('/shelters', methods=['GET'])
 def allshelters():
     """Returns all shelters and their properties"""
-    
     result = tree()
-    shelter_properties  = Property.query.all()
-    attributes = Attribute.query.all()
-    
+    shelter_properties = Property.query.all()
     for shelter_property in shelter_properties:
-    	for attribute in attributes:
-    		if attribute.id == shelter_property.attribute_id:
-    			result[shelter_property.shelter_id][attribute.name] = shelter_property.values[0].name
-
+    	result[shelter_property.shelter_id][shelter_property.attribute.name] = shelter_property.get_values_as_string()
     return jsonify(result)
 
 @api_bp.route('/shelters/<int:shelter_id>', methods=['GET'])
@@ -66,12 +55,8 @@ def shelters(shelter_id):
     """Returns specific shelter with its properties"""
     result = tree()
     shelter_properties  = Property.query.filter(Property.shelter_id==shelter_id)
-    attributes = Attribute.query.all()
     for shelter_property in shelter_properties:
-    	for attribute in attributes:
-    		if attribute.id == shelter_property.attribute_id:
-    			result[shelter_property.shelter_id][attribute.name] = shelter_property.values[0].name
-    
+    	result[shelter_property.shelter_id][shelter_property.attribute.name] = shelter_property.get_values_as_string()
     return jsonify(result)
 
 @api_bp.route('/shelters/<attribute_name>', methods=['GET'])
@@ -79,23 +64,18 @@ def shelters(shelter_id):
 def attributes(attribute_name, attribute_value=''):
     """Returns all shelters which match a specific attribute name or attribute name + value"""
     result = tree()
-    shelter_properties = Property.query.filter(Property.attribute.has(name=attribute_name))
-    attributes = Attribute.query.all()
-    
     if not attribute_value:
-    	for shelter_property in shelter_properties:
-    		for attribute in attributes:
-    			if attribute.id == shelter_property.attribute_id:
-    				result[shelter_property.shelter_id][attribute.name] = shelter_property.values[0].name
+    	shelter_properties = Property.query.filter(Property.attribute.has(name=attribute_name))
     else:
-    	for shelter_property in shelter_properties:
-    		for attribute in attributes:
-    			if attribute.id == shelter_property.attribute_id \
-    			and attribute.name == attribute_name \
-    			and shelter_property.values[0].name == attribute_value:
-    				result[shelter_property.shelter_id][attribute.name] = shelter_property.values[0].name
+    	shelter_properties = Property.query.filter(Property.attribute.has(name=attribute_name), Property.values.any(name=attribute_value))
+    
+    for shelter_property in shelter_properties:
+    	result[shelter_property.shelter_id][shelter_property.attribute.name] = shelter_property.get_values_as_string()
+   
     return jsonify(result)
 
-
-
+#shelter_properties = Property.query.join(Property.category).filter(Property.category.has(name="Identification"))
+#for shelter_property in shelter_properties:
+#    	result[shelter_property.shelter_id][shelter_property.attribute.name] = shelter_property.get_values_as_string()
+#    return jsonify(result)
 
