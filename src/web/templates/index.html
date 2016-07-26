@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-        <section class="first background" style="background-image: url('img/1.jpg')">
+        <section class="first background" style="background-image: url('{{ url_for('static', filename='img/1.jpg') }}')">
             <div class="overlay"></div>
             <div class="toplayer">
                 <h1>Shelter Database</h1>
