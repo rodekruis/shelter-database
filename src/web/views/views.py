@@ -57,8 +57,13 @@ def authentication_required(e):
 #
 # Views.
 #
+
 @current_app.route('/', methods=['GET'])
 def index():
+    return render_template('index.html')
+	
+@current_app.route('/map', methods=['GET'])
+def map():
     """
     This view displays the map.
     """

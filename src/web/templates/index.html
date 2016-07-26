@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Shelter Database</title>
+
+    <meta name="description" content="">
+
+    <link type='text/css' rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:100,400,300,700'>
+    <link type="text/css" rel="stylesheet" href="vendor/font-awesome-4.6.3/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="vendor/bootstrap-3.3.6/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+    <header class="landingpage">
+        <nav>
+            <a class="home" href="index.html"><i class="fa fa-plus-square"></i><span class="text">Shelter Database</span></a>
+            <ul>
+                <li><a href="shelters.html">Shelters</a></li>
+                <li><a href="contribute.html">Contribute</a></li>
+                <li><a href="#">Knowledge Base</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="first background" style="background-image: url('img/1.jpg')">
+            <div class="overlay"></div>
+            <div class="toplayer">
+                <h1>Shelter Database</h1>
+                <h2>An overview of the hundreds of thousands of shelters which are built<br />throughout the world every year in response to disasters</h2>
+                <div class="search">
+                    <div class="search-wrapper">
+                        <input type="text" name="" placeholder="Search Shelters" id="searchinput" />
+                    </div>
+                </div>
+                <p>- or -</p>
+                <a class="button button-white" href="contribute.html"><i class="fa fa-edit"></i><span class="text">Add your project</span></a>
+            </div>
+        </section>
+        <section class="info">
+            <div class="content">
+                <h3>What we do</h3>
+                <div class="flexbox">
+                    <div class="box">
+                        <i class="head fa fa-arrows"></i>
+                        <h4>Deliver</h4>
+                        <p>Confronted with the reality of rising numbers of disasters where sheltering presents a key component of the humanitarian assistance, the Humanitarian Shelter Sector is challenged to deliver more, efficient and sustainable responses in very different contexts.</p>
+                    </div>
+                    <div class="box">
+                        <i class="head fa fa-cloud"></i>
+                        <h4>Experience</h4>
+                        <p>Within the Red Cross Movement and other Organisations active in sheltering, there exists extensive experience in the implementation of emergency, transitional and permanent shelters.</p>
+                    </div>
+                    <div class="box">
+                        <i class="head fa fa-diamond"></i>
+                        <h4>Unite</h4>
+                        <p>To consolidate and make available this knowledge the IFRC-SRU is tasked to build up an inventory of shelter solutions documented in a systematic, methodological manner that particularly captures technical details, construction practices, climatic conditions, availability and suitability of materials and techniques and other information for the planning process that helps save time and resources.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="recommendations background" style="background-image: url('img/2.jpg')">
+            <div class="overlay"></div>
+            <div class="toplayer">
+                <h3>Knowledge Base</h3>
+                <!-- <div class="flexbox"> -->
+                    <!-- <div class="box"> -->
+                        <h4>Recommendations</h4>
+                        <p>The recommendations are summarizing some basic principles that should be taken into consideration during planning and implementation of shelter projects when building in disaster prone areas.</p>
+                        <a href="" class="button button-white"><i class="fa fa-lightbulb-o"></i><span class="text">Read our recommendations</span></a>
+                    <!-- </div> -->
+                    <!-- <div class="box"> -->
+                        <!-- <h4>Glossary</h4> -->
+                        <!-- <p>The glossary explains the terms and vocabulary used in the database, some techncal terms are additionally explained with technical drawings.</p> -->
+                        <!-- <a href="" class="button button-white"><i class="fa fa-book"></i><span class="text">Glossary</span></a> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+
+                <!-- <p></p> -->
+
+            </div>
+        </section>
+        <section class="contact">
+            <h3>Contact us</h3>
+            <p>
+                <a class="button full" href="mailto:ifrc-sru@croix-rouge.lu"><i class="fa fa-envelope"></i><span class="text">Email</span></a>
+                <a class="button full"><i class="fa fa-facebook"></i><span class="text">Facebook</span></a>
+                <a class="button full"><i class="fa fa-twitter"></i><span class="text">Twitter</span></a>
+            </p>
+        </section>
+        <footer>
+            &copy; Copyright 2016
+        </footer>
+    </main>
+
+    <script type="text/javascript">
+        document.getElementById("searchinput").addEventListener("keyup", function(e) {
+            e.preventDefault();
+            if (e.keyCode == 13) {
+                window.location.href = "shelters.html"
+            }
+        });
+    </script>
+</body>
+</html>

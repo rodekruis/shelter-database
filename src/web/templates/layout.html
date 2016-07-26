@@ -34,8 +34,8 @@
         <nav>
             <a class="home" href="index.html"><i class="fa fa-plus-square"></i><span class="text">Shelter Database</span></a>
             <ul>
-                <li><a href="shelters.html">Shelters</a></li>
-                <li><a href="contribute.html" class="selected">Contribute</a></li>
+				<li><a href="{{ url_for('dashboard') }}">Shelters</a></li>
+                 <li><a href="{{ url_for('contribute') }}" class="selected">Contribute</a></li>
                 <li><a href="#">Knowledge Base</a></li>
 				{% if g.user.is_authenticated %}
 					<li class="dropdown">
