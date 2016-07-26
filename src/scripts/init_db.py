@@ -49,7 +49,7 @@ def init_shelters_structure(csv_file, drawnings_folder):
 
 
             attribute_name = row[3]
-			attribute_uniqueid = row[4]
+            attribute_uniqueid = row[4]
             attribute = models.Attribute(name=attribute_name,
 										uniqueid=attribute_uniqueid,
                                         category_id=sub_category.id,
