@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-    <meta name="robots" content="noindex, nofollow">
-
-    <title>Shelters</title>
-
-    <meta name="description" content="">
-
+{% extends "layout.html" %}
+{% block head %}
+    {{ super() }}
     <link href="{{ url_for('static', filename='lib/datatables.net-bs/css/dataTables.bootstrap.min.css') }}"
           rel="stylesheet" media="screen">
-    <script src="{{ url_for('static', filename = 'lib/jquery/dist/jquery.min.js') }}"></script>
 
 
     <script src="{{ url_for('static', filename = 'lib/dc/d3.js') }}"></script>
@@ -23,40 +12,24 @@
     <script src="{{ url_for('static', filename = 'lib/leaflet/leaflet.js') }}"></script>
     <script src="{{ url_for('static', filename = 'lib/leaflet/leaflet.markercluster.js') }}"></script>
     <script src="{{ url_for('static', filename = 'lib/leaflet/dc.leaflet.js') }}"></script>
-
     <script src="{{ url_for('static', filename='lib/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='lib/file-saver/FileSaver.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/file-saver/FileSaver.js')}}"></script>
 
 
-    <link href="{{ url_for('static', filename='lib/leaflet/MarkerCluster.Default.css') }}" rel="stylesheet"
-          media="screen"/>
+    <!--leaflet -->
 
-    <link href="{{ url_for('static', filename='lib/leaflet/leaflet.css') }}" rel="stylesheet" media="screen"/>
-    <linl href="{{ url_for('static', filename='lib/leaflet/MarkerCluster.css') }}" rel="stylesheet" media="screen"/>
+    <link href="{{ url_for('static', filename='lib/leaflet/MarkerCluster.Default.css') }}" rel="stylesheet" media="screen" />
+
+    <link href="{{ url_for('static', filename='lib/leaflet/leaflet.css') }}" rel="stylesheet" media="screen" />
+    <link href="{{ url_for('static', filename='lib/leaflet/MarkerCluster.css') }}" rel="stylesheet" media="screen" />
 
     <!-- DC.js  -->
-    <link href="{{ url_for('static', filename='lib/dc/dc.css') }}" rel="stylesheet" media="screen"/>
+    <link href="{{ url_for('static', filename='lib/dc/dc.css') }}" rel="stylesheet" media="screen" />
+
+{% endblock %}
 
 
-    <link type='text/css' rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:100,400,300,700'>
-    <link type="text/css" rel="stylesheet" href="/static/vendor/font-awesome-4.6.3/css/font-awesome.min.css">
-    <link type="text/css" rel="stylesheet" href="/static/vendor/bootstrap-3.3.6/css/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="/static/css/style2.css">
-
-</head>
-<body>
-<header>
-    <nav>
-        <a class="home" href="index.html"><i class="fa fa-plus-square"></i><span
-                class="text">Shelter Database</span></a>
-        <ul>
-            <li><a href="shelters.html" class="selected">Shelters</a></li>
-            <li><a href="contribute.html">Contribute</a></li>
-            <li><a href="#">Knowledge Base</a></li>
-        </ul>
-    </nav>
-</header>
-<main class="page">
+{% block content %}
     <section class="search">
         <div class="content">
             <div class="search-wrapper">
@@ -270,10 +243,6 @@
             
         </div>
     </section>
-    <footer>
-        &copy; Copyright 2016
-    </footer>
-</main>
 
 <script type="text/javascript">
     var setTab = function (tab) {
@@ -290,5 +259,4 @@
     }
 </script>
 <script src="{{ url_for('static', filename = 'js/dashboard.js') }}"></script>
-</body>
-</html>
+{% endblock %}

@@ -1,34 +1,5 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-    <meta name="robots" content="noindex, nofollow">
-
-    <title>Shelters</title>
-
-    <meta name="description" content="">
-
-    <link type='text/css' rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:100,400,300,700'>
-    <link type="text/css" rel="stylesheet" href="vendor/font-awesome-4.6.3/css/font-awesome.min.css">
-    <link type="text/css" rel="stylesheet" href="vendor/bootstrap-3.3.6/css/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="css/style.css">
-
-</head>
-<body class="">
-    <header>
-        <nav>
-            <a class="home" href="index.html"><i class="fa fa-plus-square"></i><span class="text">Shelter Database</span></a>
-            <ul>
-                <li><a href="shelters.html">Shelters</a></li>
-                <li><a href="contribute.html" class="selected">Contribute</a></li>
-                <li><a href="#">Knowledge Base</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main class="page">
+{% extends "layout.html" %}
+{% block content %}
         <section class="contribute">
             <div class="content">
                 <h1>Add your project</h1>
@@ -53,10 +24,6 @@
                 </div>
             </div>
         </section>
-        <footer>
-            &copy; Copyright 2016
-        </footer>
-    </main>
 
     <div class="mymodal">
         <div class="content page1" id="modalcontent">
@@ -153,5 +120,4 @@
             elements[nr].className = "option selected"
         }
     </script>
-</body>
-</html>
+{% endblock %}
