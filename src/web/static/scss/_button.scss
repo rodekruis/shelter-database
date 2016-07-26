@@ -1,0 +1,141 @@
+.button {
+    position: relative;
+    cursor: pointer;
+    padding: 0 15px;
+    // min-height: 40px;
+    line-height: 40px;
+    border: 1px solid #666;
+    color: #666;
+    text-decoration: none;
+    display: inline-block;
+    letter-spacing: 1px;
+    font-size: 14px;
+    // font-size: 0.8em;
+    font-weight: 400;
+    vertical-align: top;
+    @include border-radius(3px);
+    @include transition(background-color 0.1s, color 0.1s, border-color 0.1s);
+
+    &:hover {
+        background-color: #666;
+        color: #FFF;
+    }
+
+    // &.button-light {
+    //     color: #666;
+    //     border-color: #666;
+    //     border-width: 1px;
+    //     font-size: 0.8em;
+
+    //     &:hover {
+    //         background-color: #666;
+    //         color: #FFF;
+    //     }
+    // }
+
+
+    &.button-small {
+        height: 34px;
+        line-height: 34px;
+        padding: 0 10px;
+    }
+
+    &.button-stretch {
+        width: 100%;
+
+        &:after {
+            float: right;
+            margin-top: 14px;
+        }
+    }
+
+    &.button-red {
+        color: $red;
+        border-color: $red;
+
+        &:hover {
+            background-color: $red;
+            color: #FFF;
+        }
+    }
+
+    &.button-home {
+        font-size: 0.85em;
+        border-color: transparent;
+        color: #FFF;
+        border-width: 2px;
+        text-transform: uppercase;
+
+        &:hover {
+            border-color: #FFF;
+            background-color: transparent;
+        }
+    }
+
+    &.button-white {
+        border-color: #FFF;
+        color: #FFF;
+
+        &:hover {
+            // border-color: #FFF;
+            background-color: #FFF;
+            color: #333;
+        }
+    }
+
+    &.invert {
+        border: 2px solid #FFF;
+
+        &:hover {
+            border: 2px solid #FFF;
+            background-color: #FFF;
+            color: #333;
+        }
+    }
+
+    &.full {
+        border: 2px solid $red;
+        background-color: $red;
+        color: #FFF;
+
+        &:hover {
+            background-color: #fff;
+            border-color: #fff;
+            color: $red;
+            // border: 2px solid #FFF;
+            // background-color: #FFF;
+            // color: #333;
+        }
+    }
+
+    &.button-drop {
+        &:after {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            line-height: inherit;
+            content: "\f0d7";
+            @extend .fa;
+            font-size: 1.1em;
+            margin-left: 10px;
+            pointer-events: none;
+        }
+    }
+}
+
+.button + .button {
+    margin-left: 10px;
+}
+
+
+i + span.text {
+    margin-left: 10px;
+}
+
+label.button {
+    padding: 0;
+
+    select {
+        padding: 0 30px 0 15px;
+    }
+}

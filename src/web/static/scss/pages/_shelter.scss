@@ -1,0 +1,31 @@
+section {
+    &.shelterimg {
+        height: 400px;
+        @extend .cover;
+    }
+
+    &.shelterheader {
+        text-align: center;
+
+        h1 {
+            color: #333;
+            font-size: 2em;
+            margin: 0;
+        }
+    }
+
+    &.details {
+        text-align: center;
+
+        &.details-1 {
+            background-color: #EEE;
+        }
+
+        .detail-label {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+    }
+}
