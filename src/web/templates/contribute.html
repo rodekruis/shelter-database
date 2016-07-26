@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Shelters</title>
+
+    <meta name="description" content="">
+
+    <link type='text/css' rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:100,400,300,700'>
+    <link type="text/css" rel="stylesheet" href="vendor/font-awesome-4.6.3/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="vendor/bootstrap-3.3.6/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+
+</head>
+<body class="">
+    <header>
+        <nav>
+            <a class="home" href="index.html"><i class="fa fa-plus-square"></i><span class="text">Shelter Database</span></a>
+            <ul>
+                <li><a href="shelters.html">Shelters</a></li>
+                <li><a href="contribute.html" class="selected">Contribute</a></li>
+                <li><a href="#">Knowledge Base</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="page">
+        <section class="contribute">
+            <div class="content">
+                <h1>Add your project</h1>
+                <p>The Shelter Database exists because of people like you!<br />We need you to help us build the content</p>
+                <a onclick="modalOpen()" class="bt button button-red"><i class="fa fa-plus"></i><span class="text">Add Project</span></a>
+            </div>
+        </section>
+        <section class="" style="background-color:#ecf0f1;">
+            <div class="content">
+                <h3>Why add a project</h3>
+                <div class="flexbox">
+                    <div class="box">
+                        <i class="head fa fa-bank"></i>
+                        <h4>Share knowledge</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                    <div class="box">
+                        <i class="head fa fa-heartbeat"></i>
+                        <h4>Save lives</h4>
+                        <p>Adding your project will save lives. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            &copy; Copyright 2016
+        </footer>
+    </main>
+
+    <div class="mymodal">
+        <div class="content page1" id="modalcontent">
+            <div class="page page1">
+                <div class="mylabel">Title of your project:</div>
+                <div class="myinput"><input type="" name="" placeholder="Title.." /></div>
+                <div class="mylabel">Country:</div>
+                <form class="myform">
+                    <label for="f1" class="button button-drop">
+                        <select id="f1">
+                            <option value="" selected="selected">Select</option>
+                            <option value="" disabled>---</option>
+                            <option value="moist tropical">Afganistan</option>
+                        </select>
+                    </label>
+                </form>
+                <!-- <a href="" class="button button-light button-drop button-stretch">Select</a> -->
+                <div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-times"></i><span class="text">Cancel</span></div>
+                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                </div>
+            </div>
+            <div class="page page2">
+                <div class="mylabel">Province / District / Region:</div>
+                <div class="myinput"><input type="" name="" placeholder="Province / District / Region.." /></div>
+                <div class="mylabel">City / Village:</div>
+                <div class="myinput"><input type="" name="" placeholder="City / Village.." /></div>
+                <div class="mylabel">Image</div>
+                <!-- <form class="myimgupload" enctype="multipart/form-data"> -->
+                    <!-- <input type="file" style="visibility:hidden;"> -->
+                    <div class="myimage" style="background-image: url('img/placeholder.png')"></div>
+                <!-- </form> -->
+
+                <div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
+                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                </div>
+            </div>
+            <div class="page page3">
+                <div class="mylabel">Location of the Site:</div>
+                <div class="options">
+                    <div class="option" onclick="optClick(0)" style="background-image: url('img/site/1.png')"></div>
+                    <div class="option" onclick="optClick(1)" style="background-image: url('img/site/2.png')"></div>
+                    <div class="option" onclick="optClick(2)" style="background-image: url('img/site/3.png')"></div>
+                    <div class="option" onclick="optClick(3)" style="background-image: url('img/site/4.png')"></div>
+                    <div class="option" onclick="optClick(4)" style="background-image: url('img/site/5.png')"></div>
+                    <div class="option" onclick="optClick(5)" style="background-image: url('img/site/6.png')"></div>
+                    <div class="option" onclick="optClick(6)" style="background-image: url('img/site/7.png')"></div>
+                    <div class="option" onclick="optClick(7)" style="background-image: url('img/site/8.png')"></div>
+                </div>
+
+                <div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
+                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                </div>
+            </div>
+            <div class="page page4">
+                <div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var cnt = document.getElementById("modalcontent")
+        var page = 1
+        var modalOpen = function(){
+            document.body.className = "modal-open"
+        }
+        var setPage = function(){
+            cnt.className = "content page" + page
+        }
+        var modalClose = function(){
+            page = 1
+            document.body.className = ""
+            cnt.className = "content page1"
+        }
+        var next = function(){
+            page++
+            setPage()
+        }
+        var prev = function(){
+            page--
+            setPage()
+        }
+        var optClick = function(nr){
+            var elements = document.getElementsByClassName('option')
+            var length = elements.length
+
+            while(length--) {
+                elements[length].className = "option"
+            }
+            elements[nr].className = "option selected"
+        }
+    </script>
+</body>
+</html>

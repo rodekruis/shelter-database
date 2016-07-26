@@ -147,6 +147,13 @@ def shelters():
 def stats():
     return render_template('stats.html')
 
+@current_app.route('/contribute', methods=['GET'])
+def contribute():
+    """
+    List of contributors.
+    """
+    return render_template('contribute.html')
+	
 @current_app.route('/contributors', methods=['GET'])
 def contributors():
     """
