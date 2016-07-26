@@ -97,3 +97,12 @@ ATTRIBUTES_PICTURES_PATH = os.path.join(PATH,
                             config.get('misc', 'attributes_pictures_path'))
 
 GEOSERVER_URL = config.get('geoserver', 'geoserver_url')
+
+NOTIFICATION_HOST = config.get('notification', 'notification_host')
+NOTIFICATION_PORT = config.get('notification', 'notification_port')
+NOTIFICATION_EMAIL = config.get('notification', 'notification_email')
+NOTIFICATION_USERNAME = config.get('notification', 'notification_username')
+NOTIFICATION_PASSWORD = config.get('notification', 'notification_password')
+NOTIFICATION_STARTTLS = config.getboolean('notification', 'notification_starttls')
+
+POSTMARK = False

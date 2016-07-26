@@ -12,7 +12,7 @@
 
 __author__ = "Cedric Bonhomme"
 __version__ = "$Revision: 0.1 $"
-__date__ = "$Date: 2016/03/30$"
+__date__ = "$Date: 2016/03/30 $"
 __revision__ = "$Date: 2016/06/12 $"
 __copyright__ = "Copyright (c) "
 __license__ = ""

@@ -1,6 +1,8 @@
 Deployment
 ==========
 
+Shelter Database
+""""""""""""""""
 
 This procedure details the deployment of the application under Apache.
 
@@ -367,3 +369,19 @@ Enable the site:
 
 The web application is now running with a dedicated user and a thread limit set
 to 5.
+
+
+GeoServer
+"""""""""
+
+The application `GeoServer <http://geoserver.org>`_ 2.8.4 is deployed with
+Tomcat 8.0.36 and available
+`here <https://shelter-database.org:8443/geoserver>`_.
+
+Except some configurations in order to enable HTTPS no specific settings were
+required. It is just needed to deploy the GeoServer WAR file in Tomcat.
+
+Two layers are used by the Shelter Database application:
+
+* `Köppen–Geiger climate classification system <https://shelter-database.org:8443/geoserver/shelters/wms?service=WMS&version=1.1.0&request=GetMap&layers=shelters:koeppen-geiger&styles=&bbox=-180.24500000476837,-90.2449951171875,180.2449951171875,84.22234392166138&width=768&height=371&srs=EPSG:4326&format=application/openlayers>`_;
+* `Red Cross climate classification system <https://shelter-database.org:8443/geoserver/shelters/wms?service=WMS&version=1.1.0&request=GetMap&layers=shelters:redcross&styles=&bbox=-180.24500000476837,-90.2449951171875,180.2449951171875,84.22234392166138&width=768&height=371&srs=EPSG:4326&format=application/openlayers>`_.
