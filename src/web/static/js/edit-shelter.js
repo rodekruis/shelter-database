@@ -16,7 +16,8 @@ function update_free_text_value(value_id, value) {
     });
 }
 
-function new_free_text_property(shelter_id, category_id, attribute_id, value) {
+function new_free_text_property(shelter_id, category_id, attribute_id, value,
+                                event_target) {
     new_property_dict = {
                         "shelter_id": shelter_id,
                         "attribute_id": attribute_id,
@@ -35,6 +36,9 @@ function new_free_text_property(shelter_id, category_id, attribute_id, value) {
         dataType: "json",
         data: JSON.stringify(new_property_dict),
         success: function (result) {
+            // set the property-id of the input, so that
+            // new time update_property() will be called (HTTP PUT request)
+            event_target.attr("value-id", result.id);
             console.log(result);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown){

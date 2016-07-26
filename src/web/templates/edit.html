@@ -179,7 +179,18 @@
 
 <script type="text/javascript" class="source">
 $(document).ready(function() {
-    $( ".datepicker" ).datepicker();
+    var dateSupported = (function() {
+        var el = document.createElement('input'),
+            invalidVal = 'foo'; // Any value that is not a date
+        el.setAttribute('type','date');
+        el.setAttribute('value', invalidVal);
+        // A supported browser will modify this if it is a true date field
+        return el.value !== invalidVal;
+    }());
+    if (!dateSupported) {
+        $( ".datepicker" ).datepicker({dateFormat: 'dd/mm/yyyy'});
+    }
+
 
     $('.select-attribute').change(function(evt) {
         property_id = $(evt.target).attr("property-id");
@@ -217,7 +228,8 @@ $(document).ready(function() {
         } else {
             category_id = $(evt.target).attr("category-id");
             attribute_id = $(evt.target).attr("attribute-id");
-            new_free_text_property({{ shelter.id }}, category_id, attribute_id, value);
+            new_free_text_property({{ shelter.id }}, category_id,
+                                        attribute_id, value, $(evt.target));
         }
     });
 

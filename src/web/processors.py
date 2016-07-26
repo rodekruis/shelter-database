@@ -39,6 +39,7 @@ def auth_func(*args, **kw):
         login_user_bundle(user)
     if not current_user.is_authenticated:
         raise ProcessingException(description='Not authenticated!', code=401)
+    return True
 
 def shelter_POST_preprocessor(data=None, **kw):
     """
@@ -47,7 +48,9 @@ def shelter_POST_preprocessor(data=None, **kw):
     data["user_id"] = current_user.id
     if current_user.is_admin:
         data["is_published"] = True
-        flash("Your shelter has been created.", 'success')
+        flash("Your shelter has been created." +
+            " You can already edit it by clicking on the pen to the right of the screen.",
+            'success')
     else:
         flash("Thank you! Your shelter has been created but is not yet public." +
             " An administrator will review it." +

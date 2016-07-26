@@ -55,7 +55,11 @@ function create_map() {
         }
     });
 
-    var osm = new OpenLayers.Layer.OSM();
+    var osm = new OpenLayers.Layer.OSM("OpenStreetMap",
+        ["https://a.tile.openstreetmap.org/${z}/${x}/${y}.png",
+         "https://b.tile.openstreetmap.org/${z}/${x}/${y}.png",
+         "https://c.tile.openstreetmap.org/${z}/${x}/${y}.png"]
+    );
     var gsat = new OpenLayers.Layer.Google(
         "Google Satellite",
         {type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 22, visibility: false}

@@ -60,7 +60,6 @@ Install and configure the database
     echo "127.0.0.1:5432:shelter:pgsqluser:pgsqlpwd" > ~/.pgpass
     chmod 0600 ~/.pgpass
     createuser pgsqluser --no-superuser --createdb --no-createrole
-    createdb aggregator --no-password
 	createdb shelter --no-password
     echo "ALTER USER pgsqluser WITH ENCRYPTED PASSWORD 'pgsqlpwd';" | psql
     echo "GRANT ALL PRIVILEGES ON DATABASE shelter TO pgsqluser;" | psql
@@ -76,7 +75,7 @@ Retrieve the application *Shelter Database*
 	cd TO YOUR APACHE WWW DIRECTORY FOR THIS INSTANCE
 	git clone https://github.com/rodekruis/shelter-database.git .
     sudo pip3 install --upgrade -r requirements.txt
-    cp conf/conf.cfg-sample conf/conf.cfg
+    cp src/conf/conf.cfg-sample src/conf/conf.cfg
 
 Initialization of the database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -103,7 +102,7 @@ other user:
 
 .. code-block:: shell
 
-    $ python manager.py create_user firstname.lastname@mail.org name password
+    $ python src/manager.py create_user firstname.lastname@mail.org name password
 
 
 Install the JavaScript requirements with Bower
@@ -148,7 +147,7 @@ You can now run the application in standalone mode:
 
 .. code-block:: shell
 
-    $ python3.5 runserver.py
+    $ python3.5 src/runserver.py
      * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 
 
@@ -273,7 +272,7 @@ Below is an example of WSGI file (**/var/www/shelter-database/webserver.wsgi**).
 
     import sys
 
-    sys.path.insert(0, '/home/shelter/shelter-database/')
+    sys.path.insert(0, '/home/shelter/shelter-database/src/')
 
     from runserver import app as application
 

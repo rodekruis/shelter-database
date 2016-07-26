@@ -7,6 +7,7 @@
         <meta name="author" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Shelters Database Management</title>
+        <link rel="shortcut icon" type="image/png" href="{{ url_for("static", filename="img/favicon.png") }}" />
 
         <script src="{{ url_for('static', filename = 'lib/jquery/dist/jquery.min.js') }}"></script>
         <script src="{{ url_for('static', filename = 'js/create-shelter.js') }}"></script>
@@ -19,7 +20,6 @@
         <!-- Add custom CSS here -->
         <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" media="screen" />
         <link href="{{ url_for('static', filename='css/climate.css') }}" rel="stylesheet" media="screen" />
-
         {% endblock %}
     </head>
 
@@ -43,8 +43,8 @@
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="{{ url_for('recommendations', page_name='About') }}">About</a></li>
-                        <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
                         <li><a href="{{ url_for('shelters') }}">Shelters</a></li>
+                        <li><a href="{{ url_for('stats') }}">Stats</a></li>
                         <li><a href="{{ url_for('recommendations', page_name='Recommendations') }}">Recommendations</a></li>
                         <li><a href="{{ url_for('recommendations', page_name='Bibliography') }}">Bibliography</a></li>
                         <li><a href="{{ url_for('recommendations', page_name='Glossary') }}">Glossary</a></li>

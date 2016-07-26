@@ -1,11 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container">
-    <div class="row">
-        <div class="col-md-5">
-            <p>Number of <a href="{{ url_for('administration.shelters') }}">shelters</a>: {{ nb_shelters }}</p>
+    <div class="well">
+            <p>
+                Number of <a href="{{ url_for('administration.shelters') }}">shelters</a>: {{ nb_shelters }}
+                {% if nb_unpublished_shelters != 0 %}
+                    <br />
+                    &nbsp;&nbsp;Not published shelters: {{ nb_unpublished_shelters }}
+                {% endif %}
+                {% if nb_commercial_shelters != 0 %}
+                    <br />
+                    &nbsp;&nbsp;Commercial shelters: {{ nb_commercial_shelters }}
+                {% endif %}
+            </p>
             <p>Number of <a href="{{ url_for('administration.users') }}">users</a>: {{ nb_users }}</p>
-        </div>
     </div>
 
     <div class="well">

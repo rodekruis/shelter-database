@@ -37,13 +37,15 @@ PATH = os.path.abspath(".")
 LANGUAGES = {
     'en': 'English',
     'fr': 'French',
-    'es': 'Spanish'
+    'es': 'Spanish',
+    'de': 'German'
 }
 
 TIME_ZONE = {
     "en": "US/Eastern",
     "fr": "Europe/Paris",
-    "es": "Europe/Madrid"
+    "es": "Europe/Madrid",
+    "de": "Europe/Berlin"
 }
 
 DEFAULTS = {"platform_url": "http://127.0.0.1:5000",
@@ -54,11 +56,20 @@ DEFAULTS = {"platform_url": "http://127.0.0.1:5000",
             "secret_key": "secret_key_of_the_web_application",
             "log_path": "shelterdatabase.log",
             "log_level": "info",
-            "public_path": "web/public",
-            "shelters_pictures_path": "web/public/pictures/shelters",
-            "shelters_documents_path": "web/public/documents/shelters",
-            "attributes_pictures_path": "web/public/pictures/attributes",
-            "geoserver_url": "http://charism.tudor.lu"
+
+            "public_path": "src/web/public",
+            "shelters_pictures_path": "src/web/public/pictures/shelters",
+            "shelters_documents_path": "src/web/public/documents/shelters",
+            "attributes_pictures_path": "src/web/public/pictures/attributes",
+
+            "geoserver_url": "https://shelter-database.org:8443",
+
+            "notification_host": "",
+            "notification_port": "",
+            "notification_email": "",
+            "notification_username": "",
+            "notification_password": "",
+            "notification_starttls": "true"
 }
 
 config = confparser.SafeConfigParser(defaults=DEFAULTS)

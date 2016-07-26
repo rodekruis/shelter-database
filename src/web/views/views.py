@@ -127,15 +127,20 @@ def shelters_for_map():
         result[shelter_id]["isCommercial"] = shelter.is_commercial
 
     return jsonify(result)
-@current_app.route('/dashboard', methods=['GET'])
+
+	@current_app.route('/dashboard', methods=['GET'])
 def dashboard():
     # return render_template('dashboard0.html')
     return render_template('dashboard.html')
-
+	
 @current_app.route('/shelters', methods=['GET'])
 def shelters():
     shelters = Shelter.query.filter(Shelter.is_published==True).all()
     return render_template('shelters.html', shelters=shelters)
+
+@current_app.route('/stats', methods=['GET'])
+def stats():
+    return render_template('stats.html')
 
 @current_app.route('/contributors', methods=['GET'])
 def contributors():
