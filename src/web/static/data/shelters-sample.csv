@@ -1,0 +1,6 @@
+ID,Name of shelter,Zone,Country,Associated disaster / Immediate cause,GPS Latitude,GPS Longitude,Climate zone,Year of construction (first completed shelters)
+BI024,Adobe block house,Africa,Burundi,conflict related,,30.0083055556,moist tropical,2011
+BI025,Plastic sheeting refugee shelter,Africa,Burundi,conflict related,3.3563611111,30.2743333333,moist tropical,2009
+BD021,Self Built Hut,Asia,Bangladesh,storm/cyclone,22.6861111111,89.8679166667,moist tropical,2009
+HT020,"CHF, Steel Frame Shelter",Americas & Caribbean,Haiti,earthquake,18.427825-72.8627139,-72.5347444,moist tropical,2010
+NP022,Luxembourg RC Shelter 2,Asia,Nepal,flood,28.8878888889,80.3958888889,moist tropical,
