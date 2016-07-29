@@ -17,6 +17,7 @@ __license__ = ""
 from flask import Blueprint, jsonify, request
 from collections import defaultdict
 from web.models import Shelter, Attribute, Property
+
 api_bp = Blueprint('api for shelter', __name__, url_prefix='/api/v0.1')
 
 def tree():
@@ -80,7 +81,7 @@ def allshelters():
     	shelter_properties = Property.query.all()
     
     
-    if form == 'prettytext':
+    if request.args.get('format') == 'prettytext':
     	for shelter_property in shelter_properties:
     		result[shelter_property.shelter_id][shelter_property.attribute.name] = shelter_property.get_values_as_string()
     else:
