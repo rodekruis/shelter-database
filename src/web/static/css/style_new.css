@@ -361,6 +361,9 @@ footer {
       font-size: 3em;
       display: block;
       color: rgba(0, 0, 0, 0.2); }
+	.flexbox .box i.head_no_color {
+      font-size: 3em;
+       display: block; }
     .flexbox .box h4 {
       font-size: 1.2em;
       margin: 20px 0;

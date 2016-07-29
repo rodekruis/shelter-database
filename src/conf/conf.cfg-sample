@@ -22,4 +22,4 @@ notification_port =
 notification_email =
 notification_username =
 notification_password =
-notification_starttls =
+notification_starttls = false
