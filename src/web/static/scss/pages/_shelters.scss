@@ -1,0 +1,153 @@
+section {
+    &.search {
+        min-height: 100px;
+        text-align: center;
+        // background-color: #DDD;
+        // border-bottom: 1px solid #CCC;
+
+        .search-wrapper {
+            input {
+                color: #333;
+                background-color: #FAFAFA;
+                width: 400px;
+                padding-left: 50px;
+                border: 1px solid #CCC;
+            }
+        }
+    }
+
+    &.filter {
+        text-align: center;
+        padding: 0 0 15px 0;
+    }
+
+    &.map {
+        height: 400px;
+        @extend .cover;
+    }
+    &.list {
+    }
+
+}
+
+.shelters {
+    position: relative;
+
+    .shelter {
+        position: relative;
+        padding-left: 250px;
+        min-height: 150px;
+        margin-bottom: 40px;
+
+        .image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 220px;
+            height: 150px;
+            background-color: #CCC;
+            @extend .cover;
+        }
+        h4.title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .country {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 12px;
+        }
+        .description {
+
+        }
+    }
+}
+
+.advanced {
+    .advanced-btn {
+        font-size: 0.9em;
+        margin: 15px 0 0 0;
+        cursor: pointer;
+        color: #999;
+        // font-weight: bold;
+        // text-transform: uppercase;
+
+        &:hover {
+            // color: darken($red, 10%);
+        }
+
+        &:after {
+            @extend .fa;
+            content: "\f078";
+            margin-left: 10px;
+            @include transition(all 0.2s);
+        }
+    }
+    .advanced-content {
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        @include transition(max-height 0.2s, padding, 0.2s);
+    }
+
+    &.open {
+        .advanced-btn:after {
+            // content: "\f054";
+            @include transform(rotate(-90deg));
+        }
+        .advanced-content {
+            padding: 20px 0 10px 0;
+            max-height: 200px;
+        }
+    }
+}
+
+.tabselected {
+    font-weight: bold;
+    border-bottom: 1px solid #FFF;
+    background-color: #FFF;
+}
+
+#tabs {
+    ul.tabs {
+        display: block;
+        border-bottom: 1px solid #CCC;
+        margin-bottom: 40px;
+        text-align: center;
+
+        li {
+            display: inline-block;
+            line-height: 40px;
+            padding: 0 30px;
+            border: 1px solid #CCC;
+            margin-right: -1px;
+            margin-bottom: -1px;
+            background-color: #FAFAFA;
+            cursor: pointer;
+        }
+    }
+
+    .tabcontent {
+        display: none;
+    }
+    &.tab1 {
+        ul.tabs li.tab1 {
+            @extend .tabselected;
+        }
+        .tabcontent1 {
+            display: initial;
+        }
+    }
+    &.tab2 {
+        ul.tabs li.tab2 {
+            @extend .tabselected;
+        }
+        .tabcontent2 {
+            display: initial;
+        }
+    }
+}
+
+
+

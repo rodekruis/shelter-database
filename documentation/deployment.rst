@@ -1,6 +1,8 @@
 Deployment
 ==========
 
+Shelter Database
+""""""""""""""""
 
 This procedure details the deployment of the application under Apache.
 
@@ -58,7 +60,6 @@ Install and configure the database
     echo "127.0.0.1:5432:shelter:pgsqluser:pgsqlpwd" > ~/.pgpass
     chmod 0600 ~/.pgpass
     createuser pgsqluser --no-superuser --createdb --no-createrole
-    createdb aggregator --no-password
 	createdb shelter --no-password
     echo "ALTER USER pgsqluser WITH ENCRYPTED PASSWORD 'pgsqlpwd';" | psql
     echo "GRANT ALL PRIVILEGES ON DATABASE shelter TO pgsqluser;" | psql
@@ -74,7 +75,7 @@ Retrieve the application *Shelter Database*
 	cd TO YOUR APACHE WWW DIRECTORY FOR THIS INSTANCE
 	git clone https://github.com/rodekruis/shelter-database.git .
     sudo pip3 install --upgrade -r requirements.txt
-    cp conf/conf.cfg-sample conf/conf.cfg
+    cp src/conf/conf.cfg-sample src/conf/conf.cfg
 
 Initialization of the database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -101,7 +102,7 @@ other user:
 
 .. code-block:: shell
 
-    $ python manager.py create_user firstname.lastname@mail.org name password
+    $ python src/manager.py create_user firstname.lastname@mail.org name password
 
 
 Install the JavaScript requirements with Bower
@@ -146,7 +147,7 @@ You can now run the application in standalone mode:
 
 .. code-block:: shell
 
-    $ python3.5 runserver.py
+    $ python3.5 src/runserver.py
      * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 
 
@@ -271,7 +272,7 @@ Below is an example of WSGI file (**/var/www/shelter-database/webserver.wsgi**).
 
     import sys
 
-    sys.path.insert(0, '/home/shelter/shelter-database/')
+    sys.path.insert(0, '/home/shelter/shelter-database/src/')
 
     from runserver import app as application
 
@@ -367,3 +368,19 @@ Enable the site:
 
 The web application is now running with a dedicated user and a thread limit set
 to 5.
+
+
+GeoServer
+"""""""""
+
+The application `GeoServer <http://geoserver.org>`_ 2.8.4 is deployed with
+Tomcat 8.0.36 and available
+`here <https://shelter-database.org:8443/geoserver>`_.
+
+Except some configurations in order to enable HTTPS no specific settings were
+required. It is just needed to deploy the GeoServer WAR file in Tomcat.
+
+Two layers are used by the Shelter Database application:
+
+* `Köppen–Geiger climate classification system <https://shelter-database.org:8443/geoserver/shelters/wms?service=WMS&version=1.1.0&request=GetMap&layers=shelters:koeppen-geiger&styles=&bbox=-180.24500000476837,-90.2449951171875,180.2449951171875,84.22234392166138&width=768&height=371&srs=EPSG:4326&format=application/openlayers>`_;
+* `Red Cross climate classification system <https://shelter-database.org:8443/geoserver/shelters/wms?service=WMS&version=1.1.0&request=GetMap&layers=shelters:redcross&styles=&bbox=-180.24500000476837,-90.2449951171875,180.2449951171875,84.22234392166138&width=768&height=371&srs=EPSG:4326&format=application/openlayers>`_.

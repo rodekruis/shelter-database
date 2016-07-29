@@ -24,10 +24,10 @@ build
 
 # bower
 
-web/static/lib/*
-!web/static/lib/leaflet
-!web/static/lib/dc
-!web/static/lib/file-saver
+src/web/static/lib/*
+!src/web/static/lib/leaflet
+!src/web/static/lib/dc
+!src/web/static/lib/file-saver
 
 
 # node files
@@ -36,8 +36,8 @@ node_modules
 
 .coverage
 documentation/_build/
-conf/conf.cfg
-web/public/
+src/conf/conf.cfg
+src/web/public/
 
 # pycharm
 .idea/

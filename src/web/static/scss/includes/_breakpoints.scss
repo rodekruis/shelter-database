@@ -1,0 +1,66 @@
+$screen-xs:        500px;
+$screen-sm:        768px;
+$screen-md:        992px;
+$screen-lg:        1350px;
+$screen-xl:        1600px;
+
+@mixin bp-xs {
+	@media only screen and (min-width: $screen-xs) {
+		@content;
+	}
+}
+
+@mixin bp-sm {
+	@media only screen and (min-width: $screen-sm) {
+		@content;
+	}
+}
+
+@mixin bp-md {
+	@media only screen and (min-width: $screen-md) {
+		@content;
+	}
+}
+
+@mixin bp-lg {
+	@media only screen and (min-width: $screen-lg) {
+		@content;
+	}
+}
+
+
+// @mixin bp-md-only {
+// 	@media only screen and (max-width: 980px) {
+// 		@content;
+// 	}
+// }
+
+
+@mixin bp-sm-only {
+	@media only screen and (min-width: $screen-sm) and (max-width: $screen-md) {
+		@content;
+	}
+}
+
+@mixin bp-sm-md-only {
+	@media only screen and (min-width: $screen-sm) and (max-width: $screen-lg) {
+		@content;
+	}
+}
+
+// @mixin bp-xs {
+// 	@media only screen and (min-width: 768px) {
+// 		@content;
+// 	}
+// }
+
+
+// USE:
+//
+// .style {
+// 	@include bp-sm {
+// 		width: 100%;
+// 		float: none;
+// 		margin: 0;
+// 	}
+// }

@@ -1,0 +1,90 @@
+main.page {
+    margin-top: 50px;
+}
+
+.content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.search-wrapper {
+    position: relative;
+    display: inline-block;
+
+    input {
+        padding: 15px 20px;
+        font-size: 1.1em;
+        line-height: 1.2;
+        background-color: #FFF;
+        @include border-radius(3px);
+        width: 400px;
+        padding-left: 50px;
+        color: #333;
+    }
+
+    &:before {
+        position: absolute;
+        top: 15px;
+        left: 16px;
+        content: "\f002";
+        color: #666;
+        font-size: 1.3em;
+        @extend .fa;
+    }
+}
+
+
+.map2 {
+    height: 200px;
+    @extend .cover;
+}
+
+.dots {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 100;
+
+    .dot {
+        display:  inline-block;
+        width: 20px;
+        height: 20px;
+        margin: 0 8px;
+        background-color: rgba(255,255,255,0.6);
+        cursor: pointer;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        @include border-radius(50%);
+
+        &.selected {
+            background-color: #FFF;
+        }
+    }
+}
+
+.infoboxes {
+    text-align: center;
+
+    .infobox {
+        display: inline-block;
+        width: 200px;
+        margin: 0 20px 20px 20px;
+
+        .infobox-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .infobox-img {
+            height: 140px;
+            @extend .cover;
+            border: 1px solid #333;
+            // box-shadow: 0 0 10px rgba(0,0,0,0.4);
+        }
+
+        .infobox-value {
+
+        }
+    }
+}

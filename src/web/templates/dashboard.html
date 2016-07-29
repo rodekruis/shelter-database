@@ -1,0 +1,262 @@
+{% extends "layout.html" %}
+{% block head %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='lib/datatables.net-bs/css/dataTables.bootstrap.min.css') }}"
+          rel="stylesheet" media="screen">
+
+
+    <script src="{{ url_for('static', filename = 'lib/dc/d3.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'lib/dc/crossfilter.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'lib/dc/colorbrewer.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'lib/dc/dc.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'lib/leaflet/leaflet.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'lib/leaflet/leaflet.markercluster.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'lib/leaflet/dc.leaflet.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/file-saver/FileSaver.js')}}"></script>
+
+
+    <!--leaflet -->
+
+    <link href="{{ url_for('static', filename='lib/leaflet/MarkerCluster.Default.css') }}" rel="stylesheet" media="screen" />
+
+    <link href="{{ url_for('static', filename='lib/leaflet/leaflet.css') }}" rel="stylesheet" media="screen" />
+    <link href="{{ url_for('static', filename='lib/leaflet/MarkerCluster.css') }}" rel="stylesheet" media="screen" />
+
+    <!-- DC.js  -->
+    <link href="{{ url_for('static', filename='lib/dc/dc.css') }}" rel="stylesheet" media="screen" />
+
+{% endblock %}
+
+
+{% block content %}
+    <section class="search">
+        <div class="content">
+            <div class="search-wrapper">
+                <input type="" name="" placeholder="Search Shelters.."/>
+            </div>
+        </div>
+    </section>
+    <section class="filter">
+        <div class="content">
+            <h5>Filter by</h5>
+
+            <form class="myform">
+                <label for="f1" class="button button-drop">
+                    <select id="f1">
+                        <option value="" selected="selected">Climate</option>
+                        <option value="" disabled>---</option>
+                        <option value="dry moderate">dry moderate</option>
+                        <option value="dry polar">dry polar</option>
+                        <option value="dry tropical">dry tropical</option>
+                        <option value="moist moderate">moist moderate</option>
+                        <option value="moist polar">moist polar</option>
+                        <option value="moist tropical">moist tropical</option>
+                    </select>
+                </label>
+                <label for="f2" class="button button-drop">
+                    <select id="f2">
+                        <option value="" selected="selected">Continent</option>
+                        <option value="" disabled>---</option>
+                    </select>
+                </label>
+                <label for="f3" class="button button-drop">
+                    <select id="f3">
+                        <option value="" selected="selected">Disaster</option>
+                        <option value="" disabled>---</option>
+                    </select>
+                </label>
+                <label for="f4" class="button button-drop">
+                    <select id="f4">
+                        <option value="" selected="selected">Material</option>
+                        <option value="" disabled>---</option>
+                    </select>
+                </label>
+                <label for="f5" class="button button-drop">
+                    <select id="f5">
+                        <option value="" selected="selected">Commercial</option>
+                        <option value="" disabled>---</option>
+                    </select>
+                </label>
+
+                <!-- <a href="" class="button button-light button-drop">Climate</a> -->
+                <!-- <a href="" class="button button-drop">Continent</a> -->
+                <!-- <a href="" class="button button-drop">Disaster</a> -->
+                <!-- <a href="" class="button button-light button-drop">Material</a> -->
+                <!-- <a href="" class="button button-light button-drop">Commercial</a> -->
+
+                <div class="advanced" id="advanced">
+                    <div class="advanced-btn" onclick="toggleAdvanced()">Advanced Search</div>
+                    <div class="advanced-content">
+
+                        <label for="f10" class="button button-small button-drop">
+                            <select id="f10">
+                                <option value="" selected="selected">Soil Type</option>
+                                <option value="" disabled>---</option>
+                            </select>
+                        </label>
+
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <section class="map">
+        <div class="map" id="chart-map" style="width:100%; height:400px;">
+        </div>
+    </section>
+    <section class="tab1" id="tabs">
+        <div class="content">
+            <ul class="tabs">
+                <li class="tab1" onclick="setTab(1)">Shelters</li>
+                <li class="tab2" onclick="setTab(2)">Statistics</li>
+            </ul>
+            <div class="tabcontent tabcontent1">
+                <div class="shelters">
+                    <div class="shelter">
+                        <div class="image" style="background-image: url('img/shelter.jpg')"></div>
+                        <h4 class="title"><a href="shelter.html">Cordaid, TS Urban</a></h4>
+                        <div class="country">Haiti</div>
+                        <div class="description"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                            anim id est laborum.</p></div>
+                    </div>
+                    <div class="shelter">
+                        <div class="image" style="background-image: url('img/shelter.jpg')"></div>
+                        <h4 class="title"><a href="shelter.html">Cordaid, TS Urban</a></h4>
+                        <div class="country">Haiti</div>
+                        <div class="description"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                            anim id est laborum.</p></div>
+                    </div>
+                    <div class="shelter">
+                        <div class="image" style="background-image: url('img/shelter.jpg')"></div>
+                        <h4 class="title"><a href="shelter.html">Cordaid, TS Urban</a></h4>
+                        <div class="country">Haiti</div>
+                        <div class="description"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                            anim id est laborum.</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tabcontent tabcontent2">
+                <div class="stats">
+                    <div class="row>">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="dc-data-count dc-chart" id="data-count">
+
+                                        <h4> Shelters
+                                            <small>
+                                                <span class="filter-count"></span> selected out of <span
+                                                    class="total-count"></span>
+                                                records
+                                                |
+                                                <a id="all" href="#">Reset All</a>
+
+                                            </small>
+                                        </h4>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5>By Year of Construction
+                                        <small><a id="year">reset</a></small>
+                                    </h5>
+                                    <div class="dc-chart" id="chart-timeline"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h5>By Zone
+                                        <small><a id="zone">reset</a></small>
+                                    </h5>
+                                    <div class="dc-chart" id="chart-ring-zone"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>By Crisis
+                                        <small><a id="crisis">reset</a></small>
+                                    </h5>
+                                    <div class="dc-chart" id="chart-ring-crisis"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>By Climate
+                                        <small><a id="climate">reset</a></small>
+                                    </h5>
+                                    <div class="dc-chart" id="chart-ring-climate"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h5>By Country
+                                        <small><a id="country">reset</a></small>
+                                    </h5>
+                                    <div class="dc-chart" id="chart-bar-country"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                            <h4 class="text-right">
+                                <small>
+                                    <a id="download">Download</a>
+                                    |
+                                    <a id="share">Share</a>
+                                </small>
+                            </h4>
+
+
+                            <table class="table table-bordered table-striped dc-table" id="shelters-table">
+
+                                <thead>
+                                <tr class="header">
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Zone</th>
+                                    <th>Country</th>
+                                    <th>Crisis</th>
+                                    <th>Climate</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+<script type="text/javascript">
+    var setTab = function (tab) {
+        document.getElementById("tabs").className = "tab" + tab
+    }
+
+    var toggleAdvanced = function () {
+        var obj = document.getElementById("advanced")
+        if (obj.className == "advanced") {
+            obj.className = "advanced open"
+        } else {
+            obj.className = "advanced"
+        }
+    }
+</script>
+<script src="{{ url_for('static', filename = 'js/dashboard.js') }}"></script>
+{% endblock %}

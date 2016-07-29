@@ -1,0 +1,134 @@
+.mymodal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    z-index: -1;
+    background-color: rgba(255,255,255,0.95);
+    // @include transition(opacity 0.2s);
+    overflow: scroll;
+
+    .content {
+        position: relative;
+        padding: 50px 50px;
+        max-width: 600px;
+
+        .page {
+            display: none;
+        }
+
+        &.page1 {.page1 {display: initial;}}
+        &.page2 {.page2 {display: initial;}}
+        &.page3 {.page3 {display: initial;}}
+        &.page4 {.page4 {display: initial;}}
+    }
+
+    .close {
+        position: absolute;
+        top: 20px;
+        right: 0px;
+
+        &:after {
+            content: "\f00d";
+            @extend .fa;
+            font-size: 2em;
+            color: #AAA;
+        }
+    }
+
+    .mylabel {
+        font-size: 1.1em;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .myimage {
+        height: 200px;
+        width: 100%;
+        @extend .cover;
+        cursor: pointer;
+    }
+
+    input {
+        padding: 10px 12px;
+        font-size: 18px;
+        line-height: 1.2;
+        background-color: #FFF;
+        @include border-radius(3px);
+        border: 1px solid #666;
+        width: 100%;
+        margin-bottom: 30px;
+        // letter-spacing: 1px;
+        font-weight: 300;
+        color: #333;
+    }
+
+    form.myform label.button {
+        width: 100%;
+
+        select {
+            width: 100%;
+            letter-spacing: 0px;
+            font-size: 18px;
+            line-height: 1.2;
+            font-weight: 300;
+            color: #333;
+
+            &:hover {
+                color: #FFF;
+            }
+        }
+    }
+
+    .buttons {
+        margin-top: 40px;
+
+        .right {
+            float: right;
+        }
+        // text-align: center;
+    }
+}
+
+body.modal-open {
+    .mymodal {
+        opacity: 1;
+        z-index: 200;
+    }
+}
+
+
+.options {
+    text-align: center;
+    // @include flexbox;
+    // @include flex(0 1 auto);
+
+    .option {
+        width: 150px;
+        height: 120px;
+        margin: 5px;
+        display: inline-block;
+        border: 3px solid #FFF;
+        @extend .cover;
+        cursor: pointer;
+
+        &.selected {
+            border-color: #425ca9;
+            &:hover {
+                border-color: #425ca9;
+            }
+        }
+
+        &:hover {
+            border-color: lighten(#425ca9,20%);
+        }
+        // padding-top: 50%;
+        // @include flex(1);
+        // display: inline-block;
+        // text-align: center;
+
+    }
+}
+
