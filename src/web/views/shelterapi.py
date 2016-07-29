@@ -22,24 +22,36 @@ api_bp = Blueprint('api for shelter', __name__, url_prefix='/api/v0.1')
 
 def tree():
     return defaultdict(tree)
-    
-def subqueryfactory(model,join=False,filt=False,value=False):
-	
-	#helper functions
-	def filters(obj,attrib):
-		"""recursively construct filtering methods (AND)"""
-		if len(attrib) == 1:
-			return obj.filter(attrib[0])
-		else: 
-			return filters(obj.filter(attrib[len(attrib)-1]), attrib[0:len(attrib)-1])
 
-#construct query
+def queryfactory(model,join=False,filt=False,value=False):
+	
+	#helper functions to construct queries
+	def filter_or(obj,attrib,val):
+		"""Construct filtering method (OR)"""
+		list(val)
+		if len(val) == 1:
+			return obj.filter(attrib == val[0])
+		else: 
+			return obj.filter(attrib.in_(val))
+	
+	def filter_and(obj,attrib,val):
+		"""Construct filtering methods recursively (AND)"""
+		list(val)
+		if len(val) == 1:
+			return obj.filter(attrib == val[0])
+		else: 
+			return filter_and(obj.filter(attrib == val[len(val)-1]),attrib, val[0:len(val)-1])
+
+#subquery = subqueryfactory(Property,Attribute,Attribute.name,attr)
+
 	if join and not filt:
-		return model.query.join(join).subquery()
+		return model.query.join(join)
 	elif filt and join:
-		return model.query.join(join).filter(filt.in_(value)).subquery()
+		test = filter_or(model.query.join(join),filt,value)
+		print(test)
+		return test#model.query.join(join).filter(filt.in_(value))
 	elif filt and not join:
-		return model.query.filter(filt.in_(value)).subquery()
+		return model.query.filter(filt.in_(value))
 	else:
 		return "error"
 
@@ -66,21 +78,26 @@ def allshelters():
     """Returns all shelters and their properties"""
     result = tree()
     
-    if request.args:
-    	form = request.args.get('format') 
-    	#prop = request.args.getlist('property')
-    	#cat = request.args.getlist('category')
+    ## attribute parameter listening
+    if request.args.getlist('attribute'):
     	attr = request.args.getlist('attribute')
-    	#val = request.args.getlist('value')
-    	#user = request.args.getlist('user')
-    		
     
-    	subquery = subqueryfactory(Property,Attribute,Attribute.name,attr)
+    	subquery = queryfactory(Property,Attribute,Attribute.name,attr).subquery()
     	shelter_properties = Property.query.filter(Property.shelter_id==subquery.c.shelter_id).all()
     else:
     	shelter_properties = Property.query.all()
     
+    ## value parameter listening
+    if request.args.getlist('value'):
+    	value = request.args.getlist('value')
+    	
+    	shelter_properties = Property.query.filter(Property.values.contains(name='55'))
+    	print(shelter_properties)
+    	#do stuff
+    #else:
+    	#do other stuff
     
+    ## format parameter listening and populate defaultict	
     if request.args.get('format') == 'prettytext':
     	for shelter_property in shelter_properties:
     		result[shelter_property.shelter_id][shelter_property.attribute.name] = shelter_property.get_values_as_string()

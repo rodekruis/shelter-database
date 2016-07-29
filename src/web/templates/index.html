@@ -44,7 +44,7 @@
                     <!-- <div class="box"> -->
                         <h4>Recommendations</h4>
                         <p>The recommendations are summarizing some basic principles that should be taken into consideration during planning and implementation of shelter projects when building in disaster prone areas.</p>
-                        <a href="" class="button button-white"><i class="fa fa-lightbulb-o"></i><span class="text">Read our recommendations</span></a>
+                        <a href="{{ url_for('knowledgebase') }}" class="button button-white"><i class="fa fa-lightbulb-o"></i><span class="text">Read our recommendations</span></a>
                     <!-- </div> -->
                     <!-- <div class="box"> -->
                         <!-- <h4>Glossary</h4> -->
@@ -67,34 +67,14 @@
         </section>
 		<section class="supported">
             <h3>supported by</h3>
-			<div class="container-fluid">
-			 <div class="row">
-				 <div class="col-md-2"><h3>Funded by</h3></div>
-				 <div class="col-md-4">
-					 <img alt="" src="{{ url_for('static', filename = '/static/img/contributors_logo/LRC.svg') }}" height="120x" />
-				 </div>
-				 <div class="col-md-2">
-					 <img alt="" src="{{ url_for('static', filename = '/static/img/contributors_logo/BRC_fl.jpg') }}" height="120x" />
-				 </div>
-				 <div class="col-md-3">
-					 <img alt="" src="{{ url_for('static', filename = '/static/img/contributors_logo/BRC_fr.jpg') }}" />
-				 </div>
-			 </div>
-			 <div class="row">
-				 <br />
-				 <div class="col-md-2"></div>
-				 <div class="col-md-6">
-					 <img alt="" src="{{ url_for('static', filename = '/static/img/contributors_logo/Logo_IFRC.jpg') }}" />
-				 </div>
-				 <div class="col-md-3">
-					 <img alt="" src="{{ url_for('static', filename = '/static/img/contributors_logo/Logo_NLRC.jpg') }}" />
-				 </div>
-				 <div class="col-md-4">
-					 <img alt="" src="{{ url_for('static', filename = '/static/img/contributors_logo/LIST.svg') }}" height="120px" />
-				 </div>
-				 <div class="col-md-1"></div>
-			 </div>
-		</div>
+			<p>
+					 <img alt="" src="{{ url_for('static', filename = 'img/contributors_logo/LRC.svg') }}" height="80x" />
+					 <img alt="" src="{{ url_for('static', filename = 'img/contributors_logo/BRC_fl.jpg') }}" height="80" />
+					 <img alt="" src="{{ url_for('static', filename = 'img/contributors_logo/BRC_fr.jpg') }}" />
+					 <img alt="" src="{{ url_for('static', filename = 'img/contributors_logo/Logo_IFRC.jpg') }}" />
+					 <img alt="" src="{{ url_for('static', filename = 'img/contributors_logo/Logo_NLRC.jpg') }}" />
+					 <img alt="" src="{{ url_for('static', filename = 'img/contributors_logo/LIST.svg') }}" height="80px" />
+			</p>
         </section>
 
     <script type="text/javascript">
