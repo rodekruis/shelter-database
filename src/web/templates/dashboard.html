@@ -42,8 +42,8 @@
             <h5>Filter by</h5>
 
             <form class="myform">
-                <label for="f1" class="button button-drop">
-                    <select id="f1">
+                <label for="climateFilter" class="button button-drop">
+                    <select id="climateFilter">
                         <option value="" selected="selected">Climate</option>
                         <option value="" disabled>---</option>
                         <option value="dry moderate">dry moderate</option>
@@ -54,26 +54,26 @@
                         <option value="moist tropical">moist tropical</option>
                     </select>
                 </label>
-                <label for="f2" class="button button-drop">
-                    <select id="f2">
+                <label for="zoneFilter" class="button button-drop">
+                    <select id="zoneFilter">
                         <option value="" selected="selected">Continent</option>
                         <option value="" disabled>---</option>
                     </select>
                 </label>
-                <label for="f3" class="button button-drop">
-                    <select id="f3">
+                <label for="disasterFilter" class="button button-drop">
+                    <select id="disasterFilter">
                         <option value="" selected="selected">Disaster</option>
                         <option value="" disabled>---</option>
                     </select>
                 </label>
-                <label for="f4" class="button button-drop">
-                    <select id="f4">
+                <label for="materialFilter" class="button button-drop">
+                    <select id="materialFilter">
                         <option value="" selected="selected">Material</option>
                         <option value="" disabled>---</option>
                     </select>
                 </label>
-                <label for="f5" class="button button-drop">
-                    <select id="f5">
+                <label for="commercialFilter" class="button button-drop">
+                    <select id="commercialFilter">
                         <option value="" selected="selected">Commercial</option>
                         <option value="" disabled>---</option>
                     </select>
@@ -90,27 +90,27 @@
                     <div class="advanced-btn" onclick="toggleAdvanced()">Advanced Search</div>
                     <div class="advanced-content">
 
-                        <label for="f10" class="button button-small button-drop">
-                            <select id="f10">
+                        <label for="soilFilter" class="button button-small button-drop">
+                            <select id="soilFilter">
                                 <option value="" selected="selected">Soil Type</option>
                                 <option value="" disabled>---</option>
                             </select>
                         </label>
 
-                        <label for="f11" class="button button-small button-drop">
-                            <select id="f11">
+                        <label for="shelterTypeFilter" class="button button-small button-drop">
+                            <select id="shelterTypeFilter">
                                 <option value="" selected="selected">Shelter Type</option>
                                 <option value="" disabled>---</option>
                             </select>
                         </label>
-                        <label for="f12" class="button button-small button-drop">
-                            <select id="f12">
+                        <!--label for="topographyFilter" class="button button-small button-drop">
+                            <select id="topographyFilter">
                                 <option value="" selected="selected">Topography</option>
                                 <option value="" disabled>---</option>
                             </select>
-                        </label>
-                        <label for="f13" class="button button-small ">
-                            <input type="checkbox" value=""> Rated by SRU
+                        </label-->
+                        <label for="isSRURatedFilter" class="button button-small ">
+                            <input id="isSRURatedFilter" type="checkbox" value=""> Rated by SRU
                         </label>
                     </div>
                 </div>
