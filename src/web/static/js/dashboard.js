@@ -233,10 +233,8 @@ $(document).ready(function () {
 
         function initFilters() {
 
-            var parseHash = /^#zone=([A-Za-z0-9,_\-\/\s]*)&crisis=([A-Za-z0-9,_\-\/\s]*)&climate=([A-Za-z0-9,_\-\/\s]*)&time=([A-Za-z0-9,_\-\/\s\(\):+]*)&country=([A-Za-z0-9,_\-\/\s]*)&map=(.*)&topography=([A-Za-z0-9,_\-\/\s]*)$/;
-
+            var parseHash = /^#zone=([A-Za-z0-9,_\-\/\s]*)&crisis=([A-Za-z0-9,_\-\/\s]*)&climate=([A-Za-z0-9,_\-\/\s]*)&time=([A-Za-z0-9,_\-\/\s\(\):+]*)&country=([A-Za-z0-9,_\-\/\s]*)&topography=([A-Za-z0-9,_\-\/\s]*)$/;
             var parsed = parseHash.exec(decodeURIComponent(location.hash.replace(/\+/g, ' ')));
-            // console.log(location.hash)
             // console.log("parsed:", parsed)
             function filter(chart, rank) {
 
@@ -245,25 +243,7 @@ $(document).ready(function () {
                 }
                 else {
                     var filterValues = parsed[rank].split(",");
-
-                    // if (rank ==4 && filterValues.length==2) {   //filtering timeChart
-                    //     filterValues[i] = new Date(filterValues[i])
-                    //     var start = new Date(filterValues[0])
-                    //     var end = new Date(filterValues[1])
-                    //     chart.filter(dc.filters.RangedFilter(start,end))
-                    // }
-                    // else {
-                    //     if (rank ==6) {
-                    //         // console.log('parsed:', filterValues)
-                    //         // filterValues = JSON.parse(filterValues)
-                    //         // console.log(filterValues)
-                    //
-                    //     } else {
-                    //         for (var i = 0; i < filterValues.length; i++) {
-                    //             chart.filter(filterValues[i]);
-                    //         }
-                    //     }
-                    // }
+                    // console.log(filterValues)
 
                     switch (rank) {
                         case 4: //timeChart
@@ -275,7 +255,7 @@ $(document).ready(function () {
                                 chart.filter(dc.filters.RangedFilter(start, end))
                             }
                             break;
-                        case 6: //mapChart
+                        case 7: //mapChart
                             // console.log('parsed:', filterValues)
                             // filterValues = JSON.parse(filterValues)
                             // console.log(filterValues)
@@ -286,15 +266,14 @@ $(document).ready(function () {
                             }
                     }
                 }
+            }
                 filter(zoneChart, 1);
                 filter(crisisChart, 2);
                 filter(climateChart, 3);
                 filter(timeChart, 4);
-                filter(countryChart, 5)
-                // filter(mapChart, 6);
-                filter(topographyChart, 6)
-
-            }
+                filter(countryChart, 5);
+                filter(topographyChart, 6);
+                // filter(mapChart, 7);
 
             dc.renderAll();
 
@@ -326,9 +305,8 @@ $(document).ready(function () {
             {name: 'climate', value: climateChart.filters()},
             {name: 'time', value: timeChart.filters()},
             {name: 'country', value: countryChart.filters()},
-            // {name: 'map', value: JSON.stringify(mapChart.filters())},
-            {name: 'topography', value: topographyChart.filters()}
-
+            {name: 'topography', value: topographyChart.filters()},
+            // {name: 'map', value: JSON.stringify(mapChart.filters())}
         ];
 
         // console.log("map:")
