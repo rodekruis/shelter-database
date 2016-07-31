@@ -361,6 +361,9 @@ footer {
       font-size: 3em;
       display: block;
       color: rgba(0, 0, 0, 0.2); }
+	.flexbox .box i.head_no_color {
+      font-size: 3em;
+       display: block; }
     .flexbox .box h4 {
       font-size: 1.2em;
       margin: 20px 0;
@@ -808,4 +811,27 @@ section.map {
   display: initial; }
 
 #tabs.tab2 .tabcontent2 {
-  display: initial; }
+  display: initial ; }
+
+.stats {
+  display: inline-block;
+}
+
+.stats .table {
+   font-size: smaller !important;
+}
+
+.stats .table tr td {
+  font-weight: normal !important; ;
+}
+
+.stats h5 {
+  margin-top:20px;
+}
+.leaflet-container a {
+  margin-left:0px !important;
+}
+
+.dc-chart text {
+      fill: black !important;
+    }

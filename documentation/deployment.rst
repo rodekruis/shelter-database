@@ -369,6 +369,22 @@ Enable the site:
 The web application is now running with a dedicated user and a thread limit set
 to 5.
 
+Update stylesheets
+"""""""""
+
+.. code-block:: shell
+
+	## Build CSS
+
+	Install [node-sass](https://github.com/sass/node-sass)
+
+		$ cd your/dev/directory
+		$ npm install -g node-sass
+
+	Run node-sass
+
+		$ cd shelter-database
+		$ node-sass -w src/web/static/scss/style.scss src/web/static/css/style_new.css
 
 GeoServer
 """""""""
