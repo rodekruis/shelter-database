@@ -65,7 +65,7 @@ def getattributes(attribute_name, safetext=False):
     """Returns available values for a given attribute name, separated by semicolons"""
     result= tree()
     
-    attributes = Attribute.query.filter(Attribute.name==attribute_name).\
+    attributes = Attribute.query.filter(Attribute.uniqueid==attribute_name).\
                                 first().associated_values
    
     result[attribute_name] = ";".join([attribute.name for attribute in attributes])
