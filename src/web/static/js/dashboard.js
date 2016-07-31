@@ -16,7 +16,7 @@ $(document).ready(function () {
 
 
     d3.csv('/static/data/shelters-sample.csv', function (data) {
-        // d3.json("api/v0.1/shelters", function(dataObject) {
+    // d3.json("api/v0.1/shelters", function(dataObject) {
 
          // var data = []
          // for (var key in dataObject) {
@@ -120,7 +120,7 @@ $(document).ready(function () {
             .zoom(2)
             .filterByArea(true)
             .cluster(true)
-            .on("filtered", getFiltersValues);
+            .on("filtered", onFiltered);
 
         addLayersToChart(mapChart)
         mapChart.map().scrollWheelZoom.disable()
@@ -132,7 +132,7 @@ $(document).ready(function () {
             .dimension(zoneDimension)
             .group(zoneCount)
             .innerRadius(20)
-            .on("filtered", getFiltersValues);
+            .on("filtered", onFiltered);
 
         crisisChart
             .width(110)
@@ -140,7 +140,7 @@ $(document).ready(function () {
             .dimension(crisisDimension)
             .group(crisisCount)
             .innerRadius(20)
-            .on("filtered", getFiltersValues);
+            .on("filtered", onFiltered);
 
 
         climateChart
@@ -149,7 +149,7 @@ $(document).ready(function () {
             .dimension(climateDimension)
             .group(climateCount)
             .innerRadius(20)
-            .on("filtered", getFiltersValues);
+            .on("filtered", onFiltered);
         ;
 
         timeChart
@@ -160,7 +160,7 @@ $(document).ready(function () {
             .barPadding(5)
             .x(d3.time.scale().domain([new Date(2003, 01, 01), new Date()]))
             .xUnits(d3.time.year)
-            .on("filtered", getFiltersValues)
+            .on("filtered", onFiltered)
             .yAxis().tickFormat(
             function (v) {
                 return d3.format('f')(v);
@@ -173,7 +173,7 @@ $(document).ready(function () {
             .margins({left: 0, right: 10, top: 10, bottom: 20})
             .dimension(countryDimension)
             .group(countryCount)
-            .on("filtered", getFiltersValues)
+            .on("filtered", onFiltered)
             .xAxis().tickFormat(
             function (v) {
                 return d3.format('f')(v);
@@ -187,7 +187,7 @@ $(document).ready(function () {
             .margins({left: 0, right: 10, top: 10, bottom: 20})
             .dimension(topographyDimension)
             .group(topographyCount)
-            .on("filtered", getFiltersValues)
+            .on("filtered", onFiltered)
             .xAxis().tickFormat(
             function (v) {
                 return d3.format('f')(v);
@@ -290,8 +290,15 @@ $(document).ready(function () {
                 saveAs(blob, 'data.csv');
             });
 
-        initFilters()
 
+
+        function onFiltered() {
+            getFiltersValues();
+            generateShelterList(allDimensions.top(Infinity));
+        }
+
+         generateShelterList(data);
+         initFilters()
     })
 
     d3.selectAll('#all').on('click', function () {
@@ -301,6 +308,8 @@ $(document).ready(function () {
 
 
     // Serializing filters values in URL
+
+
     function getFiltersValues() {
         var filters = [
             {name: 'zone', value: zoneChart.filters()},
@@ -350,6 +359,8 @@ $(document).ready(function () {
         topographyChart.filterAll();
         dc.redrawAll();
     });
+
+    loadFilterValues()
 
 })
 
@@ -455,4 +466,19 @@ function loadFilterValues() {
 }
 
 
-loadFilterValues()
+
+
+
+function generateShelterList(data) {
+    $('#shelterList').empty();
+    for (var i = 0; i <data.length; i ++)
+    {
+        var shelter = $('<div class="shelter"/>').appendTo('#shelterList');
+        shelter.append('<div class="image" style="background-image: url(' + '' + ')"></div> ' +
+            '<h4 class="title"><a href="shelter.html">' +data[i].nameofshelter+ '</a></h4>'  +
+            '<div class="country">'+data[i].country+'</div> ' +
+            '<div class="description"><p>' +'' + '</p></div>');
+    }
+
+}
+
