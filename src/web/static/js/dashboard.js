@@ -17,11 +17,11 @@ $(document).ready(function () {
 
     d3.csv('/static/data/shelters-sample.csv', function (data) {
         // d3.json("api/v0.1/shelters", function(dataObject) {
-        //
-        //  var data = []
-        //  for (var key in dataObject) {
-        //     data.push(dataObject[key])
-        //  }
+
+         // var data = []
+         // for (var key in dataObject) {
+         //    data.push(dataObject[key])
+         // }
         var dateFormat = d3.time.format('%Y');
 
         var ndx = crossfilter(data);
@@ -267,6 +267,7 @@ $(document).ready(function () {
                     }
                 }
             }
+            if (parsed) {
                 filter(zoneChart, 1);
                 filter(crisisChart, 2);
                 filter(climateChart, 3);
@@ -274,6 +275,8 @@ $(document).ready(function () {
                 filter(countryChart, 5);
                 filter(topographyChart, 6);
                 // filter(mapChart, 7);
+            }
+
 
             dc.renderAll();
 
