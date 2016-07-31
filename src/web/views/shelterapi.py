@@ -14,6 +14,9 @@ __revision__ = ""
 __copyright__ = ""
 __license__ = ""
 
+#from bootstrap import db
+from bootstrap import db
+from sqlalchemy.sql import func
 from flask import Blueprint, jsonify, request
 from collections import defaultdict
 from web.models import Shelter, Attribute, Property, Value, Association
@@ -83,7 +86,12 @@ def allshelters():
     	subquery = queryfactory(Property,Attribute,Attribute.uniqueid,attr).subquery()
     	shelter_properties = Property.query.filter(Property.shelter_id==subquery.c.shelter_id).all()
     else:
-    	shelter_properties = Property.query.all()
+    	shelter_properties = db.session.query(Property.shelter_id,Attribute.name,func.string_agg(Value.name,"';'").label("value"))\
+    		.join(Attribute)\
+    		.join(Association,Property.id==Association.property_id)\
+    		.join(Value, Association.value_id==Value.id)\
+    		.group_by(Property.shelter_id, Attribute.name)
+    	print(shelter_properties)
     
     ## value parameter listening
     if request.args.getlist('attribute') and request.args.getlist('value'):
@@ -91,15 +99,14 @@ def allshelters():
     
     	subquery = Property.query.filter(Property.attribute.has(Attribute.uniqueid.in_(attr)), Property.values.any(Value.name.in_(valu))).subquery()
     	shelter_properties = Property.query.filter(Property.shelter_id==subquery.c.shelter_id).all()
-    	
+
     ## format parameter listening and populate defaultict	
     if request.args.get('format') == 'prettytext':
     	for shelter_property in shelter_properties:
     		result[shelter_property.shelter_id][shelter_property.attribute.name] = shelter_property.get_values_as_string()
     else:
     	for shelter_property in shelter_properties:
-    		result[shelter_property.shelter_id][shelter_property.attribute.uniqueid] = shelter_property.get_values_as_string()
-    
+    		result[shelter_property.shelter_id][shelter_property.name] = shelter_property.value
     return jsonify(result)
 
 
