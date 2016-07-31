@@ -86,10 +86,11 @@ def allshelters():
     	shelter_properties = Property.query.all()
     
     ## value parameter listening
-    if equest.args.getlist('attribute') and request.args.getlist('value'):
+    if request.args.getlist('attribute') and request.args.getlist('value'):
     	valu = request.args.getlist('value')
     
-    	shelter_properties = Property.query.filter(Property.attribute.has(Attribute.name.in_(attr)), Property.values.any(Value.name.in_(valu)))
+    	subquery = Property.query.filter(Property.attribute.has(Attribute.name.in_(attr)), Property.values.any(Value.name.in_(valu))).subquery()
+    	shelter_properties = Property.query.filter(Property.shelter_id==subquery.c.shelter_id).all()
     	
     ## format parameter listening and populate defaultict	
     if request.args.get('format') == 'prettytext':
