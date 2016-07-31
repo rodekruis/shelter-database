@@ -80,7 +80,7 @@ def allshelters():
     if request.args.getlist('attribute'):
     	attr = request.args.getlist('attribute')
     
-    	subquery = queryfactory(Property,Attribute,Attribute.name,attr).subquery()
+    	subquery = queryfactory(Property,Attribute,Attribute.uniqueid,attr).subquery()
     	shelter_properties = Property.query.filter(Property.shelter_id==subquery.c.shelter_id).all()
     else:
     	shelter_properties = Property.query.all()
@@ -89,7 +89,7 @@ def allshelters():
     if request.args.getlist('attribute') and request.args.getlist('value'):
     	valu = request.args.getlist('value')
     
-    	subquery = Property.query.filter(Property.attribute.has(Attribute.name.in_(attr)), Property.values.any(Value.name.in_(valu))).subquery()
+    	subquery = Property.query.filter(Property.attribute.has(Attribute.uniqueid.in_(attr)), Property.values.any(Value.name.in_(valu))).subquery()
     	shelter_properties = Property.query.filter(Property.shelter_id==subquery.c.shelter_id).all()
     	
     ## format parameter listening and populate defaultict	
@@ -109,8 +109,8 @@ def shelters(shelter_id):
     result = tree()
     shelter_properties  = Property.query.filter(Property.shelter_id==shelter_id)
     for shelter_property in shelter_properties:
-    	print(shelter_property)
-    	result[shelter_property.shelter_id][shelter_property.attribute.name] = shelter_property.get_values_as_string()
+    	result[shelter_property.shelter_id][shelter_property.attribute.uniqueid] = shelter_property.get_values_as_string()
+    
     return jsonify(result)
 
 @api_bp.route('/shelters/<attribute_name>', methods=['GET'])
@@ -119,12 +119,12 @@ def attributes(attribute_name, attribute_value=''):
     """Returns all shelters which match a specific attribute name or attribute name + value"""
     result = tree()
     if not attribute_value:
-    	shelter_properties = Property.query.filter(Property.attribute.has(name=attribute_name))
+    	shelter_properties = Property.query.filter(Property.attribute.has(uniqueid=attribute_name))
     else:
-    	shelter_properties = Property.query.filter(Property.attribute.has(name=attribute_name), Property.values.any(name=attribute_value))
+    	shelter_properties = Property.query.filter(Property.attribute.has(uniqueid=attribute_name), Property.values.any(name=attribute_value))
     
     for shelter_property in shelter_properties:
-    	result[shelter_property.shelter_id][shelter_property.attribute.name] = shelter_property.get_values_as_string()
+    	result[shelter_property.shelter_id][shelter_property.attribute.uniqueid] = shelter_property.get_values_as_string()
    
     return jsonify(result)
 
