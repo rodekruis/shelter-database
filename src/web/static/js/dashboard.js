@@ -14,14 +14,19 @@ $(document).ready(function () {
     var tableChart = dc.dataTable("#shelters-table")
     var topographyChart = dc.rowChart('#chart-topography');
 
+     var filterChartMap = {
+        'climateFilter': climateChart, 'zoneFilter': zoneChart, 'commercialFilter': undefined,
+        'disasterFilter': crisisChart,
+        'soilFilter': undefined, 'shelterTypeFilter': undefined, 'countryFilter': countryChart
+    }
 
     d3.csv('/static/data/shelters-sample.csv', function (data) {
     // d3.json("api/v0.1/shelters", function(dataObject) {
-
-         // var data = []
-         // for (var key in dataObject) {
-         //    data.push(dataObject[key])
-         // }
+    //
+    //      var data = []
+    //      for (var key in dataObject) {
+    //         data.push(dataObject[key])
+    //      }
         var dateFormat = d3.time.format('%Y');
 
         var ndx = crossfilter(data);
@@ -292,18 +297,36 @@ $(document).ready(function () {
 
 
 
-        function onFiltered() {
+        function onFiltered(chart) {
+
+
             getFiltersValues();
             generateShelterList(allDimensions.top(Infinity));
+
+            var value = ''
+            if (chart.filters().length>0) {
+                value = chart.filters()[chart.filters().length-1]
+            }
+            
+            for (var filter in filterChartMap) {
+                var chartx = filterChartMap[filter]
+                if (chartx && chartx.filters() == chart.filters()) {
+                    $('#' + filter).val(value);
+                }
+            }
         }
 
          generateShelterList(data);
          initFilters()
+
+
     })
 
     d3.selectAll('#all').on('click', function () {
         dc.filterAll();
         dc.renderAll();
+        $("select").val("");
+
     });
 
 
@@ -334,34 +357,82 @@ $(document).ready(function () {
     d3.selectAll('#zone').on('click', function () {
         zoneChart.filterAll();
         dc.redrawAll();
+        $("#zoneFilter").val("");
+
     });
     d3.selectAll('#crisis').on('click', function () {
         crisisChart.filterAll();
         dc.redrawAll();
+        $("#disasterFilter").val("");
+
     });
     d3.selectAll('#climate').on('click', function () {
         climateChart.filterAll();
         dc.redrawAll();
+        $("#climateFilter").val("");
+
     });
     d3.selectAll('#country').on('click', function () {
         countryChart.filterAll();
         dc.redrawAll();
+        $("#countryFilter").val("");
+
     });
 
 
     d3.selectAll('#cost').on('click', function () {
         costChart.filterAll();
-
         dc.redrawAll();
     });
 
-    d3.selectAll('#topography').on('click', function () {
+     d3.selectAll('#topography').on('click', function () {
         topographyChart.filterAll();
         dc.redrawAll();
     });
 
-    loadFilterValues()
 
+
+    loadFilterDomainValues()
+
+
+     $('select').on('change', function() {
+        if (this.id in filterChartMap && filterChartMap[this.id]) {
+            var value = this.value
+            filterChartMap[this.id].filterAll();
+            if (value) {
+                filterChartMap[this.id].filter(value);
+            }
+
+            dc.redrawAll();
+        }
+     });
+
+    function loadFilterDomainValues() {
+    var filters = {
+        'climateFilter': 'climatezone', 'zoneFilter': 'zone', 'commercialFilter': 'typeofimplementingagency',
+        'disasterFilter': 'associateddisasterimmediatecause',
+        'soilFilter': 'soiltype', 'shelterTypeFilter': 'typeofshelter', 'countryFilter': 'country'
+        // 'topographyFilter': 'topography'
+    }
+
+    for (var filterId in filters) {
+        var dropdown = document.getElementById(filterId)
+        if (dropdown) {
+            (function(attrName, htmlElement) {
+                d3.json("api/v0.1/attributes/" + encodeURI(attrName), function (valuesObject) {
+                    // console.log(attrName + JSON.stringify(valuesObject));
+                    if (valuesObject && valuesObject[attrName]) {
+
+                        var values = valuesObject[attrName].split(';')
+                        for (var i = 0; i < values.length; ++i) {
+                            addOption(htmlElement, values[i], values[i]);
+                        }
+                    }
+                })
+            })(filters[filterId], dropdown);
+        }
+    }
+}
 })
 
 
@@ -436,33 +507,6 @@ addOption = function (selectbox, text, value) {
     optn.text = text;
     optn.value = value;
     selectbox.options.add(optn);
-}
-
-function loadFilterValues() {
-    var filters = {
-        'climateFilter': 'climatezone', 'zoneFilter': 'zone', 'commercialFilter': 'typeofimplementingagency',
-        'disasterFilter': 'associateddisasterimmediatecause',
-        'soilFilter': 'soiltype', 'shelterTypeFilter': 'typeofshelter',
-        // 'topographyFilter': 'topography'
-    }
-
-    for (var filterId in filters) {
-        var dropdown = document.getElementById(filterId)
-        if (dropdown) {
-            (function(attrName, htmlElement) {
-                d3.json("api/v0.1/attributes/" + encodeURI(attrName), function (valuesObject) {
-                    // console.log(attrName + JSON.stringify(valuesObject));
-                    if (valuesObject && valuesObject[attrName]) {
-
-                        var values = valuesObject[attrName].split(';')
-                        for (var i = 0; i < values.length; ++i) {
-                            addOption(htmlElement, values[i], values[i]);
-                        }
-                    }
-                })
-            })(filters[filterId], dropdown);
-        }
-    }
 }
 
 
