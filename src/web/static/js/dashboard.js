@@ -123,6 +123,8 @@ $(document).ready(function () {
             .on("filtered", getFiltersValues);
 
         addLayersToChart(mapChart)
+        mapChart.map().scrollWheelZoom.disable()
+
 
         zoneChart
             .width(110)
