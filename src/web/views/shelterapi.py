@@ -16,7 +16,7 @@ __license__ = ""
 
 from flask import Blueprint, jsonify, request
 from collections import defaultdict
-from web.models import Shelter, Attribute, Property
+from web.models import Shelter, Attribute, Property, Value, Association
 
 api_bp = Blueprint('api for shelter', __name__, url_prefix='/api/v0.1')
 
@@ -42,16 +42,14 @@ def queryfactory(model,join=False,filt=False,value=False):
 		else: 
 			return filter_and(obj.filter(attrib == val[len(val)-1]),attrib, val[0:len(val)-1])
 
-#subquery = subqueryfactory(Property,Attribute,Attribute.name,attr)
+#subquery = queryfactory(Property,Attribute,Attribute.name,attr)
 
 	if join and not filt:
 		return model.query.join(join)
 	elif filt and join:
-		test = filter_or(model.query.join(join),filt,value)
-		print(test)
-		return test#model.query.join(join).filter(filt.in_(value))
+		return filter_or(model.query.join(join),filt,value)
 	elif filt and not join:
-		return model.query.filter(filt.in_(value))
+		return filter_or(model.in_(value))
 	else:
 		return "error"
 
@@ -88,15 +86,11 @@ def allshelters():
     	shelter_properties = Property.query.all()
     
     ## value parameter listening
-    if request.args.getlist('value'):
-    	value = request.args.getlist('value')
-    	
-    	shelter_properties = Property.query.filter(Property.values.contains(name='55'))
-    	print(shelter_properties)
-    	#do stuff
-    #else:
-    	#do other stuff
+    if equest.args.getlist('attribute') and request.args.getlist('value'):
+    	valu = request.args.getlist('value')
     
+    	shelter_properties = Property.query.filter(Property.attribute.has(Attribute.name.in_(attr)), Property.values.any(Value.name.in_(valu)))
+    	
     ## format parameter listening and populate defaultict	
     if request.args.get('format') == 'prettytext':
     	for shelter_property in shelter_properties:
