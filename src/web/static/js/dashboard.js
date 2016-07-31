@@ -16,8 +16,8 @@ $(document).ready(function () {
 
 
     d3.csv('/static/data/shelters-sample.csv', function (data) {
-        //d3.json("api/v0.1/shelters", function(dataObject) {
-
+        // d3.json("api/v0.1/shelters", function(dataObject) {
+        //
         //  var data = []
         //  for (var key in dataObject) {
         //     data.push(dataObject[key])
@@ -132,7 +132,6 @@ $(document).ready(function () {
             .innerRadius(20)
             .on("filtered", getFiltersValues);
 
-
         crisisChart
             .width(110)
             .height(110)
@@ -235,8 +234,8 @@ $(document).ready(function () {
             var parseHash = /^#zone=([A-Za-z0-9,_\-\/\s]*)&crisis=([A-Za-z0-9,_\-\/\s]*)&climate=([A-Za-z0-9,_\-\/\s]*)&time=([A-Za-z0-9,_\-\/\s\(\):+]*)&country=([A-Za-z0-9,_\-\/\s]*)&map=(.*)&topography=([A-Za-z0-9,_\-\/\s]*)$/;
 
             var parsed = parseHash.exec(decodeURIComponent(location.hash.replace(/\+/g, ' ')));
-            console.log(location.hash)
-            console.log("parsed:", parsed)
+            // console.log(location.hash)
+            // console.log("parsed:", parsed)
             function filter(chart, rank) {
 
                 if (parsed[rank] == "") {
@@ -458,7 +457,7 @@ function loadFilterValues() {
         if (dropdown) {
             (function(attrName, htmlElement) {
                 d3.json("api/v0.1/attributes/" + encodeURI(attrName), function (valuesObject) {
-                    console.log(attrName + JSON.stringify(valuesObject));
+                    // console.log(attrName + JSON.stringify(valuesObject));
                     if (valuesObject && valuesObject[attrName]) {
 
                         var values = valuesObject[attrName].split(';')
