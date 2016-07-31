@@ -429,10 +429,10 @@ addOption = function (selectbox, text, value) {
 
 function loadFilterValues() {
     var filters = {
-        'climateFilter': 'Climate zone', 'zoneFilter': 'Zone', 'commercialFilter': 'Type of Implementing Agency',
-        'disasterFilter': 'Associated disaster / Immediate cause',
-        'soilFilter': 'Soil type', 'shelterTypeFilter': 'Type of shelter',
-        // 'topographyFilter': 'Topography'
+        'climateFilter': 'climatezone', 'zoneFilter': 'zone', 'commercialFilter': 'typeofimplementingagency',
+        'disasterFilter': 'associateddisasterimmediatecause',
+        'soilFilter': 'soiltype', 'shelterTypeFilter': 'typeofshelter',
+        // 'topographyFilter': 'topography'
     }
 
     for (var filterId in filters) {
