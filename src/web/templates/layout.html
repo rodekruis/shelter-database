@@ -90,59 +90,5 @@
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="{{ url_for('static', filename = 'lib/bootstrap/dist/js/bootstrap.min.js') }}"></script>
         <script src="{{ url_for('static', filename = 'lib/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
-        
-		<!--<script>
-        $(document).ready(function() {
-            $('ul.navbar-right > li.dropdown').show();
-
-            $("#newShelter").click(function(evt) {
-                var filters = [{"name":"name","op":"eq","val":"Country"}];
-                $.ajax({
-                    type: 'GET',
-                    url: '/api/attribute',
-                    contentType: "application/json",
-                    dataType: "json",
-                    data: {"q": JSON.stringify({"filters": filters})},
-                    success: function(result) {
-                        result.objects[0].associated_values.map(function(country) {
-                            $("#countrySelect").append(new Option(country.name, country.id));
-                        })
-                        $('.selectpicker').selectpicker({style: 'btn-default',
-                            size: false});
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown){
-                        //alert(errorThrown);
-                    }
-                }) ;
-            });
-
-            //Attach a submit handler to the form
-            $( "#createShelterForm" ).submit(function( event ) {
-                // Stop form from submitting normally
-                event.preventDefault();
-                // Get some values from elements on the page:
-                var $form = $(this);
-                var values = {};
-                form_complete = true;
-                $.each($form.serializeArray(), function(i, field) {
-                    if (field.value == '') {
-                        form_complete = false;
-                    }
-                    values[field.name] = field.value;
-                });
-                url = $form.attr("action");
-
-                if (form_complete) {
-                    // Send the data using post
-                    name_of_shelter = values["name"]
-                    country_value_id = values["country"];
-                    country_name = $('#countrySelect option:selected').text()
-                    create_shelter(name_of_shelter, country_value_id, country_name);
-                } else {
-                    alert("Please fill all the fields of the form.");
-                }
-            });
-        });
-        </script>-->
     </body>
 </html>

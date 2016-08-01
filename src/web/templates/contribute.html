@@ -4,7 +4,11 @@
             <div class="content">
                 <h1>Add your project</h1>
                 <p>The Shelter Database exists because of people like you!<br />We need you to help us build the content</p>
-                <a onclick="modalOpen()" class="bt button button-red"><i class="fa fa-plus"></i><span class="text">Add Project</span></a>
+				{% if g.user.is_authenticated %}
+                <a id="newShelter" onclick="modalOpen()" class="bt button button-red"><i class="fa fa-plus"></i><span class="text">Add Project</span></a>
+				{% else %}
+				    <a href="{{ url_for('join') }}" class="bt button button-red"><i class="fa fa-user"></i><span class="text">Please login to add your project</span></a>
+				{% endif %}
             </div>
         </section>
         <section class="" style="background-color:#ecf0f1;">
@@ -28,22 +32,20 @@
     <div class="mymodal">
         <div class="content page1" id="modalcontent">
             <div class="page page1">
+			    <form id="createShelterForm" action="#" class="navbar-form navbar-left" method="GET" name="save" class="myform">
                 <div class="mylabel">Title of your project:</div>
-                <div class="myinput"><input type="" name="" placeholder="Title.." /></div>
+                <div class="myinput"><input type="text" name="name" placeholder="Name" required="required" /></div>
                 <div class="mylabel">Country:</div>
-                <form class="myform">
+
                     <label for="f1" class="button button-drop">
-                        <select id="f1">
-                            <option value="" selected="selected">Select</option>
-                            <option value="" disabled>---</option>
-                            <option value="moist tropical">Afganistan</option>
-                        </select>
+                        <select id="countrySelect" name="country" data-live-search="true"></select>
                     </label>
                 </form>
                 <!-- <a href="" class="button button-light button-drop button-stretch">Select</a> -->
                 <div class="buttons">
                     <div onclick="modalClose()" class="button button-light"><i class="fa fa-times"></i><span class="text">Cancel</span></div>
-                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                    <!--<button type="submit" id="createShelter" class="btn btn-default form-control" value="Create">Create</button>	-->			                   
+				   <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
                 </div>
             </div>
             <div class="page page2">
@@ -87,6 +89,58 @@
             </div>
         </div>
     </div>
+	
+	<script>
+        $(document).ready(function() {
+            $("#newShelter").click(function(evt) {
+                var filters = [{"name":"name","op":"eq","val":"Country"}];
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/attribute',
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: {"q": JSON.stringify({"filters": filters})},
+                    success: function(result) {
+                        result.objects[0].associated_values.map(function(country) {
+                            $("#countrySelect").append(new Option(country.name, country.id));
+                        })
+                        $('.selectpicker').selectpicker({style: 'btn-default',
+                            size: false});
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                        //alert(errorThrown);
+                    }
+                }) ;
+            });
+
+            //Attach a submit handler to the form
+            $( "#createShelterForm" ).submit(function( event ) {
+                // Stop form from submitting normally
+                event.preventDefault();
+                // Get some values from elements on the page:
+                var $form = $(this);
+                var values = {};
+                form_complete = true;
+                $.each($form.serializeArray(), function(i, field) {
+                    if (field.value == '') {
+                        form_complete = false;
+                    }
+                    values[field.name] = field.value;
+                });
+                url = $form.attr("action");
+
+                if (form_complete) {
+                    // Send the data using post
+                    name_of_shelter = values["name"]
+                    country_value_id = values["country"];
+                    country_name = $('#countrySelect option:selected').text()
+                    create_shelter(name_of_shelter, country_value_id, country_name);
+                } else {
+                    alert("Please fill all the fields of the form.");
+                }
+            });
+        });
+    </script>
 
     <script type="text/javascript">
         var cnt = document.getElementById("modalcontent")
