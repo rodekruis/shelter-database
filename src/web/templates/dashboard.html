@@ -42,42 +42,37 @@
             <h5>Filter by</h5>
 
             <form class="myform">
-                <label for="f1" class="button button-drop">
-                    <select id="f1">
+                <label for="climateFilter" class="button button-drop">
+                    <select id="climateFilter">
                         <option value="" selected="selected">Climate</option>
                         <option value="" disabled>---</option>
-                        <option value="dry moderate">dry moderate</option>
-                        <option value="dry polar">dry polar</option>
-                        <option value="dry tropical">dry tropical</option>
-                        <option value="moist moderate">moist moderate</option>
-                        <option value="moist polar">moist polar</option>
-                        <option value="moist tropical">moist tropical</option>
                     </select>
                 </label>
-                <label for="f2" class="button button-drop">
-                    <select id="f2">
+                <label for="zoneFilter" class="button button-drop">
+                    <select id="zoneFilter">
                         <option value="" selected="selected">Continent</option>
                         <option value="" disabled>---</option>
                     </select>
                 </label>
-                <label for="f3" class="button button-drop">
-                    <select id="f3">
+                <label for="disasterFilter" class="button button-drop">
+                    <select id="disasterFilter">
                         <option value="" selected="selected">Disaster</option>
                         <option value="" disabled>---</option>
                     </select>
                 </label>
-                <label for="f4" class="button button-drop">
-                    <select id="f4">
+                <label for="materialFilter" class="button button-drop">
+                    <select id="materialFilter">
                         <option value="" selected="selected">Material</option>
                         <option value="" disabled>---</option>
                     </select>
                 </label>
-                <label for="f5" class="button button-drop">
-                    <select id="f5">
+                <label for="commercialFilter" class="button button-drop">
+                    <select id="commercialFilter">
                         <option value="" selected="selected">Commercial</option>
                         <option value="" disabled>---</option>
                     </select>
                 </label>
+
 
                 <!-- <a href="" class="button button-light button-drop">Climate</a> -->
                 <!-- <a href="" class="button button-drop">Continent</a> -->
@@ -89,14 +84,36 @@
                     <div class="advanced-btn" onclick="toggleAdvanced()">Advanced Search</div>
                     <div class="advanced-content">
 
-                        <label for="f10" class="button button-small button-drop">
-                            <select id="f10">
+                        <label for="soilFilter" class="button button-small button-drop">
+                            <select id="soilFilter">
                                 <option value="" selected="selected">Soil Type</option>
                                 <option value="" disabled>---</option>
                             </select>
                         </label>
 
+                        <label for="shelterTypeFilter" class="button button-small button-drop">
+                            <select id="shelterTypeFilter">
+                                <option value="" selected="selected">Shelter Type</option>
+                                <option value="" disabled>---</option>
+                            </select>
+                        </label>
 
+                        <label for="countryFilter" class="button button-small button-drop">
+                            <select id="countryFilter">
+                                <option value="" selected="selected">Country</option>
+                                <option value="" disabled>---</option>
+                            </select>
+                        </label>
+
+                        <!--label for="topographyFilter" class="button button-small button-drop">
+                            <select id="topographyFilter">
+                                <option value="" selected="selected">Topography</option>
+                                <option value="" disabled>---</option>
+                            </select>
+                        </label-->
+                        <label for="isSRURatedFilter" class="button button-small ">
+                            <input id="isSRURatedFilter" type="checkbox" value=""> Rated by SRU
+                        </label>
                     </div>
                 </div>
             </form>
@@ -113,40 +130,7 @@
                 <li class="tab2" onclick="setTab(2)">Statistics</li>
             </ul>
             <div class="tabcontent tabcontent1">
-                <div class="shelters">
-                    <div class="shelter">
-                        <div class="image" style="background-image: url('img/shelter.jpg')"></div>
-                        <h4 class="title"><a href="shelter.html">Cordaid, TS Urban</a></h4>
-                        <div class="country">Haiti</div>
-                        <div class="description"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                            anim id est laborum.</p></div>
-                    </div>
-                    <div class="shelter">
-                        <div class="image" style="background-image: url('img/shelter.jpg')"></div>
-                        <h4 class="title"><a href="shelter.html">Cordaid, TS Urban</a></h4>
-                        <div class="country">Haiti</div>
-                        <div class="description"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                            anim id est laborum.</p></div>
-                    </div>
-                    <div class="shelter">
-                        <div class="image" style="background-image: url('img/shelter.jpg')"></div>
-                        <h4 class="title"><a href="shelter.html">Cordaid, TS Urban</a></h4>
-                        <div class="country">Haiti</div>
-                        <div class="description"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                            anim id est laborum.</p></div>
-                    </div>
+                <div class="shelters" id="shelterList">
                 </div>
             </div>
             <div class="tabcontent tabcontent2">
@@ -164,7 +148,7 @@
                                                     class="total-count"></span>
                                                 records
                                                 |
-                                                <a id="all" href="#">Reset All</a>
+                                                <a id="all" href="#tabs">Reset All</a>
 
                                             </small>
                                         </h4>
@@ -201,13 +185,20 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <h5>By Country
                                         <small><a id="country">reset</a></small>
                                     </h5>
                                     <div class="dc-chart" id="chart-bar-country"></div>
+                                </div>
+                                 <div class="col-md-6">
+                                    <h5>By Topography
+                                        <small><a id="topography">reset</a></small>
+                                    </h5>
+                                    <div class="dc-chart" id="chart-topography"></div>
 
                                 </div>
+
                             </div>
                         </div>
                         <div class="col-md-6">

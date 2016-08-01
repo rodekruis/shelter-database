@@ -4,16 +4,18 @@ Web Services
 Usage of the development API v0.1
 ---------------------------------
 request parameters:
-	'<attribute>' - pass one or more attribute names, such as '<attribute=Name,Vegetation>'
+	**attribute**: pass one or more attribute names, such as `<attribute=Name,Vegetation>`
 	NOTE: Currently the attribute names may contain capital letters and spaces.
-	Spaces should be substituted as '<%20>' int the URL, for example
-	'<Climate%20Zone>'. An alternative "coding-friendly" attribute naming will be implemented shortly,
+	Spaces should be substituted as `<%20>` int the URL, for example
+	`<Climate%20Zone>`. An alternative "coding-friendly" attribute naming will be implemented shortly,
 	as unique strings for each attribute whithout spaces and upper case letters.
-	'<format>' - use '<format=prettytext>' to get the nicely formatted attribute names in the JSON,
+	
+	**format**: use `<format=prettytext>` to get the nicely formatted attribute names in the JSON,
 	instead of the "coding-friendly" attribute names.
 	
 
 Examples:
+
 .. code-block:: shell
     
     http://0.0.0.0:5000/api/v0.1
