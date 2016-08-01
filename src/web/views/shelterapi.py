@@ -19,7 +19,7 @@ from bootstrap import db
 from sqlalchemy.sql import func
 from flask import Blueprint, jsonify, request
 from collections import defaultdict
-from web.models import Shelter, Attribute, Property, Value, Association
+from web.models import Shelter, Attribute, Property, Value, Association, ShelterPicture, Category
 
 api_bp = Blueprint('api for shelter', __name__, url_prefix='/api/v0.1')
 
@@ -79,19 +79,24 @@ def allshelters():
     """Returns all shelters and their properties"""
     result = tree()
     
+    ## shelter picture query
+    shelter_pictures = db.session.query(ShelterPicture.shelter_id, func.string_agg(ShelterPicture.file_name,';').label("filename"), Category.name)\
+    		.join(Category, Category.id == ShelterPicture.category_id)\
+    		.group_by(ShelterPicture.shelter_id, Category.name)
+    #print(shelter_pictures)
+    
     ## attribute parameter listening
     if request.args.getlist('attribute'):
     	attr = request.args.getlist('attribute')
-    
+    	
     	subquery = queryfactory(Property,Attribute,Attribute.uniqueid,attr).subquery()
     	shelter_properties = Property.query.filter(Property.shelter_id==subquery.c.shelter_id).all()
     else:
-    	shelter_properties = db.session.query(Property.shelter_id,Attribute.name,func.string_agg(Value.name,"';'").label("value"))\
+    	shelter_properties = db.session.query(Property.shelter_id,Attribute.name,func.string_agg(Value.name,';').label("value"))\
     		.join(Attribute)\
     		.join(Association,Property.id==Association.property_id)\
     		.join(Value, Association.value_id==Value.id)\
     		.group_by(Property.shelter_id, Attribute.name)
-    	print(shelter_properties)
     
     ## value parameter listening
     if request.args.getlist('attribute') and request.args.getlist('value'):
@@ -107,6 +112,8 @@ def allshelters():
     else:
     	for shelter_property in shelter_properties:
     		result[shelter_property.shelter_id][shelter_property.name] = shelter_property.value
+    	for picture in shelter_pictures:
+    		result[picture.shelter_id]["shelterpicture"][picture.name] = picture.filename
     return jsonify(result)
 
 
@@ -114,10 +121,19 @@ def allshelters():
 def shelters(shelter_id):
     """Returns specific shelter with its properties"""
     result = tree()
+    
+    ## shelter picture query
+    shelter_pictures = db.session.query(ShelterPicture.shelter_id, func.string_agg(ShelterPicture.file_name,';').label("filename"), Category.name)\
+    		.join(Category, Category.id == ShelterPicture.category_id)\
+    		.group_by(ShelterPicture.shelter_id, Category.name)\
+    		.filter(ShelterPicture.shelter_id==shelter_id)
+    
+    ## shelter property query
     shelter_properties  = Property.query.filter(Property.shelter_id==shelter_id)
     for shelter_property in shelter_properties:
     	result[shelter_property.shelter_id][shelter_property.attribute.uniqueid] = shelter_property.get_values_as_string()
-    
+    for picture in shelter_pictures:
+    		result[picture.shelter_id]["shelterpicture"][picture.name] = picture.filename
     return jsonify(result)
 
 @api_bp.route('/shelters/<attribute_name>', methods=['GET'])
@@ -134,9 +150,4 @@ def attributes(attribute_name, attribute_value=''):
     	result[shelter_property.shelter_id][shelter_property.attribute.uniqueid] = shelter_property.get_values_as_string()
    
     return jsonify(result)
-
-#shelter_properties = Property.query.join(Property.category).filter(Property.category.has(name="Identification"))
-#for shelter_property in shelter_properties:
-#    	result[shelter_property.shelter_id][shelter_property.attribute.name] = shelter_property.get_values_as_string()
-#    return jsonify(result)
-
+    
