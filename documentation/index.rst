@@ -39,3 +39,4 @@ Web Services
     :maxdepth: 2
 
     api
+    api_v0.1

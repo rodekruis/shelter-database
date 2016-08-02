@@ -1,7 +1,7 @@
-Web Services
-============
+API
+===
 
-Example of requests to the Web Service
+Examples of requests to the Web Service
 --------------------------------------
 
 .. code-block:: shell

@@ -225,16 +225,23 @@ Configuring Tomcat to use the Keystore. pen the Apache Tomcat server configurati
 
    nano /etc/tomcat7/server.xml
    
-   add the following under the existing commented out connector for SSL. Make sure to change the keystorepassword and set the maxThreads to 200 * number of CPU cores
+Add the following under the existing commented out connector for SSL. Make sure to change the keystorepassword and set the maxThreads to 200 * number of CPU cores
+
+.. code-block:: shell
+
    <Connector SSLEnabled="true" acceptCount="100" clientAuth="false" disableUploadTimeout="true" enableLookups="false" maxThreads="25" port="8444" keystoreFile="/etc/tomcat7/.keystore" keystorePass="verysecretpassword" protocol="org.apache.coyote.http11.Http11NioProtocol" scheme="https" secure="true" sslProtocol="TLS" />
+
+
+.. code-block:: shell
 
    nano /etc/default/tomcat7
    
-   in JAVA_OPTS you should set a higher value for the maximum heap size (xmx) for example -Xmx1024m (depending on the ressources available and the expected load) instead of the initial 128. Also you should add the initial heap size parameter (xms) and set it's value to the same one as xsx, e.g. -Xms1024m
+In JAVA_OPTS you should set a higher value for the maximum heap size (xmx) for example -Xmx1024m (depending on the ressources available and the expected load) instead of the initial 128. Also you should add the initial heap size parameter (xms) and set it's value to the same one as xsx, e.g. -Xms1024m
  
 Now let's restart tomcat 7 to reload the configuration.
 
 .. code-block:: shell
+
    sudo service tomcat7 restart  
    
 Download and install Geoserver
@@ -369,8 +376,9 @@ Enable the site:
 The web application is now running with a dedicated user and a thread limit set
 to 5.
 
+
 Update stylesheets
-"""""""""
+""""""""""""""""""
 
 .. code-block:: shell
 
