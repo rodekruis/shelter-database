@@ -29,7 +29,8 @@ with app.app_context():
     app.register_blueprint(views.shelter_bp)
     app.register_blueprint(views.shelters_bp)
     app.register_blueprint(views.admin_bp)
-
+	
+    app.register_blueprint(views.api_bp)
     # API
     from web import processors
     # 'User' Web service

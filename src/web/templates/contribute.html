@@ -1,0 +1,177 @@
+{% extends "layout.html" %}
+{% block content %}
+        <section class="contribute">
+            <div class="content">
+                <h1>Add your project</h1>
+                <p>The Shelter Database exists because of people like you!<br />We need you to help us build the content</p>
+				{% if g.user.is_authenticated %}
+                <a id="newShelter" onclick="modalOpen()" class="bt button button-red"><i class="fa fa-plus"></i><span class="text">Add Project</span></a>
+				{% else %}
+				    <a href="{{ url_for('join') }}" class="bt button button-red"><i class="fa fa-user"></i><span class="text">Please login to add your project</span></a>
+				{% endif %}
+            </div>
+        </section>
+        <section class="" style="background-color:#ecf0f1;">
+            <div class="content">
+                <h3>Why add a project</h3>
+                <div class="flexbox">
+                    <div class="box">
+                        <i class="head fa fa-bank"></i>
+                        <h4>Share knowledge</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                    <div class="box">
+                        <i class="head fa fa-heartbeat"></i>
+                        <h4>Save lives</h4>
+                        <p>Adding your project will save lives. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <div class="mymodal">
+        <div class="content page1" id="modalcontent">
+            <div class="page page1">
+			    <form id="createShelterForm" action="#" class="navbar-form navbar-left" method="GET" name="save" class="myform">
+                <div class="mylabel">Title of your project:</div>
+                <div class="myinput"><input type="text" name="name" placeholder="Name" required="required" /></div>
+                <div class="mylabel">Country:</div>
+
+                    <label for="f1" class="button button-drop">
+                        <select id="countrySelect" name="country" data-live-search="true"></select>
+                    </label>
+                </form>
+                <!-- <a href="" class="button button-light button-drop button-stretch">Select</a> -->
+                <div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-times"></i><span class="text">Cancel</span></div>
+                    <!--<button type="submit" id="createShelter" class="btn btn-default form-control" value="Create">Create</button>	-->			                   
+				   <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                </div>
+            </div>
+            <div class="page page2">
+                <div class="mylabel">Province / District / Region:</div>
+                <div class="myinput"><input type="" name="" placeholder="Province / District / Region.." /></div>
+                <div class="mylabel">City / Village:</div>
+                <div class="myinput"><input type="" name="" placeholder="City / Village.." /></div>
+                <div class="mylabel">Image</div>
+                <!-- <form class="myimgupload" enctype="multipart/form-data"> -->
+                    <!-- <input type="file" style="visibility:hidden;"> -->
+                    <div class="myimage" style="background-image: url('img/placeholder.png')"></div>
+                <!-- </form> -->
+
+                <div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
+                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                </div>
+            </div>
+            <div class="page page3">
+                <div class="mylabel">Location of the Site:</div>
+                <div class="options">
+                    <div class="option" onclick="optClick(0)" style="background-image: url('img/site/1.png')"></div>
+                    <div class="option" onclick="optClick(1)" style="background-image: url('img/site/2.png')"></div>
+                    <div class="option" onclick="optClick(2)" style="background-image: url('img/site/3.png')"></div>
+                    <div class="option" onclick="optClick(3)" style="background-image: url('img/site/4.png')"></div>
+                    <div class="option" onclick="optClick(4)" style="background-image: url('img/site/5.png')"></div>
+                    <div class="option" onclick="optClick(5)" style="background-image: url('img/site/6.png')"></div>
+                    <div class="option" onclick="optClick(6)" style="background-image: url('img/site/7.png')"></div>
+                    <div class="option" onclick="optClick(7)" style="background-image: url('img/site/8.png')"></div>
+                </div>
+
+                <div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
+                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                </div>
+            </div>
+            <div class="page page4">
+                <div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	<script>
+        $(document).ready(function() {
+            $("#newShelter").click(function(evt) {
+                var filters = [{"name":"name","op":"eq","val":"Country"}];
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/attribute',
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: {"q": JSON.stringify({"filters": filters})},
+                    success: function(result) {
+                        result.objects[0].associated_values.map(function(country) {
+                            $("#countrySelect").append(new Option(country.name, country.id));
+                        })
+                        $('.selectpicker').selectpicker({style: 'btn-default',
+                            size: false});
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                        //alert(errorThrown);
+                    }
+                }) ;
+            });
+
+            //Attach a submit handler to the form
+            $( "#createShelterForm" ).submit(function( event ) {
+                // Stop form from submitting normally
+                event.preventDefault();
+                // Get some values from elements on the page:
+                var $form = $(this);
+                var values = {};
+                form_complete = true;
+                $.each($form.serializeArray(), function(i, field) {
+                    if (field.value == '') {
+                        form_complete = false;
+                    }
+                    values[field.name] = field.value;
+                });
+                url = $form.attr("action");
+
+                if (form_complete) {
+                    // Send the data using post
+                    name_of_shelter = values["name"]
+                    country_value_id = values["country"];
+                    country_name = $('#countrySelect option:selected').text()
+                    create_shelter(name_of_shelter, country_value_id, country_name);
+                } else {
+                    alert("Please fill all the fields of the form.");
+                }
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        var cnt = document.getElementById("modalcontent")
+        var page = 1
+        var modalOpen = function(){
+            document.body.className = "modal-open"
+        }
+        var setPage = function(){
+            cnt.className = "content page" + page
+        }
+        var modalClose = function(){
+            page = 1
+            document.body.className = ""
+            cnt.className = "content page1"
+        }
+        var next = function(){
+            page++
+            setPage()
+        }
+        var prev = function(){
+            page--
+            setPage()
+        }
+        var optClick = function(nr){
+            var elements = document.getElementsByClassName('option')
+            var length = elements.length
+
+            while(length--) {
+                elements[length].className = "option"
+            }
+            elements[nr].className = "option selected"
+        }
+    </script>
+{% endblock %}

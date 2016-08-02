@@ -72,3 +72,4 @@ def populate_g():
     g.db = db
     g.app = app
     g.babel = babel
+

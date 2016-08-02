@@ -59,6 +59,10 @@ def authentication_required(e):
 #
 @current_app.route('/', methods=['GET'])
 def index():
+    return render_template('index.html')
+	
+@current_app.route('/map', methods=['GET'])
+def map():
     """
     This view displays the map.
     """
@@ -128,6 +132,12 @@ def shelters_for_map():
 
     return jsonify(result)
 
+
+@current_app.route('/dashboard', methods=['GET'])
+def dashboard():
+    # return render_template('dashboard0.html')
+    return render_template('dashboard.html')
+
 @current_app.route('/shelters', methods=['GET'])
 def shelters():
     shelters = Shelter.query.filter(Shelter.is_published==True).all()
@@ -136,6 +146,17 @@ def shelters():
 @current_app.route('/stats', methods=['GET'])
 def stats():
     return render_template('stats.html')
+
+@current_app.route('/knowledgebase', methods=['GET'])
+def knowledgebase():
+    return render_template('knowledgebase.html')
+	
+@current_app.route('/contribute', methods=['GET'])
+def contribute():
+    """
+    List of contributors.
+    """
+    return render_template('contribute.html')
 
 @current_app.route('/contributors', methods=['GET'])
 def contributors():

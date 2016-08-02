@@ -1,0 +1,46 @@
+.dropdown {
+    display: inline-block;
+
+    .btn {
+        font-size: 1em;
+    }
+}
+
+.dropdown + .dropdown {
+    margin-left: 20px;
+}
+
+
+form.myform {
+    label.button {
+        select {
+            @include appearance(none);
+            outline: none;
+            border: none;
+            background-color: transparent;
+            margin: 0;
+            cursor: pointer;
+            color: #666;
+            text-decoration: none;
+            display: inline-block;
+            // text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            font-weight: 400;
+
+
+            &:hover {
+                color: #FFF;
+            }
+
+            // padding: 0 8px;
+            // width: 100%;
+            // line-height: 45px;
+            // height: 42px;
+            // cursor: pointer;
+            // font-weight: bold;
+            // color: #555;
+
+        }
+    }
+}

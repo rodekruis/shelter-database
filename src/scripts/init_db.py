@@ -49,17 +49,19 @@ def init_shelters_structure(csv_file, drawnings_folder):
 
 
             attribute_name = row[3]
+            attribute_uniqueid = row[4]
             attribute = models.Attribute(name=attribute_name,
+                                        uniqueid=attribute_uniqueid,
                                         category_id=sub_category.id,
                                         display_position=display_position)
-            attribute.type = row[4]
+            attribute.type = row[5]
 
-            cardinality = row[6]
+            cardinality = row[7]
             attribute.multiple = cardinality=='multiple choice'
 
             if cardinality in ('single choice', 'multiple choice'):
                 attribute.user_can_add_values = True
-                for value in row[5].split(';'):
+                for value in row[6].split(';'):
                     value_name = value.strip()
                     if value_name == 'other':
                         # because the user will be able to add new values with
@@ -73,12 +75,12 @@ def init_shelters_structure(csv_file, drawnings_folder):
             else:
                 attribute.free_text = True
 
-            attribute.is_editable = "automatic" not in row[7] and \
-                                            "not_editable" not in row[7]
-            attribute.is_mandatory = "mandatory" not in row[7]
+            attribute.is_editable = "automatic" not in row[8] and \
+                                            "not_editable" not in row[8]
+            attribute.is_mandatory = "mandatory" not in row[8]
 
 
-            pictures = row[8].split(";")
+            pictures = row[9].split(";")
             for picture in pictures:
                 if picture:
                     number = '_' + picture.replace('D', '') + '_'

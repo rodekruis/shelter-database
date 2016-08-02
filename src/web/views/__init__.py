@@ -5,6 +5,7 @@ from web.views import views
 from web.views.page import recommendations
 from web.views.admin import *
 from web.views.session_mgmt import *
+from web.views.shelterapi import api_bp
 
 import conf
 from flask import g

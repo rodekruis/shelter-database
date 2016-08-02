@@ -23,7 +23,11 @@ venv
 build
 
 # bower
-src/web/static/lib
+src/web/static/lib/*
+!src/web/static/lib/leaflet
+!src/web/static/lib/dc
+!src/web/static/lib/file-saver
+
 
 # node files
 node_modules
