@@ -1,8 +1,9 @@
 {
   "name": "shelter-database",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "authors": [
-    "Cédric Bonhomme <cedric.bonhomme@list.lu>"
+    "Cédric Bonhomme <cedric.bonhomme@list.lu>",
+	"Maarten van der Veen <mvanderveen@redcross.nl>"
   ],
   "license": "MIT",
   "ignore": [
@@ -12,7 +13,7 @@
     "jquery": "~1.11.3",
     "bootstrap-select": "~1.7.5",
     "bootstrap": "~3.3.6",
-    "font-awesome": "4.6.3",
+	"font-awesome": "4.6.3",
     "datatables.net": "~1.10.10",
     "datatables.net-bs": "~1.10.10",
     "tinymce": "^4.3.12",

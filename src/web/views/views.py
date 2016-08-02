@@ -57,6 +57,7 @@ def authentication_required(e):
 #
 # Views.
 #
+
 @current_app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
@@ -132,12 +133,11 @@ def shelters_for_map():
 
     return jsonify(result)
 
-
 @current_app.route('/dashboard', methods=['GET'])
 def dashboard():
     # return render_template('dashboard0.html')
     return render_template('dashboard.html')
-
+	
 @current_app.route('/shelters', methods=['GET'])
 def shelters():
     shelters = Shelter.query.filter(Shelter.is_published==True).all()
@@ -157,7 +157,7 @@ def contribute():
     List of contributors.
     """
     return render_template('contribute.html')
-
+	
 @current_app.route('/contributors', methods=['GET'])
 def contributors():
     """
