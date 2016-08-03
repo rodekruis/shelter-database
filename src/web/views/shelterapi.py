@@ -80,11 +80,15 @@ def allshelters():
     result = tree()
     
     ## shelter picture query
-    shelter_pictures = db.session.query(ShelterPicture.shelter_id, func.string_agg(ShelterPicture.file_name,';').label("filename"), Category.name)\
-    		.join(Category, Category.id == ShelterPicture.category_id)\
-    		.group_by(ShelterPicture.shelter_id, Category.name)
-    #print(shelter_pictures)
+    #shelter_pictures = db.session.query(ShelterPicture.shelter_id, func.string_agg(ShelterPicture.file_name,';').label("filename"), Category.name)\
+    #		.join(Category, Category.id == ShelterPicture.category_id)\
+    #		.group_by(ShelterPicture.shelter_id, Category.name)
+    shelter_pictures = db.session.query(ShelterPicture.shelter_id, ShelterPicture.file_name.label("filename"), Category.name)\
+    		.join(Category, Category.id == ShelterPicture.category_id)
+    print(shelter_pictures)
     
+    #shelter pictures folder path
+    picpath = 'data/shelters/pictures'
     ## attribute parameter listening
     if request.args.getlist('attribute'):
     	attr = request.args.getlist('attribute')
@@ -92,11 +96,11 @@ def allshelters():
     	subquery = queryfactory(Property,Attribute,Attribute.uniqueid,attr).subquery()
     	shelter_properties = Property.query.filter(Property.shelter_id==subquery.c.shelter_id).all()
     else:
-    	shelter_properties = db.session.query(Property.shelter_id,Attribute.name,func.string_agg(Value.name,';').label("value"))\
+    	shelter_properties = db.session.query(Property.shelter_id,Attribute.name,Attribute.uniqueid,func.string_agg(Value.name,';').label("value"))\
     		.join(Attribute)\
     		.join(Association,Property.id==Association.property_id)\
     		.join(Value, Association.value_id==Value.id)\
-    		.group_by(Property.shelter_id, Attribute.name)
+    		.group_by(Property.shelter_id, Attribute.name,Attribute.uniqueid)
     
     ## value parameter listening
     if request.args.getlist('attribute') and request.args.getlist('value'):
@@ -108,12 +112,21 @@ def allshelters():
     ## format parameter listening and populate defaultict	
     if request.args.get('format') == 'prettytext':
     	for shelter_property in shelter_properties:
-    		result[shelter_property.shelter_id][shelter_property.attribute.name] = shelter_property.get_values_as_string()
-    else:
-    	for shelter_property in shelter_properties:
     		result[shelter_property.shelter_id][shelter_property.name] = shelter_property.value
     	for picture in shelter_pictures:
-    		result[picture.shelter_id]["shelterpicture"][picture.name] = picture.filename
+    		if not result[picture.shelter_id]["shelterpicture"][picture.name]:
+    			result[picture.shelter_id]["shelterpicture"][picture.name] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["ID"], picture.filename)]
+    		else:
+    			result[picture.shelter_id]["shelterpicture"][picture.name].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["ID"], picture.filename))
+    	
+    else:
+    	for shelter_property in shelter_properties:
+    		result[shelter_property.shelter_id][shelter_property.uniqueid] = shelter_property.value
+    	for picture in shelter_pictures:
+    		if not result[picture.shelter_id]["shelterpicture"][picture.name]:
+    			result[picture.shelter_id]["shelterpicture"][picture.name] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["id"], picture.filename)]
+    		else:
+    			result[picture.shelter_id]["shelterpicture"][picture.name].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["id"], picture.filename))
     return jsonify(result)
 
 
