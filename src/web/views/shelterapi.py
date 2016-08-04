@@ -44,8 +44,6 @@ def queryfactory(model,join=False,filt=False,value=False):
 			return obj.filter(attrib == val[0])
 		else: 
 			return filter_and(obj.filter(attrib == val[len(val)-1]),attrib, val[0:len(val)-1])
-#						model		join	filt			value
-#subquery = queryfactory(Property,Attribute,Attribute.name,attr)
 
 	if join and not filt:
 		return model.query.join(join)
@@ -126,15 +124,22 @@ def allshelters():
     if request.args.get('format') == 'prettytext':
     	for shelter_property in shelter_properties:
     		result[shelter_property.shelter_id][shelter_property.name] = shelter_property.value
+    	
+    	for picture in shelter_pictures:
+    		if not result[picture.shelter_id]["shelterpicture"][picture.name]:
+    			result[picture.shelter_id]["shelterpicture"][picture.name] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["ID"], picture.filename)]
+    		else:
+    			result[picture.shelter_id]["shelterpicture"][picture.name].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["ID"], picture.filename))
+    
     else:
     	for shelter_property in shelter_properties:
     		result[shelter_property.shelter_id][shelter_property.uniqueid] = shelter_property.value
     
-    for picture in shelter_pictures:
-    	if not result[picture.shelter_id]["shelterpicture"][picture.name]:
-    		result[picture.shelter_id]["shelterpicture"][picture.name] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["ID"], picture.filename)]
-    	else:
-    		result[picture.shelter_id]["shelterpicture"][picture.name].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["ID"], picture.filename))
+    	for picture in shelter_pictures:
+    		if not result[picture.shelter_id]["shelterpicture"][picture.name]:
+    			result[picture.shelter_id]["shelterpicture"][picture.name] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["id"], picture.filename)]
+    		else:
+    			result[picture.shelter_id]["shelterpicture"][picture.name].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["id"], picture.filename))
   
     return jsonify(result)
 
