@@ -16,7 +16,7 @@ __license__ = ""
 
 #from bootstrap import db
 from bootstrap import db
-from sqlalchemy.sql import func
+from sqlalchemy.sql import func, select
 from flask import Blueprint, jsonify, request
 from collections import defaultdict
 from web.models import Shelter, Attribute, Property, Value, Association, ShelterPicture, Category
@@ -176,5 +176,23 @@ def attributes(attribute_name, attribute_value=''):
     for shelter_property in shelter_properties:
     	result[shelter_property.shelter_id][shelter_property.attribute.uniqueid] = shelter_property.get_values_as_string()
    
+    return jsonify(result)
+    
+@api_bp.route('/shelters/search/<searchstring>', methods=['GET'])
+def fulltext(searchstring):
+    searchstring = request.args.get('string')
+    print(searchstring)
+    result= tree()
+    document = db.session.query(Property.shelter_id,func.to_tsvector(func.string_agg(Value.name,' ')).label("text"))\
+    		.join(Attribute)\
+    		.join(Association,Property.id==Association.property_id)\
+    		.join(Value, Association.value_id==Value.id)\
+    		.group_by(Property.shelter_id)\
+    		.subquery()
+    searchquery = db.session.query(document).filter(document.c.text.match(searchstring))
+    #print(searchquery)
+    for shelter_property in searchquery:
+    	#print(shelter_property)
+    	result[shelter_property.shelter_id] = 1#shelter_property.text
     return jsonify(result)
     
