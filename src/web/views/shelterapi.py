@@ -19,7 +19,7 @@ from bootstrap import db
 from sqlalchemy.sql import func, select
 from flask import Blueprint, jsonify, request
 from collections import defaultdict
-from web.models import Shelter, Attribute, Property, Value, Association, ShelterPicture, Category
+from web.models import Shelter, Attribute, Property, Value, Association, ShelterPicture, Category, Tsvector
 
 api_bp = Blueprint('api for shelter', __name__, url_prefix='/api/v0.1')
 
@@ -180,19 +180,19 @@ def attributes(attribute_name, attribute_value=''):
     
 @api_bp.route('/shelters/search/<searchstring>', methods=['GET'])
 def fulltext(searchstring):
-    searchstring = request.args.get('string')
-    print(searchstring)
+    """Returns shelter id's which match the search criteria. Uses full text search'"""
     result= tree()
-    document = db.session.query(Property.shelter_id,func.to_tsvector(func.string_agg(Value.name,' ')).label("text"))\
-    		.join(Attribute)\
-    		.join(Association,Property.id==Association.property_id)\
-    		.join(Value, Association.value_id==Value.id)\
-    		.group_by(Property.shelter_id)\
-    		.subquery()
-    searchquery = db.session.query(document).filter(document.c.text.match(searchstring))
+#    document = db.session.query(Property.shelter_id,func.to_tsvector(func.string_agg(Value.name,' ')).label("text"))\
+#    		.join(Attribute)\
+#    		.join(Association,Property.id==Association.property_id)\
+#    		.join(Value, Association.value_id==Value.id)\
+#    		.group_by(Property.shelter_id)\
+#    		.subquery()
+#    searchquery = db.session.query(document).filter(document.c.text.match(searchstring))
+    searchquery = Tsvector.query.filter(Tsvector.lexeme.match(searchstring))
     #print(searchquery)
     for shelter_property in searchquery:
     	#print(shelter_property)
-    	result[shelter_property.shelter_id] = 1#shelter_property.text
+    	result[shelter_property.shelter_id]
     return jsonify(result)
     
