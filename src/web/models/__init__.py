@@ -28,6 +28,7 @@ from .attribute import Attribute
 from .attribute_picture import AttributePicture
 from .shelter_picture import ShelterPicture
 from .shelter_document import ShelterDocument
+from .tsvector import Tsvector
 
 from .page import Page
 from .translation import Translation
@@ -35,7 +36,7 @@ from .translation import Translation
 
 __all__ = ['User', 'Shelter', 'Section', 'Property', 'Category', 'Attribute',
             'Value', 'Page', 'Translation', 'AttributePicture',
-            'ShelterPicture', 'ShelterDocument', 'Association']
+            'ShelterPicture', 'ShelterDocument', 'Association', 'Tsvector']
 
 import os
 

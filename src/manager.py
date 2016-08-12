@@ -118,5 +118,12 @@ def import_shelters_documents(folder):
     with app.app_context():
         scripts.import_shelters_documents(folder)
 
+@manager.command
+def create_db_triggers():
+    "Creates triggers and trigger functions for tables"
+    print("Creating database triggers ...")
+    with app.app_context():
+        scripts.create_db_triggers()
+
 if __name__ == '__main__':
     manager.run()
