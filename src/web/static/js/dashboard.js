@@ -20,13 +20,16 @@ $(document).ready(function () {
         'soilFilter': undefined, 'shelterTypeFilter': undefined, 'countryFilter': countryChart
     }
 
-    d3.csv('/static/data/shelters-sample.csv', function (data) {
-    // d3.json("api/v0.1/shelters", function(dataObject) {
-    //
-    //      var data = []
-    //      for (var key in dataObject) {
-    //         data.push(dataObject[key])
-    //      }
+    var dimensions = []
+//    d3.csv('/static/data/shelters-sample.csv', function (data) {
+     d3.json("api/v0.1/shelters", function(dataObject) {
+
+          var data = []
+          for (var key in dataObject) {
+             var shelter = dataObject[key]
+             shelter["db_id"] = key
+             data.push(shelter)
+          }
         var dateFormat = d3.time.format('%Y');
 
         var ndx = crossfilter(data);
@@ -36,6 +39,13 @@ $(document).ready(function () {
         });
         var all = ndx.groupAll();
         var dataCount = dc.dataCount('#data-count')
+
+        var db_idDimension = ndx.dimension(function(d) {
+            return d.db_id
+        });
+
+        dimensions.push(db_idDimension)
+
         var zoneDimension = ndx.dimension(function (d) {
             if (d.zone) {
                 return d.zone;
@@ -43,9 +53,8 @@ $(document).ready(function () {
                 return "No data"
             }
         });
-
+        dimensions.push(zoneDimension)
         var zoneCount = zoneDimension.group().reduceCount()
-
 
         var crisisDimension = ndx.dimension(function (d) {
             if (d['associateddisasterimmediatecause']) {
@@ -53,9 +62,10 @@ $(document).ready(function () {
             } else {
                 return 'No data'
             }
-
         });
+        dimensions.push(crisisDimension);
         var crisisCount = crisisDimension.group().reduceCount()
+
         var climateDimension = ndx.dimension(function (d) {
             if (d['climatezone']) {
                 return d['climatezone'];
@@ -64,8 +74,8 @@ $(document).ready(function () {
             }
 
         });
+        dimensions.push(climateDimension);
         var climateCount = climateDimension.group().reduceCount()
-
 
         var timeDimension = ndx.dimension(function (d) {
             if (d['yearofconstructionfirstcompletedshelters']) {
@@ -74,8 +84,8 @@ $(document).ready(function () {
             else {
                 return undefined;
             }
-
         });
+        dimensions.push(timeDimension);
         var timeCount = timeDimension.group().reduceCount(
             function (d) {
                 if (d['yearofconstructionfirstcompletedshelters']) {
@@ -93,8 +103,8 @@ $(document).ready(function () {
             } else {
                 return undefined;
             }
-
         });
+        dimensions.push(shelters);
 
         var countryDimension = ndx.dimension(function (d) {
             if (d.country) {
@@ -104,6 +114,7 @@ $(document).ready(function () {
             }
 
         })
+        dimensions.push(countryDimension);
         var countryCount = countryDimension.group().reduceCount()
 
         var topographyDimension = ndx.dimension(function (d) {
@@ -112,10 +123,9 @@ $(document).ready(function () {
             } else {
                 return 'No data'
             }
-
         })
+        dimensions.push(topographyDimension);
         var topographyCount = topographyDimension.group().reduceCount()
-
 
         var sheltersGroup = shelters.group().reduceCount();
 
@@ -287,6 +297,34 @@ $(document).ready(function () {
 
         }
 
+        d3.select('#query').on('keydown', function() {
+            if (d3.event.keyCode == 13) {
+                var query = this.value
+                console.log("Searching for " + query);
+
+                if (query!="") {
+                    d3.json("api/v0.1/shelters/search/" + query, function(results) {
+                    if (results != null) {
+                        db_idDimension.filterFunction(function(id) {
+                            return id in results;
+                        });
+                    }
+                    dc.renderAll();
+                    generateShelterList(allDimensions.top(Infinity));
+
+
+                 })
+
+                } else {
+                    db_idDimension.filterAll();
+                    dc.renderAll();
+                    generateShelterList(allDimensions.top(Infinity));
+                }
+
+            }
+
+        });
+
 
         d3.select('#download')
             .on('click', function () {
@@ -296,6 +334,16 @@ $(document).ready(function () {
             });
 
 
+        d3.select('#all').on('click', function () {
+            for (var i=0; i< dimensions.length; i++ ) {
+                dimensions[i].filterAll();
+            }
+//            dc.filterAll();
+            dc.renderAll();
+            $("select").val("");
+            $("#query").val("");
+
+        });
 
         function onFiltered(chart) {
 
@@ -322,12 +370,7 @@ $(document).ready(function () {
 
     })
 
-    d3.selectAll('#all').on('click', function () {
-        dc.filterAll();
-        dc.renderAll();
-        $("select").val("");
 
-    });
 
 
     // Serializing filters values in URL
@@ -437,6 +480,7 @@ $(document).ready(function () {
 
 
 function addLayersToChart(mapChart) {
+
     var redCrossLayer = L.tileLayer.wms("https://shelter-database.org:8443/geoserver/ows?service=wms&version=1.1.1&request=GetCapabilities", {
         layers: 'shelters:redcross',
         transparent: true,
@@ -450,50 +494,16 @@ function addLayersToChart(mapChart) {
         opacity: 0.5
     })
 
+    var overlayMaps = {
+        "Climate simplified classification": redCrossLayer,
+        "Koeppen-Geiger": koeppenGeigerLayer
+    };
+
     mapChart._doRender()
     var map = mapChart.map()
 
-
-    var googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
-        maxZoom: 20,
-        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        attribution: ''
-    });
-
-    var googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
-        maxZoom: 20,
-        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        attribution: ''
-    });
-
-    var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-        maxZoom: 20,
-        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        attribution: ''
-    });
-
-    var googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
-        maxZoom: 20,
-        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        attribution: ''
-    });
-
-    var openStreetMap = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    })
-
-    var baseLayers = {
-        "Open Street Map": openStreetMap,
-        "Google streets": googleStreets,
-        "Google hybrid": googleHybrid,
-        "Google satelite": googleSat,
-        "Google physical": googleTerrain
-    }
-
-    L.control.layers(baseLayers, {
-        "Climate simplified classification": redCrossLayer,
-        "Koeppen-Geiger": koeppenGeigerLayer
-    }).addTo(map);
+    map.addLayer(redCrossLayer)
+    L.control.layers(null, overlayMaps).addTo(map);
 
 };
 
