@@ -33,7 +33,7 @@
     <section class="search">
         <div class="content">
             <div class="search-wrapper">
-                <input type="" name="" placeholder="Search Shelters.."/>
+                <input type="" name="" id="query" placeholder="Search Shelters.."/>
             </div>
         </div>
     </section>
@@ -72,6 +72,8 @@
                         <option value="" disabled>---</option>
                     </select>
                 </label>
+
+
 
 
                 <!-- <a href="" class="button button-light button-drop">Climate</a> -->
@@ -116,6 +118,12 @@
                         </label>
                     </div>
                 </div>
+                <div class="advanced">
+                    <div class="resetAll-btn">
+                        <a id="all" href="#"  class="resetAll-href"> Reset All Filters&emsp;<i class="fa fa-times"></i></a>
+                    </div>
+
+                </div>
             </form>
         </div>
     </section>
@@ -147,9 +155,6 @@
                                                 <span class="filter-count"></span> selected out of <span
                                                     class="total-count"></span>
                                                 records
-                                                |
-                                                <a id="all" href="#tabs">Reset All</a>
-
                                             </small>
                                         </h4>
                                     </div>

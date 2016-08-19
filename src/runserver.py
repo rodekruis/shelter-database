@@ -31,6 +31,7 @@ with app.app_context():
     app.register_blueprint(views.admin_bp)
 	
     app.register_blueprint(views.api_bp)
+    app.register_blueprint(views.apiv02_bp)
     # API
     from web import processors
     # 'User' Web service
