@@ -137,23 +137,23 @@ def allshelters(shelter_id=None):
     
     if request.args.get('format') == 'prettytext':
     	for shelter_property in shelter_properties:
-    		result[shelter_property.shelter_id][shelter_property.supercategory_name][shelter_property.category_name][shelter_property.name] = shelter_property.value
+    		result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.name] = shelter_property.value
     	
     	for picture in shelter_pictures:
-    		if not result[picture.shelter_id]["shelterpicture"][picture.name]:
-    			result[picture.shelter_id]["shelterpicture"][picture.name] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Identification"]["ID"], picture.filename)]
+    		if not result[picture.shelter_id][picture.name]["Pictures"]:
+    			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["ID"], picture.filename)]
     		else:
-    			result[picture.shelter_id]["shelterpicture"][picture.name].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Identification"]["ID"], picture.filename))
+    			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["ID"], picture.filename))
     
     else:
     	for shelter_property in shelter_properties:
-    		result[shelter_property.shelter_id][shelter_property.supercategory_name][shelter_property.category_name][shelter_property.uniqueid] = shelter_property.value
+    		result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.uniqueid] = shelter_property.value
     
     	for picture in shelter_pictures:
-    		if not result[picture.shelter_id]["shelterpicture"][picture.name]:
-    			result[picture.shelter_id]["shelterpicture"][picture.name] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Identification"]["id"], picture.filename)]
+    		if not result[picture.shelter_id][picture.name]["Pictures"]:
+    			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["id"], picture.filename)]
     		else:
-    			result[picture.shelter_id]["shelterpicture"][picture.name].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Identification"]["id"], picture.filename))
+    			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["id"], picture.filename))
   
     return jsonify(result)
 
