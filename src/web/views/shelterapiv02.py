@@ -141,9 +141,9 @@ def allshelters(shelter_id=None):
     	
     	for picture in shelter_pictures:
     		if not result[picture.shelter_id]["shelterpicture"][picture.name]:
-    			result[picture.shelter_id]["shelterpicture"][picture.name] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["ID"], picture.filename)]
+    			result[picture.shelter_id]["shelterpicture"][picture.name] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Identification"]["ID"], picture.filename)]
     		else:
-    			result[picture.shelter_id]["shelterpicture"][picture.name].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["ID"], picture.filename))
+    			result[picture.shelter_id]["shelterpicture"][picture.name].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Identification"]["ID"], picture.filename))
     
     else:
     	for shelter_property in shelter_properties:
