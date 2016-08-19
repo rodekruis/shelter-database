@@ -143,6 +143,11 @@ def shelters():
     shelters = Shelter.query.filter(Shelter.is_published==True).all()
     return render_template('shelters.html', shelters=shelters)
 
+@current_app.route('/shelter/<int:shelter_id>', methods=['GET'])
+def shelter(shelter_id):
+    return render_template('shelter.html', shelter_id=shelter_id)
+
+
 @current_app.route('/stats', methods=['GET'])
 def stats():
     return render_template('stats.html')
