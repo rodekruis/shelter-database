@@ -17,12 +17,35 @@
       fill: black !important;
  }
 
+.dc-data-count {
+    float:right !important;
+}
 
-.resetAll-btn {
+.menu-btn {
   font-size: 0.9em;
   margin-top: 15px;
  }
 
- .resetAll-href {
-    color: #999;
+ .menu-href {
+    color: #333;
  }
+
+ .minValue {
+    padding-left:1em
+ }
+
+.advanced-content {
+    max-height: 300px ;
+}
+.advanced-content .button {
+    margin-top:5px !important;
+}
+
+.slider-handle {
+    width:  5px !important;
+    height: 20px !important;
+    margin-left: -2px !important;
+}
+.slider-horizontal {
+    width: 100px !important;
+}
