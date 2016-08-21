@@ -18,7 +18,7 @@ python3.5 src/manager.py create_admin_user
 
 # Import of the shelters from the CSV files
 python3.5 src/manager.py import_shelters admin data/shelters/20150518_Haiti_shelters.csv
-#python3.5 src/manager.py import_shelters admin data/shelters/Phil-Bangla-Burundi.csv
+python3.5 src/manager.py import_shelters admin data/shelters/Phil-Bangla-Burundi.csv
 
 # Import pictures of the shelters
 python3.5 src/manager.py import_shelters_pictures data/shelters/pictures/

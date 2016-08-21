@@ -14,6 +14,8 @@
     <script src="{{ url_for('static', filename = 'lib/leaflet/dc.leaflet.js') }}"></script>
     <script src="{{ url_for('static', filename='lib/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ url_for('static', filename='lib/file-saver/FileSaver.js')}}"></script>
+    <script src="{{ url_for('static', filename='lib/bootstrap-slider/bootstrap-slider.js')}}"></script>
+
 
 
     <!--leaflet -->
@@ -26,6 +28,9 @@
     <!-- DC.js  -->
     <link href="{{ url_for('static', filename='lib/dc/dc.css') }}" rel="stylesheet" media="screen" />
 
+    <link href="{{ url_for('static', filename='lib/bootstrap-slider/bootstrap-slider.css')}}" rel="stylesheet" media="screen" />
+
+
 {% endblock %}
 
 
@@ -33,7 +38,7 @@
     <section class="search">
         <div class="content">
             <div class="search-wrapper">
-                <input type="" name="" placeholder="Search Shelters.."/>
+                <input type="" name="" id="query" placeholder="Search Shelters.."/>
             </div>
         </div>
     </section>
@@ -60,18 +65,15 @@
                         <option value="" disabled>---</option>
                     </select>
                 </label>
-                <label for="materialFilter" class="button button-drop">
-                    <select id="materialFilter">
-                        <option value="" selected="selected">Material</option>
-                        <option value="" disabled>---</option>
-                    </select>
-                </label>
+
                 <label for="commercialFilter" class="button button-drop">
                     <select id="commercialFilter">
                         <option value="" selected="selected">Commercial</option>
                         <option value="" disabled>---</option>
                     </select>
                 </label>
+
+
 
 
                 <!-- <a href="" class="button button-light button-drop">Climate</a> -->
@@ -105,16 +107,62 @@
                             </select>
                         </label>
 
-                        <!--label for="topographyFilter" class="button button-small button-drop">
+                        <label for="topographyFilter" class="button button-small button-drop">
                             <select id="topographyFilter">
                                 <option value="" selected="selected">Topography</option>
                                 <option value="" disabled>---</option>
                             </select>
-                        </label-->
+                        </label>
                         <label for="isSRURatedFilter" class="button button-small ">
                             <input id="isSRURatedFilter" type="checkbox" value=""> Rated by SRU
                         </label>
+                        <br>
+                        <label for="costRange" class="button button-small">
+                        Construction cost per unit:&nbsp<input id="costRange" data-type="range" class="span2"  data-slider-value="[0,1000000000]" />
+                        <span id="costRangeMinValue" class="minValue"> 0</span> - <span id="costRangeMaxValue">0</span> $
+                        </label>
+
+                        <label  for="widthRange" class="button button-small">
+                        Width:&nbsp<input id="widthRange" data-type="range" class="span2"  data-slider-value="[0,1000000000]"/>
+                        <span id="widthRangeMinValue" class="minValue"> 0</span> - <span id="widthRangeMaxValue">0</span>m
+                        </label>
+                        <label  for="lengthRange" class="button button-small">
+                        Length:&nbsp<input id="lengthRange" data-type="range" class="span2"  data-slider-value="[0,1000000000]" />
+                        <span id="lengthRangeMinValue" class="minValue"> 0</span> - <span id="lengthRangeMaxValue">0</span>m
+                        </label>
+
+
+
+
                     </div>
+                </div>
+                <div class="advanced container-fluid">
+                     <div class="row">
+
+                         <div class="col-md-4">
+                            <div class="dc-data-count dc-chart" id="data-count">
+                            Selected <span class="filter-count"></span> shelters out of <span
+                                class="total-count"></span>
+                            </div>
+                         </div>
+                        <div class="col-md-4 ">
+                            <div class="menu-btn">
+                                <a id="all" href="#"  class="menu-href"> Reset All Filters&emsp;<i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                         <div class="col-md-4">
+                             <div class="menu-btn">
+                                    <a id="download" class="menu-href">Download <i class="fa fa-download"></i></a>
+                                    |
+                                    <a id="share" class="menu-href">Share <i class="fa fa-share-alt"></i></a>
+                             <div>
+                         </div>
+
+
+                     </div>
+
+
+
                 </div>
             </form>
         </div>
@@ -135,35 +183,25 @@
             </div>
             <div class="tabcontent tabcontent2">
                 <div class="stats">
+                    <div class="row">
+                                <div class="col-md-12">
+
+                                    <h4> Shelters Statistics<br>
+                                    <small>
+                                        You can filter shelters by clicking a graph, using top menu buttons or zooming and dragging the map. <br>
+                                        Graph and menu filters are synchronized.
+                                        The list of shelters and graphs are also synchronized, displaying only shelters that match selected criteria.
+                                        To reset all filters use 'Reset All Filters' button below top menu.
+                                    </small>
+                                    </h4>
+
+
+                                </div>
+                            </div>
                     <div class="row>">
                         <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-12">
 
-                                    <div class="dc-data-count dc-chart" id="data-count">
 
-                                        <h4> Shelters
-                                            <small>
-                                                <span class="filter-count"></span> selected out of <span
-                                                    class="total-count"></span>
-                                                records
-                                                |
-                                                <a id="all" href="#tabs">Reset All</a>
-
-                                            </small>
-                                        </h4>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h5>By Year of Construction
-                                        <small><a id="year">reset</a></small>
-                                    </h5>
-                                    <div class="dc-chart" id="chart-timeline"></div>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <h5>By Zone
@@ -200,19 +238,22 @@
                                 </div>
 
                             </div>
+                             <div class="row">
+                                <div class="col-md-12">
+                                    <h5>By Year of Construction
+                                        <small><a id="year">reset</a></small>
+                                    </h5>
+                                    <div class="dc-chart" id="chart-timeline"></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12" >
+                                     <h5>Matching shelters
+                                    </h5>
 
-                            <h4 class="text-right">
-                                <small>
-                                    <a id="download">Download</a>
-                                    |
-                                    <a id="share">Share</a>
-                                </small>
-                            </h4>
-
-
-                            <table class="table table-bordered table-striped dc-table" id="shelters-table">
+                                    <table class="table table-bordered table-striped dc-table" id="shelters-table">
 
                                 <thead>
                                 <tr class="header">
@@ -225,6 +266,9 @@
                                 </tr>
                                 </thead>
                             </table>
+                                    </div>
+                            </div>
+
                         </div>
 
 

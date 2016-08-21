@@ -810,21 +810,3 @@ section.map {
 #tabs.tab2 .tabcontent2 {
   display: initial; }
 
-.stats {
-  display: inline-block;
-}
-
-.stats .table {
-   font-size: smaller;
-}
-
-.stats h5 {
-  margin-top:20px;
-}
-.leaflet-container a {
-  margin-left:0px !important;
-}
-
-.dc-chart text {
-      fill: black !important;
-    }

@@ -1,0 +1,51 @@
+.stats {
+  display: inline-block;
+}
+
+.stats .table {
+   font-size: smaller;
+}
+
+.stats h5 {
+  margin-top:20px;
+}
+.leaflet-container a {
+  margin-left:0px !important;
+}
+
+.dc-chart text {
+      fill: black !important;
+ }
+
+.dc-data-count {
+    float:right !important;
+}
+
+.menu-btn {
+  font-size: 0.9em;
+  margin-top: 15px;
+ }
+
+ .menu-href {
+    color: #333;
+ }
+
+ .minValue {
+    padding-left:1em
+ }
+
+.advanced-content {
+    max-height: 300px ;
+}
+.advanced-content .button {
+    margin-top:5px !important;
+}
+
+.slider-handle {
+    width:  5px !important;
+    height: 20px !important;
+    margin-left: -2px !important;
+}
+.slider-horizontal {
+    width: 100px !important;
+}
