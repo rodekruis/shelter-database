@@ -64,7 +64,7 @@ def apimessage():
 def worldmap():
 	"""Returns a world map in GeoJSON"""
 	
-	with app.open_resource('static/data/world_borders.geojson') as f:
+	with app.open_resource('static/data/countries.geojson') as f:
 		data = json.load(f)
 	return json.dumps(data)
 	#return app.send_static_file('data/world_borders.geojson')
