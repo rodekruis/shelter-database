@@ -1,4 +1,18 @@
 {% extends "layout.html" %}
+{% block head %}
+    {{ super() }}
+	<script src="{{ url_for('static', filename = 'lib/leaflet/leaflet.js') }}"></script>
+	<script src="{{ url_for('static', filename='lib/leaflet-geosearch/src/js/l.control.geosearch.js') }}"></script>
+	<script src="{{ url_for('static', filename='lib/leaflet-geosearch/src/js/l.geosearch.provider.google.js') }}"></script>
+	<script src="{{ url_for('static', filename='lib/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.js') }}"></script>
+	<script src="{{ url_for('static', filename='lib/Leaflet.label/dist/leaflet.label.js') }}"></script>
+	
+	<link href="{{ url_for('static', filename='lib/leaflet/leaflet.css') }}" rel="stylesheet" media="screen" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='lib/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.css') }}" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='lib/Leaflet.label/dist/leaflet.label.css') }}" />
+{% endblock %}
+
+
 {% block content %}
         <section class="contribute">
             <div class="content">
@@ -33,26 +47,38 @@
         <div class="content page1" id="modalcontent">
             <div class="page page1">
 			    <form id="createShelterForm" action="#" class="navbar-form navbar-left" method="GET" name="save" class="myform">
-                <div class="mylabel">Title of your project:</div>
-                <div class="myinput"><input type="text" name="name" placeholder="Name" required="required" /></div>
-                <div class="mylabel">Country:</div>
+					<div class="mylabel">Title of your project:</div>
+					<div class="myinput"><input type="text" name="name" placeholder="Name" required="required" /></div>
+					<div class="mylabel">Country:</div>
 
                     <label for="f1" class="button button-drop">
                         <select id="countrySelect" name="country" data-live-search="true"></select>
                     </label>
-                </form>
-                <!-- <a href="" class="button button-light button-drop button-stretch">Select</a> -->
-                <div class="buttons">
-                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-times"></i><span class="text">Cancel</span></div>
-                    <!--<button type="submit" id="createShelter" class="btn btn-default form-control" value="Create">Create</button>	-->			                   
-				   <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
-                </div>
+                
+					<!-- <a href="" class="button button-light button-drop button-stretch">Select</a> -->
+					<div class="buttons">
+						<div onclick="modalClose()" class="button button-light"><i class="fa fa-times"></i><span class="text">Cancel</span></div>
+						<!--<button type="submit" id="createShelter" class="btn btn-default form-control" value="Create">Create</button>	-->			                   
+					   <div id="createShelter" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+					</div>
+				</form>
             </div>
             <div class="page page2">
                 <div class="mylabel">Province / District / Region:</div>
-                <div class="myinput"><input type="" name="" placeholder="Province / District / Region.." /></div>
+                <div class="myinput"><input class="free-text-attribute"
+                                                    property-id=""
+                                                    attribute-id="6"
+                                                    category-id="2"
+                                                    value-id=""
+                                                    value=""
+													type="" 
+													name="" 
+													placeholder="Province / District / Region.." /></div>
                 <div class="mylabel">City / Village:</div>
                 <div class="myinput"><input type="" name="" placeholder="City / Village.." /></div>
+				
+				<div id="locationpicker" style="width:100%; height:400px;"></div>
+				
                 <div class="mylabel">Image</div>
                 <!-- <form class="myimgupload" enctype="multipart/form-data"> -->
                     <!-- <input type="file" style="visibility:hidden;"> -->
@@ -91,6 +117,8 @@
     </div>
 	
 	<script>
+	    var shelter_id;
+		
         $(document).ready(function() {
             $("#newShelter").click(function(evt) {
                 var filters = [{"name":"name","op":"eq","val":"Country"}];
@@ -114,11 +142,9 @@
             });
 
             //Attach a submit handler to the form
-            $( "#createShelterForm" ).submit(function( event ) {
-                // Stop form from submitting normally
-                event.preventDefault();
+			$('#createShelter').on( "click", function() {
                 // Get some values from elements on the page:
-                var $form = $(this);
+                var $form = $('#createShelterForm');
                 var values = {};
                 form_complete = true;
                 $.each($form.serializeArray(), function(i, field) {
@@ -134,13 +160,180 @@
                     name_of_shelter = values["name"]
                     country_value_id = values["country"];
                     country_name = $('#countrySelect option:selected').text()
-                    create_shelter(name_of_shelter, country_value_id, country_name);
+                    create_shelter(name_of_shelter, country_value_id, country_name, function (success, result){
+						if(!success){
+							console.log(result);
+						} else {
+							shelter_id = result;
+							
+							// initiate_map
+							initiateLocationPicker();
+						}
+					});
                 } else {
                     alert("Please fill all the fields of the form.");
                 }
             });
         });
     </script>
+	
+	<script type="text/javascript">
+	
+	function findCountry(data, country){
+		var countryData = {};
+		$.each(data.features, function (key, val) {
+			if (val.properties.other_name === country) {
+				countryData.lat = val.properties.lat;
+				countryData.lon = val.properties.lon;
+				countryData.polygon = val;
+				
+				//if found, break out of loop
+				return false;
+			}
+		});
+		
+		//return object (or empty object)
+		return countryData;
+	};
+	
+	function initiateLocationPicker (){
+ 
+		//Query nomatimim for lat lon for country
+		var country = $('#countrySelect option:selected').text();
+		
+		$.getJSON("{{ url_for('static', filename='data/countries.geojson') }}", function(data) {
+		
+			var countryData = findCountry(data, country);
+			
+			if(jQuery.isEmptyObject(countryData)){
+			  //country was not found
+			  //TODO: handle error
+			  return;
+			} 
+			
+			// Initiate leaflet map
+			var locationpicker = L.map('locationpicker');
+			
+			// Add OSM base layer
+			L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(locationpicker);
+			
+			// Add country polygon to map and fit map to bounds
+			var countryLayer = L.geoJson(countryData.polygon).addTo(locationpicker);
+			var bounds = countryLayer.getBounds();
+			locationpicker.fitBounds(bounds);
+			
+			// Add Mapzen geocoder 
+			//L.control.geocoder('search-Us5vhhe').addTo(locationpicker);
+			
+			// add marker position to centroid of country
+			/*var marker = L.marker([countryData.lat, countryData.lon], {draggable:'true'}).bindLabel('This is where I have built this shelter');
+			marker.addTo(locationpicker);
+			
+			marker.on('dragend', function(event){
+						var position = event.target.getLatLng();
+						console.log(position);
+						marker.setLatLng(position,{draggable:'true'}).bindPopup(position).update();
+			});
+			
+			locationpicker.on('click', function(e) {        
+				var location = e.latlng;
+				marker.setLatLng(location).update();
+			});*/
+			
+			// go to next modal
+			next();			
+		});
+	};
+	</script>
+	
+	<script type="text/javascript" class="source">
+		$(document).ready(function() {
+			var dateSupported = (function() {
+				var el = document.createElement('input'),
+					invalidVal = 'foo'; // Any value that is not a date
+				el.setAttribute('type','date');
+				el.setAttribute('value', invalidVal);
+				// A supported browser will modify this if it is a true date field
+				return el.value !== invalidVal;
+			}());
+			if (!dateSupported) {
+				$( ".datepicker" ).datepicker({dateFormat: 'dd/mm/yyyy'});
+			}
+
+
+			$('.select-attribute').change(function(evt) {
+				property_id = $(evt.target).attr("property-id");
+				id_of_values = $(evt.target).val();
+				if (typeof id_of_values === 'string') {
+					tmp = []
+					tmp.push(id_of_values)
+					id_of_values = tmp
+				}
+
+				if (property_id==""){
+					category_id = $(evt.target).attr("category-id");
+					attribute_id = $(evt.target).attr("attribute-id");
+					new_property(shelter_id,
+									category_id, attribute_id, id_of_values,
+									$(evt.target))
+				} else {
+					update_property(property_id, id_of_values)
+				}
+			});
+
+			$('.free-text-attribute').change(function(evt) {
+				value = $(evt.target).val();
+				if ($(evt.target).context.type == "checkbox") {
+					if (value == "on" || value == "1") {
+						value = "0";
+					} else {
+						value = "1";
+					}
+				}
+				value_id = $(evt.target).attr("value-id");
+
+				if (value_id != "None") {
+					update_free_text_value(value_id, value);
+				} else {
+					category_id = $(evt.target).attr("category-id");
+					attribute_id = $(evt.target).attr("attribute-id");
+					new_free_text_property(shelter_id, category_id,
+												attribute_id, value, $(evt.target));
+				}
+			});
+
+			$('.add-value').click(function(evt) {
+				attribute_id = $(evt.target).attr('attribute-id');
+				$('#addValueDialog').attr('attribute-id', attribute_id);
+				$('#addValueDialog').modal({backdrop:'static', keyboard:false});
+			})
+
+			$('#add-new-value').click(function(evt) {
+
+				new_value = {
+					attribute_id: $('#addValueDialog').attr('attribute-id'),
+					name: $('#new-value-input').val()
+				}
+				$.ajax({
+					type: 'POST',
+					url: '/api/value',
+					contentType: "application/json",
+					dataType: "json",
+					data: JSON.stringify(new_value),
+					success: function (result) {
+						$('#select'+attribute_id)
+							.append($("<option></option>")
+										.attr("value", result.id)
+										.text(result.name));
+						$('.selectpicker').selectpicker('refresh');
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown){
+						console.log(errorThrown);
+					}
+				});
+			})
+		});
+	</script>
 
     <script type="text/javascript">
         var cnt = document.getElementById("modalcontent")
