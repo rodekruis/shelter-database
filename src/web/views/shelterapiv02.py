@@ -15,9 +15,9 @@ __copyright__ = ""
 __license__ = ""
 
 #from bootstrap import db
-from bootstrap import db
+from bootstrap import db, app
 from sqlalchemy.sql import func, select
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, json
 from collections import defaultdict
 from web.models import Shelter, Attribute, Property, Value, Association, ShelterPicture, Category, Tsvector
 
@@ -59,8 +59,16 @@ def apimessage():
     message = tree()
     message["API version"] = 0.2
     message["Message"] = "This is the development API"
-    return jsonify(message)
 
+@apiv02_bp.route('/worldmap', methods=['GET'])
+def worldmap():
+	"""Returns a world map in GeoJSON"""
+	
+	with app.open_resource('static/data/countries.geojson') as f:
+		data = json.load(f)
+	return json.dumps(data)
+	#return app.send_static_file('data/world_borders.geojson')
+	
 @apiv02_bp.route('/attributes/<attribute_name>', methods=['GET'])
 def getattributes(attribute_name, safetext=False):
     """Returns available values for a given attribute name, separated by semicolons"""
