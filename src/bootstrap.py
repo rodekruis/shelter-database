@@ -44,6 +44,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = conf.SQLALCHEMY_DATABASE_URI
 
 app.config['PUBLIC_PATH'] = conf.PUBLIC_PATH
 
+app.config['JSON_AS_ASCII'] = False
+
 db = SQLAlchemy(app)
 
 # Create the Flask-Restless API manager.
