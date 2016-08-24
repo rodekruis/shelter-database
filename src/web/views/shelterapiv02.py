@@ -17,14 +17,14 @@ __license__ = ""
 #from bootstrap import db
 from bootstrap import db, app
 from sqlalchemy.sql import func, select
-from flask import Blueprint, jsonify, request, json
+from flask import Blueprint, jsonify, request, json, Response
 from collections import defaultdict
-from web.models import Shelter, Attribute, Property, Value, Association, ShelterPicture, Category, Tsvector
+from web.models import Shelter, Attribute, Property, Value, Association, ShelterPicture, Category, Tsvector, Translation
 
 apiv02_bp = Blueprint('development api v0.2', __name__, url_prefix='/api/v0.2')
+
 def tree():
     return defaultdict(tree)
-
 
 @apiv02_bp.route('/', methods=['GET'])
 def apimessage():
@@ -49,10 +49,33 @@ def getattributes(attribute_name, safetext=False):
     
     attributes = Attribute.query.filter(Attribute.uniqueid==attribute_name).\
                                 first().associated_values
-   
+    
     result[attribute_name] = ";".join([attribute.name for attribute in attributes])
     return jsonify(result)
 
+@apiv02_bp.route('/translation', methods=['GET'])
+def available_translations():
+    result = tree()
+    
+    subquery = db.session.query(Translation.language_code).group_by(Translation.language_code).subquery()
+    available_languages = db.session.query(func.string_agg(subquery.c.language_code, ';')).first()
+    #for language in available_languages
+    result["languages"]= available_languages[0]
+	
+    return jsonify(result)
+
+
+@apiv02_bp.route('/translation/<language>', methods=['GET'])
+def translations(language=None):
+    result = tree()
+
+    query = Translation.query.filter(Translation.language_code==language)
+    	
+    for item in query:
+    	result[item.original]=item.translated
+    	
+    return Response(json.dumps(result, indent=3), mimetype='application/json;charset=utf-8')
+    	
 @apiv02_bp.route('/shelters', methods=['GET'])
 @apiv02_bp.route('/shelters/<int:shelter_id>', methods=['GET'])
 def allshelters(shelter_id=None):
