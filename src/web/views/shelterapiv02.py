@@ -22,51 +22,24 @@ from collections import defaultdict
 from web.models import Shelter, Attribute, Property, Value, Association, ShelterPicture, Category, Tsvector
 
 apiv02_bp = Blueprint('development api v0.2', __name__, url_prefix='/api/v0.2')
-
 def tree():
     return defaultdict(tree)
 
-def queryfactory(model,join=False,filt=False,value=False):
-	
-	#helper functions to construct queries
-	def filter_or(obj,attrib,val):
-		"""Construct filtering method (OR)"""
-		list(val)
-		if len(val) == 1:
-			return obj.filter(attrib == val[0])
-		else: 
-			return obj.filter(attrib.in_(val))
-	
-	def filter_and(obj,attrib,val):
-		"""Construct filtering methods recursively (AND)"""
-		list(val)
-		if len(val) == 1:
-			return obj.filter(attrib == val[0])
-		else: 
-			return filter_and(obj.filter(attrib == val[len(val)-1]),attrib, val[0:len(val)-1])
-
-	if join and not filt:
-		return model.query.join(join)
-	elif filt and join:
-		return filter_or(model.query.join(join),filt,value)
-	elif filt and not join:
-		return filter_or(model.in_(value))
-	else:
-		return "error"
 
 @apiv02_bp.route('/', methods=['GET'])
 def apimessage():
     message = tree()
     message["API version"] = 0.2
     message["Message"] = "This is the development API"
+    return jsonify(message)
 
 @apiv02_bp.route('/worldmap', methods=['GET'])
 def worldmap():
 	"""Returns a world map in GeoJSON"""
 	
 	with app.open_resource('static/data/countries.geojson') as f:
-		data = json.load(f)
-	return json.dumps(data)
+		data = json.load(f, encoding='utf-8')
+	return json.dumps(data, encoding='utf-8')
 	#return app.send_static_file('data/world_borders.geojson')
 	
 @apiv02_bp.route('/attributes/<attribute_name>', methods=['GET'])
@@ -99,7 +72,7 @@ def allshelters(shelter_id=None):
     		.join(Value, Association.value_id==Value.id)\
     		.group_by(Property.shelter_id, Supercategory.name, Category.name, Attribute.name, Attribute.uniqueid)
     
-    picquerybase = db.session.query(ShelterPicture.shelter_id, ShelterPicture.file_name.label("filename"), Category.name)\
+    picquerybase = db.session.query(ShelterPicture.shelter_id, ShelterPicture.file_name.label("filename"), ShelterPicture.is_main_picture, Category.name)\
     		.join(Category, Category.id == ShelterPicture.category_id)		
     
     ##queries if no request arguments
@@ -148,7 +121,9 @@ def allshelters(shelter_id=None):
     		result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.name] = shelter_property.value
     	
     	for picture in shelter_pictures:
-    		if not result[picture.shelter_id][picture.name]["Pictures"]:
+    		if picture.is_main_picture == True:
+    			result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["ID"], picture.filename)]
+    		elif not result[picture.shelter_id][picture.name]["Pictures"]:
     			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["ID"], picture.filename)]
     		else:
     			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["ID"], picture.filename))
@@ -158,26 +133,12 @@ def allshelters(shelter_id=None):
     		result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.uniqueid] = shelter_property.value
     
     	for picture in shelter_pictures:
-    		if not result[picture.shelter_id][picture.name]["Pictures"]:
+    		if picture.is_main_picture == True:
+    			result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["id"], picture.filename)]
+    		elif not result[picture.shelter_id][picture.name]["Pictures"]:
     			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["id"], picture.filename)]
     		else:
     			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["id"], picture.filename))
   
-    return jsonify(result)
-
-
-@apiv02_bp.route('/shelters/<attribute_name>', methods=['GET'])
-@apiv02_bp.route('/shelters/<attribute_name>/<attribute_value>', methods=['GET'])
-def attributes(attribute_name, attribute_value=''):
-    """Returns all shelters which match a specific attribute name or attribute name + value"""
-    result = tree()
-    if not attribute_value:
-    	shelter_properties = Property.query.filter(Property.attribute.has(uniqueid=attribute_name))
-    else:
-    	shelter_properties = Property.query.filter(Property.attribute.has(uniqueid=attribute_name), Property.values.any(name=attribute_value))
-    
-    for shelter_property in shelter_properties:
-    	result[shelter_property.shelter_id][shelter_property.attribute.uniqueid] = shelter_property.get_values_as_string()
-   
     return jsonify(result)
 

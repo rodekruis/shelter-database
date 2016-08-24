@@ -1,4 +1,4 @@
-function create_shelter (name_of_shelter, country_value_id, country_name) {
+function create_shelter (name_of_shelter, country_value_id, country_name, callback) {
     new_shelter_dict = {} // the id of the shelter's owner is controlled by a POST preprocessor function
     $.ajax({
         type: 'POST',
@@ -99,12 +99,16 @@ function create_shelter (name_of_shelter, country_value_id, country_name) {
                                                         dataType: "json",
                                                         data: JSON.stringify(new_property),
                                                         success: function (result) {
-                                                            console.log(result);
-
-                                                            window.location = '/shelter/' + new_shelter.id + '/general-Information';
+															if(callback != null) {
+																callback(true, new_shelter.id);                
+															}
+                                                            //window.location = '/shelter/' + new_shelter.id + '/general-Information';
                                                         },
                                                         error: function(XMLHttpRequest, textStatus, errorThrown){
-                                                            console.log(errorThrown);
+															// invoke the callback function here
+															if(callback != null)  {
+																callback(false, errorThrown);
+															}
                                                         }
                                                     });
                                                 },
