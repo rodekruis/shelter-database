@@ -22,7 +22,6 @@ from collections import defaultdict
 from web.models import Shelter, Attribute, Property, Value, Association, ShelterPicture, Category, Tsvector
 
 apiv02_bp = Blueprint('development api v0.2', __name__, url_prefix='/api/v0.2')
-
 def tree():
     return defaultdict(tree)
 
@@ -59,14 +58,15 @@ def apimessage():
     message = tree()
     message["API version"] = 0.2
     message["Message"] = "This is the development API"
+    return jsonify(message)
 
 @apiv02_bp.route('/worldmap', methods=['GET'])
 def worldmap():
 	"""Returns a world map in GeoJSON"""
 	
 	with app.open_resource('static/data/countries.geojson') as f:
-		data = json.load(f)
-	return json.dumps(data)
+		data = json.load(f, encoding='utf-8')
+	return json.dumps(data, encoding='utf-8')
 	#return app.send_static_file('data/world_borders.geojson')
 	
 @apiv02_bp.route('/attributes/<attribute_name>', methods=['GET'])
@@ -99,7 +99,7 @@ def allshelters(shelter_id=None):
     		.join(Value, Association.value_id==Value.id)\
     		.group_by(Property.shelter_id, Supercategory.name, Category.name, Attribute.name, Attribute.uniqueid)
     
-    picquerybase = db.session.query(ShelterPicture.shelter_id, ShelterPicture.file_name.label("filename"), Category.name)\
+    picquerybase = db.session.query(ShelterPicture.shelter_id, ShelterPicture.file_name.label("filename"), ShelterPicture.is_main_picture, Category.name)\
     		.join(Category, Category.id == ShelterPicture.category_id)		
     
     ##queries if no request arguments
@@ -148,7 +148,9 @@ def allshelters(shelter_id=None):
     		result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.name] = shelter_property.value
     	
     	for picture in shelter_pictures:
-    		if not result[picture.shelter_id][picture.name]["Pictures"]:
+    		if picture.is_main_picture == True:
+    			result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["ID"], picture.filename)]
+    		elif not result[picture.shelter_id][picture.name]["Pictures"]:
     			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["ID"], picture.filename)]
     		else:
     			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["ID"], picture.filename))
@@ -158,7 +160,9 @@ def allshelters(shelter_id=None):
     		result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.uniqueid] = shelter_property.value
     
     	for picture in shelter_pictures:
-    		if not result[picture.shelter_id][picture.name]["Pictures"]:
+    		if picture.is_main_picture == True:
+    			result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["id"], picture.filename)]
+    		elif not result[picture.shelter_id][picture.name]["Pictures"]:
     			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["id"], picture.filename)]
     		else:
     			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["id"], picture.filename))
