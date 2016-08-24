@@ -25,33 +25,6 @@ apiv02_bp = Blueprint('development api v0.2', __name__, url_prefix='/api/v0.2')
 def tree():
     return defaultdict(tree)
 
-def queryfactory(model,join=False,filt=False,value=False):
-	
-	#helper functions to construct queries
-	def filter_or(obj,attrib,val):
-		"""Construct filtering method (OR)"""
-		list(val)
-		if len(val) == 1:
-			return obj.filter(attrib == val[0])
-		else: 
-			return obj.filter(attrib.in_(val))
-	
-	def filter_and(obj,attrib,val):
-		"""Construct filtering methods recursively (AND)"""
-		list(val)
-		if len(val) == 1:
-			return obj.filter(attrib == val[0])
-		else: 
-			return filter_and(obj.filter(attrib == val[len(val)-1]),attrib, val[0:len(val)-1])
-
-	if join and not filt:
-		return model.query.join(join)
-	elif filt and join:
-		return filter_or(model.query.join(join),filt,value)
-	elif filt and not join:
-		return filter_or(model.in_(value))
-	else:
-		return "error"
 
 @apiv02_bp.route('/', methods=['GET'])
 def apimessage():
@@ -167,21 +140,5 @@ def allshelters(shelter_id=None):
     		else:
     			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["id"], picture.filename))
   
-    return jsonify(result)
-
-
-@apiv02_bp.route('/shelters/<attribute_name>', methods=['GET'])
-@apiv02_bp.route('/shelters/<attribute_name>/<attribute_value>', methods=['GET'])
-def attributes(attribute_name, attribute_value=''):
-    """Returns all shelters which match a specific attribute name or attribute name + value"""
-    result = tree()
-    if not attribute_value:
-    	shelter_properties = Property.query.filter(Property.attribute.has(uniqueid=attribute_name))
-    else:
-    	shelter_properties = Property.query.filter(Property.attribute.has(uniqueid=attribute_name), Property.values.any(name=attribute_value))
-    
-    for shelter_property in shelter_properties:
-    	result[shelter_property.shelter_id][shelter_property.attribute.uniqueid] = shelter_property.get_values_as_string()
-   
     return jsonify(result)
 
