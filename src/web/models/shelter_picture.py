@@ -25,6 +25,7 @@ class ShelterPicture(db.Model):
     """
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String(), default='')
+    is_main_picture = db.Column(db.Boolean(), default=False)
 
     # relationship
     shelter_id = db.Column(db.Integer, db.ForeignKey('shelter.id'),
