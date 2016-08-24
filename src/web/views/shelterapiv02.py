@@ -39,7 +39,7 @@ def worldmap():
 	
 	with app.open_resource('static/data/countries.geojson') as f:
 		data = json.load(f, encoding='utf-8')
-	return json.dumps(data, encoding='utf-8')
+	return Response(json.dumps(data), mimetype='application/json;charset=utf-8')
 	#return app.send_static_file('data/world_borders.geojson')
 	
 @apiv02_bp.route('/attributes/<attribute_name>', methods=['GET'])
@@ -62,7 +62,7 @@ def available_translations():
     #for language in available_languages
     result["languages"]= available_languages[0]
 	
-    return jsonify(result)
+    return Response(json.dumps(result, indent=3), mimetype='application/json;charset=utf-8')
 
 
 @apiv02_bp.route('/translation/<language>', methods=['GET'])
@@ -70,9 +70,9 @@ def translations(language=None):
     result = tree()
 
     query = Translation.query.filter(Translation.language_code==language)
-    	
-    for item in query:
-    	result[item.original]=item.translated
+    phrases = query	
+    for phrase in phrases:
+    	result[phrase.original]=phrase.translated
     	
     return Response(json.dumps(result, indent=3), mimetype='application/json;charset=utf-8')
     	
