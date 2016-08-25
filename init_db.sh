@@ -27,7 +27,7 @@ python3.5 src/manager.py import_shelters_pictures data/shelters/pictures/
 python3.5 src/manager.py import_shelters_documents data/shelters/documents/
 
 # Import of the translations
-#python3.5 src/manager.py import_translation data/translations/sheltersDataTraduction_FR_rev_ED.csv fr
+python3.5 src/manager.py import_translation data/translations/sheltersDataTraduction_FR_rev_ED.csv fr
 
 # Create database triggers for materialized view table
 python3.5 src/manager.py create_db_triggers
