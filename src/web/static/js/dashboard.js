@@ -146,7 +146,7 @@ $(document).ready(function () {
         mapChart.dimension(filters['positionFilter']['dimension'])
             .group(filters['positionFilter']['count'] )
             .center([51.505, -0.09])
-            .zoom(1)
+            .zoom(2)
             .filterByArea(true)
             .cluster(true)
             .on("filtered", onFiltered);

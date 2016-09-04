@@ -30,66 +30,78 @@
     {% endblock %}
 		
 </head>
-<body class="">
-    <header>
-        <nav>
-            <a class="home" href="/"><i class="fa fa-plus-square"></i><span class="text">Shelter Database</span></a>
-            <ul>
-				<li><a href="{{ url_for('dashboard') }}">Shelters</a></li>
-                 <li><a href="{{ url_for('contribute') }}" class="selected">Contribute</a></li>
-                <li><a href="{{ url_for('knowledgebase') }}">Knowledge Base</a></li>
-				{% if g.user.is_authenticated %}
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<div><span class="glyphicon glyphicon-user"></span>&nbsp;{{ current_user.name }}<b class="caret"></b></div>
-						</a>
-						<ul class="dropdown-menu">
-							<li><a href="{{ url_for('user_bp.profile') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Profile</a></li>
-							<li><a href="{{ url_for('user_bp.shelters') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Your shelters</a></li>
-							{% if current_user.is_admin %}
-								<li role="presentation" class="divider"></li>
-								<li><a href="{{ url_for('administration.dashboard') }}">Dashboard</a></li>
-								<li><a href="{{ url_for('administration.shelters') }}">Shelters</a></li>
-								<li><a href="{{ url_for('administration.users') }}">Users</a></li>
-								<li><a href="{{ url_for('administration.pages') }}">Edit pages</a></li>
-								<li><a href="{{ url_for('administration.attributes') }}">Attributes</a></li>
-								<li><a href="{{ url_for('admin.index') }}">Data management</a></li>
-								<li role="presentation" class="divider"></li>
-							{% endif %}
-							<li><a href="{{ url_for("logout") }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
-						</ul>
-					</li>
-				{% else %}
-					<li><a href="{{ url_for('join') }}">Join</a></li>
+<body>
+    <div id="wrapper">
+		<header>
+			<nav>
+				<a class="home" href="/"><i class="fa fa-plus-square"></i><span class="text">Shelter Database</span></a>
+				<ul>
+					<li><a href="{{ url_for('dashboard') }}">Shelters</a></li>
+					 <li><a href="{{ url_for('contribute') }}" class="selected">Contribute</a></li>
+					<li><a href="{{ url_for('knowledgebase') }}">Knowledge Base</a></li>
+					{% if g.user.is_authenticated %}
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<div><span class="glyphicon glyphicon-user"></span>&nbsp;{{ current_user.name }}<b class="caret"></b></div>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="{{ url_for('user_bp.profile') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Profile</a></li>
+								<li><a href="{{ url_for('user_bp.shelters') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Your shelters</a></li>
+								{% if current_user.is_admin %}
+									<li role="presentation" class="divider"></li>
+									<li><a href="{{ url_for('administration.dashboard') }}">Dashboard</a></li>
+									<li><a href="{{ url_for('administration.shelters') }}">Shelters</a></li>
+									<li><a href="{{ url_for('administration.users') }}">Users</a></li>
+									<li><a href="{{ url_for('administration.pages') }}">Edit pages</a></li>
+									<li><a href="{{ url_for('administration.attributes') }}">Attributes</a></li>
+									<li><a href="{{ url_for('admin.index') }}">Data management</a></li>
+									<li role="presentation" class="divider"></li>
+								{% endif %}
+								<li><a href="{{ url_for("logout") }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
+							</ul>
+						</li>
+					{% else %}
+						<li><a href="{{ url_for('join') }}">Join</a></li>
+					{% endif %}
+				</ul>
+			</nav>
+		</header>
+
+		<main class="page">
+			<div class="container">
+				{% with messages = get_flashed_messages(with_categories=true) %}
+				{% if messages %}
+					{% for category, message in messages %}
+						<div class="alert alert-{{category}}">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							{{ message }}
+						</div>
+					{% endfor %}
 				{% endif %}
-            </ul>
-        </nav>
-    </header>
+				{% endwith %}
+			</div>
 
-	<main class="page">
-		<div class="container">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{category}}">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-            {% endwith %}
-        </div>
+			{% block content %}{% endblock %}
+			
+			<footer>
+				&copy; Copyright 2016
+			</footer>
+		</main>
 
-        {% block content %}{% endblock %}
-		
-	    <footer>
-            &copy; Copyright 2016
-        </footer>
-    </main>
-
-        <!-- Bootstrap core JavaScript -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="{{ url_for('static', filename = 'lib/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-        <script src="{{ url_for('static', filename = 'lib/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+			<!-- Bootstrap core JavaScript -->
+			<!-- Placed at the end of the document so the pages load faster -->
+			<script src="{{ url_for('static', filename = 'lib/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+			<script src="{{ url_for('static', filename = 'lib/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+			
+			<script>
+			 // if home page, add class is landingpage to header
+			 $(function() {
+			  var loc = window.location.pathname; // returns the full URL
+			  if("" === loc || "/" === loc) {
+				$('header').addClass('landingpage');
+			  }
+			});
+			</script>
+		</div>
     </body>
 </html>
