@@ -787,6 +787,7 @@ section.first {
     margin: 30px 0; }
   @media only screen and (min-width: 768px) {
     section.first {
+      min-height: 540px;
       height: 100vh; }
       section.first .toplayer {
         padding-top: 100px; } }
