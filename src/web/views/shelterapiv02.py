@@ -1,4 +1,4 @@
-    #! /usr/bin/env python
+#! /usr/bin/env python
 #-*- coding: utf-8 -*-
 
 # ***** BEGIN LICENSE BLOCK *****
@@ -229,4 +229,3 @@ def allshelters(shelter_id=None):
     			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["id"], picture.filename))
   
     return jsonify(result)
-

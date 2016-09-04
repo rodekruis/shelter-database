@@ -6,10 +6,13 @@
 	<script src="{{ url_for('static', filename='lib/leaflet-geosearch/src/js/l.geosearch.provider.google.js') }}"></script>
 	<script src="{{ url_for('static', filename='lib/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.js') }}"></script>
 	<script src="{{ url_for('static', filename='lib/Leaflet.label/dist/leaflet.label.js') }}"></script>
+	<script src="{{ url_for('static', filename='lib/dropzone/dist/dropzone.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/edit-shelter.js') }}"></script>
 	
-	<link href="{{ url_for('static', filename='lib/leaflet/leaflet.css') }}" rel="stylesheet" media="screen" />
-	<link rel="stylesheet" href="{{ url_for('static', filename='lib/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.css') }}" />
-	<link rel="stylesheet" href="{{ url_for('static', filename='lib/Leaflet.label/dist/leaflet.label.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/leaflet/leaflet.css') }}" rel="stylesheet" media="screen" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/Leaflet.label/dist/leaflet.label.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/dropzone/dist/dropzone.css') }}" />
 {% endblock %}
 
 
@@ -77,38 +80,66 @@
                 <div class="mylabel">City / Village:</div>
                 <div class="myinput"><input type="" name="" placeholder="City / Village.." /></div>
 				
+				<div class="mylabel">Place marker on exact position</div>
 				<div id="locationpicker" style="width:100%; height:400px;"></div>
 				
-                <div class="mylabel">Image</div>
-                <!-- <form class="myimgupload" enctype="multipart/form-data"> -->
-                    <!-- <input type="file" style="visibility:hidden;"> -->
-                    <div class="myimage" style="background-image: url('img/placeholder.png')"></div>
-                <!-- </form> -->
-
                 <div class="buttons">
-                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
                     <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
                 </div>
             </div>
             <div class="page page3">
                 <div class="mylabel">Location of the Site:</div>
                 <div class="options">
-                    <div class="option" onclick="optClick(0)" style="background-image: url('img/site/1.png')"></div>
-                    <div class="option" onclick="optClick(1)" style="background-image: url('img/site/2.png')"></div>
-                    <div class="option" onclick="optClick(2)" style="background-image: url('img/site/3.png')"></div>
-                    <div class="option" onclick="optClick(3)" style="background-image: url('img/site/4.png')"></div>
-                    <div class="option" onclick="optClick(4)" style="background-image: url('img/site/5.png')"></div>
-                    <div class="option" onclick="optClick(5)" style="background-image: url('img/site/6.png')"></div>
-                    <div class="option" onclick="optClick(6)" style="background-image: url('img/site/7.png')"></div>
-                    <div class="option" onclick="optClick(7)" style="background-image: url('img/site/8.png')"></div>
+                    <div class="option" onclick="optClick(0)" style="background-image: url('{{ url_for('static', filename='img/site/1.png') }}')"></div>
+                    <div class="option" onclick="optClick(1)" style="background-image: url('{{ url_for('static', filename='img/site/2.png') }}')"></div>
+                    <div class="option" onclick="optClick(2)" style="background-image: url('{{ url_for('static', filename='img/site/3.png') }}')"></div>
+                    <div class="option" onclick="optClick(3)" style="background-image: url('{{ url_for('static', filename='img/site/4.png') }}')"></div>
+                    <div class="option" onclick="optClick(4)" style="background-image: url('{{ url_for('static', filename='img/site/5.png') }}')"></div>
+                    <div class="option" onclick="optClick(5)" style="background-image: url('{{ url_for('static', filename='img/site/6.png') }}')"></div>
+                    <div class="option" onclick="optClick(6)" style="background-image: url('{{ url_for('static', filename='img/site/7.png') }}')"></div>
+                    <div class="option" onclick="optClick(7)" style="background-image: url('{{ url_for('static', filename='img/site/8.png') }}')"></div>
                 </div>
 
                 <div class="buttons">
-                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
                     <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
                 </div>
             </div>
             <div class="page page4">
+				<div class="mylabel">Upload photos and images of the shelter</div>
+                <form action="/file-upload" class="dropzone" id="dropzone"></form>
+			
+				<div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
+                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                </div>
+                
+            </div>
+			<div class="page page5">
+				<div class="mylabel">Climate zone</div>
+                <select class="select-attribute show-tick" property-id="" attribute-id="11" category-id="2" id="select11">
+                    <option value=""></option>
+                    <option value="256">dry moderate</option>
+                    <option value="255">dry polar</option>
+                    <option value="257">dry tropical</option>
+                    <option value="259">moist moderate</option>
+                    <option value="258">moist polar</option>
+                    <option value="260">moist tropical</option>
+                 </select>
+			
+				<div class="mylabel">Landform</div>
+			    <select class="select-attribute show-tick" property-id="" attribute-id="12" category-id="2" id="select12">
+                    <option value=""></option>
+                    <option value="267">desert </option>
+                    <option value="263">hills</option>
+                    <option value="261">mountains</option>
+                    <option value="265">plain</option>
+                    <option value="262">plateaus</option>
+                    <option value="266">river delta</option>
+                    <option value="264">valley</option>
+                </select>
+				
                 <div class="buttons">
                     <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
                 </div>
@@ -116,6 +147,29 @@
         </div>
     </div>
 	
+	<script>
+		var cleanFilename = function (name) {
+		   return name.toLowerCase().replace(/[^\w]/gi, '');
+		};
+	
+		Dropzone.options.dropzone = {
+		  paramName: "file", // The name that will be used to transfer the file
+		  uploadMultiple: true,
+		  parallelUploads: 1,
+		  maxFilesize: 2, // MB
+		  acceptedFiles: "image/*",
+		  init: function() {
+			this.on("sending", function(file, xhr, formData) {
+				var name = "shelter_" + shelter_id + "_" + new Date().getTime();
+				formData.append(name, file);
+			});
+			
+			this.on("successmultiple", function (files) {
+				  alert("All files have uploaded ");
+			});
+		  }
+		};
+	</script>
 	<script>
 	    var shelter_id;
 		
@@ -201,7 +255,14 @@
 		//Query nomatimim for lat lon for country
 		var country = $('#countrySelect option:selected').text();
 		
-		$.getJSON("{{ url_for('static', filename='data/countries.geojson') }}", function(data) {
+		//set encoding
+		$.ajaxSetup({
+			scriptCharset: "utf-8",
+			contentType: "application/json; charset=utf-8"
+		});
+
+		//get data from api
+		$.getJSON("/static/data/countries.geojson", function(data) {
 		
 			var countryData = findCountry(data, country);
 			
@@ -219,14 +280,12 @@
 			
 			// Add country polygon to map and fit map to bounds
 			var countryLayer = L.geoJson(countryData.polygon).addTo(locationpicker);
-			var bounds = countryLayer.getBounds();
-			locationpicker.fitBounds(bounds);
-			
+						
 			// Add Mapzen geocoder 
-			//L.control.geocoder('search-Us5vhhe').addTo(locationpicker);
+			L.control.geocoder('search-Us5vhhe').addTo(locationpicker);
 			
 			// add marker position to centroid of country
-			/*var marker = L.marker([countryData.lat, countryData.lon], {draggable:'true'}).bindLabel('This is where I have built this shelter');
+			var marker = L.marker([countryData.lat, countryData.lon], {draggable:'true'}).bindLabel('This is where I have built this shelter');
 			marker.addTo(locationpicker);
 			
 			marker.on('dragend', function(event){
@@ -238,10 +297,17 @@
 			locationpicker.on('click', function(e) {        
 				var location = e.latlng;
 				marker.setLatLng(location).update();
-			});*/
+			});
 			
 			// go to next modal
-			next();			
+			next();	
+			
+			// fit map to bounds of country
+			var bounds = countryLayer.getBounds();
+			locationpicker.fitBounds(bounds);
+
+			//redraw map
+			locationpicker.invalidateSize();
 		});
 	};
 	</script>
@@ -276,8 +342,6 @@
 					new_property(shelter_id,
 									category_id, attribute_id, id_of_values,
 									$(evt.target))
-				} else {
-					update_property(property_id, id_of_values)
 				}
 			});
 
