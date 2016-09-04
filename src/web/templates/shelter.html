@@ -5,16 +5,19 @@
     {{ super() }}
     <script src="{{ url_for('static', filename = 'lib/dc/d3.js') }}"></script>
 	<script src="{{ url_for('static', filename = 'lib/leaflet/leaflet.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'lib/dc/d3.js') }}"></script>
 	<link href="{{ url_for('static', filename='lib/leaflet/leaflet.css') }}" rel="stylesheet" media="screen" />
 {% endblock %}
-
+{% block wrapper_start %}
+<div id="wrapper">
+{% endblock %}
 {% block content %}
         <section class="shelterheader">
             <div class="content">
-                <h1>Cordaid, TS Urban</h1>
+                <h1 id="shelter-name">[UNKNOWN NAME]</h1>
             </div>
         </section>
-        <section class="shelterimg" style="background-image: url('{{ url_for('static', filename = 'img/shelter.jpg') }}')">
+        <section class="shelterimg" onclick="modalOpen()" style="background-image: url('{{ url_for('static', filename = 'img/shelter.jpg') }}')">
             <div class="dots">
                 <div class="dot selected"></div>
                 <div class="dot"></div>
@@ -23,13 +26,21 @@
         </section>
         <section class="details">
 		    <div class="content">
-                <table id="identification"></table>
+                <table id="identification">
+					<tr>
+						<td>No data available in this category</td>
+					</tr>
+				</table>
             </div>
         </section>
 		<section class="details details-1">
             <div class="content">
                 <h3>General</h3>
-                <table id="general"></table>
+                <table id="general">
+					<tr>
+						<td>No data available in this category</td>
+					</tr>
+				</table>
             </div>
         </section>
         <section>
@@ -40,84 +51,154 @@
         <section class="details details-2">
             <div class="content">
                 <h3>Disaster & Response</h3>
-                <table id="disasterresponse"></table>
+                <table id="disasterresponse">
+					<tr>
+						<td>No data available in this category</td>
+					</tr>
+				</table>
             </div>
         </section>
 
         <section class="details details-1">
             <div class="content">
                 <h3>Site</h3>
-                <table id="site"></table>
+                <table id="site">
+					<tr>
+						<td>No data available in this category</td>
+					</tr>
+				</table>
             </div>
         </section>
 		
 		 <section class="details details-2">
             <div class="content">
                 <h3>Foundation</h3>
-                <table id="foundation"></table>
+                <table id="foundation">
+					<tr>
+						<td>No data available in this category</td>
+					</tr>
+				</table>
             </div>
         </section>
 		
-		<section class="shelterimg" style="background-image: url('{{ url_for('static', filename = 'img/shelter.jpg') }}')">
+		<section class="shelterimg" onclick="modalOpen()" style="background-image: url('{{ url_for('static', filename = 'img/shelter.jpg') }}')">
             <div class="dots">
                 <div class="dot selected"></div>
                 <div class="dot"></div>
                 <div class="dot"></div>
             </div>
         </section>
+{% endblock %}
+
+{% block footer %}
+		<div class="mymodal">
+            <div class="mymodal-close" onclick="modalClose()"></div>
+            <div class="swipe">
+                <div class="panes">
+                    <div class="pane" style="background-image:  url('{{ url_for('static', filename = 'img/shelter.jpg') }}"></div>
+                    <div class="pane" style="background-image:  url('{{ url_for('static', filename = 'img/1.jpg') }}"></div>
+                    <div class="pane" style="background-image:  url('{{ url_for('static', filename = 'img/2.jpg') }}"></div>
+                    <div class="pane" style="background-image:  url('{{ url_for('static', filename = 'img/3.jpg') }}')"></div>
+                </div>
+                <div class="dots">
+                    <div class="dot" onclick="show(0, 0, true)"></div>
+                    <div class="dot" onclick="show(1, 0, true)"></div>
+                    <div class="dot" onclick="show(2, 0, true)"></div>
+                    <div class="dot" onclick="show(2, 0, true)"></div>
+                </div>
+            </div>
+        </div>
 		
-<script type="text/javascript" class="source">
-$(document).ready(function() {
-    $( ".attribute-multimedia-asset" ).click(show_multimedia_assets);
-});
+	<script type="text/javascript">
+        var wrapper = document.getElementById("wrapper")
+        var modalOpen = function(){
+            wrapper.className = "modal-open modal-open-dark"
+        }
+        var modalClose = function(){
+            wrapper.className = ""
+        }
+    </script>
 
-var shelter_id = {{shelter_id}};
+    <script src="{{ url_for('static', filename = 'js/hammer.min.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'js/swipe.js') }}"></script>
+		
+    {{ super() }}
+	
+	<script type="text/javascript" class="source">
+		//$(document).ready(function() {
+		//	$( ".attribute-multimedia-asset" ).click(show_multimedia_assets);
+		//});
 
-d3.json('/api/v0.2/shelters/' + shelter_id + '?format=prettytext', function (error, data) {
-  
-	// render the table(s)
-	var site = data[shelter_id]['Site']['Attributes'];
-	tabulate("#site", site, d3.keys(site));
-	
-	var general = data[shelter_id]['General']['Attributes'];
-	tabulate("#general", general, d3.keys(general));
-	
-	var disasterresponse = data[shelter_id]['Disaster & Response']['Attributes'];
-	tabulate("#disasterresponse", disasterresponse, d3.keys(disasterresponse));
-	
-	var foundation = data[shelter_id]['Foundation']['Attributes'];
-	tabulate("#foundation", foundation, d3.keys(general));
-	
-	// Get coordinates for this shelter
-	var lat = data[shelter_id]['Identification']['Attributes']['GPS Latitude'];
-	var lon = data[shelter_id]['Identification']['Attributes']['GPS Longitude'];
-	
-	// Initiate leaflet map
-	var map = L.map('location-map').setView([lat, lon], 13);
-	L.marker([lat, lon]).addTo(map);
-});
+		var shelter_id = {{shelter_id}};
 
-function tabulate(table_id, d, columns) {
+		d3.json('/api/v0.2/shelters/' + shelter_id + '?format=prettytext', function (error, data) {
+		  
+			
+			// render the table(s)
+			
+			if(typeof data[shelter_id]['Site'] !== 'undefined') {
+				var site = data[shelter_id]['Site']['Attributes'];
+				$("#site").empty();
+				tabulate('#site', site, d3.keys(site));
+			}
+			
+			if(typeof data[shelter_id]['General'] !== 'undefined') {
+				var general = data[shelter_id]['General']['Attributes'];
+				$("#general").empty();
+				tabulate("#general", general, d3.keys(general));
+			}
+			
+			if(typeof data[shelter_id]['Disaster & Response'] !== 'undefined') {
+				var disasterresponse = data[shelter_id]['Disaster & Response']['Attributes'];
+				$("#disasterresponse").empty();
+				tabulate("#disasterresponse", disasterresponse, d3.keys(disasterresponse));
+			}
+			
+			if(typeof data[shelter_id]['Foundation'] !== 'undefined') {
+				var foundation = data[shelter_id]['Foundation']['Attributes'];
+				$("#foundation").empty();
+				tabulate("#foundation", foundation, d3.keys(general));
+			}
+			
+			if(typeof data[shelter_id]['Identification'] !== 'undefined') {
+				// Set shelter name
+				$('#shelter-name').text(data[shelter_id]['Identification']['Attributes']['Name of shelter']);
+			
+				// Get coordinates for this shelter
+				var lat = data[shelter_id]['Identification']['Attributes']['GPS Latitude'];
+				var lon = data[shelter_id]['Identification']['Attributes']['GPS Longitude'];
+				
+				// Initiate leaflet map
+				var map = L.map('location-map').setView([lat, lon], 13);
+				L.marker([lat, lon]).addTo(map);
+			}
+		});
 
-	// convert object keys to an attribute value pair
-	var data = Object.keys(d).map(function(k) { return {attribute:k, value:d[k]} })
-	
-	var table = d3.select(table_id)
-	var	tbody = table.append('tbody');
+		function tabulate(table_id, d, columns) {
 
-	// create a row for each object in the data
-	var rows = tbody.selectAll('tr')
-	  .data(data)
-	  .enter()
-	  .append('tr');
+			// convert object keys to an attribute value pair
+			var data = Object.keys(d).map(function(k) { return {attribute:k, value:d[k]} })
+			
+			var table = d3.select(table_id)
+			var	tbody = table.append('tbody');
 
-	// Add column with attribute names
-	rows.append('th')
-	  .text(function (d) { return d.attribute; });
-	 
-	// Add column with values
-	rows.append('td')
-	  .text(function (d) { return d.value; });
-}
-</script>
+			// create a row for each object in the data
+			var rows = tbody.selectAll('tr')
+			  .data(data)
+			  .enter()
+			  .append('tr');
+
+			// Add column with attribute names
+			rows.append('th')
+			  .text(function (d) { return d.attribute; });
+			 
+			// Add column with values
+			rows.append('td')
+			  .text(function (d) { return d.value; });
+		}
+	</script>
+    
+{% endblock %}
+{% block wrapper_end %}
+</div>
 {% endblock %}
