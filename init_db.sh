@@ -1,5 +1,4 @@
 #! /bin/sh
-
 python3.5 src/manager.py db_empty
 python3.5 src/manager.py db_create
 
