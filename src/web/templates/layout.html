@@ -100,7 +100,11 @@
 			 $(function() {
 			  var loc = window.location.pathname; // returns the full URL
 			  if("" === loc || "/" === loc) {
+				// add landingpage class to header
 				$('header').addClass('landingpage');
+				
+				// remove page class from main
+				$('main').removeClass();
 			  }
 			});
 			</script>

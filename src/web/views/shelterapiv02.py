@@ -81,7 +81,7 @@ def available_translations():
     result = tree()
     
     subquery = db.session.query(Translation.language_code).group_by(Translation.language_code).subquery()
-    available_languages = db.session.query(func.string_agg(subquery.c.language_code, ';')).first()
+    available_languages = db.session.query(func.array_agg(subquery.c.language_code)).first()
     #for language in available_languages
     result["languages"]= available_languages[0]
 	
@@ -148,7 +148,7 @@ def allshelters(shelter_id=None):
     result = tree()
     
     #shelter pictures folder path
-    picpath = 'data/shelters/pictures'
+    picpath = '/public/pictures/shelters'
     
     Supercategory = db.aliased(Category)
     
@@ -210,11 +210,11 @@ def allshelters(shelter_id=None):
     	
     	for picture in shelter_pictures:
     		if picture.is_main_picture == True:
-    			result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["ID"], picture.filename)]
+    			result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
     		elif not result[picture.shelter_id][picture.name]["Pictures"]:
-    			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["ID"], picture.filename)]
+    			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
     		else:
-    			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["ID"], picture.filename))
+    			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
     
     else:
     	for shelter_property in shelter_properties:
@@ -222,10 +222,10 @@ def allshelters(shelter_id=None):
     
     	for picture in shelter_pictures:
     		if picture.is_main_picture == True:
-    			result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["id"], picture.filename)]
+    			result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
     		elif not result[picture.shelter_id][picture.name]["Pictures"]:
-    			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["id"], picture.filename)]
+    			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
     		else:
-    			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["Identification"]["Attributes"]["id"], picture.filename))
+    			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
   
     return jsonify(result)
