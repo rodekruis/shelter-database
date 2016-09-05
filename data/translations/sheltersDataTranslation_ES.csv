@@ -1,0 +1,1042 @@
+ENGLISH,,,ESPAÑOL,
+Identification,,,Identificación ,
+,ID,,,ID
+,Name of shelter,,,Nombre de Refugio
+,Survey date,,,Fecha del estudio
+,Zone,,,Zona
+,Africa,,,África
+,Americas & Caribbean,,,América & Caribe
+,Asia Pacific,,,Asia y el Pacifico
+,Europe,,,Europa
+,Middle East & North Africa,,,Oriente Medio y Norte de África
+,Country,,,País
+,Province / District / Region,,,Provincia/Distrito/Región
+,City / Village,,,Ciudad/Pueblo
+,GPS Latitude,,,Latitud GPS
+,GPS Longitude,,,Longitud GPS
+,GPS Altitude,,,Altitud GPS
+,Climate zone,,,Zona climática
+,dry polar,,,Seco Polar
+,dry moderate,,,Seco Moderado
+,dry tropical,,,Seco Tropical
+,moist polar,,,Humedo Polar
+,moist moderate,,,Humedo Moderado
+,moist tropical,,,Humedo Tropical
+,Landform,,,Relieve
+,mountains,,,Montaña
+,plateaus,,,Planicie
+,hills,,,Colinas
+,valley,,,Valle
+,plain,,,Plano
+,river delta,,,Delta de Rio
+,desert,,,Desierto
+Disaster & Response,,,Desastre & Respuesta,
+,Associated disaster / Immediate cause,,,Desastres asociados/Causa inmediata
+,earthquake,,,Terremoto
+,flood,,,Inundacion
+,storm/cyclone,,,Tormenta/Ciclon
+,volcanic eruption,,,Erupcion volcanica
+,fire,,,Fuego
+,rockfall/landslide,,,Caida de rocas/deslizamiento de tierra
+,tsunami,,,Tsunami
+,drought/famine,,,Sequia/Escasez
+,epidemic,,,Epidemia
+,conflict related,,,Conflicto relacionado
+,other,,,Otros
+,Main hazards in country,,,Principales peligros del País
+,earthquake,,,Terremoto
+,flood,,,Inundacion
+,storm/cyclone,,,Tormenta/Ciclon
+,volcanic eruption,,,Erupcion volcanica
+,fire,,,Fuego
+,rockfall/landslide,,,Caida de rocas/deslizamiento de tierra
+,tsunami,,,Tsunami
+,drought,,,Sequia/Escasez
+,Type of Implementing Agency,,,Tipo de Agencia de ejecucion
+,by private sector,,,Por el sector Privado
+,by government,,,Por el Gobierno
+,by NGO/agency,,,Por ONG/Agencia
+,self-built,,,Construccion propia
+,Implementing Agency,,,Implementando Agencias
+,Name of Project Manager,,,Nombre del director del proyecto
+,Name of local partner (NGO/Government),,,Nombre del socio local (ONG/Gobierno)
+,Name of Governmental Agency in charge of Disaster Management,,,Nombre del organismo gubernamental encargado de la gestión de desastres
+,Name of Governmental Agency in charge of Construction,,,Nombre del organismo gubernamental encargado de la construcción
+,Type of shelter,,,Tipo refugio
+,emergency shelter,,,Refugio de Emergencia
+,transitional shelter,,,Refugio de transicion
+,core shelter,,,Refugio central
+,permanent shelter,,,Refugio permanente
+,Total number of shelter built during project,,,Numero de refugios construidos durante el proyecto
+,Type of work (construction),,,Tipo de trabajo (Construccion)
+,retrofit,,,Reequipamiento
+,repair,,,Reparacion
+,rebuilding,,,Reconstruccion
+,relocation,,,Reubicacion
+,Type of settlement,,,Tipo de acentamiento
+,in a planned camp,,,En un campo planificado
+,self-settlement with relocation,,,Reubicacion de acentamiento propio
+,self-settlement in-situ,,,Auto acentamiento en el sitio
+,in a collective centre,,,En un centro colectivo
+,host family,,,Jefe de familia
+,in a planned site,,,En un campo planificado
+,Labour methods,,,Metodo de trabajo
+,direct (beneficiary) labour,,,(Beneficiario) Mano de obra directa
+,community labour,,,Trabajo comunitario
+,contract labour,,,Contrato laboral
+,Labour skills,,,Habilidades laborales
+,skilled labour,,,Mano de obra calificada
+,unskilled labour,,,Trabajo sin experiencia
+,Support provided,,,Apoyo proporcionado
+,none,,,Nada
+,technical training,,,Entrenamiento tecnico
+,technical support,,,Soporte tecnico
+,shelter construction items,,,Albergue de elementos de construccion
+,cash,,,Dinero
+,vouchers,,,Cupones
+,livelihood support,,,Apoyo para la subsistencia
+,environmental & resource management,,,Gestión ambiental y de recursos
+,local information centres,,,Centros de informacion locales
+,insurances,,,Seguros
+,loans & guarantees,,,Prestamos y Garantias
+,advocacy, legal & administrative,,,Promoción, legal y administrativa
+,market interventions,,,Intervencion de Mercado
+,return & transit items,,,Retorno Y Transito de objetos
+,infrastructure & settlement planning,,,Infraestructura y planificación de asentamientos
+,other,,,Otros
+General,,,General,
+,Year of construction (first completed shelters),,,Año de Construccion (Primeros asentamientos finalizados)
+,mortar,,,Mortero
+,Number of inhabitants of the shelter,,,Numero de refugios inhabitados
+,Occupancy status (site),,,Estado de ocupacion (Lugar)
+,occupied with no legal status,,,Estado de ocupacon con ningun proposito legal
+,land tenant,,,Arrendatario de tierras
+,owner of the land,,,Dueño de las tierras
+,family land,,,Tierra familiar
+,Occupancy status (shelter),,,Estado de ocupacion (Refugio)
+,not occupied,,,Sin ocupacion
+,occupied with no legal status,,,Estado de ocupacion sin propositos legales
+,house tenant,,,Arrendatario de casa
+,owner-occupier,,,Propietario ocupante
+,Typology,,,Tipologia
+,detached,,,Separado
+,semi-detached,,,Semi-separado
+,row unit,,,Unidad de siembra
+,apartment,,,Apartamento
+,Storeys,,,Pisos
+,Number of rooms (not including kitchen & bathroom/toilet),,,Numero de cuartos (Sin incluir cocina/baños)
+,Length (m),,,Longitud (m)
+,Width (m),,,Ancho (m)
+,Total interior area (m2),,,Toral del area interior (m2)
+,Covered area (m2),,,Area cubierta (m2)
+,Wall height (m),,,Longitud de las paredes (m)
+,Ridge height (m),,,Altura de la fachada (m)
+,Construction cost per unit (USD),,,Costo de construccion por unidad (USD)
+,Construction costs breakdown (USD) - local material,,,Costos de construccion de la carretera (USD) Material local
+,Construction costs breakdown (USD) - imported material,,,Costo de construccion de la carretera (USD) Material importado
+,Construction costs breakdown (USD) - transport and warehousing,,,Costos de construcción en carretera (USD) - transporte y almacenamiento
+,Construction costs breakdown (USD) - local labour,,,Costos de construccion de carretera (USD) Mano de obra local
+,Construction costs breakdown (USD) - international staff,,,Costo de construccion de carretera (USD) Agencia internacional
+,Construction costs breakdown (USD) - trainings,,,Costos de construcción en carretera (USD) - entrenamientos
+,Construction costs breakdown (USD) - administrative costs,,,Costos de construccion de carretera (USD) Costos administrativos
+,Construction costs breakdown (USD) - other,,,Costos de construccion de carretera (USD) Otros 
+,Construction labour (number of workers),,,Mano de obra de construccion (Numero de trabajadores)
+,Construction time (number of days per unit),,,Tiempo de construccion (Numero de dias por unidad)
+,Comment,,,Comentarios
+Site,,,Lugar,
+,Context,,,Contexto
+,urban,,,Urbano
+,peri-urban,,,Semi-urbano
+,slum,,,Barrio bajo
+,semi-rural,,,Semi-Rural
+,rural,,,Rural
+,Topography,,,Topografia
+,flat/level (<2%),,,Plano/nivelacion (<2%)
+,gentle slope (2-10%),,,Pendiente suave (2-10%)
+,moderate slope (10-15%),,,Pendiente moderada (10-15%)
+,strong slope (15-30%),,,Pendiente fuerte (15-30%)
+,very strong slope (30-45%), extreme slope (45-70%), steep slope (70-100%),,,Pendiente muy fuerte (30-45%), pendiente extrema (45-70%), pendiente escarpada (75-100%)
+,very steep slope (>100%),,,Pendiente muy escarpada (>100%)
+,Location of the site,,,Ubicación del lugar
+,exposed crest/edge of a cliff,,,Crestas expuestas/borde de un acantilado
+,coastal area,,,Area costera
+,low-lying area,,,Zona de baja altitud
+,in terrace,,,En terraza
+,undulating,,,Ondulacion
+,base of a slope,,,Base de la pendiente
+,close to a river/pond/lake,,,Cerca de un rio/estanque/lago
+,on water,,,En el agua
+,other,,,Otros
+,Soil type,,,Tipo de suelo
+,rock,,,Roca
+,stone/gravel,,,Piedra/Grava
+,sand,,,Arena
+,clay,,,Arcilla
+,wetland/water,,,Humedales/Agua
+,Vegetation,,,Vegetacion
+,trees,,,Arboles
+,shrub,,,Arbusto
+,bush,,,Matorral
+,grass,,,Hierba
+,none,,,Nada
+,Approximate plot area (m2),,,Area de trazado aproximada
+,Site access,,,Acceso al lugar
+,none,,,Nada
+,gravel,,,Grava
+,(permeable) pavement,,,(Permeable) Pavimento
+,asphalt,,,Asfalto
+,concrete,,,Concreto
+,Accessibility for transport,,,Accesibilidad para transporte
+,by truck,,,Por camiones
+,by car,,,Por carros
+,by 4x4,,,Por 4x4
+,by animal,,,Por animales
+,by foot,,,A pie
+,by boat/raft,,,Por bote/balsa
+,other,,,Otros
+Foundation,,,Fundacion,
+,Foundation type,,,Tipo de fundacion
+,strip footing,,,Tira base
+,isolated footing (pad/ bucket),,,Aislado base (Almohadilla/cubo)
+,monolithic slab,,,Losa monolítica
+,on stilts/pillars/piles,,,Sobre pilotes/pilares/pilas
+,helical piles/ screw piles,,,pilas helicoidales/ tornillo de pilas
+,earth anchor/ mechanical soil anchor,,,Ancla de tierra/anclaje mecánico del suelo
+,spiral ground anchor,,,Ancla de tierra en espiral
+,pegs,,,Clavijas
+,ballast,,,Lastre
+,anchor block,,,Bloque de Anclaje
+,none,,,Nada
+,Foundation material,,,Creacion de Material
+,reinforced concrete,,,Concreto reforzado
+,reinforcing bars,,,Barras reforzadas
+,welded-wire mesh,,,Malla de alambre soldada
+,concrete,,,Concreto
+,timber,,,Leño
+,wood,,,Madera
+,bamboo,,,Bamboo
+,steel,,,Acero
+,galvanized steel,,,Acero galvanizado
+,granular fill,,,Relleno granular
+,stone,,,Piedra
+,backfill,,,Relleno
+,rubble (masonry),,,Escombros (albañilería)
+,squared rubble,,,Escombros al cuadrado
+,concrete block(solid),,,Bloque de concreto (Solido)
+,hollow concrete block,,,Bloque hueco de hormigón
+,solid brick (fired clay),,,Ladrillo macizo (barro cocido)
+,adobe/sun-dried brick,,,Adobe/ladrillos secados al sol
+,salvage material,,,Materiales recuperados
+,rocks masonry,,,Rocas de mampostería
+,Depth of foundation (m),,,Profundidad de cimientos (m)
+,Section/ surface of footing (m x m),,,Sección/superficie de la base (m x m)
+,Width of wall base (m),,,Ancho de base de la pared (m)
+,Section of stilt/ pillar/ pile (m x m),,,Sección del zanco/pilar/pila (m x m)
+,Thickness of monolithic concrete slab (m),,,Espesor de losa de hormigón monolítico (m)
+,Distance between piles/ stilts/ isoled footing (m),,,Distancia entre las pilas/zancos/base aislada (m)
+,Connection between foundation - walls,,,La conexión entre cimientos - paredes
+,none,,,Ninguno
+,nails,,,Clavos
+,screws,,,Tornillos
+,lag screws/lag bolts,,,Tirafondos/pernos de fijación
+,bolts and nuts,,,Pernos y tuercas
+,anchor bolts & washers,,,Pernos de anclaje y arandelas
+,anchor plates/ post anchors/bases,,,Placas de anclaje/anclajes de pilares/bases
+,straps,,,Correas
+,reinforcing bars,,,Barras reforzadas
+,wire,,,Cable
+,lashings,,,Montones
+,dowels/ pins,,,Pasadores/clavijas
+,other,,,Otros
+,Connection material (foundation - walls),,,Materiales de Conexion (Cimiento - Pared)
+,none,,,Ninguno
+,cement,,,Cemento
+,steel,,,Acero
+,galvanized steel,,,Acero galvanizado
+,stainless steel,,,Acero inoxidable
+,timber,,,Leño
+,wood,,,Madera
+,bamboo,,,Bamboo
+,polymer,,,Polimero
+,organic,,,Organico
+,concrete,,,Concreto
+,other,,,Otros
+,Comment,,,Observacion
+Walls & Frame,,,Paredes y estrucctura,
+,Superstructure type,,,Tipo de super estrucctura
+,bearing walls,,,Muros de Carga
+,framed walls,,,Paredes enmarcadas
+,pole-frame construction,,,Construcción de postes de fotograma
+,posts & beams framing,,,Postes y vigas de encuadre
+,other,,,Otros
+,Comment,,,Comentarios
+Bearings walls,,,Muros de Carga,
+,Bearing walls material,,,Materiales de muro de carga
+,concrete block (solid),,,Bloque de concreto (Solido)
+,hollow concrete block,,,Bloque hueco de hormigón
+,solid brick (fired clay),,,Ladrillo macizo (barro cocido)
+,perforated brick (fired clay),,,Ladrillo perforado (Barro cocido)
+,hollow brick (fired clay),,,Ladrillo hueco (barro cocido)
+,adobe/ sun-dried brick,,,Adobe/ladrillos secados al sol
+,rubble (masonry),,,Escombros (albañilería)
+,squared rubble,,,Escombros al cuadrado
+,other,,,Otros
+,Bearing walls - width (m),,,Muros de carga - Ancho (m)
+,Bearing walls - bond beams & lintels,,,Muros de carga - Vigas de enlace y dinteles
+,none,,,Ninguno
+,bond beam/ ring beam,,,Vigas de enlace/Zunchos
+,vertical wall reinforcement,,,Paredes verticales reforzadas
+,lintel (above doors),,,Lintes (Puerdas interiores)
+,lintel (above windows),,,Lintes (Ventanas interioes)
+,rake beam (top of gable end),,,Viga de inclinación (parte superior del hastial)
+,Section of horizontal bond beam (m x m),,,Seccion horizontal de las vigas de enlace (m x m)
+,Section of lintel (m x m),,,Seccion del linter (m x m)
+,Connection between bearing walls and roof,,,Conexión entre muros de carga y el techo
+,none,,,Ninguno
+,nails,,,Clavos
+,screws,,,Tornillos
+,lag screws/bolts,,,Tirafondos/pernos de fijación
+,bolts and nuts,,,Pernos y tuercas
+,anchor bolts and washers,,,Pernos de anclaje y arandelas
+,anchor plates,,,Placas de anclaje
+,hurricane straps/ ties/ clips,,,Correas de huracán/lazos/clips
+,wire,,,Cable
+,reinforcing bars,,,Barras reforzadas
+,other,,,Otros
+,Connection material (walls - roof),,,Materiales de conexión (Muros - Techo)
+,none,,,Ninguno
+,concrete,,,Concreto
+,steel,,,Acero
+,galvanized steel,,,Acero galvanizado
+,stainless steel,,,Acero inoxidable
+,timber,,,Leño
+,polymer,,,Polimero
+,organic,,,Organico
+,other,,,Otros
+,Stability measure - bearing walls,,,Medida de la estabilidad - muros de carga
+,none,,,Ninguno
+,bond beam/ring beam at plinth level,,,Viga de enlace/Zunchos a nivel del piso
+,bond beam/ring beam at lintel level,,,Viga de enlace/Zunchos a nivel del lintel
+,bond beam/ring beam at roof level,,,Viga de enlace/Zunchos a nivel del techo
+,vertical wall reinforcement in corners,,,Paredes verticales reforzadas en las esquinas
+,vertical wall reinforcement in at each wall intersection,,,Paredes verticales reforzadas en intersecciones
+,other,,,Otros
+,rake beam,,,Viga rastrillo
+,tie-bar/ tie rod and tie plate,,,Bieleta de barra/corbata y placa de anclaje
+,vertical wall,,,Pared Vertical
+,other,,,Otros
+,Stability measure material,,,Material de medida de Estabilidad
+,none,,,Ninguno
+,reinforced concrete,,,Concreto reforzado
+,steel,,,Acero
+,other,,,Otros
+Framed walls,,,Paredes enmarcadas,
+,Framed walls material,,,Material de enmarcar paredes
+,steel,,,Acero
+,galvanized steel,,,Acero galvanizado
+,timber,,,Leño
+,wood,,,Madera
+,bamboo,,,Bamboo
+,mixed,,,Mixto
+,other,,,Otros
+,Framed walls - section of corner post (m x m),,,Paredes enmarcadas - Secciones de los postes de las esquinas (m x m)
+,Framed walls - section of stud (m x m),,,Paredes enmarcadas - Secciones de clavetas (m x m)
+,Framed walls - section of bottom wall plate/ sill plate (m x m),,,Paredes enmarcadas - Sección de la placa de pared de fondo/placa del travesaño (m x m)
+,Framed walls - section of top wall plate (m x m),,,Paredes enmarcadas - Sección de la placa de pared superior (m x m)
+,Connection between framed walls and roof,,,Conexión entre paredes enmarcadas y el techo
+,none,,,Ninguno
+,nails,,,Clavos
+,screws,,,Tornillos
+,lag screws/bolts,,,Tirafondos/pernos de fijación
+,bolts and nuts,,,Pernos y tuercas
+,anchor bolts and washers,,,Pernos de anclaje y arandelas
+,hurricane straps/ ties/ clips,,,Correas de huracán/lazos/clips
+,wire,,,Cable
+,lashings,,,Montones
+,dowels/ pins,,,Pasadores/clavijas
+,other,,,Otros
+,Connection material (walls - roof),,,Materiales de Conexion (Paredes - Techo)
+,none,,,Ninguno
+,steel,,,Acero
+,galvanized steel,,,Acero galvanizado
+,stainless steel,,,Acero inoxidable
+,timber,,,Leño
+,polymer,,,Polimero
+,organic,,,Organico
+,other,,,Otros
+,Stability measure - framed walls,,,Medida de estabilidad - Muros de carga
+,none,,,Ninguno
+,corner brace,,,Abrazadera de esquina
+,K brace,,,Abrazadera K
+,angle brace,,,Soporte de Angulo
+,sheathing (load bearing shell),,,Revestimiento (cáscara de soporte de carga)
+,studs located every 60 cm (2 ft) or less,,,Pernos prisioneros situados cada 60 cm (2 pies) o menos
+,cross brace,,,Refuerzo transversal
+,other,,,Otros
+,Stability measure material,,,Material de medida de Estabilidad
+,none,,,Ninguno
+,timber,,,Leño
+,wood,,,Madera
+,bamboo,,,Bamboo
+,plywood,,,Madera contrachapada
+,wire,,,Cable
+,metal cable,,,Cable metalico
+,rope,,,Cuerda
+,other,,,Otros
+Pole-frame,,,Marco de poste,
+,Pole-frame - material,,,Marco de poste - Material
+,timber,,,Leño
+,wood,,,Madera
+,coconut tree,,,Arbol de coco
+,bamboo,,,Bamboo
+,other,,,Otros
+,Pole-frame - section of pole (m x m),,,Marco de poste - Seccion de poste (m x m)
+,Pole-frame- height of pole (m),,,Marco de poste - Altura de poste (m)
+,Connection between pole-frame walls and roof,,,Conexión entre el marco de poste y el techo
+,none,,,Ninguno
+,nails,,,Clavos
+,screws,,,Tornillos
+,lag screws/bolts,,,Tirafondos/pernos de fijación
+,bolts and nuts,,,Pernos y tuercas
+,anchor bolts and washers,,,Pernos de anclaje y arandelas
+,hurricane straps/ ties/ clips,,,Correas de huracán/lazos/clips
+,wire,,,Cable
+,lashings,,,Montones
+,dowels/ pins,,,Pasadores/clavijas
+,other,,,Otros
+,Connection material (walls - roof),,,Materiales de Conexion (Paredes - Techo)
+,none,,,Ninguno
+,steel,,,Acero
+,galvanized steel,,,Acero galvanizado
+,stainless steel,,,Acero inoxidable
+,timber,,,Leño
+,polymer,,,Polimero
+,organic,,,Organico
+,other,,,Otros
+,Stability measure - pole-frame construction,,,Medida de la estabilidad - construcción de postes del marco
+,none,,,Ninguno
+,cross brace,,,Refuerzo transversal
+,V brace,,,Abrazadera V
+,angle brace,,,Soporte en ángulo
+,gusset plates,,,Placas de unión
+,other,,,Otros
+,Stability measure material,,,Material de medida de Estabilidad
+,none,,,Ninguno
+,timber,,,Leño
+,wood,,,Madera
+,bamboo,,,Bamboo
+,plywood,,,Madera contrachapada
+,wire,,,Cable
+,metal cable,,,Cable metalico
+,rope,,,Cuerda
+,other,,,Otros
+Posts & Beams,,,Postes y vigas,
+,Posts & beams framing - material,,,Postes y vigas de encuadre - Material
+,reinforced concrete,,,Concreto reforzado
+,steel,,,Acero
+,galvanized steel,,,Acero galvanizado
+,timber,,,Leño
+,wood,,,Madera
+,coconut tree,,,Arbol de coco
+,bamboo,,,Bamboo
+,Posts & beams framing - section of post (m x m),,,Poster y vigas de encuadre - Seccion del poste (m x m)
+,Posts & beams framing - height of post (m),,,Postes y vigas de encuadre - Altura de poster (m)
+,Connection between posts and beams framing walls and roof,,,Conexión entre los postes y vigas de encuadre - paredes - Techo
+,none,,,Ninguno
+,nails,,,Clavos
+,screws,,,Tornillos
+,lag screws/bolts,,,Tirafondos/pernos de fijación
+,bolts and nuts,,,Pernos y tuercas
+,anchor bolts and washers,,,Pernos de anclaje y arandelas
+,anchor plates,,,Placas de anclaje
+,hurricane straps/ ties/ clips,,,Correas de huracán/lazos/clips
+,wire,,,Cable
+,lashings,,,Montones
+,dowels/ pins,,,Pasadores/clavijas
+,reinforcing bars,,,Barras reforzadas
+,other,,,Otros
+,Connection material (walls - roof),,,Materiales de conexion (Paredes - Techo)
+,none,,,Ninguno
+,concrete,,,Concreto
+,steel,,,Acero
+,galvanized steel,,,Acero galvanizado
+,stainless steel,,,Acero inoxidable
+,timber,,,Leño
+,polymer,,,Polimero
+,organic,,,Organico
+,other,,,Otros
+,Stability measure - posts & beams framing,,,Medida de estabilidad - Postes y vigas de encuadre
+,none,,,Ninguno
+,cross brace,,,Refuerzo transversal
+,V brace,,,Abrazadera V
+,angle brace,,,Soporte de Angulo
+,gusset plates,,,Placas de unión
+,other,,,Otros
+,Stability measure material,,,Medida de estabilidad de los materiales
+,none,,,Ninguno
+,reinforced concrete,,,Concreto reforzado
+,steel,,,Acero
+,timber,,,Leño
+,bamboo,,,Bamboo
+,plywood,,,Madera contrachapada
+,rope,,,Cuerda
+,wire,,,Cable
+,metal cable,,,Cable metalico
+,other,,,Otros
+,Beams & Floor (ground floor),,,Vigas y Piso (Planta baja)
+,Ground floor type,,,Tipo de planta baja
+,earth platform (elevated ground floor),,,Plataforma de tierra (Elevacion de planta baja)
+,ground slab/ slab on grade,,,Losa de suelo/Losa sobre el suelo
+,suspended timber ground floor,,,Suspendido de madera planta baja
+,suspended slab (reinforced concrete),,,Losa suspendida (hormigón armado)
+,beam and blocks/ beam fill floor (concrete joists and infill blocks),,,viga y bloques/planta de llenado del haz (viguetas de hormigón y bloques de relleno)
+,other types of suspended floor,,,Otros tipos de piso suspendido
+,other,,,Otros
+,Ground floor material,,,Materiales de planta baja
+,backfill compacted,,,Relleno compactado
+,debris,,,Escombros
+,granular fill (gravel),,,Relleno granular (grava)
+,stone,,,Piedra
+,reinforced concrete,,,Concreto reforzado
+,welded-wire mesh,,,Malla de alambre soldada
+,concrete,,,Concreto
+,concrete blocks & mortar,,,Bloques de concreto y mortero
+,timber,,,Leño
+,wood,,,Madera
+,steel,,,Acero
+,galvanized steel,,,Acero galvanizado
+,bamboo,,,Bamboo
+,concrete joists,,,Viguetas de hormigón
+,infill blocks/ blocks floor,,,Bloques de relleno/Bloques de piso
+,arched bricks,,,Ladrillos arqueados
+,granular fill,,,Relleno granular
+,Height of ground floor above ground level (m),,,Altura de la planta baja sobre el nivel del suelo (m)
+,Lenght of the beams/joists (m),,,Longitud de las vigas/viguetas (m)
+,Section of the beams/joists (m x m),,,Sección de las vigas/viguetas (m x m)
+,Distance between beams/joists (m),,,Distancia entre las vigas/viguetas (m)
+,Thickness of decking/ concrete slab/ compression slab (m),,,Espesor de cubierta/losa de hormigón/losa de compresión (m)
+,Floor components,,,Componentes del piso
+,concrete,,,Concreto
+,reinforcing bars,,,Barras reforzadas
+,welded-wire mesh,,,Malla de alambre soldada
+,steel,,,Acero
+,galvanized steel,,,Acero galvanizado
+,timber,,,Leño
+,wood,,,Madera
+,plywood,,,Madera contrachapada
+,bamboo,,,Bamboo
+,infill blocks,,,Bloques de relleno
+,arched bricks,,,Ladrillos arqueados
+,other,,,Otros
+,Connection between walls and ground floor,,,Conexión entre paredes y planta baja
+,none,,,Ninguno
+,nails,,,Clavos
+,screws,,,Tornillos
+,lag screws/bolts,,,Tirafondos/pernos de fijación
+,bolts and nuts,,,Pernos y tuercas
+,wire,,,Cable
+,anchor plates,,,Placas de Anclaje
+,straps,,,Correas
+,reinforcing bars,,,Barras reforzadas
+,lashings,,,Montones
+,dowels/ pins,,,Pasadores/clavijas
+,other,,,Otros
+,Connection material (walls - ground floor),,,Materiales de Conexion (Paredes - Planta baja)
+,none,,,Ninguno
+,concrete,,,Concreto
+,steel,,,Acero
+,galvanized steel,,,Acero galvanizado
+,stainless steel,,,Acero inoxidable
+,timber,,,Leño
+,wood,,,Madera
+,polymer,,,Polimero
+,organic,,,Organico
+,other,,,Otros
+,Stability measure - elevated ground floor,,,Medida de estabilidad - Elevacion de la planta baja
+,none,,,Nada
+,cross brace,,,Refuerzo transversal
+,angle brace,,,Soporte de Angulo
+,gusset plates,,,Placas de unión
+,other,,,Otros
+,Stability measure material,,,Material de medida de Estabilidad
+,none,,,Ninguno
+,reinforced concrete,,,Concreto reforzado
+,steel,,,Acero
+,timber,,,Leño
+,wood,,,Madera
+,plywood,,,Madera contrachapada
+,bamboo,,,Bamboo
+,other,,,Otros
+Beams & Floor,,,Vigas y Piso,
+,Floor type (second floor and others),,,Tipo de piso (segundo piso y otros
+,none,,,Ninguno
+,suspended timber ground floor,,,Vigas suspendidas planta baja
+,suspended slab (reinforced concrete),,,Losa suspendida (hormigón armado)
+,beam and blocks/ beam fill floor (concrete joists and infill blocks),,,Viga y bloques/planta de llenado del haz (viguetas de hormigón y bloques de relleno)
+,other types of suspended floor,,,Otros tipos de piso suspendido
+,other,,,Otros
+,Beams/ joists material,,,Vigas/viguetas material
+,reinforced concrete,,,Concrero reforzado
+,steel,,,Acero
+,galvanized steel,,,Acero galvanizado
+,timber,,,Leño
+,wood,,,Madera
+,bamboo,,,Bamboo
+,other,,,Otros
+,Lenght of the beams/joists (m),,,Longitud de las vigas/viguetas (m)
+,Section of the beams/joists (m x m),,,Sección de las vigas/viguetas (m x m)
+,Distance between beams/joists (m),,,Distancia entre las vigas/viguetas (m)
+,Connection between walls and floor (if more than one storey),,,La conexión entre paredes y el suelo (si hay más de un piso)
+,none,,,Ninguno
+,nails,,,Clavos
+,screws,,,Tornillos
+,lag screws/bolts,,,Tirafondos/pernos de fijación
+,bolts and nuts,,,Pernos y tuercas
+,wire,,,Cable
+,anchor plates,,,Placas de Anclaje
+,straps,,,Correas
+,ties,,,Atadura
+,reinforcing bars,,,Barras reforzadas
+,lashings,,,Montones
+,dowels/ pins,,,Pasadores/clavijas
+,Connection material (walls - floor),,,Materiales de conexión (Paredes - Piso)
+,none,,,Ninguno
+,concrete,,,Concreto
+,steel,,,Acero
+,galvanized steel,,,Acero galvanizado
+,stainless steel,,,Acero inoxidable
+,timber,,,Leño
+,wood,,,Madera
+,polymer,,,Polimero
+,organic,,,Organico
+,other,,,Otros
+,Thickness of decking/ concrete slab/ compression slab (m),,,Espesor de cubierta/losa de hormigón/losa de compresión (m)
+,Floor components,,,Componentes del piso
+,concrete,,,Concreto
+,reinforcing bars,,,Barras reforzadas
+,welded-wire mesh,,,Malla de alambre soldada
+,steel,,,Acero
+,galvanized steel,,,Acero galvanizado
+,timber,,,Leño
+,wood,,,Madera
+,plywood,,,Madera contrachapada
+,bamboo,,,Bamboo
+,infill blocks,,,Bloques de relleno
+,arched bricks,,,Bloques arqueados
+,other,,,Otros
+,Comment,,,Observacion
+Roof,,,Techo,
+,Roof shape,,,Forma de Techo
+,shed roof (single-pitch roof, pitch >3°),,,Verter techo (techo de paso único, el tono> 3°)
+,gable roof (pitched roof),,,Tejado a dos aguas (tejado inclinado)
+,hip-roof (hipped roof),,,Cubierta a cuatro aguas (tejado a cuatro aguas)
+,flat roof (pitch <3°),,,techo plano (paso <3°)
+,dome,,,Domo
+,rainbow roof (arched),,,Techo arco iris (arco)
+,mansard roof,,,Techo abuhardillado
+,gambrel roof (roof with several slopes on the same side),,,Techo abuhardillado (techo con varias pistas en el mismo lado)
+,Roof pitch (°),,,pendiente de la cubierta (°)
+,<3° (<5%),,,<3° (<5%)
+,3-9° (5-16 %),,,3-9° (5-16%)
+,10-30° (17-60%),,,10-30° (17-60%)
+,30-45° (60-100%),,,30-45° (60-100%)
+,>45° (>100%),,,>45° (>100%)
+,Roof structure,,,Estructura de la cubierta
+,gable end,,,Extremo de aguilón
+,truss,,,Entramado
+,purlin,,,Correa
+,rafter,,,Viga
+,roof decking,,,Plataforma del techo
+,concrete slab,,,Losa de hormigón
+,Roof structure material,,,Material de estructura de techo
+,steel,,,Acero
+,galvanized steel,,,Acero galvanizado
+,timber,,,Leño
+,wood,,,Madera
+,plywood,,,Madera contrachapada
+,sheathing,,,Revestimiento
+,bamboo,,,Bamboo
+,reinforced concrete,,,Concrero reforzado
+,other,,,Otros
+,Distance between trusses/ gable end/ cross wall (m),,,Distancia entre cerchas/Extremo de aguilón/pared transversal (m)
+,Section of purlin (m x m),,,Sección de la correa (m x m)
+,Distance between purlins (m),,,Distancia entre las correas (m)
+,Section of rafter (m x m),,,Sección de la viga (m x m)
+,Distance between rafters (m),,,Distancia entre vigas (m)
+,Size of eaves (overhang) (m),,,Tamaño de aleros (saliente) (m)
+,Thickness of roof decking/ concrete slab (m),,,El grosor del plataforma de la techo/losa de hormigón (m)
+,Section of batten/ lath (m x m),,,Sección del listón/Torno (m x m)
+,Distance between  battens/ laths (m),,,Distancia entre rastreles/listones (m)
+,oil,,,Petroleo
+,Connection between roof elements,,,Conexión entre los elementos del techo
+,none,,,Ninguno
+,nails,,,Clavos
+,screws,,,Tornillos
+,lag screws/bolts,,,Tirafondos/pernos de fijación
+,bolts and nuts,,,Pernos y tuercas
+,anchor plates,,,Placas de Anclaje
+,hurricane straps,,,Correas de huracan
+,gusset plates,,,Placas de unión
+,connectors/ nail plates,,,Conectores/placas de clavos
+,lashings,,,Montones
+,dowels/ pins,,,Pasadores/clavijas
+,Connection material (roof elements),,,Materiales de conexión (elementos de techo)
+,none,,,Ninguno
+,concrete,,,Concreto
+,steel,,,Acero
+,galvanized steel,,,Acero galvanizado
+,stainless steel,,,Acero inoxidable
+,timber,,,Leño
+,polymer,,,Polimero
+,organic,,,Organico
+,other,,,Otros
+,Stability measure - roof,,,Medida de la estabilidad - techo
+,none,,,Ninguno
+,tie beam,,,Viga tensora
+,collar beam/ tie,,,Collarin de viga/Lazo
+,tie (between ridge beam and king post/ truss),,,lazo (entre viga de caballete y poste rey/cercha)
+,rafter brace,,,Abrazadera de Viga
+,gusset plates,,,Placas de unión
+,bracing,,,Soporte de madera/Hierro u otro material
+,other,,,Otros
+,Stability measure material,,,Material de medida de Estabilidad
+,none,,,Nada
+,concrete,,,Concreto
+,steel,,,Acero
+,timber,,,Leño
+,bamboo,,,Bamboo
+,other,,,Otros
+,Comment,,,Observacion
+Cladding,,,Revestimiento de fachadas,
+,Facade cladding material,,,Material de revestimiento de fachada
+,none,,,Ninguno
+,brick,,,Ladrillos
+,hollow brick,,,Ladrillo hueco
+,perforated brick,,,Ladrillo perforado
+,adobe/ sun-dried brick,,,Adobe/ladrillos secados al sol
+,mud plaster,,,Yeso de barro
+,concrete block (solid),,,Bloque de concreto (Solido)
+,hollow concrete block,,,Bloque de concreto hueco
+,cement plaster,,,Yeso de cemento
+,wattle & daub,,,Zarzo y barro
+,timber,,,Leño
+,wood,,,Madera
+,plywood,,,Madera contrachapada
+,fiber cement board/ cement board,,,Placa de fibrocemento/Placa de cemento
+,bamboo,,,Bamboo
+,metal sheeting,,,Láminas de metal
+,plastic sheeting (tarpaulin),,,Láminas de plástico (lona)
+,canvas,,,Lona
+,textile,,,Textiles
+,woven mat (organic material),,,Tejido estrecho (materia orgánico)
+,thatch,,,Cubierta de paja
+,straw,,,Paja
+,corrugated galvanized iron (CGI) sheet,,,Hoja de hierro galvanizado corrugado (CGI)
+,shingle,,,Tejas
+,wood shingle,,,Tejas de Madera
+,other,,,Otros
+,Thickness of cladding material (mm),,,Espesor de material de revestimiento (mm)
+,Roof covering material,,,Material de cobertura del techo
+,corrugated galvanized iron (CGI) sheet,,,Hoja de hierro galvanizado corrugado (CGI)
+,insulated metal roofing sheet,,,Perfil de cubierta metálico aislado
+,corrugated bitumen roofing panel,,,Panel de asfalto corrugado
+,aluminium roofing sheet,,,Perfil de cubierta de aluminio
+,plastic sheeting (tarpaulin),,,Láminas de plástico (lona)
+,thatch,,,Cubierta de paja
+,leaves,,,Hojas
+,straw,,,Paja
+,clay tiles,,,Tejas de arcilla
+,concrete tiles,,,Tejas de concreto
+,stone shingle,,,Tejas de piedra
+,asphalt shingle,,,Tejas de asfalto
+,wood shingle,,,Tejas de Madera
+,asphalt,,,Asfalto
+,bamboo,,,Bamboo
+,wood,,,Madera
+,plywood,,,Madera contrachapada
+,GPR (fibreglass) panel,,,GRP (fibra de vidrio) Panel
+,other,,,Otros
+,Thickness of roof covering (mm or gauge),,,Espesor de cubiertas (mm o un medidor)
+,Floor Finish Material,,,Material del piso Acabado
+,none,,,Ninguno
+,timber,,,Leño
+,wood,,,Madera
+,cement plaster,,,Yeso de cemento
+,mud plaster,,,Yeso de barro
+,bamboo,,,Bamboo
+,ceramic tiles,,,Azulejos de cerámica
+,carpet,,,Alfombra
+,plastic floor,,,Piso de plástico
+,organic material,,,Material organico
+,other,,,Otros
+Openings,,,Entrada,
+,Number of doors,,,Numero de puertas
+,Doors material,,,Material de las puertas
+,timber,,,Leño
+,wood,,,Madera
+,plywood,,,Madera contrachapada
+,bamboo,,,Bamboo
+,plastic sheeting,,,Láminas de plástico
+,mesh,,,Malla
+,insect screening mesh,,,Malla de detección de insectos
+,fibreglass,,,Fibra de Vidrio
+,leaves,,,Hojas
+,other,,,Otros
+,Number of windows,,,Numero de Ventanas
+,Windows material,,,Meteriales de las Ventanas
+,timber,,,Leño
+,wood,,,Madera
+,plywood,,,Madera contrachapada
+,bamboo,,,Bamboo
+,plastic sheeting,,,Láminas de plástico
+,insect screening mesh,,,Malla de detección de insectos
+,fibreglass,,,Fibra de Vidrio
+,lattice,,,Enrejado
+,other,,,Otros
+,Number of shutters,,,Número de persianas
+,Shutters material,,,Materiales de las persianas
+,metal,,,Metal
+,timber,,,Leño
+,wood,,,Madera
+,plywood,,,Madera contrachapada
+,bamboo,,,Bamboo
+,other,,,Otros
+Insulation,,,Aislamiento,
+,Insulation system,,,Sistema de Aislamiento
+,none,,,Ninguno
+,shading,,,Proteccion contra la Luz
+,insulation of the flooring,,,Aislamiento de los pisos
+,insulation on the walls,,,Aislamiento de las Paredes
+,insulation below the roof,,,Aislamiento debajo del techo
+,other,,,Otros
+,Insulation material,,,Materiales de Aislamiento
+,none,,,Ninguno
+,shade net,,,Malla de Sombra
+,insulated corrugated roofing sheeting,,,Laminas de aislamiento corrugado para techo
+,organic material,,,Material organico
+,other,,,Otros
+,Comment,,,Observacion
+Skin,,,Aspecto,
+,Comment,,,Observacion
+Services,,,Servicios,
+,Water Supply location,,,Ubicación de suministro de agua
+,in shelter,,,En el refugio
+,on plot,,,En la parcela
+,communal,,,Comunal
+,other,,,Otros
+,Distance to the water supply,,,Distancia del suministro de Agua
+,Water Supply Type,,,Tipo de suministro de agua
+,piped water,,,Agua por tubería
+,tap/standpipe,,,Grifo/tubo vertical
+,tubewell/ borehole,,,Pozo tubular / pozo
+,protected dug well,,,Pozo excavado protegido
+,protected spring,,,Manantial protegido
+,rainwater collection,,,Molector de lluvia
+,unprotected spring,,,Fuente sin cubierta
+,unprotected dug well,,,Pozo excavado sin protección
+,cart with small tank/drum,,,Carro con tanque pequeño/tambor
+,tanker truck,,,Camión cisterna
+,surface water (from river, pond, lake),,,Aguas superficiales (de río, estanque, lago)
+,bottled water,,,Agua embotellada
+,other,,,Otros
+,Sanitation location,,,Ubicación de saneamiento
+,in shelter,,,En el refugio
+,on plot,,,En la parcela
+,communal,,,Comunal
+,other,,,Otros
+,Distance to the sanitation,,,Distancia de punto de saneamiento
+,Sanitation Type,,,Tipo de saneamiento
+,flush toilet,,,Inodoro
+,pour flush toilet,,,Inodoro de descarga
+,piped sewer system,,,Sistema de alcantarillado por tuberías
+,septic tank,,,Tanque septico
+,flush/pour flush to pit latrine,,,Enjuague/Letrina de descarga manual
+,ventilated improved pit latrine (VIP),,,Letrina ventilada mejorada (VIP)
+,pit latrine with slab,,,Letrina con losa
+,composting toilet,,,Inodoro de compostaje
+,flush/pour flush to elsewhere,,,Enjuague/descarga manual a otra parte
+,pit latrine without slab,,,Letrina sin losa
+,bucket,,,Cangilon
+,hanging toilet/ hanging latrine,,,Tocador que cuelga/letrinas colgantes
+,no facilities or bush or field,,,No hay instalaciones en arbusto o campo
+,other,,,Otros
+,Sewage system,,,Alcantarillado
+,none,,,Ninguno
+,open sewer system,,,Sistema de alcantarillado abierto
+,single pit,,,Pozo único
+,septic system,,,Sistema séptico
+,piped sewer system,,,Sistema de alcantarillado por tuberías
+,trucking (gully emptier) to sewage plant,,,camiones (reguera vacía) para planta de aguas residuales
+,trucking (gully emptier) to open dumping,,,camiones (reguera vacía) para abrir un volcador
+,other,,,Otros
+,Drainage,,,Drenaje
+,none,,,Ninguno
+,open drains,,,Drenajes abiertos
+,covered drains,,,Drenajes cubiertos
+,other,,,Otros
+,Waste treatment,,,Tratamiento de desechos
+,burn on site,,,Quemar en el sitio
+,dump on site,,,volcar en el sitio
+,door-to-door collection,,,Recoleccion puerta a puerta
+,central collection,,,Central de recoleccion
+,other,,,Otros
+,Bathroom location,,,Ubicación de los baños
+,in shelter,,,En el refugio
+,on plot,,,En la parcela
+,communal,,,Comunal
+,other,,,Otros
+,Distance to the bathroom,,,Distancia de los baños
+,Type of Bathroom,,,Tipos de baños
+,bucket shower,,,Ducha de cubo
+,container,,,Contenedor
+,bathtub,,,Bañera
+,shower,,,Ducha
+,river, pond, lake,,,Rio, Pozo, Lago
+,other,,,Otros
+,Heating system,,,Sistema de calefacción
+,none,,,Nada
+,stove,,,Estufa
+,electrical heater,,,Calentador eléctrico
+,fireplace/hearth,,,Chimenea / fogón
+,central heating,,,Calefacción central
+,other,,,Otros
+,Energy Source for heating system,,,Fuente de energía para el sistema de calefacción
+,none,,,Ninguno
+,gas,,,Gas
+,electricity (grid),,,Electricidad (Red)
+,electricity (battery),,,Electricidad (Bateria)
+,wood,,,Madera
+,coal/charcoal,,,Carbon
+,biomass,,,Biomasa
+,wind,,,Viento
+,solar,,,Solar
+,other,,,Otros
+,Cooling system,,,Sistema de refrigeración
+,none,,,Nada
+,natural ventilation,,,Ventilacion natural
+,fan,,,Ventilador
+,air conditioning,,,Aire acondicionado
+,Energy Source for cooling system,,,Fuente de energía para el sistema de refrigeración
+,none,,,Ninguno
+,electricity (grid),,,Electricidad (Red)
+,electricity (battery),,,Electricidad (Bateria)
+,wind,,,Viento
+,solar,,,Solar
+,other,,,Otros
+,Type of natural ventilation,,,Tipos de ventilacion natural
+,none,,,Ninguno
+,foundation vent,,,Respiraderos
+,outside-air intake - bottom part of the wall,,,Toma de aire exterior - parte inferior de la pared
+,outside-air intake - above doors and windows,,,Toma de aire exterior - puertas y ventanas por encima
+,roof vent,,,Ventilacion de techo
+,air vent between rooms,,,Salida de aire entre las habitaciones
+,trickle vent in windows or doors,,,Ventilación por goteo en las ventanas o puertas
+,vent pipe in roof,,,Tubo de ventilación en el techo
+,chimney,,,Chimenea
+,other,,,Otros
+,Number of ventilation openings,,,Numero de entradas de ventilacion
+,Lighting,,,Iluminacion
+,none,,,Ninguno
+,candles,,,Velas
+,torch/flashlight (battery powered),,,Antorcha/linterna (con pilas)
+,oil/kerosene lamp,,,Lampara de aceite/queroseno
+,electrical powered lamp,,,Lampara de energia electrica
+,solar powered lamp,,,Lampara de energia solar
+,other,,,Otros
+,Energy Source (Appliances),,,Fuente de energía (Electrodomésticos)
+,none,,,Nada
+,gas,,,Gas
+,electricity (grid),,,Electricidad (Red)
+,electricity (battery),,,Electricidad (Bateria)
+,wood,,,Madera
+,coal/charcoal,,,Carbon
+,biomass,,,Biomasa
+,wind,,,Viento
+,solar,,,Solar
+,other,,,Otros
+,Kitchen location,,,Ubicación de la cocina
+,in shelter,,,En el refugio
+,on plot,,,En la parcela
+,communal,,,Comunal
+,other,,,Otros
+,Kitchen Type,,,Tipos de cocina
+,none,,,Ninguno
+,open fire,,,Fuego abierto
+,portable stove,,,Estufa portátil
+,stove,,,Estufa
+,other,,,Otros
+,Cooking Energy Source,,,Fuente de energia de la cocina
+,wood,,,Madera
+,biomass,,,Biomasa
+,oil,,,Aceite
+,gas,,,Gas
+,coal/charcoal,,,Carbon
+,kerosene,,,Queroseno
+,electricity,,,Electricidad
+,solar,,,Solar
+,other,,,Otros
+,Comment,,,Observacion
+Spaceplan,,,Espacio provisto,
+,Partitions,,,Particiones
+,none,,,Nada
+,walls,,,Paredes
+,half walls,,,Medias paredes
+,screens,,,Pantallas
+,curtains,,,Cortinas
+,Partition structure material,,,Material de particion estructural
+,none,,,Ninguno
+,bamboo,,,Bamboo
+,timber,,,Leño
+,wood,,,Madera
+,brick,,,Ladrillos
+,concrete block,,,Bloques de concreto
+,block,,,Bloques
+,adobe/ sun-dried brick,,,Abode/Ladrillos secados al sol
+,steel,,,Acero
+,plastic,,,Plastico
+,textile,,,Textiles
+,other,,,Otros
+,Partition finish,,,Particiones finalizadas
+,none,,,Ninguno
+,metal sheeting,,,Láminas de metal
+,timber,,,Leño
+,wood,,,Madera
+,plywood,,,Madera contrachapada
+,bamboo,,,Bamboo
+,cement plaster,,,Yeso de cemento
+,mud plaster,,,Yeso de barro
+,wallpaper,,,Papel pintado
+,paint,,,Pintura
+,hand woven mat (organic material),,,Tejido estrecho a mano (materia orgánica)
+,other,,,Otros
+,Ceiling structure material,,,Material de estructura de techo
+,none,,,Ninguno
+,timber,,,Leño
+,wood,,,Madera
+,plywood,,,Madera contrachapada
+,bamboo,,,Bamboo
+,other,,,Otros
+,Ceiling Finish Material,,,Material de estructura de techo terminado
+,none,,,Ninguno
+,cement plaster,,,Yeso de cemento
+,mud plaster,,,Yeso de barro
+,wallpaper,,,Papel pintado
+,paint,,,Pintura
+,organic material,,,Material organico
+,other,,,Otros
+,Possible extension of the shelter structure,,,Posible ampliación de la estructura del refugio
+,implemented extention to the shelter (at survey date),,,Extensión aplicada al refugio (a fecha de la encuesta)
+,Comment,,,Observacion
+Documents,,,Documentos,
+,Project narrative,,,Narrativa del proyecto
+,Technical description,,,Descripcion tecnica
+,(Priced) Bill of Quantity (BoQ),,,(Precio) Declaración de Cantidad (BoQ)
+,Design Drawings,,,Diseño de dibujos
+,Site plan,,,Plano del sitio
+,Satellite picture,,,Foto satelital
+,Pictures/video of setting,,,Ajuste de fotos/videos
+,Pictures/video of elevations,,,Elevacion de Fotos/Videos
+,Pictures/video of extensions,,,Extencion de Fotos/Videos
+,Pictures/video of details,,,Detalles de Fotos/Videos
+,Pictures/video of living practices,,,Practicas de vida Fotos/Videos
+,Comment,,,Observacion
