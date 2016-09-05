@@ -17,7 +17,7 @@
                 <h1 id="shelter-name">[UNKNOWN NAME]</h1>
             </div>
         </section>
-        <section class="shelterimg" onclick="modalOpen()" style="background-image: url('{{ url_for('static', filename = 'img/shelter.jpg') }}')">
+        <section id="coverpicture" class="shelterimg" onclick="modalOpen()" style="background-image: url('{{ url_for('static', filename = 'img/shelter.jpg') }}')">
             <div class="dots">
                 <div class="dot selected"></div>
                 <div class="dot"></div>
@@ -81,31 +81,14 @@
             </div>
         </section>
 		
-		<section class="shelterimg" onclick="modalOpen()" style="background-image: url('{{ url_for('static', filename = 'img/shelter.jpg') }}')">
-            <div class="dots">
-                <div class="dot selected"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
-        </section>
 {% endblock %}
 
 {% block footer %}
 		<div class="mymodal">
             <div class="mymodal-close" onclick="modalClose()"></div>
             <div class="swipe">
-                <div class="panes">
-                    <div class="pane" style="background-image:  url('{{ url_for('static', filename = 'img/shelter.jpg') }}"></div>
-                    <div class="pane" style="background-image:  url('{{ url_for('static', filename = 'img/1.jpg') }}"></div>
-                    <div class="pane" style="background-image:  url('{{ url_for('static', filename = 'img/2.jpg') }}"></div>
-                    <div class="pane" style="background-image:  url('{{ url_for('static', filename = 'img/3.jpg') }}')"></div>
-                </div>
-                <div class="dots">
-                    <div class="dot" onclick="show(0, 0, true)"></div>
-                    <div class="dot" onclick="show(1, 0, true)"></div>
-                    <div class="dot" onclick="show(2, 0, true)"></div>
-                    <div class="dot" onclick="show(2, 0, true)"></div>
-                </div>
+                <div id="modalIdentificationPanes" class="panes"></div>
+                <div id="modalIdentificationDots" class="dots"></div>
             </div>
         </div>
 		
@@ -170,9 +153,61 @@
 				
 				// Initiate leaflet map
 				var map = L.map('location-map').setView([lat, lon], 13);
+				
+				// Add OSM base layer
+				L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
+				
+				// disable dragging and scrolling for mobile view
+				map.scrollWheelZoom.disable();
+				map.dragging.disable();
+				
+				// add location of shelter to map
 				L.marker([lat, lon]).addTo(map);
+				
+				// add pictures
+				addCoverPicture('#coverpicture', data[shelter_id]['Identification']);
+				addSwipePictures('#modalIdentification', data[shelter_id]['Identification']);
 			}
 		});
+		
+		function addCoverPicture(elementId, section){
+			if(typeof section['Cover'] !== 'undefined' && section['Cover'].length > 0) {
+				$(elementId).css("background-image", "url('" + section['Cover'][0] + "')");		
+			}
+		}
+		
+		function addSwipePictures(elementId, section){
+			if(typeof section['Pictures'] !== 'undefined') {
+			
+				//merge arrays
+				var d = section['Cover'].concat(section['Pictures']);
+				
+				// add panes
+				d3.select(elementId + "Panes")
+				   .selectAll("div")
+				   .data(d)
+				   .enter()
+				   .append("div")
+					   .attr("class","pane")
+					   .attr("style",function (d){ return "background-image:  url('" + d + "')";});
+				
+				// add dots
+				// TODO increment show id
+				var dot = 0;
+				
+				d3.select(elementId + "Dots")
+				   .selectAll("div")
+				   .data(d)
+				   .enter()
+				   .append("div")
+					   .attr("class","dot")
+					   .attr("onclick",function (d){ 
+						var r = "_swipe.show(" + dot + ",0,true)";
+						dot++;
+						return r;
+					});
+			}
+		}
 
 		function tabulate(table_id, d, columns) {
 
