@@ -148,7 +148,7 @@ def allshelters(shelter_id=None):
     result = tree()
     
     #shelter pictures folder path
-    picpath = '/public/shelters/pictures'
+    picpath = '/public/pictures/shelters'
     
     Supercategory = db.aliased(Category)
     
