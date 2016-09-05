@@ -67,15 +67,15 @@
         </section>
 		<section class="supported">
             <h3>supported by</h3>
-			<p>
-					 <img alt="" src="{{ url_for('static', filename = 'img/contributors_logo/LRC.svg') }}" height="80x" />
-					 <img alt="" src="{{ url_for('static', filename = 'img/contributors_logo/BRC_fl.jpg') }}" height="80" />
-					 <img alt="" src="{{ url_for('static', filename = 'img/contributors_logo/BRC_fr.jpg') }}" />
-					 <img alt="" src="{{ url_for('static', filename = 'img/contributors_logo/Logo_IFRC.jpg') }}" />
-					 <img alt="" src="{{ url_for('static', filename = 'img/contributors_logo/Logo_NLRC.jpg') }}" />
-					 <img alt="" src="{{ url_for('static', filename = 'img/contributors_logo/LIST.svg') }}" height="80px" />
-			</p>
-        </section>
+			<div class="supporters">
+                <div class="supporter" style="background-image:url('{{ url_for('static', filename = 'img/contributors_logo/LRC.svg') }}');"></div>
+                <div class="supporter" style="background-image:url('{{ url_for('static', filename = 'img/contributors_logo/BRC_fl.jpg') }}');"></div>
+                <div class="supporter" style="background-image:url('{{ url_for('static', filename = 'img/contributors_logo/BRC_fr.jpg') }}');"></div>
+                <div class="supporter" style="background-image:url('{{ url_for('static', filename = 'img/contributors_logo/Logo_IFRC.jpg') }}');"></div>
+                <div class="supporter" style="background-image:url('{{ url_for('static', filename = 'img/contributors_logo/Logo_NLRC.jpg') }}');"></div>
+                <div class="supporter" style="background-image:url('{{ url_for('static', filename = 'img/contributors_logo/LIST.svg') }}');"></div>
+            </div>
+		</section>
 
     <script type="text/javascript">
         document.getElementById("searchinput").addEventListener("keyup", function(e) {
