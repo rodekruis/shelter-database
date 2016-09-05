@@ -81,7 +81,7 @@ def available_translations():
     result = tree()
     
     subquery = db.session.query(Translation.language_code).group_by(Translation.language_code).subquery()
-    available_languages = db.session.query(func.string_agg(subquery.c.language_code, ';')).first()
+    available_languages = db.session.query(func.array_agg(subquery.c.language_code)).first()
     #for language in available_languages
     result["languages"]= available_languages[0]
 	
