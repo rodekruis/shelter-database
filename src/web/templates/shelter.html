@@ -180,7 +180,7 @@
 			if(typeof section['Pictures'] !== 'undefined') {
 			
 				//merge arrays
-				var d = section['Cover'].concat(section['Pictures']);
+				var d = $.merge(section.Cover, section.Pictures);
 				
 				// add panes
 				d3.select(elementId + "Panes")
