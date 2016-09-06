@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b6b3759e10b96db233dac9cadc04365ff404dd97
 Deployment
 ==========
 
@@ -226,6 +229,7 @@ Configuring Tomcat to use the Keystore. pen the Apache Tomcat server configurati
 
    nano /etc/tomcat7/server.xml
    
+<<<<<<< HEAD
 Add the following under the existing commented out connector for SSL. Make sure to change the keystorepassword and set the maxThreads to 200 * number of CPU cores
 
 .. code-block:: shell
@@ -238,11 +242,22 @@ Add the following under the existing commented out connector for SSL. Make sure 
    nano /etc/default/tomcat7
    
 In JAVA_OPTS you should set a higher value for the maximum heap size (xmx) for example -Xmx1024m (depending on the ressources available and the expected load) instead of the initial 128. Also you should add the initial heap size parameter (xms) and set it's value to the same one as xsx, e.g. -Xms1024m
+=======
+   add the following under the existing commented out connector for SSL. Make sure to change the keystorepassword and set the maxThreads to 200 * number of CPU cores
+   <Connector SSLEnabled="true" acceptCount="100" clientAuth="false" disableUploadTimeout="true" enableLookups="false" maxThreads="25" port="8444" keystoreFile="/etc/tomcat7/.keystore" keystorePass="verysecretpassword" protocol="org.apache.coyote.http11.Http11NioProtocol" scheme="https" secure="true" sslProtocol="TLS" />
+
+   nano /etc/default/tomcat7
+   
+   in JAVA_OPTS you should set a higher value for the maximum heap size (xmx) for example -Xmx1024m (depending on the ressources available and the expected load) instead of the initial 128. Also you should add the initial heap size parameter (xms) and set it's value to the same one as xsx, e.g. -Xms1024m
+>>>>>>> b6b3759e10b96db233dac9cadc04365ff404dd97
  
 Now let's restart tomcat 7 to reload the configuration.
 
 .. code-block:: shell
+<<<<<<< HEAD
 
+=======
+>>>>>>> b6b3759e10b96db233dac9cadc04365ff404dd97
    sudo service tomcat7 restart  
    
 Download and install Geoserver
@@ -377,9 +392,14 @@ Enable the site:
 The web application is now running with a dedicated user and a thread limit set
 to 5.
 
+<<<<<<< HEAD
 
 Update stylesheets
 """"""""""""""""""
+=======
+Update stylesheets
+"""""""""
+>>>>>>> b6b3759e10b96db233dac9cadc04365ff404dd97
 
 .. code-block:: shell
 
@@ -409,6 +429,7 @@ Two layers are used by the Shelter Database application:
 
 * `Köppen–Geiger climate classification system <https://shelter-database.org:8443/geoserver/shelters/wms?service=WMS&version=1.1.0&request=GetMap&layers=shelters:koeppen-geiger&styles=&bbox=-180.24500000476837,-90.2449951171875,180.2449951171875,84.22234392166138&width=768&height=371&srs=EPSG:4326&format=application/openlayers>`_;
 * `Red Cross climate classification system <https://shelter-database.org:8443/geoserver/shelters/wms?service=WMS&version=1.1.0&request=GetMap&layers=shelters:redcross&styles=&bbox=-180.24500000476837,-90.2449951171875,180.2449951171875,84.22234392166138&width=768&height=371&srs=EPSG:4326&format=application/openlayers>`_.
+<<<<<<< HEAD
 =======
 Deployment
 ==========
@@ -813,3 +834,5 @@ Two layers are used by the Shelter Database application:
 * `Köppen–Geiger climate classification system <https://shelter-database.org:8443/geoserver/shelters/wms?service=WMS&version=1.1.0&request=GetMap&layers=shelters:koeppen-geiger&styles=&bbox=-180.24500000476837,-90.2449951171875,180.2449951171875,84.22234392166138&width=768&height=371&srs=EPSG:4326&format=application/openlayers>`_;
 * `Red Cross climate classification system <https://shelter-database.org:8443/geoserver/shelters/wms?service=WMS&version=1.1.0&request=GetMap&layers=shelters:redcross&styles=&bbox=-180.24500000476837,-90.2449951171875,180.2449951171875,84.22234392166138&width=768&height=371&srs=EPSG:4326&format=application/openlayers>`_.
 >>>>>>> 011351c71fefe44d232b84497307f51ee6d5b501
+=======
+>>>>>>> b6b3759e10b96db233dac9cadc04365ff404dd97

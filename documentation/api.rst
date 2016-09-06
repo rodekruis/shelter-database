@@ -1,8 +1,15 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 API
 ===
 
 Examples of requests to the Web Service
+=======
+Web Services
+============
+
+Example of requests to the Web Service
+>>>>>>> b6b3759e10b96db233dac9cadc04365ff404dd97
 --------------------------------------
 
 .. code-block:: shell
@@ -20,6 +27,7 @@ Examples of requests to the Web Service
 
     # Get the translations of a string
     $ GET http://127.0.0.1:5000/api/translation?q={"filters":[{"name":"original","op":"eq","val":"Name of shelter"}]}
+<<<<<<< HEAD
 =======
 Web Services
 ============
@@ -43,3 +51,5 @@ Example of requests to the Web Service
     # Get the translations of a string
     $ GET http://127.0.0.1:5000/api/translation?q={"filters":[{"name":"original","op":"eq","val":"Name of shelter"}]}
 >>>>>>> 011351c71fefe44d232b84497307f51ee6d5b501
+=======
+>>>>>>> b6b3759e10b96db233dac9cadc04365ff404dd97

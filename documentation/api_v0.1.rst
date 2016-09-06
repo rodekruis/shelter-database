@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 API v0.1
 ========
 
@@ -15,6 +16,25 @@ Request parameters:
 
 Examples
 --------
+=======
+Web Services
+============
+
+Usage of the development API v0.1
+---------------------------------
+request parameters:
+	**attribute**: pass one or more attribute names, such as `<attribute=Name,Vegetation>`
+	NOTE: Currently the attribute names may contain capital letters and spaces.
+	Spaces should be substituted as `<%20>` int the URL, for example
+	`<Climate%20Zone>`. An alternative "coding-friendly" attribute naming will be implemented shortly,
+	as unique strings for each attribute whithout spaces and upper case letters.
+	
+	**format**: use `<format=prettytext>` to get the nicely formatted attribute names in the JSON,
+	instead of the "coding-friendly" attribute names.
+	
+
+Examples:
+>>>>>>> b6b3759e10b96db233dac9cadc04365ff404dd97
 
 .. code-block:: shell
     
@@ -41,6 +61,7 @@ Examples
     
     http://0.0.0.0:5000/api/v0.1/shelters/Kitchen type/open fire
     #get all shelters which have a specific attribute value
+<<<<<<< HEAD
 =======
 Web Services
 ============
@@ -86,3 +107,5 @@ Examples:
     http://0.0.0.0:5000/api/v0.1/shelters/Kitchen type/open fire
     #get all shelters which have a specific attribute value
 >>>>>>> 011351c71fefe44d232b84497307f51ee6d5b501
+=======
+>>>>>>> b6b3759e10b96db233dac9cadc04365ff404dd97

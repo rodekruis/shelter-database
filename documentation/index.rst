@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b6b3759e10b96db233dac9cadc04365ff404dd97
 .. Shelter Database documentation master file, created by
    sphinx-quickstart on Sun Jun 19 21:53:46 2016.
    You can adapt this file completely to your liking, but it should at least
@@ -40,6 +43,7 @@ Web Services
     :maxdepth: 2
 
     api
+<<<<<<< HEAD
     api_v0.1
 =======
 .. Shelter Database documentation master file, created by
@@ -84,3 +88,5 @@ Web Services
 
     api
 >>>>>>> 011351c71fefe44d232b84497307f51ee6d5b501
+=======
+>>>>>>> b6b3759e10b96db233dac9cadc04365ff404dd97

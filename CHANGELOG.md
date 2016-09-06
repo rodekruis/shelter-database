@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 Shelter Database project news
 
 0.3 (2016-08-02)
@@ -16,3 +17,9 @@ Shelter Database project news
 0.1 (2015-03-30)
 - initial release.
 >>>>>>> 011351c71fefe44d232b84497307f51ee6d5b501
+=======
+Shelter Database project news
+
+0.1 (2015-03-30)
+- initial release.
+>>>>>>> b6b3759e10b96db233dac9cadc04365ff404dd97

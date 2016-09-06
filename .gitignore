@@ -23,6 +23,7 @@ venv
 build
 
 # bower
+
 src/web/static/lib/*
 !src/web/static/lib/leaflet
 !src/web/static/lib/dc
@@ -38,3 +39,6 @@ node_modules
 documentation/_build/
 src/conf/conf.cfg
 src/web/public/
+
+# pycharm
+.idea/
