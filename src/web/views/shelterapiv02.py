@@ -27,12 +27,12 @@ apiv02_bp = Blueprint('development api v0.2', __name__, url_prefix='/api/v0.2')
 def tree():
     return defaultdict(tree)
 
-
 @apiv02_bp.route('/', methods=['GET'])
 def apimessage():
     message = tree()
     message["API version"] = 0.2
     message["Message"] = "This is the development API"
+    defaultjson()
     return jsonify(message)
 
 @apiv02_bp.route('/documentation', methods=['GET'])
@@ -81,7 +81,7 @@ def available_translations():
     result = tree()
     
     subquery = db.session.query(Translation.language_code).group_by(Translation.language_code).subquery()
-    available_languages = db.session.query(func.string_agg(subquery.c.language_code, ';')).first()
+    available_languages = db.session.query(func.array_agg(subquery.c.language_code)).first()
     #for language in available_languages
     result["languages"]= available_languages[0]
 	
@@ -163,6 +163,8 @@ def allshelters(shelter_id=None):
     picquerybase = db.session.query(ShelterPicture.shelter_id, ShelterPicture.file_name.label("filename"), ShelterPicture.is_main_picture, Category.name)\
     		.join(Category, Category.id == ShelterPicture.category_id)		
     
+    catquery = db.session.query(Category.name).filter(Category.section_id != None)
+    
     ##queries if no request arguments
     shelter_properties = querybase
     shelter_pictures = picquerybase
@@ -170,7 +172,7 @@ def allshelters(shelter_id=None):
     if shelter_id:
     	shelter_properties = shelter_properties.filter(Property.shelter_id==shelter_id)
     	shelter_pictures = shelter_pictures.filter(ShelterPicture.shelter_id==shelter_id)
-
+    
     if request.args.getlist('attribute'):
     	attribute = request.args.getlist('attribute')	
     	
@@ -181,7 +183,7 @@ def allshelters(shelter_id=None):
     			
     	shelter_properties = shelter_properties.filter(subquery.subquery().c.shelter_id==Property.shelter_id)
     	shelter_pictures = shelter_pictures.filter(subquery.subquery().c.shelter_id==ShelterPicture.shelter_id)
-
+    
     if request.args.getlist('value'):
     	value = request.args.getlist('value')
     	if not request.args.getlist('attribute'):
@@ -204,28 +206,27 @@ def allshelters(shelter_id=None):
     #print(shelter_properties)
     #print(shelter_pictures)
     
-    if request.args.get('format') == 'prettytext':
-    	for shelter_property in shelter_properties:
-    		result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.name] = shelter_property.value
-    	
-    	for picture in shelter_pictures:
-    		if picture.is_main_picture == True:
-    			result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
-    		elif not result[picture.shelter_id][picture.name]["Pictures"]:
-    			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
-    		else:
-    			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
     
-    else:
-    	for shelter_property in shelter_properties:
+    for shelter_property in shelter_properties:
+    	if not result[shelter_property.shelter_id]:
+    		for category in catquery:
+    			if category.name == "Identification":
+    				result[shelter_property.shelter_id][category.name]["Cover"]
+    			result[shelter_property.shelter_id][category.name]["Attributes"]
+    			result[shelter_property.shelter_id][category.name]["Pictures"]
+    	
+    	if request.args.get('format') == 'prettytext':
+    		result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.name] = shelter_property.value
+    	else:
     		result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.uniqueid] = shelter_property.value
     
-    	for picture in shelter_pictures:
-    		if picture.is_main_picture == True:
-    			result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
-    		elif not result[picture.shelter_id][picture.name]["Pictures"]:
-    			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
-    		else:
-    			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
+    
+    for picture in shelter_pictures:
+    	if picture.is_main_picture == True:
+    		result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
+    	elif not result[picture.shelter_id][picture.name]["Pictures"]:
+    		result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
+    	else:
+    		result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
   
     return jsonify(result)
