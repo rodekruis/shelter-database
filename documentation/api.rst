@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 API
 ===
 
@@ -21,6 +22,8 @@ Examples of requests to the Web Service
     # Get the translations of a string
     $ GET http://127.0.0.1:5000/api/translation?q={"filters":[{"name":"original","op":"eq","val":"Name of shelter"}]}
 =======
+=======
+>>>>>>> 56b170c62373521aae3518c6fece0335e0e06ec5
 Web Services
 ============
 
@@ -42,4 +45,7 @@ Example of requests to the Web Service
 
     # Get the translations of a string
     $ GET http://127.0.0.1:5000/api/translation?q={"filters":[{"name":"original","op":"eq","val":"Name of shelter"}]}
+<<<<<<< HEAD
 >>>>>>> 011351c71fefe44d232b84497307f51ee6d5b501
+=======
+>>>>>>> 56b170c62373521aae3518c6fece0335e0e06ec5

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 API v0.1
 ========
 
@@ -42,6 +43,8 @@ Examples
     http://0.0.0.0:5000/api/v0.1/shelters/Kitchen type/open fire
     #get all shelters which have a specific attribute value
 =======
+=======
+>>>>>>> 56b170c62373521aae3518c6fece0335e0e06ec5
 Web Services
 ============
 
@@ -85,4 +88,7 @@ Examples:
     
     http://0.0.0.0:5000/api/v0.1/shelters/Kitchen type/open fire
     #get all shelters which have a specific attribute value
+<<<<<<< HEAD
 >>>>>>> 011351c71fefe44d232b84497307f51ee6d5b501
+=======
+>>>>>>> 56b170c62373521aae3518c6fece0335e0e06ec5

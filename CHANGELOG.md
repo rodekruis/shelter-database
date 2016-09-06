@@ -1,5 +1,6 @@
 Shelter Database project news
 
+<<<<<<< HEAD
 0.3 (2016-08-02)
 * merge the rodekruis repository (https://github.com/rodekruis/shelter-database)
   in the LIST repository;
@@ -9,3 +10,7 @@ Shelter Database project news
 
 0.1 (2016-04-10)
 * first stable prototype with base functionalities.
+=======
+0.1 (2015-03-30)
+- initial release.
+>>>>>>> 56b170c62373521aae3518c6fece0335e0e06ec5
