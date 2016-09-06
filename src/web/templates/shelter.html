@@ -24,14 +24,18 @@
                 <div class="dot"></div>
             </div>
         </section>
-        <section class="details">
-		    <div class="content">
-                <table id="identification">
-					<tr>
-						<td>No data available in this category</td>
-					</tr>
-				</table>
-            </div>
+		<section>
+            <div class="details">
+				<h3>Identification</h3>
+			    <div id="location-map" style="width:100%; height:400px;"></div>
+				<div class="content">
+					<table id="identification">
+						<tr>
+							<td>No data available in this category</td>
+						</tr>
+					</table>
+				</div>
+			</div>
         </section>
 		<section class="details details-1">
             <div class="content">
@@ -41,11 +45,6 @@
 						<td>No data available in this category</td>
 					</tr>
 				</table>
-            </div>
-        </section>
-        <section>
-            <div class="details">
-			    <div id="location-map" style="width:100%; height:400px;"></div>
             </div>
         </section>
         <section class="details details-2">
@@ -140,12 +139,17 @@
 			if(typeof data[shelter_id]['Foundation'] !== 'undefined') {
 				var foundation = data[shelter_id]['Foundation']['Attributes'];
 				$("#foundation").empty();
-				tabulate("#foundation", foundation, d3.keys(general));
+				tabulate("#foundation", foundation, d3.keys(foundation));
 			}
 			
 			if(typeof data[shelter_id]['Identification'] !== 'undefined') {
 				// Set shelter name
 				$('#shelter-name').text(data[shelter_id]['Identification']['Attributes']['Name of shelter']);
+				
+				// add attributes
+				var identification = data[shelter_id]['Identification']['Attributes'];
+				$("#identification").empty();
+				tabulate("#identification", identification, d3.keys(identification));
 			
 				// Get coordinates for this shelter
 				var lat = data[shelter_id]['Identification']['Attributes']['GPS Latitude'];
@@ -172,7 +176,7 @@
 		
 		function addCoverPicture(elementId, section){
 			if(typeof section['Cover'] !== 'undefined' && section['Cover'].length > 0) {
-				$(elementId).css("background-image", "url('" + section['Cover'][0] + "')");		
+				$(elementId).css("background-image", "url('/" + section['Cover'][0] + "')");		
 			}
 		}
 		
@@ -189,7 +193,7 @@
 				   .enter()
 				   .append("div")
 					   .attr("class","pane")
-					   .attr("style",function (d){ return "background-image:  url('" + d + "')";});
+					   .attr("style",function (d){ return "background-image:  url('/" + d + "')";});
 				
 				// add dots
 				// TODO increment show id
