@@ -21,6 +21,8 @@ from flask import Blueprint, jsonify, request
 from collections import defaultdict
 from web.models import Shelter, Attribute, Property, Value, Association, ShelterPicture, Category, Tsvector
 
+import conf, os.path
+
 api_bp = Blueprint('api for shelter', __name__, url_prefix='/api/v0.1')
 
 def tree():
@@ -79,7 +81,7 @@ def allshelters():
     result = tree()
     
     #shelter pictures folder path
-    picpath = 'data/shelters/pictures'
+    picpath = os.path.relpath(conf.SHELTERS_PICTURES_PATH)
     
     querybase = db.session.query(Property.shelter_id,Attribute.name,Attribute.uniqueid,func.string_agg(Value.name,';').label("value"))\
     		.join(Attribute)\
@@ -127,9 +129,9 @@ def allshelters():
     	
     	for picture in shelter_pictures:
     		if not result[picture.shelter_id]["shelterpicture"][picture.name]:
-    			result[picture.shelter_id]["shelterpicture"][picture.name] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["ID"], picture.filename)]
+    			result[picture.shelter_id]["shelterpicture"][picture.name] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
     		else:
-    			result[picture.shelter_id]["shelterpicture"][picture.name].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["ID"], picture.filename))
+    			result[picture.shelter_id]["shelterpicture"][picture.name].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
     
     else:
     	for shelter_property in shelter_properties:
@@ -137,9 +139,9 @@ def allshelters():
     
     	for picture in shelter_pictures:
     		if not result[picture.shelter_id]["shelterpicture"][picture.name]:
-    			result[picture.shelter_id]["shelterpicture"][picture.name] = ["{}/{}/{}".format(picpath, result[picture.shelter_id]["id"], picture.filename)]
+    			result[picture.shelter_id]["shelterpicture"][picture.name] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
     		else:
-    			result[picture.shelter_id]["shelterpicture"][picture.name].append("{}/{}/{}".format(picpath, result[picture.shelter_id]["id"], picture.filename))
+    			result[picture.shelter_id]["shelterpicture"][picture.name].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
   
     return jsonify(result)
 
@@ -148,6 +150,9 @@ def allshelters():
 def shelters(shelter_id):
     """Returns specific shelter with its properties"""
     result = tree()
+    
+    #shelter pictures folder path
+    picpath = os.path.relpath(conf.SHELTERS_PICTURES_PATH)
     
     ## shelter picture query
     shelter_pictures = db.session.query(ShelterPicture.shelter_id, func.string_agg(ShelterPicture.file_name,';').label("filename"), Category.name)\
@@ -160,7 +165,10 @@ def shelters(shelter_id):
     for shelter_property in shelter_properties:
     	result[shelter_property.shelter_id][shelter_property.attribute.uniqueid] = shelter_property.get_values_as_string()
     for picture in shelter_pictures:
-    		result[picture.shelter_id]["shelterpicture"][picture.name] = picture.filename
+    	if not result[picture.shelter_id]["shelterpicture"][picture.name]:
+    		result[picture.shelter_id]["shelterpicture"][picture.name] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
+    	else:
+    		result[picture.shelter_id]["shelterpicture"][picture.name].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
     return jsonify(result)
 
 @api_bp.route('/shelters/<attribute_name>', methods=['GET'])
