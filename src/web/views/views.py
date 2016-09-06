@@ -61,7 +61,7 @@ def authentication_required(e):
 @current_app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
-	
+
 @current_app.route('/map', methods=['GET'])
 def map():
     """
@@ -137,7 +137,7 @@ def shelters_for_map():
 def dashboard():
     # return render_template('dashboard0.html')
     return render_template('dashboard.html')
-	
+
 @current_app.route('/shelters', methods=['GET'])
 def shelters():
     shelters = Shelter.query.filter(Shelter.is_published==True).all()
@@ -155,14 +155,14 @@ def stats():
 @current_app.route('/knowledgebase', methods=['GET'])
 def knowledgebase():
     return render_template('knowledgebase.html')
-	
+
 @current_app.route('/contribute', methods=['GET'])
 def contribute():
     """
     List of contributors.
     """
     return render_template('contribute.html')
-	
+
 @current_app.route('/contributors', methods=['GET'])
 def contributors():
     """
