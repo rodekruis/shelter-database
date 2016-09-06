@@ -541,12 +541,17 @@ generateShelterList  = function (data) {
     $('#shelterList').empty();
     for (var i = 0; i <data.length; i ++)
     {
+		// get url from api data if pictures exist
 		var url = '';
 		if(typeof(data[i].shelterpicture) !== 'undefined' && Object.keys(data[i].shelterpicture).length > 0){
-			url = data[i].shelterpicture[Object.keys(data[i].shelterpicture[0])][0];
+			for (var prop in data[i].shelterpicture) {
+				url = data[i].shelterpicture[prop][0];
+				break;
+			}
 		}
+		
         var shelter = $('<div class="shelter"/>').appendTo('#shelterList');
-        shelter.append('<div class="image" style="background-image: url(' + url  + ')"></div> ' +
+        shelter.append('<div class="image" style="background-image: url(\'/' + url  + '\')"></div> ' +
             '<h4 class="title"><a href="/shelter/' + data[i].db_id + '">' +data[i].nameofshelter+ '</a></h4>'  +
             '<div class="country">'+data[i].country+'</div> ' +
             '<div class="description"><p>' +'' + '</p></div>');
