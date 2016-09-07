@@ -7,10 +7,6 @@ The goal of this application is to list the shelters deployed around the world.
 
 The official instance is available [here](https://shelter-database.org).
 
-Further project development:
-https://github.com/rodekruis/shelter-database
-
-
 Read the [documentation](https://git.list.lu/charism/shelter-database/tree/master/documentation)
 for information about the deployment of the application.
 
@@ -32,4 +28,5 @@ This application is under MIT license.
 
 # Contact
 
-[Luxembourg Institute of Science and Technology](http://www.list.lu)
+* https://github.com/rodekruis/shelter-database
+* [Luxembourg Institute of Science and Technology](http://www.list.lu)
