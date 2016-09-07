@@ -52,12 +52,12 @@
     <div class="mymodal">
         <div class="content page1" id="modalcontent">
             <div class="page page1">
-			    <form id="createShelterForm" action="#" class="navbar-form navbar-left" method="GET" name="save" class="myform">
+			    <form id="createShelterForm" action="#" method="GET" name="save" class="myform">
 					<div class="mylabel">Title of your project:</div>
 					<div class="myinput"><input type="text" name="name" placeholder="Name" required="required" /></div>
 					<div class="mylabel">Country:</div>
 
-                    <label for="f1" class="button button-drop">
+                    <label for="countrySelect" class="button button-drop">
                         <select id="countrySelect" name="country" data-live-search="true"></select>
                     </label>
                 
@@ -69,28 +69,69 @@
 					</div>
 				</form>
             </div>
-            <div class="page page2">
-                <div class="mylabel">Province / District / Region:</div>
+			<form id="saveAdditional" action="#" method="GET" name="saveAdditional" class="myform">
+			<div class="page page2">
+                <div class="mylabel">What is your organization?</div>
                 <div class="myinput"><input class="free-text-attribute"
                                                     property-id=""
-                                                    attribute-id="6"
-                                                    category-id="2"
+                                                    attribute-id=""
+                                                    category-id=""
                                                     value-id=""
                                                     value=""
 													type="" 
 													name="" 
-													placeholder="Province / District / Region.." /></div>
-                <div class="mylabel">City / Village:</div>
-                <div class="myinput"><input type="" name="" placeholder="City / Village.." /></div>
+													placeholder="your organization" /></div>
 				
-				<div class="mylabel">Place marker on exact position</div>
-				<div id="locationpicker" style="width:100%; height:400px;"></div>
+				<div class="mylabel">How can we reach you?</div>
+				<div class="myinput"><input class="free-text-attribute"
+                                                    property-id=""
+                                                    attribute-id=""
+                                                    category-id=""
+                                                    value-id=""
+                                                    value=""
+													type="" 
+													name="" 
+													placeholder="your email" /></div>
 				
                 <div class="buttons">
                     <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
                     <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
                 </div>
             </div>
+            <div class="page page3">
+				<div class="mylabel">What is the year of construction?</div>
+				<div class="myinput"><input type="date" id="3674" property-id="" attribute-id="36" category-id="8" value-id="None" value=""></div>
+				
+				<div class="mylabel">Where is the shelter located?</div>
+				<div id="locationpicker" style="width:100%; height:250px;"></div>
+				
+                <div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
+                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                </div>
+            </div>
+			<div class="page page4">	
+				<div class="mylabel">What type of disaster is the shelter associated with?</div>
+
+				<label for="associatedDisasterSelect" class="button button-drop">
+					<select id="associatedDisasterSelect" property-id="" attribute-id="13" category-id="4" id="select13" data-live-search="true">
+						  <option value=""></option>
+					</select>
+				</label>
+				
+				<div class="mylabel">What type of shelter is it?</div>
+				<label for="shelterTypeSelect" class="button button-drop">
+					<select id="shelterTypeSelect" property-id="" attribute-id="21" category-id="4" id="select21">
+						  <option value=""></option>
+					</select>
+				</label>
+
+				<div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
+                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                </div>
+            </div>
+			<!--
             <div class="page page3">
                 <div class="mylabel">Location of the Site:</div>
                 <div class="options">
@@ -109,8 +150,34 @@
                     <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
                 </div>
             </div>
-            <div class="page page4">
-				<div class="mylabel">Upload photos and images of the shelter</div>
+			-->
+			
+			<div class="page page6">
+				<div class="mylabel">What is the unit cost of the shelter (USD)?</div>
+				<div class="myinput"><input type="number" id="2486" property-id="" attribute-id="49" category-id="8" value-id="None" value=""></div>
+			
+				<div class="mylabel">What is the number of inhabitants of the shelter?</div>
+				<div class="myinput"><input type="number" min="1" max="200" id="1996" property-id="" attribute-id="37" category-id="8" value-id="None" value=""></div>
+			    
+				<div class="mylabel">What is the total surface area in square meters (m2)?</div>				
+				<div class="myinput"><input type="number" id="2274" property-id="" attribute-id="45" category-id="8" value-id="None" value=""></div>
+                
+				<div class="buttons">
+                    <div onclick="next()" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
+                </div>
+            </div>
+			
+			<div class="page page7">
+				<p>Thank you for entering your shelter in the shelter database. Your shelter will be visible in the database after a short review by the administrator.
+				We kindly request you to add additional data about your shelter, such as technical documentation and drawings, and different attributes. You can edit your 
+				shelter when you log in to the website and go to 'your shelters'.</p>
+				<div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Close</span></div>
+                </div>
+            </div>
+			</form>
+            <div class="page page5">
+				<div class="mylabel">Upload photos of the shelter</div>
                 <form action="/file-upload" class="dropzone" id="dropzone"></form>
 			
 				<div class="buttons">
@@ -119,34 +186,8 @@
                 </div>
                 
             </div>
-			<div class="page page5">
-				<div class="mylabel">Climate zone</div>
-                <select class="select-attribute show-tick" property-id="" attribute-id="11" category-id="2" id="select11">
-                    <option value=""></option>
-                    <option value="256">dry moderate</option>
-                    <option value="255">dry polar</option>
-                    <option value="257">dry tropical</option>
-                    <option value="259">moist moderate</option>
-                    <option value="258">moist polar</option>
-                    <option value="260">moist tropical</option>
-                 </select>
 			
-				<div class="mylabel">Landform</div>
-			    <select class="select-attribute show-tick" property-id="" attribute-id="12" category-id="2" id="select12">
-                    <option value=""></option>
-                    <option value="267">desert </option>
-                    <option value="263">hills</option>
-                    <option value="261">mountains</option>
-                    <option value="265">plain</option>
-                    <option value="262">plateaus</option>
-                    <option value="266">river delta</option>
-                    <option value="264">valley</option>
-                </select>
-				
-                <div class="buttons">
-                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
-                </div>
-            </div>
+			
         </div>
     </div>
 	
@@ -178,24 +219,14 @@
 		
         $(document).ready(function() {
             $("#newShelter").click(function(evt) {
-                var filters = [{"name":"name","op":"eq","val":"Country"}];
-                $.ajax({
-                    type: 'GET',
-                    url: '/api/attribute',
-                    contentType: "application/json",
-                    dataType: "json",
-                    data: {"q": JSON.stringify({"filters": filters})},
-                    success: function(result) {
-                        result.objects[0].associated_values.map(function(country) {
-                            $("#countrySelect").append(new Option(country.name, country.id));
-                        })
-                        $('.selectpicker').selectpicker({style: 'btn-default',
-                            size: false});
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown){
-                        //alert(errorThrown);
-                    }
-                }) ;
+                // fetch shelters
+				fetchCountries();
+				
+				//fetch disaster types
+				fetchAssociatedDisasters();
+				
+				//fetch shelter types
+				fetchShelterTypes();
             });
 
             //Attach a submit handler to the form
@@ -232,6 +263,63 @@
                 }
             });
         });
+		
+		var fetchCountries = function (){
+				var filters = [{"name":"name","op":"eq","val":"Country"}];
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/attribute',
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: {"q": JSON.stringify({"filters": filters})},
+                    success: function(result) {
+                        result.objects[0].associated_values.map(function(country) {
+                            $("#countrySelect").append(new Option(country.name, country.id));
+                        })
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                        //alert(errorThrown);
+                    }
+                }) ;
+		};
+		
+		var fetchAssociatedDisasters = function (){
+				var filters = [{"name":"name","op":"eq","val":"Associated disaster / Immediate cause"}];
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/attribute',
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: {"q": JSON.stringify({"filters": filters})},
+                    success: function(result) {
+                        result.objects[0].associated_values.map(function(disaster) {
+                            $("#associatedDisasterSelect").append(new Option(disaster.name, disaster.id));
+                        })
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                        //alert(errorThrown);
+                    }
+                }) ;
+		};
+		
+		var fetchShelterTypes = function (){
+				var filters = [{"name":"name","op":"eq","val":"Type of shelter"}];
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/attribute',
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: {"q": JSON.stringify({"filters": filters})},
+                    success: function(result) {
+                        result.objects[0].associated_values.map(function(shelter) {
+                            $("#shelterTypeSelect").append(new Option(shelter.name, shelter.id));
+                        })
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                        //alert(errorThrown);
+                    }
+                }) ;
+		};
     </script>
 	
 	<script type="text/javascript">
