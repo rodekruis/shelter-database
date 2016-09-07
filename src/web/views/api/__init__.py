@@ -10,6 +10,6 @@ from web.views.api.shelter_api_v01 import blueprint_property
 from web.views.api.shelter_api_v01 import blueprint_page
 from web.views.api.shelter_api_v01 import blueprint_translation
 
-from web.views.api.shelterapi import api_bp
+from web.views.api.shelter_api_v011 import api_bp
 
 from web.views.api.shelter_api_v02 import apiv02_bp

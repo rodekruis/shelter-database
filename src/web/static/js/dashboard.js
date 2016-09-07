@@ -32,7 +32,7 @@ $(document).ready(function () {
     }
 
 //    d3.csv('/static/data/shelters-sample.csv', function (data) {
-     d3.json("api/v0.1/shelters", function(dataObject) {
+     d3.json("api/v0.1.1/shelters", function(dataObject) {
 
           var data = []
           for (var key in dataObject) {
@@ -49,7 +49,7 @@ $(document).ready(function () {
                 var dropdown = document.getElementById(filterId)
                 if (dropdown && $(dropdown).is('select')) {
                     (function(attrName, htmlElement) {
-                        d3.json("api/v0.1/attributes/" + encodeURI(attrName), function (valuesObject) {
+                        d3.json("api/v0.1.1/attributes/" + encodeURI(attrName), function (valuesObject) {
                             // console.log(attrName + JSON.stringify(valuesObject));
                             if (valuesObject && valuesObject[attrName]) {
 
@@ -68,7 +68,7 @@ $(document).ready(function () {
                 if ($(element).is('input') && $(element).attr('data-type')=="range") {
                     (function(id) {
                         var dbAttrName = filters[id]['dbName']
-                        d3.json("api/v0.1/attributes/" + encodeURI(dbAttrName), function (valuesObject) {
+                        d3.json("api/v0.1.1/attributes/" + encodeURI(dbAttrName), function (valuesObject) {
                                 if (valuesObject && valuesObject[dbAttrName]) {
                                     var values = valuesObject[dbAttrName].split(';')
                                     for(var i=0; i<values.length; i++) { values[i] = parseInt(values[i], 10); }
@@ -312,7 +312,7 @@ $(document).ready(function () {
                 console.log("Searching for " + query);
 
                 if (query!="") {
-                    d3.json("api/v0.1/shelters/search/" + query, function(results) {
+                    d3.json("api/v0.1.1/shelters/search/" + query, function(results) {
                         if (results != null) {
                             filters['queryFilter']['dimension'].filterFunction(function(id) {
                                 return id in results;
@@ -549,7 +549,7 @@ generateShelterList  = function (data) {
 				break;
 			}
 		}
-		
+
         var shelter = $('<div class="shelter"/>').appendTo('#shelterList');
         shelter.append('<div class="image" style="background-image: url(\'/' + url  + '\')"></div> ' +
             '<h4 class="title"><a href="/shelter/' + data[i].db_id + '">' +data[i].nameofshelter+ '</a></h4>'  +
@@ -558,4 +558,3 @@ generateShelterList  = function (data) {
     }
 
 }
-
