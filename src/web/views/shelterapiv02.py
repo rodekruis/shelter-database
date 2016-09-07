@@ -14,13 +14,13 @@ __revision__ = ""
 __copyright__ = ""
 __license__ = ""
 
-#from bootstrap import db
 from bootstrap import db, app
 from sqlalchemy.sql import func, select
 from flask import Blueprint, jsonify, request, json, Response
 from collections import defaultdict
 from web.models import Shelter, Attribute, Property, Value, Association, ShelterPicture, Category, Tsvector, Translation
 
+import conf, os.path
 
 apiv02_bp = Blueprint('development api v0.2', __name__, url_prefix='/api/v0.2')
 
@@ -148,7 +148,9 @@ def allshelters(shelter_id=None):
     result = tree()
     
     #shelter pictures folder path
-    picpath = '/public/pictures/shelters'
+    
+    
+    picpath = os.path.relpath(conf.SHELTERS_PICTURES_PATH)
     
     Supercategory = db.aliased(Category)
     
