@@ -28,4 +28,5 @@ This application is under MIT license.
 
 # Contact
 
-[Luxembourg Institute of Science and Technology](http://www.list.lu)
+* https://github.com/rodekruis/shelter-database
+* [Luxembourg Institute of Science and Technology](http://www.list.lu)
