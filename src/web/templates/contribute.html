@@ -15,6 +15,9 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/dropzone/dist/dropzone.css') }}" />
 {% endblock %}
 
+{% block wrapper_start %}
+<div id="wrapper">
+{% endblock %}
 
 {% block content %}
         <section class="contribute">
@@ -400,35 +403,40 @@
 	</script>
 
     <script type="text/javascript">
-        var cnt = document.getElementById("modalcontent")
-        var page = 1
-        var modalOpen = function(){
-            document.body.className = "modal-open"
-        }
-        var setPage = function(){
-            cnt.className = "content page" + page
-        }
-        var modalClose = function(){
-            page = 1
-            document.body.className = ""
-            cnt.className = "content page1"
-        }
-        var next = function(){
-            page++
-            setPage()
-        }
-        var prev = function(){
-            page--
-            setPage()
-        }
-        var optClick = function(nr){
-            var elements = document.getElementsByClassName('option')
-            var length = elements.length
-
-            while(length--) {
-                elements[length].className = "option"
+                    var cnt = document.getElementById("modalcontent")
+            var wrapper = document.getElementById("wrapper")
+            var page = 1
+            var modalOpen = function(){
+                wrapper.className = "modal-open"
             }
-            elements[nr].className = "option selected"
-        }
+            var modalClose = function(){
+                wrapper.className = ""
+                page = 1
+                cnt.className = "content page1"
+            }
+            var setPage = function(){
+                cnt.className = "content page" + page
+            }
+            var next = function(){
+                page++
+                setPage()
+            }
+            var prev = function(){
+                page--
+                setPage()
+            }
+            var optClick = function(nr){
+                var elements = document.getElementsByClassName('option')
+                var length = elements.length
+
+                while(length--) {
+                    elements[length].className = "option"
+                }
+                elements[nr].className = "option selected"
+            }
     </script>
+{% endblock %}
+
+{% block wrapper_end %}
+</div>
 {% endblock %}
