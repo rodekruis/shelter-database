@@ -136,7 +136,23 @@
                 </div>
             </div>
 			-->
+			</form>
+            
+			<div class="page page5">
+				<div class="mylabel">Upload photos of the shelter</div>
+				<div id="uploader">
+				   <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+				   <div class="fallback">
+					   <input id="files" multiple="true" name="files" type="file">
+					</div>
+				</div>
 			
+				<div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
+                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                </div>
+                
+            </div>
 			<div class="page page6">
 				<div class="mylabel">What is the unit cost of the shelter (USD)?</div>
 				<div class="myinput"><input type="number" required class="free-text-attribute" id="2486" property-id="" attribute-id="49" category-id="8" value-id="None" value=""></div>
@@ -160,19 +176,7 @@
                     <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Close</span></div>
                 </div>
             </div>
-			</form>
-            <div class="page page5">
-				<div class="mylabel">Upload photos of the shelter</div>
-                <form action="/edit/{{shelter.id}}" class="dropzone" id="dropzone">
-					<input type="hidden" name="category_id" value="2">
-				</form>
 			
-				<div class="buttons">
-                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
-                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
-                </div>
-                
-            </div>
 			
 			
         </div>
@@ -182,24 +186,37 @@
 		var cleanFilename = function (name) {
 		   return name.toLowerCase().replace(/[^\w]/gi, '');
 		};
-	
-		Dropzone.options.dropzone = {
-		  paramName: "file", // The name that will be used to transfer the file
-		  uploadMultiple: true,
-		  parallelUploads: 1,
-		  maxFilesize: 4, // MB
-		  acceptedFiles: "image/*",
-		  init: function() {
-			this.on("sending", function(file, xhr, formData) {
-				var name = "shelter_" + shelter_id + "_" + new Date().getTime();
-				formData.append(name, file);
+		
+		var createDropzone = function(){
+	  
+			$("div#uploader").dropzone({ url: "/edit/" + shelter_id });
+			  
+			Dropzone.options.uploader = {
+			  paramName: "file", // The name that will be used to transfer the file
+			  uploadMultiple: true,
+			  parallelUploads: 1,
+			  maxFilesize: 4, // MB
+			  acceptedFiles: "image/*",
+			  init: function() {
+				this.on("sending", function(file, xhr, formData) {
+					var name = "shelter_" + shelter_id + "_" + new Date().getTime();
+					formData.append(name, file);
+				});
+				
+				this.on("successmultiple", function (files) {
+					  alert("All files have uploaded ");
+				});
+			  }
+			};
+			
+			$("div#dropzone").on("sending", function(file, xhr, formData) {
+			  // Will send the filesize along with the file as POST data.
+			  formData.append("category_id", "2");
 			});
 			
-			this.on("successmultiple", function (files) {
-				  alert("All files have uploaded ");
-			});
-		  }
-		};
+			// add class
+			$('div#uploader').addClass('dropzone');
+		}
 	</script>
 	<script>
 	    var shelter_id;
@@ -243,6 +260,9 @@
 							console.log(result);
 						} else {
 							shelter_id = result;
+							
+							// create dropzone
+							createDropzone();		
 							
 							// update the map given the country
 							updateLocationPicker();
