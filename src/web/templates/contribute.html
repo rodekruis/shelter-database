@@ -189,7 +189,7 @@
 		
 		var createDropzone = function(){
 	  
-			$("div#uploader").dropzone({ url: "/edit/" + shelter_id });
+			$("div#uploader").dropzone({ url: "/shelter/edit/" + shelter_id + '/Identification'});
 			  
 			Dropzone.options.uploader = {
 			  paramName: "file", // The name that will be used to transfer the file
@@ -201,6 +201,7 @@
 				this.on("sending", function(file, xhr, formData) {
 					var name = "shelter_" + shelter_id + "_" + new Date().getTime();
 					formData.append(name, file);
+					formData.append('category_id', '2');
 				});
 				
 				this.on("successmultiple", function (files) {
@@ -208,11 +209,6 @@
 				});
 			  }
 			};
-			
-			$("div#dropzone").on("sending", function(file, xhr, formData) {
-			  // Will send the filesize along with the file as POST data.
-			  formData.append("category_id", "2");
-			});
 			
 			// add class
 			$('div#uploader').addClass('dropzone');
