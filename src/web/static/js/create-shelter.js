@@ -22,7 +22,7 @@ function create_shelter (name_of_shelter, country_value_id, country_name, callba
                 success: function(result) {
                     attribute_id = result.objects[0].id;
                     category_id = result.objects[0].category_id;
-                    new_property = {
+                    _new_property = {
                         shelter_id: new_shelter.id,
                         attribute_id: attribute_id,
                         category_id: category_id,
@@ -36,7 +36,7 @@ function create_shelter (name_of_shelter, country_value_id, country_name, callba
                         url: '/api/property',
                         contentType: "application/json",
                         dataType: "json",
-                        data: JSON.stringify(new_property),
+                        data: JSON.stringify(_new_property),
                         success: function (result) {
                             console.log(result);
 
@@ -56,7 +56,7 @@ function create_shelter (name_of_shelter, country_value_id, country_name, callba
                                 success: function(result) {
                                     attribute_id = result.objects[0].id;
                                     category_id = result.objects[0].category_id;
-                                    new_property = {
+                                    _new_property = {
                                         shelter_id: new_shelter.id,
                                         attribute_id: attribute_id,
                                         category_id: category_id,
@@ -69,7 +69,7 @@ function create_shelter (name_of_shelter, country_value_id, country_name, callba
                                         url: '/api/property',
                                         contentType: "application/json",
                                         dataType: "json",
-                                        data: JSON.stringify(new_property),
+                                        data: JSON.stringify(_new_property),
                                         success: function (result) {
                                             console.log(result);
 
@@ -83,7 +83,7 @@ function create_shelter (name_of_shelter, country_value_id, country_name, callba
                                                 dataType: "json",
                                                 data: {"q": JSON.stringify({"filters": filters})},
                                                 success: function(result) {
-                                                    new_property = {
+                                                    _new_property = {
                                                         shelter_id: new_shelter.id,
                                                         attribute_id: result.objects[0].id,
                                                         category_id: result.objects[0].category_id,
@@ -97,7 +97,7 @@ function create_shelter (name_of_shelter, country_value_id, country_name, callba
                                                         url: '/api/property',
                                                         contentType: "application/json",
                                                         dataType: "json",
-                                                        data: JSON.stringify(new_property),
+                                                        data: JSON.stringify(_new_property),
                                                         success: function (result) {
 															if(callback != null) {
 																callback(true, new_shelter.id);                

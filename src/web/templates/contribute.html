@@ -52,12 +52,12 @@
     <div class="mymodal">
         <div class="content page1" id="modalcontent">
             <div class="page page1">
-			    <form id="createShelterForm" action="#" class="navbar-form navbar-left" method="GET" name="save" class="myform">
+			    <form id="createShelterForm" action="#" method="GET" name="save" class="myform">
 					<div class="mylabel">Title of your project:</div>
 					<div class="myinput"><input type="text" name="name" placeholder="Name" required="required" /></div>
 					<div class="mylabel">Country:</div>
 
-                    <label for="f1" class="button button-drop">
+                    <label for="countrySelect" class="button button-drop">
                         <select id="countrySelect" name="country" data-live-search="true"></select>
                     </label>
                 
@@ -69,28 +69,54 @@
 					</div>
 				</form>
             </div>
-            <div class="page page2">
-                <div class="mylabel">Province / District / Region:</div>
-                <div class="myinput"><input class="free-text-attribute"
-                                                    property-id=""
-                                                    attribute-id="6"
-                                                    category-id="2"
-                                                    value-id=""
-                                                    value=""
-													type="" 
-													name="" 
-													placeholder="Province / District / Region.." /></div>
-                <div class="mylabel">City / Village:</div>
-                <div class="myinput"><input type="" name="" placeholder="City / Village.." /></div>
+			<form id="saveAdditional" action="#" method="GET" name="saveAdditional" class="myform">
+			<div class="page page2">
+                <div class="mylabel">Who is the implementing organization?</div>
+                <div class="myinput"><input class="free-text-attribute" id="2269" property-id="" attribute-id="16" category-id="4" value-id="None" value="" type="text" name="" placeholder="implementing organization" /></div>
+							
+                <div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
+                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                </div>
+            </div>
+            <div class="page page3">
+				<div class="mylabel">What is the year of construction?</div>
+				<div class="myinput"><input type="date" onkeydown="return false" id="3674" class="date-attribute" property-id="" attribute-id="36" category-id="8" value-id="None" value=""></div>
 				
-				<div class="mylabel">Place marker on exact position</div>
-				<div id="locationpicker" style="width:100%; height:400px;"></div>
+				<div class="mylabel">Where is the shelter located?</div>
+				<div id="locationpicker" style="width:100%; height:250px;">
+					<input type="hidden" id="latitude" class="free-text-attribute" property-id="" attribute-id="8" category-id="2" value-id="None" value="">
+					<input type="hidden" id="longitude" class="free-text-attribute" property-id="" attribute-id="9" category-id="2" value-id="None" value="">
+				</div>
+
 				
                 <div class="buttons">
                     <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
                     <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
                 </div>
             </div>
+			<div class="page page4">	
+				<div class="mylabel">What type of disaster is the shelter associated with?</div>
+
+				<label for="associatedDisasterSelect" class="button button-drop">
+					<select id="associatedDisasterSelect" class="select-attribute" property-id="" attribute-id="13" category-id="4" id="select13" data-live-search="true">
+						  <option value=""></option>
+					</select>
+				</label>
+				
+				<div class="mylabel">What type of shelter is it?</div>
+				<label for="shelterTypeSelect" class="button button-drop">
+					<select id="shelterTypeSelect" class="select-attribute" property-id="" attribute-id="21" category-id="4" id="select21">
+						  <option value=""></option>
+					</select>
+				</label>
+
+				<div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
+                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                </div>
+            </div>
+			<!--
             <div class="page page3">
                 <div class="mylabel">Location of the Site:</div>
                 <div class="options">
@@ -109,8 +135,34 @@
                     <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
                 </div>
             </div>
-            <div class="page page4">
-				<div class="mylabel">Upload photos and images of the shelter</div>
+			-->
+			
+			<div class="page page6">
+				<div class="mylabel">What is the unit cost of the shelter (USD)?</div>
+				<div class="myinput"><input type="number" class="free-text-attribute" id="2486" property-id="" attribute-id="49" category-id="8" value-id="None" value=""></div>
+			
+				<div class="mylabel">What is the number of inhabitants of the shelter?</div>
+				<div class="myinput"><input type="number" min="1" max="200" class="free-text-attribute" id="1996" property-id="" attribute-id="37" category-id="8" value-id="None" value=""></div>
+			    
+				<div class="mylabel">What is the total surface area in square meters (m2)?</div>				
+				<div class="myinput"><input type="number" class="free-text-attribute" id="2274" property-id="" attribute-id="45" category-id="8" value-id="None" value=""></div>
+                
+				<div class="buttons">
+                    <div onclick="next()" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
+                </div>
+            </div>
+			
+			<div class="page page7">
+				<p>Thank you for entering your shelter in the shelter database. Your shelter will be visible in the database after a short review by the administrator.
+				We kindly request you to add additional data about your shelter, such as technical documentation and drawings, and different attributes. You can edit your 
+				shelter when you log in to the website and go to 'your shelters'.</p>
+				<div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Close</span></div>
+                </div>
+            </div>
+			</form>
+            <div class="page page5">
+				<div class="mylabel">Upload photos of the shelter</div>
                 <form action="/file-upload" class="dropzone" id="dropzone"></form>
 			
 				<div class="buttons">
@@ -119,34 +171,8 @@
                 </div>
                 
             </div>
-			<div class="page page5">
-				<div class="mylabel">Climate zone</div>
-                <select class="select-attribute show-tick" property-id="" attribute-id="11" category-id="2" id="select11">
-                    <option value=""></option>
-                    <option value="256">dry moderate</option>
-                    <option value="255">dry polar</option>
-                    <option value="257">dry tropical</option>
-                    <option value="259">moist moderate</option>
-                    <option value="258">moist polar</option>
-                    <option value="260">moist tropical</option>
-                 </select>
 			
-				<div class="mylabel">Landform</div>
-			    <select class="select-attribute show-tick" property-id="" attribute-id="12" category-id="2" id="select12">
-                    <option value=""></option>
-                    <option value="267">desert </option>
-                    <option value="263">hills</option>
-                    <option value="261">mountains</option>
-                    <option value="265">plain</option>
-                    <option value="262">plateaus</option>
-                    <option value="266">river delta</option>
-                    <option value="264">valley</option>
-                </select>
-				
-                <div class="buttons">
-                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
-                </div>
-            </div>
+			
         </div>
     </div>
 	
@@ -177,25 +203,18 @@
 	    var shelter_id;
 		
         $(document).ready(function() {
+		
+			initiateLocationPicker();
+			
             $("#newShelter").click(function(evt) {
-                var filters = [{"name":"name","op":"eq","val":"Country"}];
-                $.ajax({
-                    type: 'GET',
-                    url: '/api/attribute',
-                    contentType: "application/json",
-                    dataType: "json",
-                    data: {"q": JSON.stringify({"filters": filters})},
-                    success: function(result) {
-                        result.objects[0].associated_values.map(function(country) {
-                            $("#countrySelect").append(new Option(country.name, country.id));
-                        })
-                        $('.selectpicker').selectpicker({style: 'btn-default',
-                            size: false});
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown){
-                        //alert(errorThrown);
-                    }
-                }) ;
+                // fetch shelters
+				fetchCountries();
+				
+				//fetch disaster types
+				fetchAssociatedDisasters();
+				
+				//fetch shelter types
+				fetchShelterTypes();
             });
 
             //Attach a submit handler to the form
@@ -223,8 +242,10 @@
 						} else {
 							shelter_id = result;
 							
-							// initiate_map
-							initiateLocationPicker();
+							// update the map given the country
+							updateLocationPicker();
+							
+							next();
 						}
 					});
                 } else {
@@ -232,6 +253,63 @@
                 }
             });
         });
+		
+		var fetchCountries = function (){
+				var filters = [{"name":"name","op":"eq","val":"Country"}];
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/attribute',
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: {"q": JSON.stringify({"filters": filters})},
+                    success: function(result) {
+                        result.objects[0].associated_values.map(function(country) {
+                            $("#countrySelect").append(new Option(country.name, country.id));
+                        })
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                        //alert(errorThrown);
+                    }
+                }) ;
+		};
+		
+		var fetchAssociatedDisasters = function (){
+				var filters = [{"name":"name","op":"eq","val":"Associated disaster / Immediate cause"}];
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/attribute',
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: {"q": JSON.stringify({"filters": filters})},
+                    success: function(result) {
+                        result.objects[0].associated_values.map(function(disaster) {
+                            $("#associatedDisasterSelect").append(new Option(disaster.name, disaster.id));
+                        })
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                        //alert(errorThrown);
+                    }
+                }) ;
+		};
+		
+		var fetchShelterTypes = function (){
+				var filters = [{"name":"name","op":"eq","val":"Type of shelter"}];
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/attribute',
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: {"q": JSON.stringify({"filters": filters})},
+                    success: function(result) {
+                        result.objects[0].associated_values.map(function(shelter) {
+                            $("#shelterTypeSelect").append(new Option(shelter.name, shelter.id));
+                        })
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                        //alert(errorThrown);
+                    }
+                }) ;
+		};
     </script>
 	
 	<script type="text/javascript">
@@ -253,11 +331,11 @@
 		return countryData;
 	};
 	
+	var countries = {};
+	var layerGroup, marker, locationpicker, bounds;
+	
 	function initiateLocationPicker (){
  
-		//Query nomatimim for lat lon for country
-		var country = $('#countrySelect option:selected').text();
-		
 		//set encoding
 		$.ajaxSetup({
 			scriptCharset: "utf-8",
@@ -266,56 +344,91 @@
 
 		//get data from api
 		$.getJSON("/static/data/countries.geojson", function(data) {
-		
-			var countryData = findCountry(data, country);
-			
-			if(jQuery.isEmptyObject(countryData)){
-			  //country was not found
-			  //TODO: handle error
-			  return;
-			} 
-			
+			// set countries
+			countries = data;
+						
 			// Initiate leaflet map
-			var locationpicker = L.map('locationpicker');
+			locationpicker = L.map('locationpicker');
 			
 			// Add OSM base layer
 			L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(locationpicker);
 			
-			// Add country polygon to map and fit map to bounds
-			var countryLayer = L.geoJson(countryData.polygon).addTo(locationpicker);
-						
 			// Add Mapzen geocoder 
 			L.control.geocoder('search-Us5vhhe').addTo(locationpicker);
 			
-			// add marker position to centroid of country
-			var marker = L.marker([countryData.lat, countryData.lon], {draggable:'true'}).bindLabel('This is where I have built this shelter');
+			// Create group for your layers and add it to the map
+			layerGroup = L.layerGroup().addTo(locationpicker);
+			
+			// add marker
+			marker = L.marker([0,0], {draggable:'true'}).bindLabel('This is where I have built this shelter');
 			marker.addTo(locationpicker);
 			
-			marker.on('dragend', function(event){
-						var position = event.target.getLatLng();
-						console.log(position);
-						marker.setLatLng(position,{draggable:'true'}).bindPopup(position).update();
-			});
-			
+			// add listeners	
 			locationpicker.on('click', function(e) {        
 				var location = e.latlng;
 				marker.setLatLng(location).update();
-			});
-			
-			// go to next modal
-			next();	
-			
-			// fit map to bounds of country
-			var bounds = countryLayer.getBounds();
-			locationpicker.fitBounds(bounds);
-
-			//redraw map
-			locationpicker.invalidateSize();
+				setLocation(e.latlng);
+			});	
 		});
 	};
+	
+	var updateLocationPicker = function(){
+		//Query nomatimim for lat lon for country
+		var country = $('#countrySelect option:selected').text();
+		
+		var countryData = findCountry(countries, country);
+			
+		if(jQuery.isEmptyObject(countryData)){
+		  //country was not found
+		  //TODO: handle error
+		  return;
+		} 
+		
+		// remove all layers
+		layerGroup.clearLayers();
+		
+		// Add country polygon to map and fit map to bounds
+		var countryLayer = L.geoJson(countryData.polygon).addTo(layerGroup);
+		
+		// listen to clicks on the layer to set the marker
+		countryLayer.on('click', function(e) {        
+			var location = e.latlng;
+			marker.setLatLng(location).update();
+			setLocation(e.latlng);
+		});	
+		
+		// set position of marker to centroid of country
+		var centroid = {lat: countryData.lat, lng: countryData.lon};
+		marker.setLatLng(centroid); 
+		
+		// Add the location to the database, in case the user doesn't drag the marker
+		setLocation(centroid);
+		
+		marker.on('dragend', function(event){
+			var position = event.target.getLatLng();
+			setLocation(event.target.getLatLng());
+			marker.setLatLng(position,{draggable:'true'}).bindPopup(position).update();
+		});
+		
+		// fit map to bounds of country
+		bounds = countryLayer.getBounds();
+		//locationpicker.fitBounds(bounds);				
+	}
+	
+	var setLocation = function(latlng){
+		$('#latitude').val(latlng.lat).trigger('change');
+		$('#longitude').val(latlng.lng).trigger('change');		
+	}
+	
+	// listen when page3 with leaflet map is opened
+	$('#modalcontent').on('page3', function(){ 
+		locationpicker.fitBounds(bounds);
+		locationpicker.invalidateSize();
+	});
 	</script>
 	
 	<script type="text/javascript" class="source">
+	
 		$(document).ready(function() {
 			var dateSupported = (function() {
 				var el = document.createElement('input'),
@@ -344,11 +457,25 @@
 					attribute_id = $(evt.target).attr("attribute-id");
 					new_property(shelter_id,
 									category_id, attribute_id, id_of_values,
-									$(evt.target))
+									$(evt.target));
+				} else {
+					update_property(property_id, id_of_values);
 				}
 			});
 
+			$('.date-attribute').on("change", function(evt) {
+				var dateFormat = /^(\d{4})-(\d{1,2})-(\d{1,2})$/;
+				value = $(evt.target).val();
+				if(dateFormat.test(value)){
+					editFreeTextOrDate(evt);
+				}				
+			});
+
 			$('.free-text-attribute').change(function(evt) {
+				editFreeTextOrDate(evt);
+			});
+			
+			var editFreeTextOrDate = function (evt){
 				value = $(evt.target).val();
 				if ($(evt.target).context.type == "checkbox") {
 					if (value == "on" || value == "1") {
@@ -364,10 +491,9 @@
 				} else {
 					category_id = $(evt.target).attr("category-id");
 					attribute_id = $(evt.target).attr("attribute-id");
-					new_free_text_property(shelter_id, category_id,
-												attribute_id, value, $(evt.target));
+					new_free_text_property(shelter_id, category_id, attribute_id, value, $(evt.target));
 				}
-			});
+			}
 
 			$('.add-value').click(function(evt) {
 				attribute_id = $(evt.target).attr('attribute-id');
@@ -400,6 +526,7 @@
 				});
 			})
 		});
+	
 	</script>
 
     <script type="text/javascript">
@@ -416,6 +543,8 @@
             }
             var setPage = function(){
                 cnt.className = "content page" + page
+				// trigger event that class changed
+				$('#modalcontent').trigger('page'+page);
             }
             var next = function(){
                 page++
