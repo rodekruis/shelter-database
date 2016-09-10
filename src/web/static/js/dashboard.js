@@ -495,22 +495,35 @@ $(document).ready(function () {
 
 function addLayersToChart(mapChart) {
 
-    var redCrossLayer = L.tileLayer.wms("https://shelter-database.org:8443/geoserver/ows?service=wms&version=1.1.1&request=GetCapabilities", {
+    var redCrossLayer = L.tileLayer.wms("http://shelter-database.org:8080/geoserver/shelters/wms", {
         layers: 'shelters:redcross',
         transparent: true,
         opacity: 0.5
 
-    });
+    });""
 
-    var koeppenGeigerLayer = L.tileLayer.wms("https://shelter-database.org:8443/geoserver/ows?service=wms&version=1.1.1&request=GetCapabilities", {
-        layers: 'koeppen-geiger',
+    var koeppenGeigerLayer = L.tileLayer.wms("http://shelter-database.org:8080/geoserver/shelters/wms", {
+        layers: 'shelters:koeppen-geiger',
         transparent: true,
         opacity: 0.5
-    })
+    });
+	
+	
+	var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+		layers: 'Satellite',
+		transparant: true,
+		opacity: 0.5,
+		maxZoom: 20,
+		subdomains:['mt0','mt1','mt2','mt3']
+	});
+	
+	var countryLayer = new L.GeoJSON.AJAX("/static/data/countries.geojson");
 
     var overlayMaps = {
         "Climate simplified classification": redCrossLayer,
-        "Koeppen-Geiger": koeppenGeigerLayer
+        "Koeppen-Geiger": koeppenGeigerLayer,
+		"Google Satellite": googleSat,
+		"Country borders": countryLayer
     };
 
     mapChart._doRender()
