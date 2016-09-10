@@ -1,4 +1,4 @@
-#! /usr/bin/env sh
+#! /bin/sh
 
 # drop completely the db (with the triggers, sequences, etc.)
 sudo -u postgres dropdb shelter

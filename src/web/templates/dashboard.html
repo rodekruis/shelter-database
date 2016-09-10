@@ -5,30 +5,31 @@
           rel="stylesheet" media="screen">
 
 
-    <script src="{{ url_for('static', filename = 'lib/dc/d3.js') }}"></script>
-    <script src="{{ url_for('static', filename = 'lib/dc/crossfilter.js') }}"></script>
-    <script src="{{ url_for('static', filename = 'lib/dc/colorbrewer.js') }}"></script>
-    <script src="{{ url_for('static', filename = 'lib/dc/dc.js') }}"></script>
-    <script src="{{ url_for('static', filename = 'lib/leaflet/leaflet.js') }}"></script>
-    <script src="{{ url_for('static', filename = 'lib/leaflet/leaflet.markercluster.js') }}"></script>
-    <script src="{{ url_for('static', filename = 'lib/leaflet/dc.leaflet.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'lib/d3/d3.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'lib/crossfilter/crossfilter.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'lib/colorbrewer/colorbrewer.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/dc/dc.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'lib/leaflet/dist/leaflet.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'lib/leaflet.markercluster/dist/leaflet.markercluster.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/dc/dc.leaflet.js') }}"></script>
     <script src="{{ url_for('static', filename='lib/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='lib/file-saver/FileSaver.js')}}"></script>
-    <script src="{{ url_for('static', filename='lib/bootstrap-slider/bootstrap-slider.js')}}"></script>
+    <script src="{{ url_for('static', filename='lib/FileSaver/FileSaver.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='lib/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='lib/leaflet-ajax/dist/leaflet.ajax.min.js')}}"></script>
 
 
 
     <!--leaflet -->
 
-    <link href="{{ url_for('static', filename='lib/leaflet/MarkerCluster.Default.css') }}" rel="stylesheet" media="screen" />
+    <link href="{{ url_for('static', filename='lib/leaflet.markercluster/dist/MarkerCluster.Default.css') }}" rel="stylesheet" media="screen" />
 
-    <link href="{{ url_for('static', filename='lib/leaflet/leaflet.css') }}" rel="stylesheet" media="screen" />
-    <link href="{{ url_for('static', filename='lib/leaflet/MarkerCluster.css') }}" rel="stylesheet" media="screen" />
+    <link href="{{ url_for('static', filename='lib/leaflet/dist/leaflet.css') }}" rel="stylesheet" media="screen" />
+    <link href="{{ url_for('static', filename='lib/leaflet.markercluster/dist/MarkerCluster.css') }}" rel="stylesheet" media="screen" />
 
     <!-- DC.js  -->
-    <link href="{{ url_for('static', filename='lib/dc/dc.css') }}" rel="stylesheet" media="screen" />
+    <link href="{{ url_for('static', filename='js/dc/dc.css') }}" rel="stylesheet" media="screen" />
 
-    <link href="{{ url_for('static', filename='lib/bootstrap-slider/bootstrap-slider.css')}}" rel="stylesheet" media="screen" />
+    <link href="{{ url_for('static', filename='lib/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css')}}" rel="stylesheet" media="screen" />
 
 
 {% endblock %}
@@ -68,7 +69,7 @@
 
                 <label for="commercialFilter" class="button button-drop">
                     <select id="commercialFilter">
-                        <option value="" selected="selected">Commercial</option>
+                        <option value="" selected="selected">Organization</option>
                         <option value="" disabled>---</option>
                     </select>
                 </label>
@@ -95,7 +96,7 @@
 
                         <label for="shelterTypeFilter" class="button button-small button-drop">
                             <select id="shelterTypeFilter">
-                                <option value="" selected="selected">Shelter Type</option>
+                                <option value="" selected="selected">Type of response</option>
                                 <option value="" disabled>---</option>
                             </select>
                         </label>
@@ -113,9 +114,11 @@
                                 <option value="" disabled>---</option>
                             </select>
                         </label>
+						<!--
                         <label for="isSRURatedFilter" class="button button-small ">
                             <input id="isSRURatedFilter" type="checkbox" value=""> Rated by SRU
                         </label>
+						-->
                         <br>
                         <label for="costRange" class="button button-small">
                         Construction cost per unit:&nbsp<input id="costRange" data-type="range" class="span2"  data-slider-value="[0,1000000000]" />
