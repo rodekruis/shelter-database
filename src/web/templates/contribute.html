@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block head %}
     {{ super() }}
-	<script src="{{ url_for('static', filename = 'lib/leaflet/leaflet.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'lib/leaflet/dist/leaflet.js') }}"></script>
 	<script src="{{ url_for('static', filename='lib/leaflet-geosearch/src/js/l.control.geosearch.js') }}"></script>
 	<script src="{{ url_for('static', filename='lib/leaflet-geosearch/src/js/l.geosearch.provider.google.js') }}"></script>
 	<script src="{{ url_for('static', filename='lib/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.js') }}"></script>
@@ -9,7 +9,7 @@
 	<script src="{{ url_for('static', filename='lib/dropzone/dist/dropzone.js') }}"></script>
 	<script src="{{ url_for('static', filename='js/edit-shelter.js') }}"></script>
 	
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/leaflet/leaflet.css') }}" rel="stylesheet" media="screen" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/leaflet/dist/leaflet.css') }}" rel="stylesheet" media="screen" />
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.css') }}" />
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/Leaflet.label/dist/leaflet.label.css') }}" />
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/dropzone/dist/dropzone.css') }}" />
@@ -54,11 +54,11 @@
             <div class="page page1">
 			    <form id="createShelterForm" action="#" method="GET" name="save" class="myform">
 					<div class="mylabel">Title of your project:</div>
-					<div class="myinput"><input type="text" name="name" placeholder="Name" required="required" /></div>
+					<div class="myinput"><input type="text" name="name" placeholder="Name" required /></div>
 					<div class="mylabel">Country:</div>
 
                     <label for="countrySelect" class="button button-drop">
-                        <select id="countrySelect" name="country" data-live-search="true"></select>
+                        <select id="countrySelect" name="country" data-live-search="true" required></select>
                     </label>
                 
 					<!-- <a href="" class="button button-light button-drop button-stretch">Select</a> -->
@@ -72,7 +72,7 @@
 			<form id="saveAdditional" action="#" method="GET" name="saveAdditional" class="myform">
 			<div class="page page2">
                 <div class="mylabel">Who is the implementing organization?</div>
-                <div class="myinput"><input class="free-text-attribute" id="2269" property-id="" attribute-id="16" category-id="4" value-id="None" value="" type="text" name="" placeholder="implementing organization" /></div>
+                <div class="myinput"><input class="free-text-attribute" required id="2269" property-id="" attribute-id="16" category-id="4" value-id="None" value="" type="text" name="" placeholder="implementing organization" /></div>
 							
                 <div class="buttons">
                     <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
@@ -80,13 +80,13 @@
                 </div>
             </div>
             <div class="page page3">
-				<div class="mylabel">What is the year of construction?</div>
-				<div class="myinput"><input type="date" onkeydown="return false" id="3674" class="date-attribute" property-id="" attribute-id="36" category-id="8" value-id="None" value=""></div>
+				<div class="mylabel">What is the year of construction of the first shelters?</div>
+				<div class="myinput"><input type="date" name="yearofconstructionfirstshelters" required onkeydown="return false" id="3674" class="date-attribute" property-id="" attribute-id="36" category-id="8" value-id="None" value=""></div>
 				
 				<div class="mylabel">Where is the shelter located?</div>
 				<div id="locationpicker" style="width:100%; height:250px;">
-					<input type="hidden" id="latitude" class="free-text-attribute" property-id="" attribute-id="8" category-id="2" value-id="None" value="">
-					<input type="hidden" id="longitude" class="free-text-attribute" property-id="" attribute-id="9" category-id="2" value-id="None" value="">
+					<input type="hidden" id="latitude" name="lattitude" required class="free-text-attribute" property-id="" attribute-id="8" category-id="2" value-id="None" value="">
+					<input type="hidden" id="longitude" name="longitude" required class="free-text-attribute" property-id="" attribute-id="9" category-id="2" value-id="None" value="">
 				</div>
 
 				
@@ -99,14 +99,14 @@
 				<div class="mylabel">What type of disaster is the shelter associated with?</div>
 
 				<label for="associatedDisasterSelect" class="button button-drop">
-					<select id="associatedDisasterSelect" class="select-attribute" property-id="" attribute-id="13" category-id="4" id="select13" data-live-search="true">
+					<select id="associatedDisasterSelect" name="associateddisaster" required class="select-attribute" property-id="" attribute-id="13" category-id="4" id="select13" data-live-search="true">
 						  <option value=""></option>
 					</select>
 				</label>
 				
 				<div class="mylabel">What type of shelter is it?</div>
 				<label for="shelterTypeSelect" class="button button-drop">
-					<select id="shelterTypeSelect" class="select-attribute" property-id="" attribute-id="21" category-id="4" id="select21">
+					<select id="shelterTypeSelect" required class="select-attribute" property-id="" attribute-id="21" category-id="4" id="select21">
 						  <option value=""></option>
 					</select>
 				</label>
@@ -139,13 +139,13 @@
 			
 			<div class="page page6">
 				<div class="mylabel">What is the unit cost of the shelter (USD)?</div>
-				<div class="myinput"><input type="number" class="free-text-attribute" id="2486" property-id="" attribute-id="49" category-id="8" value-id="None" value=""></div>
+				<div class="myinput"><input type="number" required class="free-text-attribute" id="2486" property-id="" attribute-id="49" category-id="8" value-id="None" value=""></div>
 			
 				<div class="mylabel">What is the number of inhabitants of the shelter?</div>
-				<div class="myinput"><input type="number" min="1" max="200" class="free-text-attribute" id="1996" property-id="" attribute-id="37" category-id="8" value-id="None" value=""></div>
+				<div class="myinput"><input type="number" required min="1" max="200" class="free-text-attribute" id="1996" property-id="" attribute-id="37" category-id="8" value-id="None" value=""></div>
 			    
 				<div class="mylabel">What is the total surface area in square meters (m2)?</div>				
-				<div class="myinput"><input type="number" class="free-text-attribute" id="2274" property-id="" attribute-id="45" category-id="8" value-id="None" value=""></div>
+				<div class="myinput"><input type="number" required class="free-text-attribute" id="2274" property-id="" attribute-id="45" category-id="8" value-id="None" value=""></div>
                 
 				<div class="buttons">
                     <div onclick="next()" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
@@ -163,7 +163,9 @@
 			</form>
             <div class="page page5">
 				<div class="mylabel">Upload photos of the shelter</div>
-                <form action="/file-upload" class="dropzone" id="dropzone"></form>
+                <form action="/edit/{{shelter.id}}" class="dropzone" id="dropzone">
+					<input type="hidden" name="category_id" value="2">
+				</form>
 			
 				<div class="buttons">
                     <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
@@ -185,7 +187,7 @@
 		  paramName: "file", // The name that will be used to transfer the file
 		  uploadMultiple: true,
 		  parallelUploads: 1,
-		  maxFilesize: 2, // MB
+		  maxFilesize: 4, // MB
 		  acceptedFiles: "image/*",
 		  init: function() {
 			this.on("sending", function(file, xhr, formData) {
