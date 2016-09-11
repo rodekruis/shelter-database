@@ -541,7 +541,7 @@ function addLayersToChart(mapChart) {
 	map.addControl( Legend );
 
 	$(".legend-container").append( $("#legend") );
-	$(".legend-toggle").append( "<i class='legend-toggle-icon fa fa-info fa-2x' style='color: #000'></i>" );
+	$(".legend-toggle").append( "<i class='legend-icon fa fa-info fa-2x' style='color: #000'></i>" );
 
     map.addLayer(redCrossLayer)
     L.control.layers(null, overlayMaps).addTo(map);
