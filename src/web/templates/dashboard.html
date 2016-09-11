@@ -33,6 +33,9 @@
     <link href="{{ url_for('static', filename='lib/bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css')}}" rel="stylesheet" media="screen" />
 	<link href="{{ url_for('static', filename='lib/custom/leaflet-legend/leaflet-legend.css') }}" rel="stylesheet" media="screen" />
 
+	<link href="{{ url_for('static', filename='lib/bower/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" media="screen" />
+
+	
 
 {% endblock %}
 
@@ -178,15 +181,18 @@
         <div class="map" id="chart-map" style="width:100%; height:360px;">
         </div>
 		
-		<div id="legend">
-		   <svg width="120" height="80">
-			  <line x1="10" y1="20" x2="40" y2="20" class="path" />
-			  <text x="40" y="20" transform="translate(8,4)">Trail</text>
-			  <line x1="10" y1="40" x2="40" y2="40" class="cycleway" />
-			  <text x="40" y="40"transform="translate(8,4)">Bike Path</text>
-			  <line x1="10" y1="60" x2="40" y2="60" class="track" />
-			  <text x="40" y="60" transform="translate(8,4)">Dirt Road</text>
-		   </svg>
+		<div id="legend" class='my-legend'>
+			<div class='legend-title'>Simplified classification</div>
+			<div class='legend-scale'>
+			  <ul class='legend-labels'>
+				<li><span class="coldHUMID"></span>Cold humid</li>
+				<li><span class="coldDRY"></span>Cold dry</li>
+				<li><span class="moderateHUMID"></span>Moderate humid</li>
+				<li><span class="moderateDRY"></span>Moderate dry</li>
+				<li><span class="hotHUMID"></span>Hot humid</li>
+				<li><span class="hotDRY"></span>Hot dry</li>
+			  </ul>
+			</div>
 		</div>
     </section>
     <section class="tab1" id="tabs">
