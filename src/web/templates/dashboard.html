@@ -1,8 +1,7 @@
 {% extends "layout.html" %}
 {% block head %}
     {{ super() }}
-    <link href="{{ url_for('static', filename='lib/datatables.net-bs/css/dataTables.bootstrap.min.css') }}"
-          rel="stylesheet" media="screen">
+    <link href="{{ url_for('static', filename='lib/bower/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" media="screen">
 
 
     <script src="{{ url_for('static', filename = 'lib/bower/d3/d3.min.js') }}"></script>
@@ -12,24 +11,27 @@
     <script src="{{ url_for('static', filename = 'lib/bower/leaflet/dist/leaflet.js') }}"></script>
     <script src="{{ url_for('static', filename = 'lib/bower/leaflet.markercluster/dist/leaflet.markercluster.js') }}"></script>
     <script src="{{ url_for('static', filename = 'lib/custom/dc/dc.leaflet.js') }}"></script>
-    <script src="{{ url_for('static', filename='lib/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='lib/FileSaver/FileSaver.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='lib/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js')}}"></script>
-	<script src="{{ url_for('static', filename='lib/leaflet-ajax/dist/leaflet.ajax.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'lib/bower/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'lib/bower/FileSaver/FileSaver.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'lib/bower/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js')}}"></script>
+	<script src="{{ url_for('static', filename = 'lib/bower/leaflet-ajax/dist/leaflet.ajax.min.js')}}"></script>
+	<script src="{{ url_for('static', filename = 'lib/custom/leaflet-legend/leaflet-legend.js')}}"></script>
+
 
 
 
     <!--leaflet -->
 
-    <link href="{{ url_for('static', filename='lib/leaflet.markercluster/dist/MarkerCluster.Default.css') }}" rel="stylesheet" media="screen" />
+    <link href="{{ url_for('static', filename='lib/bower/leaflet.markercluster/dist/MarkerCluster.Default.css') }}" rel="stylesheet" media="screen" />
 
-    <link href="{{ url_for('static', filename='lib/leaflet/dist/leaflet.css') }}" rel="stylesheet" media="screen" />
-    <link href="{{ url_for('static', filename='lib/leaflet.markercluster/dist/MarkerCluster.css') }}" rel="stylesheet" media="screen" />
+    <link href="{{ url_for('static', filename='lib/bower/leaflet/dist/leaflet.css') }}" rel="stylesheet" media="screen" />
+    <link href="{{ url_for('static', filename='lib/bower/leaflet.markercluster/dist/MarkerCluster.css') }}" rel="stylesheet" media="screen" />
 
     <!-- DC.js  -->
     <link href="{{ url_for('static', filename='lib/custom/dc/dc.css') }}" rel="stylesheet" media="screen" />
 
-    <link href="{{ url_for('static', filename='lib/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css')}}" rel="stylesheet" media="screen" />
+    <link href="{{ url_for('static', filename='lib/bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css')}}" rel="stylesheet" media="screen" />
+	<link href="{{ url_for('static', filename='lib/custom/leaflet-legend/leaflet-legend.css') }}" rel="stylesheet" media="screen" />
 
 
 {% endblock %}
@@ -175,6 +177,17 @@
     <section class="map">
         <div class="map" id="chart-map" style="width:100%; height:360px;">
         </div>
+		
+		<div id="legend">
+		   <svg width="120" height="80">
+			  <line x1="10" y1="20" x2="40" y2="20" class="path" />
+			  <text x="40" y="20" transform="translate(8,4)">Trail</text>
+			  <line x1="10" y1="40" x2="40" y2="40" class="cycleway" />
+			  <text x="40" y="40"transform="translate(8,4)">Bike Path</text>
+			  <line x1="10" y1="60" x2="40" y2="60" class="track" />
+			  <text x="40" y="60" transform="translate(8,4)">Dirt Road</text>
+		   </svg>
+		</div>
     </section>
     <section class="tab1" id="tabs">
         <div class="content">
