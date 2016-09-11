@@ -24,12 +24,7 @@ build
 
 # bower
 
-src/web/static/lib/*
-!src/web/static/lib/leaflet
-!src/web/static/lib/dc
-!src/web/static/lib/file-saver
-!src/web/static/lib/bootstrap-slider
-
+src/web/static/lib/bower
 
 # node files
 node_modules

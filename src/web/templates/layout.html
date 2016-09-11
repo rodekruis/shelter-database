@@ -15,12 +15,12 @@
 
 
     <link type='text/css' rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:100,400,300,700'>
-	<link href="{{ url_for('static', filename = 'lib/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" media="screen" />
-	<link href="{{ url_for('static', filename = 'lib/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" media="screen" />
+	<link href="{{ url_for('static', filename = 'lib/bower/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" media="screen" />
+	<link href="{{ url_for('static', filename = 'lib/bower/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" media="screen" />
 	<link href="{{ url_for('static', filename='css/style_new.css') }}" rel="stylesheet" media="screen" />
     <link href="{{ url_for('static', filename='css/style-dashboard.css')}}" rel="stylesheet" media="screen" />
 	
-	<script src="{{ url_for('static', filename = 'lib/jquery/dist/jquery.min.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'lib/bower/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename = 'js/create-shelter.js') }}"></script>
     <script src="{{ url_for('static', filename = 'js/countries.js') }}"></script>
 
@@ -92,8 +92,8 @@
 		{% block footer %}
 			<!-- Bootstrap core JavaScript -->
 			<!-- Placed at the end of the document so the pages load faster -->
-			<script src="{{ url_for('static', filename = 'lib/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-			<script src="{{ url_for('static', filename = 'lib/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+			<script src="{{ url_for('static', filename = 'lib/bower/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+			<script src="{{ url_for('static', filename = 'lib/bower/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 			
 			<script>
 			 // if home page, add class is landingpage to header
