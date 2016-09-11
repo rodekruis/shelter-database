@@ -1,0 +1,50 @@
+{
+  "name": "leaflet-legend",
+  "version": "1.0.2",
+  "description": "A Leaflet plugin to add a popup legend to a map",
+  "main": "leaflet-legend.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikeskaug/Leaflet.Legend.git"
+  },
+  "keywords": [
+    "Leaflet",
+    "legend"
+  ],
+  "author": {
+    "name": "Michael Skaug"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikeskaug/Leaflet.Legend/issues"
+  },
+  "homepage": "https://github.com/mikeskaug/Leaflet.Legend#readme",
+  "dependencies": {
+    "leaflet": "^0.7.7"
+  },
+  "gitHead": "4eb2db8b4674bd565884a2611a26b24dcc2e990c",
+  "_id": "leaflet-legend@1.0.2",
+  "_shasum": "f200413d6d08393bd765b6d18f752fd1f1f45548",
+  "_from": "leaflet-legend@latest",
+  "_npmVersion": "2.14.7",
+  "_nodeVersion": "4.2.1",
+  "_npmUser": {
+    "name": "mike_skaug",
+    "email": "mike.skaug@gmail.com"
+  },
+  "dist": {
+    "shasum": "f200413d6d08393bd765b6d18f752fd1f1f45548",
+    "tarball": "https://registry.npmjs.org/leaflet-legend/-/leaflet-legend-1.0.2.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "mike_skaug",
+      "email": "mike.skaug@gmail.com"
+    }
+  ],
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/leaflet-legend/-/leaflet-legend-1.0.2.tgz"
+}
