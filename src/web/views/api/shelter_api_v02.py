@@ -155,11 +155,13 @@ def allshelters(shelter_id=None):
     Supercategory = db.aliased(Category)
     
     querybase = db.session.query(Property.shelter_id, Category.name.label("category_name"), Supercategory.name.label("supercategory_name"), Attribute.name, Attribute.uniqueid,func.string_agg(Value.name,';').label("value"))\
+    		.join(Shelter, Shelter.id==Property.shelter_id)\
     		.join(Category, Category.id==Property.category_id)\
     		.join(Attribute, Attribute.id==Property.attribute_id)\
     		.join(Supercategory, Supercategory.id==Category.parent_id)\
     		.join(Association, Property.id==Association.property_id)\
     		.join(Value, Association.value_id==Value.id)\
+    		.filter(Shelter.is_published == True)\
     		.group_by(Property.shelter_id, Supercategory.name, Category.name, Attribute.name, Attribute.uniqueid)
     
     picquerybase = db.session.query(ShelterPicture.shelter_id, ShelterPicture.file_name.label("filename"), ShelterPicture.is_main_picture, Category.name)\
