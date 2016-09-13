@@ -84,9 +84,11 @@ def allshelters():
     picpath = os.path.relpath(conf.SHELTERS_PICTURES_PATH)
 
     querybase = db.session.query(Property.shelter_id,Attribute.name,Attribute.uniqueid,func.string_agg(Value.name,';').label("value"))\
+    		.join(Shelter)\
     		.join(Attribute)\
     		.join(Association,Property.id==Association.property_id)\
     		.join(Value, Association.value_id==Value.id)\
+    		.filter(Shelter.is_published == True)\
     		.group_by(Property.shelter_id, Attribute.name, Attribute.uniqueid)
 
     picquerybase = db.session.query(ShelterPicture.shelter_id, ShelterPicture.file_name.label("filename"), Category.name)\
