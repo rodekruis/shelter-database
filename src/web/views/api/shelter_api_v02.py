@@ -32,7 +32,6 @@ def apimessage():
     message = tree()
     message["API version"] = 0.2
     message["Message"] = "This is the development API"
-    defaultjson()
     return jsonify(message)
 
 @apiv02_bp.route('/documentation', methods=['GET'])
@@ -226,12 +225,13 @@ def allshelters(shelter_id=None):
     
     
     for picture in shelter_pictures:
-    	if picture.is_main_picture == True:
-    		result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
-    	elif not result[picture.shelter_id][picture.name]["Pictures"]:
-    		result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
-    	else:
-    		result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
+    	if picture.shelter_id in result:
+    		if picture.is_main_picture == True:
+    			result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
+    		elif not result[picture.shelter_id][picture.name]["Pictures"]:
+    			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
+    		else:
+    			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
   
     return jsonify(result)
 
