@@ -15,7 +15,7 @@ __copyright__ = ""
 __license__ = ""
 
 from bootstrap import db, app
-from sqlalchemy.sql import func, select
+from sqlalchemy.sql import func, select, desc
 from flask import Blueprint, jsonify, request, json, Response
 from collections import defaultdict
 from web.models import Shelter, Attribute, Property, Value, Association, ShelterPicture, Category, Tsvector, Translation
@@ -32,7 +32,6 @@ def apimessage():
     message = tree()
     message["API version"] = 0.2
     message["Message"] = "This is the development API"
-    defaultjson()
     return jsonify(message)
 
 @apiv02_bp.route('/documentation', methods=['GET'])
@@ -155,11 +154,13 @@ def allshelters(shelter_id=None):
     Supercategory = db.aliased(Category)
     
     querybase = db.session.query(Property.shelter_id, Category.name.label("category_name"), Supercategory.name.label("supercategory_name"), Attribute.name, Attribute.uniqueid,func.string_agg(Value.name,';').label("value"))\
+    		.join(Shelter, Shelter.id==Property.shelter_id)\
     		.join(Category, Category.id==Property.category_id)\
     		.join(Attribute, Attribute.id==Property.attribute_id)\
     		.join(Supercategory, Supercategory.id==Category.parent_id)\
     		.join(Association, Property.id==Association.property_id)\
     		.join(Value, Association.value_id==Value.id)\
+    		.filter(Shelter.is_published == True)\
     		.group_by(Property.shelter_id, Supercategory.name, Category.name, Attribute.name, Attribute.uniqueid)
     
     picquerybase = db.session.query(ShelterPicture.shelter_id, ShelterPicture.file_name.label("filename"), ShelterPicture.is_main_picture, Category.name)\
@@ -224,11 +225,108 @@ def allshelters(shelter_id=None):
     
     
     for picture in shelter_pictures:
-    	if picture.is_main_picture == True:
-    		result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
-    	elif not result[picture.shelter_id][picture.name]["Pictures"]:
-    		result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
-    	else:
-    		result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
+    	if picture.shelter_id in result:
+    		if picture.is_main_picture == True:
+    			result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
+    		elif not result[picture.shelter_id][picture.name]["Pictures"]:
+    			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
+    		else:
+    			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
   
     return jsonify(result)
+
+@apiv02_bp.route('/shelters/latest', methods=['GET'])
+@apiv02_bp.route('/shelters/latest/<int:count>', methods=['GET'])
+def latestshelters(count=1):
+    """
+    Retrieves latest shelters (updates to existing shelters also count)
+    """
+    result = tree()
+    
+    #shelter pictures folder path
+    
+    
+    picpath = os.path.relpath(conf.SHELTERS_PICTURES_PATH)
+    
+    Supercategory = db.aliased(Category)
+    subquery= db.session.query(Shelter).filter(Shelter.is_published == True).order_by(desc(Shelter.updated_at)).limit(count).subquery()
+    
+    querybase = db.session.query(subquery.c.id.label("shelter_id"), Category.name.label("category_name"), Supercategory.name.label("supercategory_name"), Attribute.name, Attribute.uniqueid,func.string_agg(Value.name,';').label("value"))\
+    		.join(Property, subquery.c.id==Property.shelter_id)\
+    		.join(Category, Category.id==Property.category_id)\
+    		.join(Attribute, Attribute.id==Property.attribute_id)\
+    		.join(Supercategory, Supercategory.id==Category.parent_id)\
+    		.join(Association, Property.id==Association.property_id)\
+    		.join(Value, Association.value_id==Value.id)\
+    		.order_by(desc(subquery.c.updated_at))\
+    		.group_by(subquery.c.updated_at,subquery.c.id, Supercategory.name, Category.name, Attribute.name, Attribute.uniqueid)
+    
+    picquerybase = db.session.query(ShelterPicture.shelter_id, ShelterPicture.file_name.label("filename"), ShelterPicture.is_main_picture, Category.name)\
+    		.join(Category, Category.id == ShelterPicture.category_id)		
+    
+    catquery = db.session.query(Category.name).filter(Category.section_id != None)
+    
+    ##queries if no request arguments
+    shelter_properties = querybase
+    shelter_pictures = picquerybase
+        	
+#    if shelter_id:
+#    	shelter_properties = shelter_properties.filter(Property.shelter_id==shelter_id)
+#    	shelter_pictures = shelter_pictures.filter(ShelterPicture.shelter_id==shelter_id)
+#    
+#    if request.args.getlist('attribute'):
+#    	attribute = request.args.getlist('attribute')	
+#    	
+#    	subquery = db.session.query(Property.shelter_id)\
+#    			.join(Attribute, Attribute.id==Property.attribute_id)\
+#    			.filter(Attribute.uniqueid.in_(attribute))\
+#    			.group_by(Property.shelter_id)
+#    			
+#    	shelter_properties = shelter_properties.filter(subquery.subquery().c.shelter_id==Property.shelter_id)
+#    	shelter_pictures = shelter_pictures.filter(subquery.subquery().c.shelter_id==ShelterPicture.shelter_id)
+#    
+#    if request.args.getlist('value'):
+#    	value = request.args.getlist('value')
+#    	if not request.args.getlist('attribute'):
+#    		subquery = db.session.query(Property.shelter_id)\
+#    			.join(Attribute, Attribute.id==Property.attribute_id)\
+#    			.filter(Property.values.any(Value.name.in_(value)))\
+#    			.group_by(Property.shelter_id)
+#    	else:
+#    		subquery = subquery.filter(Property.values.any(Value.name.in_(value)))
+#    	
+#    	shelter_properties = shelter_properties.filter(subquery.subquery().c.shelter_id==Property.shelter_id)
+#    	shelter_pictures = shelter_pictures.filter(subquery.subquery().c.shelter_id==ShelterPicture.shelter_id)
+#    
+#    if request.args.get('q'):
+#    	attribute = request.args.get('q')
+#    	
+#    	shelter_properties = shelter_properties.join(Tsvector, Property.shelter_id==Tsvector.shelter_id).filter(Tsvector.lexeme.match(attribute))
+#    	shelter_pictures = shelter_pictures.join(Tsvector, ShelterPicture.shelter_id==Tsvector.shelter_id).filter(Tsvector.lexeme.match(attribute))
+
+    
+    for shelter_property in shelter_properties:
+    	if not result[shelter_property.shelter_id]:
+    		for category in catquery:
+    			if category.name == "Identification":
+    				result[shelter_property.shelter_id][category.name]["Cover"]
+    			result[shelter_property.shelter_id][category.name]["Attributes"]
+    			result[shelter_property.shelter_id][category.name]["Pictures"]
+    	
+    	if request.args.get('format') == 'prettytext':
+    		result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.name] = shelter_property.value
+    	else:
+    		result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.uniqueid] = shelter_property.value
+    
+    
+    for picture in shelter_pictures:
+    	if picture.shelter_id in result:
+    		if picture.is_main_picture == True:
+    			result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
+    		elif not result[picture.shelter_id][picture.name]["Pictures"]:
+    			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
+    		else:
+    			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
+  
+    return jsonify(result)
+
