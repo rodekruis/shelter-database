@@ -5,6 +5,7 @@
     {{ super() }}
     <script src="{{ url_for('static', filename = 'lib/bower/d3/d3.min.js') }}"></script>
 	<script src="{{ url_for('static', filename = 'lib/bower/leaflet/dist/leaflet.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'lib/bower/leaflet-image/leaflet-image.js') }}"></script>
 	<link href="{{ url_for('static', filename = 'lib/bower/leaflet/dist/leaflet.css') }}" rel="stylesheet" media="screen" />
     {% endblock %}
 {% block wrapper_start %}
@@ -16,7 +17,10 @@
                 <h1 id="shelter-name">[UNKNOWN NAME]</h1>
             </div>
         </section>
-        <section id="coverpicture" class="shelterimg" onclick="modalOpen()" style="background-image: url('{{ url_for('static', filename = 'img/shelter.jpg') }}')">
+		<section id="coverpictureprint" class="shelter-main-image">
+                <img src="" />
+            </section>
+        <section id="coverpicture" class="shelterimg" onclick="modalOpen()">
             <div class="dots">
                 <div class="dot selected"></div>
                 <div class="dot"></div>
@@ -26,7 +30,8 @@
 		<section>
             <div class="details">
 				<h3>Identification</h3>
-			    <div id="location-map" style="width:100%; height:400px;"></div>
+				<div id="location-image" class="location-image"></div>
+			    <div id="location-map" class="location-map"></div>
 				<div class="content">
 					<table id="identification">
 						<tr>
@@ -162,16 +167,30 @@
 				
 				// add location of shelter to map
 				L.marker([lat, lon]).addTo(map);
-				
+					
 				// add pictures
-				addCoverPicture('#coverpicture', data[shelter_id]['Identification']);
+				addCoverPictures('#coverpicture', '#coverpictureprint', data[shelter_id]['Identification']);
 				addSwipePictures('#modalIdentification', data[shelter_id]['Identification']);
+				
+				// convert map to image for better printing
+				leafletImage(map, function(err, canvas) {
+					// now you have canvas
+					// example thing to do with that canvas:
+					var img = document.createElement('img');
+					var dimensions = map.getSize();
+					img.width = dimensions.x;
+					img.height = dimensions.y;
+					img.src = canvas.toDataURL();
+					document.getElementById('location-image').innerHTML = '';
+					document.getElementById('location-image').appendChild(img);			
+				});
 			}
 		});
 		
-		function addCoverPicture(elementId, section){
+		function addCoverPictures(coverpicture, printpicture, section){
 			if(typeof section['Cover'] !== 'undefined' && section['Cover'].length > 0) {
-				$(elementId).css("background-image", "url('/" + section['Cover'][0] + "')");		
+				$(coverpicture).css("background-image", "url('/" + section['Cover'][0] + "')");	
+				$(printpicture).attr("src",section['Cover'][0]);					
 			}
 		}
 		
@@ -241,7 +260,7 @@
 			$(document).on('click', '.attribute-multimedia-asset' , show_multimedia_assets);
 		
 			function retrieve_and_display_multimedia_asset(attributeName) {
-				var filters = [{"name":"name","op":"eq","val":attributeName}];
+				var filters = [{"name":"name","op":"eq","val": attributeName}];
 				$.ajax({
 					type: 'GET',
 					url: '/api/attribute',
@@ -276,7 +295,7 @@
 
 				$('#infoDialogTitle').text("Description");
 				//var attrId = $(el).attr('attrId');
-				var attrName = ($el).innerText;
+				var attrName = $(el).text();
 
 				retrieve_and_display_multimedia_asset(attrName);
 
