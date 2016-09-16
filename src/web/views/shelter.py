@@ -123,6 +123,43 @@ def get_media(shelter_id=0, section_name=""):
     return redirect(request.url)
 
 
+@shelter_bp.route('/edit/multi/<int:shelter_id>/<section_name>', methods=['POST'])
+#@login_required
+def get_media2(shelter_id=0, section_name=""):
+    """
+    Get pictures for the shelter sent by Dropzone via a POST
+    request.
+    """
+    shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+    if not shelter:
+        flash("No such shelter", "warning")
+        return redirect(redirect_url())
+
+    for f in request.files:
+        print(request.files[f])
+        if request.files[f] and request.files[f].filename == '':
+            flash('No selected file', 'warning')
+            return redirect(request.url)
+        if request.files[f] and allowed_file(request.files[f].filename,
+                                conf.ALLOWED_EXTENSIONS_PICTURE.union(
+                                            conf.ALLOWED_EXTENSIONS_DOCUMENT)):
+            path = os.path.join(conf.SHELTERS_PICTURES_PATH, str(shelter.id))
+            
+            if not os.path.exists(path):
+                os.makedirs(path)
+            filename = secure_filename(request.files[f].filename)
+            request.files[f].save(os.path.join(path , filename))
+
+            #category_id = request.form['category_id']
+            #if category_id:
+            new_media = ShelterPicture(file_name=filename,  is_main_picture=False,
+                    shelter_id=shelter.id, category_id=2)
+            db.session.add(new_media)
+            db.session.commit()
+
+    return redirect(request.url)
+
+
 @shelter_bp.route('/delete_picture/<int:picture_id>', methods=['GET'])
 @login_required
 def delete_picture(picture_id=None):
