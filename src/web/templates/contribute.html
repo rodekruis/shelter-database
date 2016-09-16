@@ -189,7 +189,7 @@
 		
 		var createDropzone = function(){
 	  
-			$("div#uploader").dropzone({ url: "/shelter/edit/" + shelter_id + '/Identification'});
+			$("div#uploader").dropzone({ url: "/shelter/edit/multi" + shelter_id + '/General information'});
 			  
 			Dropzone.options.uploader = {
 			  paramName: "file", // The name that will be used to transfer the file
@@ -200,8 +200,9 @@
 			  init: function() {
 				this.on("sending", function(file, xhr, formData) {
 					var name = "shelter_" + shelter_id + "_" + new Date().getTime();
-					formData.append(name, file);
+					//formData.append(name, file);
 					formData.append('category_id', '2');
+					//formData.append('pictures', '0');
 				});
 				
 				this.on("successmultiple", function (files) {
