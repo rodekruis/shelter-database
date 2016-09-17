@@ -17,11 +17,11 @@
                 <h1 id="shelter-name">[UNKNOWN NAME]</h1>
             </div>
         </section>
-		<section id="coverpictureprint" class="shelter-main-image">
-                <img src="" />
+		<section class="shelter-main-image">
+                <img id="coverpictureprint" src="" />
             </section>
         <section id="coverpicture" class="shelterimg" onclick="modalOpen()">
-            <div class="dots">
+			<div class="dots">
                 <div class="dot selected"></div>
                 <div class="dot"></div>
                 <div class="dot"></div>
@@ -83,6 +83,21 @@
 				</table>
             </div>
         </section>
+		
+		<div class="mymodal" id="infoDialog">
+			<div class="content page1" id="modalcontent">
+				<div class="page page1">
+						<div class="mylabel" id="myModalLabel"><span id="infoDialogTitle"></span></div>
+						<div align="center" id="listOfPictures"></div>
+					
+						<div class="buttons">
+							<div onclick="infoDialogClose()" class="button button-light"><i class="fa fa-times"></i><span class="text">Close</span></div>
+						</div>
+				</div>
+			</div>
+		</div>
+		
+		
 		
 {% endblock %}
 
@@ -176,13 +191,7 @@
 				leafletImage(map, function(err, canvas) {
 					// now you have canvas
 					// example thing to do with that canvas:
-					var img = document.createElement('img');
-					var dimensions = map.getSize();
-					img.width = dimensions.x;
-					img.height = dimensions.y;
-					img.src = canvas.toDataURL();
-					document.getElementById('location-image').innerHTML = '';
-					document.getElementById('location-image').appendChild(img);			
+					$('#location-image').prepend('<img id="location-image-picture" src="'+ canvas.toDataURL() + '" />')		
 				});
 			}
 		});
@@ -190,7 +199,7 @@
 		function addCoverPictures(coverpicture, printpicture, section){
 			if(typeof section['Cover'] !== 'undefined' && section['Cover'].length > 0) {
 				$(coverpicture).css("background-image", "url('/" + section['Cover'][0] + "')");	
-				$(printpicture).attr("src",section['Cover'][0]);					
+				$(printpicture).attr("src", "/" + section['Cover'][0]);					
 			}
 		}
 		
@@ -271,7 +280,7 @@
 						$('#listOfPictures').empty();
 						result.objects[0].pictures.map(function(picture) {
 							oImg = document.createElement("img");
-							oImg.setAttribute('src', '/public/pictures/attributes/en/' + picture.file_name );
+							oImg.setAttribute('src', "{{ url_for('static', filename = 'pictures/attributes/en/')}}" + picture.file_name );
 							oImg.setAttribute('alt', picture.file_name);
 							oImg.setAttribute('title', picture.file_name);
 							oImg.setAttribute('height', '600px');
@@ -280,7 +289,7 @@
 							$('#listOfPictures').append(document.createElement("hr"));
 						})
 						$('#listOfPictures hr:last-child').remove();
-						$('#infoDialog').modal({backdrop:'static', keyboard:false});
+						infoDialogOpen();
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown){
 						//document.getElementById("geolocation").innerHTML = XMLHttpRequest.responseText;
@@ -304,6 +313,21 @@
 		
 	
 </script>
+
+<script type="text/javascript">
+            var cnt = document.getElementById("modalcontent")
+            var wrapper = document.getElementById("wrapper")
+            var page = 1
+            var infoDialogOpen = function(){
+                wrapper.className = "modal-open"
+            }
+            var infoDialogClose = function(){
+                wrapper.className = ""
+                page = 1
+                cnt.className = "content page1"
+            }
+    </script>
+	
 {% endblock %}
 {% block wrapper_end %}
 </div>
