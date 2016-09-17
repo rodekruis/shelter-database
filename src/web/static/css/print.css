@@ -126,4 +126,8 @@
 	.print-image {
 		display: none;
 	}
+	
+	table tr td span.info {
+		display: none;
+	}
 }
