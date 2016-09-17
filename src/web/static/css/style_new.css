@@ -1346,3 +1346,8 @@ section.map {
 .select2-container {
     width: 100% !important;
 }
+
+.print-image {
+	float: right;
+	cursor: pointer;
+}

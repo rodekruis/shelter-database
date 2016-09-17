@@ -122,4 +122,8 @@
 	#location-image-picture {
 		width: 100%;
 	}
+	
+	.print-image {
+		display: none;
+	}
 }

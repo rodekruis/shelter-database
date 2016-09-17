@@ -15,6 +15,7 @@
         <section class="shelterheader">
             <div class="content">
                 <h1 id="shelter-name">[UNKNOWN NAME]</h1>
+				<i class="fa fa-print print-image" aria-hidden="true" onClick="window.print()"></i>
             </div>
         </section>
 		<section class="shelter-main-image">
@@ -252,15 +253,19 @@
 
 			// Add column with attribute names
 			rows.append('th').append('b')
-				.attr('class', 'attribute-multimedia-asset')
-				.attr('style', 'border-bottom: 1px dotted #000000; cursor:pointer;')
 			    .text(function (d) { 
 					return d.attribute; 
+					
 				});
 			 
 			// Add column with values
 			rows.append('td')
-			  .text(function (d) { return d.value; });
+					.text(function (d) { return d.value; })
+				.append('span')
+					.attr("class", function (d) { 
+						// TODO test if attribute has drawing
+						return "info attribute-multimedia-asset"})
+					.attr("value", function (d) { return d.attribute;});
 		}
 	</script>
     <script type="text/javascript">
@@ -278,18 +283,20 @@
 					data: {"q": JSON.stringify({"filters": filters})},
 					success: function(result) {
 						$('#listOfPictures').empty();
-						result.objects[0].pictures.map(function(picture) {
-							oImg = document.createElement("img");
-							oImg.setAttribute('src', "{{ url_for('static', filename = 'pictures/attributes/en/')}}" + picture.file_name );
-							oImg.setAttribute('alt', picture.file_name);
-							oImg.setAttribute('title', picture.file_name);
-							oImg.setAttribute('height', '600px');
-							oImg.setAttribute('width', '600px');
-							$('#listOfPictures').append(oImg);
-							$('#listOfPictures').append(document.createElement("hr"));
-						})
-						$('#listOfPictures hr:last-child').remove();
-						infoDialogOpen();
+						if(result.objects.length > 0){
+							result.objects[0].pictures.map(function(picture) {
+								oImg = document.createElement("img");
+								oImg.setAttribute('src', "{{ url_for('static', filename = 'pictures/attributes/en/')}}" + picture.file_name );
+								oImg.setAttribute('alt', picture.file_name);
+								oImg.setAttribute('title', picture.file_name);
+								oImg.setAttribute('height', '600px');
+								oImg.setAttribute('width', '600px');
+								$('#listOfPictures').append(oImg);
+								$('#listOfPictures').append(document.createElement("hr"));
+							})
+							$('#listOfPictures hr:last-child').remove();
+							infoDialogOpen();
+						}
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown){
 						//document.getElementById("geolocation").innerHTML = XMLHttpRequest.responseText;
@@ -300,11 +307,9 @@
 			function show_multimedia_assets(evt) {
 				evt = evt || window.event; // The event that was fired
 				var targ = evt.target || evt.srcElement; // the element that was clicked
-				var el = this; // the element that fired the event
 
 				$('#infoDialogTitle').text("Description");
-				//var attrId = $(el).attr('attrId');
-				var attrName = $(el).text();
+				var attrName = $(this).attr("value");
 
 				retrieve_and_display_multimedia_asset(attrName);
 
