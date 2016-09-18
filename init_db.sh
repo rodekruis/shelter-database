@@ -10,7 +10,7 @@ python3.5 src/manager.py import_page About data/pages/about.html en
 python3.5 src/manager.py import_page About data/pages/about_fr.html fr
 
 # Initializes the structure of the shelters
-python3.5 src/manager.py init_shelters_structure data/shelters/Shelters_Structure.csv data/shelters/drawning
+python3.5 src/manager.py init_shelters_structure data/shelters/Shelters_Structure.csv data/shelters/drawings
 
 # Initializes the administrator (owner of the imported shelters)
 python3.5 src/manager.py create_admin_user

@@ -1,0 +1,133 @@
+@media print {
+
+
+	img.shelter-main-image { display: none; }
+	section.shelterheader { text-align: center; }
+	section.shelterheader h1 { color: rgb(51, 51, 51); font-size: 2em; margin: 0px; }
+	section.details { text-align: center; }
+	section.details.details-1 { background-color: rgb(238, 238, 238) !important; }
+	section.details .detail-label { margin-bottom: 20px; font-size: 1.2em; font-weight: bold; }
+	section .location-image { display: none; }
+	section .location-map { width: 100%; height: 400px; }
+	main h3 {
+	  color: #CC0000;
+	  text-align: center;
+	  font-size: 1.8em;
+	  margin-bottom: 0px;
+	  font-weight: 700;
+	  line-height: 1.2; }
+
+	.content {
+	  max-width: 1000px;
+	  margin: 0 auto; }
+	  
+	table {
+  margin: 0 auto 0 auto;
+  text-align: left;
+  }
+  table tr th {
+    padding: 5px 10px 5px 0; }
+  table tr td {
+    padding: 5px 0px 5px 10px;
+    font-weight: bold; }
+    table tr td span.info {
+      display: inline-block;
+      margin-left: 100px; }
+      table tr td span.info:before {
+        display: inline-block;
+        text-align: center;
+        line-height: 30px;
+        content: "\f129";
+        font-size: 18px;
+        color: #CCC;
+        width: 30px;
+        height: 30px;
+        -webkit-border-radius: 50%;
+        -khtml-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+        border-radius: 50%;
+        border: 1px solid #CCC;
+        cursor: pointer; }
+      table tr td span.info:hover:before {
+        color: #666;
+        background-color: #EEE; }
+	
+	@page{size:auto; margin-bottom:5mm; margin-top:5mm;}
+	
+    footer {
+	  width: 100%;
+	  min-height: 10px;
+	  background-color: #333;
+	  color: #EEE;
+	  text-align: center;
+	  padding: 10px 0; 
+	}
+  
+     body {
+        padding: 20px;
+		-webkit-print-color-adjust: exact;
+    }
+
+    header, input, select, textarea, section.map {
+        display: none;
+    }
+
+    table th, table td {
+        padding: 3px 5px;
+    }
+
+    div.details .location-image {
+            display: block;
+    }
+    div.details .location-map {
+        display: none;
+    }
+
+    section.shelterimg {
+        display: none;
+    }
+
+    section.organisation {
+        display: none;
+    }
+
+    #coverpictureprint {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin: 20px 0;
+    }
+	
+
+	
+	section {
+	  position: relative;}
+	  section.background .overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 1;
+		background-color: rgba(0, 0, 0, 0.5); }
+	  section.background .toplayer {
+		position: relative;
+		z-index: 2;
+		max-width: 1000px;
+		margin: 0 auto;
+		text-align: center; }
+		
+	#location-image-picture {
+		width: 100%;
+	}
+	
+	.print-image {
+		display: none;
+	}
+	
+	table tr td span.info {
+		display: none;
+	}
+}

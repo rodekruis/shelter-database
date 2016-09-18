@@ -123,17 +123,17 @@ table {
 /* TRIPLE BORDERS */
 /* KEYFRAMES */
 /* ANIMATION */
-.cover, .map2, .infoboxes .infobox .infobox-img, .mymodal .myimage, .options .option, section.first, section.recommendations, section.contribute .img, section.shelterimg, section.map, .shelters .shelter .image {
+.cover, .map2, .infoboxes .infobox .infobox-img, .mymodal .myimage, .options .option, section.first, section.recentshelters .recents .recent .image, section.recommendations, section.contribute .img, section.knowledge, section.shelterimg, section.map, .shelters .shelter .image {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat; }
 
-.contain, .swipe .panes .pane, section.supported .supporters .supporter {
+.contain, .swipe .panes .pane, section.supported .supporters .supporter, section.organisation .orgimage {
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat; }
 
-.fa, .button.button-drop:after, .search-wrapper:before, .mymodal .mymodal-close:after, table tr td span.info:before, section.shelterimg:after, .advanced .advanced-btn:after {
+.fa, .button.button-drop:after, .search-wrapper:before, .mymodal .mymodal-close:after, table tr td span.info:before, section.first .arrow .arrow-down:after, section.shelterimg:after, .advanced .advanced-btn:after {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -219,6 +219,8 @@ strong {
     .button.button-home:hover {
       border-color: #FFF;
       background-color: transparent; }
+  .button.button-right {
+    float: right; }
   .button.button-white {
     border-color: #FFF;
     color: #FFF; }
@@ -343,8 +345,8 @@ section {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1; }
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5); }
   section.background .toplayer {
     position: relative;
     z-index: 2;
@@ -373,17 +375,29 @@ footer {
   -moz-box-flex: 0;
   -moz-flex: 0 1 auto;
   -ms-flex: 0 1 auto;
-  flex: 0 1 auto; }
+  flex: 0 1 auto;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; }
   .flexbox .box {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    -moz-box-flex: 1;
-    -moz-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 100%;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
     padding: 0 10px;
     display: inline-block;
     text-align: center; }
+    @media only screen and (min-width: 768px) {
+      .flexbox .box {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -moz-box-flex: 1;
+        -moz-flex: 1;
+        -ms-flex: 1;
+        flex: 1; } }
     @media only screen and (min-width: 768px) {
       .flexbox .box {
         padding: 0 20px; } }
@@ -412,6 +426,20 @@ a {
 
 .dropdown + .dropdown {
   margin-left: 20px; }
+
+form.myform .mygroup {
+  margin-bottom: 30px; }
+  form.myform .mygroup .error {
+    display: none;
+    color: #CC0000;
+    margin-bottom: 5px;
+    font-size: 0.8em;
+    font-weight: bold;
+    letter-spacing: 1px; }
+  form.myform .mygroup.myerror input, form.myform .mygroup.myerror label, form.myform .mygroup.myerror textarea {
+    border-color: #CC0000; }
+  form.myform .mygroup.myerror .error {
+    display: block; }
 
 form.myform label.button select * {
   background-color: #FFF;
@@ -477,9 +505,9 @@ header {
       font-size: 1.1em; }
   header nav ul {
     border-top: 1px solid #CCC; }
-    header nav ul li {
+    header nav ul > li {
       display: block; }
-      header nav ul li a {
+      header nav ul > li > a {
         cursor: pointer;
         padding: 0 10px;
         border: none;
@@ -489,20 +517,51 @@ header {
         font-size: 0.85em;
         font-weight: 400;
         line-height: 40px; }
-        header nav ul li a.selected {
+        header nav ul > li > a.selected {
           color: #CC0000; }
+        header nav ul > li > a:hover {
+          background-color: rgba(0, 0, 0, 0.03); }
+      header nav ul > li ul.dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: initial;
+        z-index: 1000;
+        min-width: 160px;
+        padding: 0;
+        margin-top: -1px;
+        font-size: 14px;
+        text-align: left;
+        list-style: none;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        -webkit-border-radius: 0;
+        -khtml-border-radius: 0;
+        -moz-border-radius: 0;
+        -ms-border-radius: 0;
+        -o-border-radius: 0;
+        border-radius: 0;
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        -khtml-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        -ms-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        -o-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); }
+        header nav ul > li ul.dropdown-menu > li {
+          display: block; }
+          header nav ul > li ul.dropdown-menu > li > a {
+            padding: 10px 20px; }
   @media only screen and (min-width: 768px) {
     header {
       position: fixed;
       height: 50px; }
-      header nav ul {
+      header nav > ul {
         border-top: none;
-        float: right;
-        margin-right: 5px; }
-        header nav ul li {
+        float: right; }
+        header nav > ul > li {
           display: inline-block;
           text-align: left; }
-          header nav ul li a {
+          header nav > ul > li > a {
             line-height: 50px; } }
   header.landingpage {
     position: absolute;
@@ -511,15 +570,28 @@ header {
     background-color: transparent; }
     header.landingpage nav .home {
       color: #FFF; }
-    header.landingpage nav ul {
+    header.landingpage nav > ul {
       border-bottom: 1px solid #FFF; }
-      header.landingpage nav ul li a {
+      header.landingpage nav > ul > li > a {
         color: #FFF; }
-        header.landingpage nav ul li a:hover {
-          color: #CC0000; }
+        header.landingpage nav > ul > li > a:hover {
+          background-color: rgba(255, 255, 255, 0.1); }
+      header.landingpage nav > ul > li ul.dropdown-menu {
+        background-color: rgba(255, 255, 255, 0.1);
+        box-shadow: none;
+        border: none;
+        margin-top: 1px; }
+        header.landingpage nav > ul > li ul.dropdown-menu a {
+          color: #FFF; }
+          header.landingpage nav > ul > li ul.dropdown-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.2); }
     @media only screen and (min-width: 768px) {
       header.landingpage nav ul {
         border-bottom: none; } }
+
+@media print {
+  header {
+    display: none; } }
 
 @media only screen and (min-width: 768px) {
   main.page {
@@ -551,8 +623,9 @@ header {
     top: 15px;
     left: 16px;
     content: "\f002";
-    color: #666;
-    font-size: 1.3em; }
+    color: #333;
+    font-size: 1.3em;
+    z-index: 100; }
 
 .map2 {
   height: 200px; }
@@ -651,11 +724,22 @@ header {
     border-radius: 3px;
     border: 1px solid #666;
     width: 100%;
-    margin-bottom: 30px;
     font-weight: 300;
     color: #333; }
+  .mymodal .mycheckbox {
+    max-height: 100px; }
+    .mymodal .mycheckbox input[type="checkbox"] {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -ms-appearance: none;
+      -o-appearance: none;
+      appearance: none;
+      display: none; }
+    .mymodal .mycheckbox a {
+      text-decoration: underline !important; }
   .mymodal form.myform label.button {
-    width: 100%; }
+    width: 100%;
+    margin-bottom: 0; }
     .mymodal form.myform label.button select {
       width: 100%;
       letter-spacing: 0px;
@@ -774,23 +858,238 @@ table {
       .swipe .dots .dot.selected {
         background-color: #FFF; }
 
+.checkbox {
+  padding-left: 35px;
+  line-height: 22px;
+  cursor: pointer; }
+  .checkbox i {
+    cursor: pointer;
+    color: #CCC;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 22px;
+    height: 22px;
+    background-color: #FFF;
+    border: 1px solid #CCC;
+    border-radius: 3px;
+    text-align: center;
+    line-height: 20px;
+    margin: 0 !important; }
+
+input[type="checkbox"]:checked + label.checkbox i {
+  background-color: #3498db !important;
+  border-color: #3498db !important;
+  color: #FFF  !important; }
+
+.alert-x {
+  position: absolute;
+  z-index: 1000;
+  max-width: 400px;
+  top: 20px;
+  left: 50%;
+  filter: alpha(opacity=80);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  -webkit-opacity: 0.8;
+  -khtml-opacity: 0.8;
+  -moz-opacity: 0.8;
+  -ms-opacity: 0.8;
+  -o-opacity: 0.8;
+  opacity: 0.8;
+  width: 100%;
+  margin-left: -200px; }
+
+.well {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: transparent;
+  border: none; }
+  .well h2 {
+    color: #333; }
+  .well form label {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 10px; }
+  .well form .form-control {
+    padding: 10px 12px;
+    font-size: 18px;
+    line-height: 1.2;
+    background-color: #FFF;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #666;
+    width: 100%;
+    font-weight: 300;
+    color: #333;
+    height: initial;
+    margin-bottom: 20px; }
+
+@-webkit-keyframes bounce {
+  0%, 32%, 52%, 70%, 100% {
+    -webkit-transform: translateY(0);
+    -khtml-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  40%, 60% {
+    -webkit-transform: translateY(-5px);
+    -khtml-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
+    transform: translateY(-5px); } }
+
+@-moz-keyframes bounce {
+  0%, 32%, 52%, 70%, 100% {
+    -webkit-transform: translateY(0);
+    -khtml-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  40%, 60% {
+    -webkit-transform: translateY(-5px);
+    -khtml-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
+    transform: translateY(-5px); } }
+
+@-ms-keyframes bounce {
+  0%, 32%, 52%, 70%, 100% {
+    -webkit-transform: translateY(0);
+    -khtml-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  40%, 60% {
+    -webkit-transform: translateY(-5px);
+    -khtml-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
+    transform: translateY(-5px); } }
+
+@-o-keyframes bounce {
+  0%, 32%, 52%, 70%, 100% {
+    -webkit-transform: translateY(0);
+    -khtml-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  40%, 60% {
+    -webkit-transform: translateY(-5px);
+    -khtml-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
+    transform: translateY(-5px); } }
+
+@keyframes bounce {
+  0%, 32%, 52%, 70%, 100% {
+    -webkit-transform: translateY(0);
+    -khtml-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  40%, 60% {
+    -webkit-transform: translateY(-5px);
+    -khtml-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
+    transform: translateY(-5px); } }
+
 section.first {
   color: #FFF;
-  background-color: #303030; }
+  background-color: #303030;
+  background-size: 100%; }
   section.first .toplayer {
     padding-top: 180px; }
   section.first .search {
     position: relative;
     margin-top: 40px;
     display: inline-block; }
+    section.first .search .search-wrapper input {
+      font-size: 1em;
+      padding: 12px 20px 12px 50px;
+      filter: alpha(opacity=90);
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+      -webkit-opacity: 0.9;
+      -khtml-opacity: 0.9;
+      -moz-opacity: 0.9;
+      -ms-opacity: 0.9;
+      -o-opacity: 0.9;
+      opacity: 0.9; }
+    section.first .search .search-wrapper:before {
+      top: 11px; }
   section.first p {
     margin: 30px 0; }
+  section.first .arrow {
+    z-index: 100;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    text-align: center; }
+    section.first .arrow .arrow-down {
+      width: 30px;
+      height: 30px;
+      margin: 0 auto;
+      cursor: pointer;
+      -webkit-animation: bounce 1.5s infinite;
+      -khtml-animation: bounce 1.5s infinite;
+      -moz-animation: bounce 1.5s infinite;
+      -ms-animation: bounce 1.5s infinite;
+      -o-animation: bounce 1.5s infinite;
+      animation: bounce 1.5s infinite; }
+      section.first .arrow .arrow-down:after {
+        content: "\f063";
+        font-size: 28px; }
   @media only screen and (min-width: 768px) {
     section.first {
-      min-height: 540px;
+      min-height: 570px;
       height: 100vh; }
       section.first .toplayer {
         padding-top: 100px; } }
+
+section.recentshelters {
+  padding: 30px 0 20px 0;
+  color: #FFF;
+  background-color: #EEE;
+  color: #333; }
+  section.recentshelters .recents {
+    width: 100%;
+    text-align: center; }
+    section.recentshelters .recents .recent {
+      display: block;
+      margin: 0 20px 20px 20px; }
+      section.recentshelters .recents .recent h4 {
+        font-weight: bold;
+        font-size: 18px;
+        margin: 0 0 10px 0; }
+      section.recentshelters .recents .recent .image {
+        background-color: #DDD;
+        width: 100%;
+        height: 130px; }
+      section.recentshelters .recents .recent p {
+        margin: 5px 0; }
+      @media only screen and (min-width: 768px) {
+        section.recentshelters .recents .recent {
+          display: inline-block;
+          margin: 0 20px; }
+          section.recentshelters .recents .recent .image {
+            width: 200px; } }
 
 section.recommendations {
   padding: 50px 0;
@@ -814,21 +1113,25 @@ section.supported .supporters {
     margin: 10px;
     width: 170px;
     height: 100px;
-    filter: alpha(opacity=50);
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-    -webkit-opacity: 0.5;
-    -khtml-opacity: 0.5;
-    -moz-opacity: 0.5;
-    -ms-opacity: 0.5;
-    -o-opacity: 0.5;
-    opacity: 0.5;
-    -webkit-transition: opacity 0.2s;
-    -khtml-transition: opacity 0.2s;
-    -moz-transition: opacity 0.2s;
-    -ms-transition: opacity 0.2s;
-    -o-transition: opacity 0.2s;
-    transition: opacity 0.2s; }
+    filter: alpha(opacity=40);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+    -webkit-opacity: 0.4;
+    -khtml-opacity: 0.4;
+    -moz-opacity: 0.4;
+    -ms-opacity: 0.4;
+    -o-opacity: 0.4;
+    opacity: 0.4;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    -webkit-transition: all 0.2s;
+    -khtml-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s; }
     section.supported .supporters .supporter:hover {
+      -webkit-filter: grayscale(0%);
+      filter: grayscale(0%);
       filter: alpha(opacity=100);
       -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
       -webkit-opacity: 1;
@@ -849,20 +1152,34 @@ section.contribute {
   section.contribute .bt {
     margin: 30px 0; }
 
+section.knowledge {
+  text-align: center;
+  min-height: 400px; }
+  section.knowledge h3 {
+    color: #FFF; }
+  section.knowledge .flexbox .box h4 {
+    color: #FFF; }
+  section.knowledge a {
+    color: #FFF; }
+    section.knowledge a:hover {
+      color: #EEE; }
+
 section.shelterimg {
   height: 400px;
   cursor: pointer; }
   section.shelterimg:after {
-    content: "\f14c";
-    font-size: 40px;
+    content: "\f065";
+    font-size: 30px;
     color: #FFF;
     text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     position: absolute;
-    bottom: 20px;
-    left: 0;
-    right: 0;
+    top: 20px;
+    right: 20px;
     text-align: center;
     z-index: 100; }
+
+section.shelter-main-image {
+  display: none; }
 
 section.shelterheader {
   text-align: center; }
@@ -870,6 +1187,15 @@ section.shelterheader {
     color: #333;
     font-size: 2em;
     margin: 0; }
+
+section.organisation {
+  padding: 10px 0;
+  text-align: center;
+  border-bottom: 1px solid #CCC; }
+  section.organisation .orgimage {
+    margin: 0 auto;
+    width: 300px;
+    height: 100px; }
 
 section.details {
   text-align: center; }
@@ -879,6 +1205,13 @@ section.details {
     margin-bottom: 20px;
     font-size: 1.2em;
     font-weight: bold; }
+
+section .location-image {
+  display: none; }
+
+section .location-map {
+  width: 100%;
+  height: 400px; }
 
 section.search {
   min-height: 100px;
@@ -1010,3 +1343,11 @@ section.map {
 .dc-chart text {
   fill: black !important; }
   
+.select2-container {
+    width: 100% !important;
+}
+
+.print-image {
+	float: right;
+	cursor: pointer;
+}

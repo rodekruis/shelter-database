@@ -5,6 +5,7 @@
     {{ super() }}
     <script src="{{ url_for('static', filename = 'lib/bower/d3/d3.min.js') }}"></script>
 	<script src="{{ url_for('static', filename = 'lib/bower/leaflet/dist/leaflet.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'lib/bower/leaflet-image/leaflet-image.js') }}"></script>
 	<link href="{{ url_for('static', filename = 'lib/bower/leaflet/dist/leaflet.css') }}" rel="stylesheet" media="screen" />
     {% endblock %}
 {% block wrapper_start %}
@@ -14,10 +15,14 @@
         <section class="shelterheader">
             <div class="content">
                 <h1 id="shelter-name">[UNKNOWN NAME]</h1>
+				<i class="fa fa-print print-image" aria-hidden="true" onClick="window.print()"></i>
             </div>
         </section>
-        <section id="coverpicture" class="shelterimg" onclick="modalOpen()" style="background-image: url('{{ url_for('static', filename = 'img/shelter.jpg') }}')">
-            <div class="dots">
+		<section class="shelter-main-image">
+                <img id="coverpictureprint" src="" />
+            </section>
+        <section id="coverpicture" class="shelterimg" onclick="modalOpen()">
+			<div class="dots">
                 <div class="dot selected"></div>
                 <div class="dot"></div>
                 <div class="dot"></div>
@@ -26,7 +31,8 @@
 		<section>
             <div class="details">
 				<h3>Identification</h3>
-			    <div id="location-map" style="width:100%; height:400px;"></div>
+				<div id="location-image" class="location-image"></div>
+			    <div id="location-map" class="location-map"></div>
 				<div class="content">
 					<table id="identification">
 						<tr>
@@ -78,6 +84,21 @@
 				</table>
             </div>
         </section>
+		
+		<div class="mymodal" id="infoDialog">
+			<div class="content page1" id="modalcontent">
+				<div class="page page1">
+						<div class="mylabel" id="myModalLabel"><span id="infoDialogTitle"></span></div>
+						<div align="center" id="listOfPictures"></div>
+					
+						<div class="buttons">
+							<div onclick="infoDialogClose()" class="button button-light"><i class="fa fa-times"></i><span class="text">Close</span></div>
+						</div>
+				</div>
+			</div>
+		</div>
+		
+		
 		
 {% endblock %}
 
@@ -162,16 +183,24 @@
 				
 				// add location of shelter to map
 				L.marker([lat, lon]).addTo(map);
-				
+					
 				// add pictures
-				addCoverPicture('#coverpicture', data[shelter_id]['Identification']);
+				addCoverPictures('#coverpicture', '#coverpictureprint', data[shelter_id]['Identification']);
 				addSwipePictures('#modalIdentification', data[shelter_id]['Identification']);
+				
+				// convert map to image for better printing
+				leafletImage(map, function(err, canvas) {
+					// now you have canvas
+					// example thing to do with that canvas:
+					$('#location-image').prepend('<img id="location-image-picture" src="'+ canvas.toDataURL() + '" />')		
+				});
 			}
 		});
 		
-		function addCoverPicture(elementId, section){
+		function addCoverPictures(coverpicture, printpicture, section){
 			if(typeof section['Cover'] !== 'undefined' && section['Cover'].length > 0) {
-				$(elementId).css("background-image", "url('/" + section['Cover'][0] + "')");		
+				$(coverpicture).css("background-image", "url('/" + section['Cover'][0] + "')");	
+				$(printpicture).attr("src", "/" + section['Cover'][0]);					
 			}
 		}
 		
@@ -224,15 +253,19 @@
 
 			// Add column with attribute names
 			rows.append('th').append('b')
-				.attr('class', 'attribute-multimedia-asset')
-				.attr('style', 'border-bottom: 1px dotted #000000; cursor:pointer;')
 			    .text(function (d) { 
 					return d.attribute; 
+					
 				});
 			 
 			// Add column with values
 			rows.append('td')
-			  .text(function (d) { return d.value; });
+					.text(function (d) { return d.value; })
+				.append('span')
+					.attr("class", function (d) { 
+						// TODO test if attribute has drawing
+						return "info attribute-multimedia-asset"})
+					.attr("value", function (d) { return d.attribute;});
 		}
 	</script>
     <script type="text/javascript">
@@ -241,7 +274,7 @@
 			$(document).on('click', '.attribute-multimedia-asset' , show_multimedia_assets);
 		
 			function retrieve_and_display_multimedia_asset(attributeName) {
-				var filters = [{"name":"name","op":"eq","val":attributeName}];
+				var filters = [{"name":"name","op":"eq","val": attributeName}];
 				$.ajax({
 					type: 'GET',
 					url: '/api/attribute',
@@ -250,18 +283,20 @@
 					data: {"q": JSON.stringify({"filters": filters})},
 					success: function(result) {
 						$('#listOfPictures').empty();
-						result.objects[0].pictures.map(function(picture) {
-							oImg = document.createElement("img");
-							oImg.setAttribute('src', '/public/pictures/attributes/en/' + picture.file_name );
-							oImg.setAttribute('alt', picture.file_name);
-							oImg.setAttribute('title', picture.file_name);
-							oImg.setAttribute('height', '600px');
-							oImg.setAttribute('width', '600px');
-							$('#listOfPictures').append(oImg);
-							$('#listOfPictures').append(document.createElement("hr"));
-						})
-						$('#listOfPictures hr:last-child').remove();
-						$('#infoDialog').modal({backdrop:'static', keyboard:false});
+						if(result.objects.length > 0){
+							result.objects[0].pictures.map(function(picture) {
+								oImg = document.createElement("img");
+								oImg.setAttribute('src', "{{ url_for('static', filename = 'pictures/attributes/en/')}}" + picture.file_name );
+								oImg.setAttribute('alt', picture.file_name);
+								oImg.setAttribute('title', picture.file_name);
+								oImg.setAttribute('height', '600px');
+								oImg.setAttribute('width', '600px');
+								$('#listOfPictures').append(oImg);
+								$('#listOfPictures').append(document.createElement("hr"));
+							})
+							$('#listOfPictures hr:last-child').remove();
+							infoDialogOpen();
+						}
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown){
 						//document.getElementById("geolocation").innerHTML = XMLHttpRequest.responseText;
@@ -272,11 +307,9 @@
 			function show_multimedia_assets(evt) {
 				evt = evt || window.event; // The event that was fired
 				var targ = evt.target || evt.srcElement; // the element that was clicked
-				var el = this; // the element that fired the event
 
 				$('#infoDialogTitle').text("Description");
-				//var attrId = $(el).attr('attrId');
-				var attrName = ($el).innerText;
+				var attrName = $(this).attr("value");
 
 				retrieve_and_display_multimedia_asset(attrName);
 
@@ -285,6 +318,21 @@
 		
 	
 </script>
+
+<script type="text/javascript">
+            var cnt = document.getElementById("modalcontent")
+            var wrapper = document.getElementById("wrapper")
+            var page = 1
+            var infoDialogOpen = function(){
+                wrapper.className = "modal-open"
+            }
+            var infoDialogClose = function(){
+                wrapper.className = ""
+                page = 1
+                cnt.className = "content page1"
+            }
+    </script>
+	
 {% endblock %}
 {% block wrapper_end %}
 </div>

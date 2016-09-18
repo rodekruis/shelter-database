@@ -1,26 +1,37 @@
 {% extends "layout.html" %}
 {% block content %}
-        <section class="recommendations background first" style="background-image: url('{{ url_for('static', filename='img/2.jpg') }}')">
-            <div class="overlay"></div>
-            <div class="toplayer">
-                <h3>Knowledge Base</h3>
-                <div class="flexbox">
-                    <div class="box">
-                        <a href="page/Bibliography"><i class="head_no_color fa fa-book fa-inverse"></i></a>
-						<h4>Bibliography</h4>
-                    </div>
-                    <div class="box">
-					    <a href="page/Glossary"><i class="head_no_color fa fa-list fa-inverse"></i></a>
-						<h4>Glossary</h4>
-                    </div>
-					<div class="box">
-                        <a href="page/Recommendations"><i class="head_no_color fa fa-thumbs-up fa-inverse"></i></a>
-						<h4>Recommendations</h4>
-                    </div>
+        <section class="contribute">
+                <div class="content">
+                    <h1>Knowledge Database</h1>
+                    <p>As open Shelter Database we share knowledge</p>
                 </div>
+            </section>
+            <section class="knowledge background" style="background-image: url('{{ url_for('static', filename='img/2.jpg') }}')">
+                <div class="overlay"></div>
+                <div class="toplayer">
+                    <h3>Choose your Section</h3>
 
-                <!-- <p></p> -->
+                    <div class="flexbox">
+                        <div class="box">
+                            <a href="page/Bibliography">
+                                <i class="head_no_color fa fa-book fa-inverse"></i>
+                                <h4>Bibliography</h4>
+                            </a>
+                        </div>
+                        <div class="box">
+                            <a href="page/Glossary">
+                                <i class="head_no_color fa fa-list fa-inverse"></i>
+                                <h4>Glossary</h4>
+                            </a>
+                        </div>
+                        <div class="box">
+                            <a href="page/Recommendations">
+                                <i class="head_no_color fa fa-thumbs-up fa-inverse"></i>
+                                <h4>Recommendations</h4>
+                            </a>
+                        </div>
+                    </div>
 
-            </div>
-        </section>
+                </div>
+            </section>
 {% endblock %}

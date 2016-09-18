@@ -2,17 +2,20 @@
 {% block head %}
     {{ super() }}
 	<script src="{{ url_for('static', filename = 'lib/bower/leaflet/dist/leaflet.js') }}"></script>
-	<script src="{{ url_for('static', filename='lib/leaflet-geosearch/src/js/l.control.geosearch.js') }}"></script>
-	<script src="{{ url_for('static', filename='lib/leaflet-geosearch/src/js/l.geosearch.provider.google.js') }}"></script>
-	<script src="{{ url_for('static', filename='lib/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.js') }}"></script>
-	<script src="{{ url_for('static', filename='lib/Leaflet.label/dist/leaflet.label.js') }}"></script>
-	<script src="{{ url_for('static', filename='lib/dropzone/dist/dropzone.js') }}"></script>
+	<script src="{{ url_for('static', filename='lib/bower/leaflet-geosearch/src/js/l.control.geosearch.js') }}"></script>
+	<script src="{{ url_for('static', filename='lib/bower/leaflet-geosearch/src/js/l.geosearch.provider.google.js') }}"></script>
+	<script src="{{ url_for('static', filename='lib/bower/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.js') }}"></script>
+	<script src="{{ url_for('static', filename='lib/bower/Leaflet.label/dist/leaflet.label.js') }}"></script>
+	<script src="{{ url_for('static', filename='lib/bower/dropzone/dist/dropzone.js') }}"></script>
+	<script src="{{ url_for('static', filename='lib/bower/select2/dist/js/select2.full.min.js') }}"></script>
 	<script src="{{ url_for('static', filename='js/edit-shelter.js') }}"></script>
 	
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/leaflet/dist/leaflet.css') }}" rel="stylesheet" media="screen" />
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.css') }}" />
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/Leaflet.label/dist/leaflet.label.css') }}" />
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/dropzone/dist/dropzone.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/bower/leaflet/dist/leaflet.css') }}" rel="stylesheet" media="screen" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/bower/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/bower/Leaflet.label/dist/leaflet.label.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/bower/dropzone/dist/dropzone.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/bower/select2/dist/css/select2.min.css') }}" />
+
 {% endblock %}
 
 {% block wrapper_start %}
@@ -52,37 +55,51 @@
     <div class="mymodal">
         <div class="content page1" id="modalcontent">
             <div class="page page1">
-			    <form id="createShelterForm" action="#" method="GET" name="save" class="myform">
-					<div class="mylabel">Title of your project:</div>
-					<div class="myinput"><input type="text" name="name" placeholder="Name" required /></div>
-					<div class="mylabel">Country:</div>
+			    <form class="myform" id="createShelterForm" action="#" method="GET" name="save">
+					<div class="mygroup">
+						<div class="mylabel">Title of your project:</div>
+						<p class="error">This field is required</p>
+						<div class="myinput"><input class="required-input" type="text" name="name" placeholder="Name" /></div>
+					</div>
 
-                    <label for="countrySelect" class="button button-drop">
-                        <select id="countrySelect" name="country" data-live-search="true" required></select>
-                    </label>
+					<div class="mygroup">
+						<div class="mylabel">Country:</div>
+						<p class="error">This field is required</p>
+						<label for="countrySelect" class="button button-drop">
+							<select id="countrySelect" name="country" data-live-search="true" ></select>
+						</label>
+					</div>
                 
 					<!-- <a href="" class="button button-light button-drop button-stretch">Select</a> -->
 					<div class="buttons">
 						<div onclick="modalClose()" class="button button-light"><i class="fa fa-times"></i><span class="text">Cancel</span></div>
 						<!--<button type="submit" id="createShelter" class="btn btn-default form-control" value="Create">Create</button>	-->			                   
-					   <div id="createShelter" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+					   <div id="createShelter" class="button button-light button-right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
 					</div>
 				</form>
             </div>
-			<form id="saveAdditional" action="#" method="GET" name="saveAdditional" class="myform">
+			<form class="myform" id="saveAdditional" action="#" method="GET" name="saveAdditional">
+
 			<div class="page page2">
-                <div class="mylabel">Who is the implementing organization?</div>
-                <div class="myinput"><input class="free-text-attribute" required id="2269" property-id="" attribute-id="16" category-id="4" value-id="None" value="" type="text" name="" placeholder="implementing organization" /></div>
-							
+				<div class="mygroup">
+					<div class="mylabel">Who is the implementing organization?</div>
+					<p class="error">This field is required</p>
+
+					<select class="organizations" id="2269" property-id="" attribute-id="16" category-id="4" value-id="None" value="" type="text" name="">
+					  <option value="-1" selected="selected">Your organization</option>
+					</select>
+				</div>
                 <div class="buttons">
                     <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
-                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                    <div onclick="next()" class="button button-light button-right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
                 </div>
             </div>
             <div class="page page3">
-				<div class="mylabel">What is the year of construction of the first shelters?</div>
-				<div class="myinput"><input type="number" name="yearofconstructionfirstshelters" required id="3674" class="free-text-attribute" property-id="" attribute-id="36" category-id="8" value-id="None" value="" placeholder="2016"></div>
-				
+				<div class="mygroup">
+					<div class="mylabel">What is the year of construction of the first shelters?</div>
+					<p class="error">This field is required</p>
+					<div class="myinput"><input type="number" name="yearofconstructionfirstshelters" required id="3674" class="free-text-attribute" property-id="" attribute-id="36" category-id="8" value-id="None" value="" placeholder="2016"></div>
+				</div>
 				<div class="mylabel">Where is the shelter located?</div>
 				<div id="locationpicker" style="width:100%; height:250px;">
 					<input type="hidden" id="latitude" name="lattitude" required class="free-text-attribute" property-id="" attribute-id="8" category-id="2" value-id="None" value="">
@@ -92,28 +109,30 @@
 				
                 <div class="buttons">
                     <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
-                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                    <div onclick="next()" class="button button-light button-right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
                 </div>
             </div>
 			<div class="page page4">	
 				<div class="mylabel">What type of disaster is the shelter associated with?</div>
-
+				<p class="error">This field is required</p>
 				<label for="associatedDisasterSelect" class="button button-drop">
 					<select id="associatedDisasterSelect" name="associateddisaster" required class="select-attribute" property-id="" attribute-id="13" category-id="4" id="select13" data-live-search="true">
 						  <option value=""></option>
 					</select>
 				</label>
 				
-				<div class="mylabel">What type of humanitarian response is it?</div>
-				<label for="shelterTypeSelect" class="button button-drop">
-					<select id="shelterTypeSelect" required class="select-attribute" property-id="" attribute-id="21" category-id="4" id="select21">
-						  <option value=""></option>
-					</select>
-				</label>
+				<div class="mygroup">
+					<div class="mylabel">What type of humanitarian response is it?</div>
+					<label for="shelterTypeSelect" class="button button-drop">
+						<select id="shelterTypeSelect" required class="select-attribute" property-id="" attribute-id="21" category-id="4" id="select21">
+							  <option value=""></option>
+						</select>
+					</label>
+				</div>
 
 				<div class="buttons">
                     <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
-                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                    <div onclick="next()" class="button button-light button-right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
                 </div>
             </div>
 			<!--
@@ -139,30 +158,41 @@
 			</form>
             
 			<div class="page page5">
-				<div class="mylabel">Upload photos of the shelter</div>
-				<div id="uploader">
-				   <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
-				   <div class="fallback">
-					   <input id="files" multiple="true" name="files" type="file">
+				<div class="mygroup">
+					<div class="mylabel">Upload photos of the shelter</div>
+					<p class="error">This field is required</p>
+					<div id="uploader">
+					   <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+					   <div class="fallback">
+						   <input id="files" multiple="true" name="files" type="file">
+						</div>
 					</div>
 				</div>
 			
 				<div class="buttons">
                     <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
-                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                    <div onclick="next()" class="button button-light button-right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
                 </div>
                 
             </div>
 			<div class="page page6">
-				<div class="mylabel">What is the unit cost of the shelter (USD)?</div>
-				<div class="myinput"><input type="number" required class="free-text-attribute" id="2486" property-id="" attribute-id="49" category-id="8" value-id="None" value=""></div>
-			
-				<div class="mylabel">What is the number of inhabitants of the shelter?</div>
-				<div class="myinput"><input type="number" required min="1" max="200" class="free-text-attribute" id="1996" property-id="" attribute-id="37" category-id="8" value-id="None" value=""></div>
-			    
-				<div class="mylabel">What is the total surface area in square meters (m2)?</div>				
-				<div class="myinput"><input type="number" required class="free-text-attribute" id="2274" property-id="" attribute-id="45" category-id="8" value-id="None" value=""></div>
-                
+				<div class="mygroup">
+					<div class="mylabel">What is the unit cost of the shelter (USD)?</div>
+					<p class="error">This field is required</p>
+					<div class="myinput"><input type="number" required class="free-text-attribute" id="2486" property-id="" attribute-id="49" category-id="8" value-id="None" value=""></div>
+				</div>
+				
+				<div class="mygroup">
+					<div class="mylabel">What is the number of inhabitants of the shelter?</div>
+					<p class="error">This field is required</p>
+					<div class="myinput"><input type="number" required min="1" max="200" class="free-text-attribute" id="1996" property-id="" attribute-id="37" category-id="8" value-id="None" value=""></div>
+			    </div>
+				
+				<div class="mygroup">
+					<div class="mylabel">What is the total surface area in square meters (m2)?</div>	
+					<p class="error">This field is required</p>					
+					<div class="myinput"><input type="number" required class="free-text-attribute" id="2274" property-id="" attribute-id="45" category-id="8" value-id="None" value=""></div>
+				</div>
 				<div class="buttons">
                     <div onclick="next()" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
                 </div>
@@ -232,7 +262,61 @@
 				//fetch shelter types
 				fetchShelterTypes();
             });
+			
 
+			$(".organizations").select2({
+				  tags: true,
+				  createTag: function (params) {
+					return {
+					  id: params.term,
+					  text: params.term,
+					  newOption: true
+					}
+				  },
+				  templateResult: function (data) {
+					var $result = $("<span></span>");
+
+					$result.text(data.text);
+
+					if (data.newOption) {
+					  $result.append(" <em>(new)</em>");
+					}
+
+					return $result;
+				  },
+				  ajax: {
+					url: "https://www.humanitarianresponse.info/api/v1.0/organizations?autocomplete[operator]=CONTAINS&fields=label,id",
+					dataType: 'json',
+					delay: 250,
+					data: function (params) {
+					  return 'autocomplete[string]=' + params.term; // search term
+					},
+					processResults: function (data, page) {
+					  // parse the results into the format expected by Select2.
+					  // since we are using custom formatting functions we do not need to
+					  // alter the remote JSON data
+					  
+					  var keys = Object.keys(data.data);
+					  var items = [];
+					  for (var j=0; j < keys.length; j++) {
+						items.push({
+							id: j,
+							text: data.data[keys[j]]
+						});
+					  }
+					  
+					  return {
+						
+						results: items
+					  };
+					},
+					cache: true
+				  },
+				  escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+				  minimumInputLength: 1
+					
+			}); 
+			
             //Attach a submit handler to the form
 			$('#createShelter').on( "click", function() {
                 // Get some values from elements on the page:
@@ -460,9 +544,22 @@
 			if (!dateSupported) {
 				$( ".datepicker" ).datepicker({dateFormat: 'dd/mm/yyyy'});
 			}
+			
+			$('.organizations').on("select2:select", function (e) { 
+				value_id = $(e.target).attr("value-id");
+				var value = e.params.data.text;
+
+				if (value_id != "None") {
+					update_free_text_value(value_id, value);
+				} else {
+					var category_id = $('.organizations').attr("category-id");
+					var attribute_id = $('.organizations').attr("attribute-id");
+					new_free_text_property(shelter_id, category_id, attribute_id, value, $(e.target));
+				}
+			});
 
 
-			$('.select-attribute').change(function(evt) {
+			$('.select-attribute').change(function(evt) {			
 				property_id = $(evt.target).attr("property-id");
 				id_of_values = $(evt.target).val();
 				if (typeof id_of_values === 'string') {
@@ -491,7 +588,15 @@
 			});
 
 			$('.free-text-attribute').change(function(evt) {
-				editFreeTextOrDate(evt);
+				if( $(evt.target).hasClass('required-input') && !$(evt.target).val() ) {
+					// add myerror class to parent div
+					$(this).parent().parent().addClass('myerror');
+				} else {
+					// remove myerror class
+					$(this).parent().parent().removeClass('myerror');
+					// edit attribute
+					editFreeTextOrDate(evt);
+				}				
 			});
 			
 			var editFreeTextOrDate = function (evt){
@@ -513,43 +618,12 @@
 					new_free_text_property(shelter_id, category_id, attribute_id, value, $(evt.target));
 				}
 			}
-
-			$('.add-value').click(function(evt) {
-				attribute_id = $(evt.target).attr('attribute-id');
-				$('#addValueDialog').attr('attribute-id', attribute_id);
-				$('#addValueDialog').modal({backdrop:'static', keyboard:false});
-			})
-
-			$('#add-new-value').click(function(evt) {
-
-				new_value = {
-					attribute_id: $('#addValueDialog').attr('attribute-id'),
-					name: $('#new-value-input').val()
-				}
-				$.ajax({
-					type: 'POST',
-					url: '/api/value',
-					contentType: "application/json",
-					dataType: "json",
-					data: JSON.stringify(new_value),
-					success: function (result) {
-						$('#select'+attribute_id)
-							.append($("<option></option>")
-										.attr("value", result.id)
-										.text(result.name));
-						$('.selectpicker').selectpicker('refresh');
-					},
-					error: function(XMLHttpRequest, textStatus, errorThrown){
-						console.log(errorThrown);
-					}
-				});
-			})
 		});
 	
 	</script>
 
     <script type="text/javascript">
-                    var cnt = document.getElementById("modalcontent")
+            var cnt = document.getElementById("modalcontent")
             var wrapper = document.getElementById("wrapper")
             var page = 1
             var modalOpen = function(){

@@ -18,6 +18,7 @@
 	<link href="{{ url_for('static', filename = 'lib/bower/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" media="screen" />
 	<link href="{{ url_for('static', filename = 'lib/bower/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" media="screen" />
 	<link href="{{ url_for('static', filename='css/style_new.css') }}" rel="stylesheet" media="screen" />
+    <link href="{{ url_for('static', filename='css/print.css')}}" rel="stylesheet" media="print">
     <link href="{{ url_for('static', filename='css/style-dashboard.css')}}" rel="stylesheet" media="screen" />
 	
 	<script src="{{ url_for('static', filename = 'lib/bower/jquery/dist/jquery.min.js') }}"></script>
@@ -70,7 +71,7 @@
 		</header>
 
 		<main class="page">
-			<div class="container">
+			<div class="container alert-x">
 				{% with messages = get_flashed_messages(with_categories=true) %}
 				{% if messages %}
 					{% for category, message in messages %}
