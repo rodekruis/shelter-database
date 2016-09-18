@@ -172,7 +172,7 @@
 				var lon = data[shelter_id]['Identification']['Attributes']['GPS Longitude'];
 				
 				// Initiate leaflet map
-				var map = L.map('location-map').setView([lat, lon], 13);
+				var map = L.map('location-map', {tap:false}).setView([lat, lon], 13);
 				
 				// Add OSM base layer
 				L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
