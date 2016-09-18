@@ -18,7 +18,7 @@ from bootstrap import db, app
 from sqlalchemy.sql import func, select, desc
 from flask import Blueprint, jsonify, request, json, Response
 from collections import defaultdict
-from web.models import Shelter, Attribute, Property, Value, Association, ShelterPicture, Category, Tsvector, Translation
+from web.models import Shelter, Attribute, AttributePicture, Property, Value, Association, ShelterPicture, Category, Tsvector, Translation
 
 import conf, os.path
 
@@ -41,7 +41,7 @@ def documentation():
     
     NOT IMPLEMENTED
     """
-    return "hm"
+    return ""
 
 @apiv02_bp.route('/worldmap', methods=['GET'])
 def worldmap():
@@ -54,6 +54,30 @@ def worldmap():
 		data = json.load(f, encoding='utf-8')
 	return Response(json.dumps(data), mimetype='application/json;charset=utf-8')
 	#return app.send_static_file('data/world_borders.geojson')
+
+@apiv02_bp.route('/attributes/pictures/<language_code>', methods=['GET'])
+def attribute_pictures(language_code='en'):
+    """
+    Retrieve attribute pictures
+    
+    :param language_code: language code 
+    :type language_code: string
+    """
+    
+    result = tree()
+    
+    picpath = os.path.relpath(conf.ATTRIBUTES_PICTURES_PATH)
+    
+    query = db.session.query(Attribute.name, Category.name.label("category_name"), func.array_agg(picpath + '/' + AttributePicture.file_name).label("file_names"))\
+    		.join(AttributePicture, Attribute.id==AttributePicture.attribute_id)\
+    		.join(Category, Category.id==Attribute.category_id)\
+    		.filter(AttributePicture.language_code==language_code)\
+    		.group_by(Category.name, Attribute.name)
+   
+    for a in query:
+    	result[a.category_name][a.name] = a.file_names
+    
+    return jsonify(result)
 	
 @apiv02_bp.route('/attributes/<attribute_name>', methods=['GET'])
 def getattributes(attribute_name, safetext=False):
@@ -171,10 +195,14 @@ def allshelters(shelter_id=None):
     ##queries if no request arguments
     shelter_properties = querybase
     shelter_pictures = picquerybase
+     
         	
     if shelter_id:
     	shelter_properties = shelter_properties.filter(Property.shelter_id==shelter_id)
     	shelter_pictures = shelter_pictures.filter(ShelterPicture.shelter_id==shelter_id)
+    	
+    
+    
     
     if request.args.getlist('attribute'):
     	attribute = request.args.getlist('attribute')	
@@ -240,6 +268,9 @@ def allshelters(shelter_id=None):
 def latestshelters(count=1):
     """
     Retrieves latest shelters (updates to existing shelters also count)
+    
+    :param count: number of latest shelters to return
+    :type count: int
     """
     result = tree()
     
@@ -329,4 +360,3 @@ def latestshelters(count=1):
     			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
   
     return jsonify(result)
-

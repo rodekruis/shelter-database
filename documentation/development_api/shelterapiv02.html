@@ -112,6 +112,23 @@ separated by semicolons</p>
 </dd></dl>
 
 <dl class="get">
+<dt id="get--api-v0.2-attributes-pictures-(language_code)">
+<code class="descname">GET </code><code class="descname">/api/v0.2/attributes/pictures/</code><span class="sig-paren">(</span><em>language_code</em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-v0.2-attributes-pictures-(language_code)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve attribute pictures</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>language_code</strong> (<em>string</em>) &#8211; language code</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
 <dt id="get--api-v0.2-documentation">
 <code class="descname">GET </code><code class="descname">/api/v0.2/documentation</code><a class="headerlink" href="#get--api-v0.2-documentation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves this documentation in JSON format</p>
@@ -135,11 +152,11 @@ GET http://0.0.0.0:5000/api/v0.2/shelters
 # get shelter whith shelter ID 11
 GET http://0.0.0.0:5000/api/v0.2/shelters/11
 
-# get all shelters which have attribute number of rooms defined
-GET http://0.0.0.0:5000/api/v0.2/shelters?attribute=numberofrooms
+# get all shelters which have attribute &#39;storeys&#39; 
+GET http://0.0.0.0:5000/api/v0.2/shelters?attribute=storeys
 
-
-GET http://0.0.0.0:5000/api/v0.2/shelters?attribute=blabla&amp;value=blable
+# get all shelters which have 2 storeys
+GET http://0.0.0.0:5000/api/v0.2/shelters?attribute=storeys&amp;value=2
 </pre></div>
 </div>
 </div></blockquote>
@@ -155,11 +172,33 @@ GET http://0.0.0.0:5000/api/v0.2/shelters?attribute=blabla&amp;value=blable
 <tr class="field-even field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
 <li><strong>format</strong> &#8211; if set to <code class="docutils literal"><span class="pre">prettytext</span></code>, 
-attribute names are retrieved and nicely formatted text 
+attribute names are retrieved as nicely formatted text 
 (Capital letters, special characters and spaces allowed)</li>
-<li><strong>attribute</strong> &#8211; Filter results which contain supplied attribute name</li>
-<li><strong>value</strong> &#8211; Filter results which contain supplied value</li>
+<li><strong>attribute</strong> &#8211; attribute name</li>
+<li><strong>value</strong> &#8211; attribute value</li>
 <li><strong>q</strong> &#8211; Full text search. Works in English language only.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--api-v0.2-shelters-latest-(int-count)">
+<code class="descname">GET </code><code class="descname">/api/v0.2/shelters/latest/</code><span class="sig-paren">(</span><em class="property">int: </em><em>count</em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-v0.2-shelters-latest-(int-count)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="get">
+<dt id="get--api-v0.2-shelters-latest">
+<code class="descname">GET </code><code class="descname">/api/v0.2/shelters/latest</code><a class="headerlink" href="#get--api-v0.2-shelters-latest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves latest shelters (updates to existing shelters also count)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>count</strong> (<em>int</em>) &#8211; number of latest shelters to return</li>
 </ul>
 </td>
 </tr>
