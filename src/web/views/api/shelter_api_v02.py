@@ -55,6 +55,7 @@ def worldmap():
 	return Response(json.dumps(data), mimetype='application/json;charset=utf-8')
 	#return app.send_static_file('data/world_borders.geojson')
 
+@apiv02_bp.route('/attributes/pictures', methods=['GET'])
 @apiv02_bp.route('/attributes/pictures/<language_code>', methods=['GET'])
 def attribute_pictures(language_code='en'):
     """
@@ -66,9 +67,9 @@ def attribute_pictures(language_code='en'):
     
     result = tree()
     
-    picpath = os.path.relpath(conf.ATTRIBUTES_PICTURES_PATH)
-    
-    query = db.session.query(Attribute.name, Category.name.label("category_name"), func.array_agg(picpath + '/' + AttributePicture.file_name).label("file_names"))\
+    picpath = os.path.relpath(conf.ATTRIBUTES_PICTURES_PATH)[8:]
+   
+    query = db.session.query(Attribute.name, Category.name.label("category_name"), func.array_agg(picpath + '/' + language_code + '/' + AttributePicture.file_name).label("file_names"))\
     		.join(AttributePicture, Attribute.id==AttributePicture.attribute_id)\
     		.join(Category, Category.id==Attribute.category_id)\
     		.filter(AttributePicture.language_code==language_code)\
