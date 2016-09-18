@@ -107,6 +107,8 @@ SHELTERS_DOCUMENTS_PATH = os.path.join(PATH,
 ATTRIBUTES_PICTURES_PATH = os.path.join(PATH,
                             config.get('misc', 'attributes_pictures_path'))
 
+ATTRIBUTES_PICTURES_PATH_PUBLIC = config.get('misc', 'attributes_pictures_path')
+
 GEOSERVER_URL = config.get('geoserver', 'geoserver_url')
 
 NOTIFICATION_HOST = config.get('notification', 'notification_host')
