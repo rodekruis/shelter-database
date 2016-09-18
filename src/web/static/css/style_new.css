@@ -1351,3 +1351,7 @@ section.map {
 	float: right;
 	cursor: pointer;
 }
+
+.attribute-drawing {
+	width: 50%;
+}

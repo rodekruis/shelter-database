@@ -84,32 +84,23 @@
 				</table>
             </div>
         </section>
-		
-		<div class="mymodal" id="infoDialog">
-			<div class="content page1" id="modalcontent">
-				<div class="page page1">
-						<div class="mylabel" id="myModalLabel"><span id="infoDialogTitle"></span></div>
-						<div align="center" id="listOfPictures"></div>
-					
-						<div class="buttons">
-							<div onclick="infoDialogClose()" class="button button-light"><i class="fa fa-times"></i><span class="text">Close</span></div>
-						</div>
-				</div>
-			</div>
-		</div>
-		
-		
+				
 		
 {% endblock %}
 
 {% block footer %}
-		<div class="mymodal">
+		<div class="mymodal" id="main-image-swipe">
             <div class="mymodal-close" onclick="modalClose()"></div>
             <div class="swipe">
                 <div id="modalIdentificationPanes" class="panes"></div>
                 <div id="modalIdentificationDots" class="dots"></div>
             </div>
         </div>
+		
+		<div class="mymodal" id="infoDialog">
+			<div class="mymodal-close" onclick="modalClose()"></div>
+			<div align="center" id="listOfPictures"></div>
+		</div>
 		
 	<script type="text/javascript">
         var wrapper = document.getElementById("wrapper")
@@ -128,7 +119,13 @@
 	
 	<script type="text/javascript" class="source">
 		var shelter_id = {{shelter_id}};
-
+		var attributes;
+		
+		// get all attributes with drawings
+		d3.json('/api/v0.2/attributes/pictures/en', function (error, data) {
+			attributes = data;
+		});
+		
 		d3.json('/api/v0.2/shelters/' + shelter_id + '?format=prettytext', function (error, data) {
 		  
 			
@@ -137,25 +134,25 @@
 			if(typeof data[shelter_id]['Site'] !== 'undefined') {
 				var site = data[shelter_id]['Site']['Attributes'];
 				$("#site").empty();
-				tabulate('#site', site, d3.keys(site));
+				tabulate('#site', 'Site', site, d3.keys(site));
 			}
 			
 			if(typeof data[shelter_id]['General'] !== 'undefined') {
 				var general = data[shelter_id]['General']['Attributes'];
 				$("#general").empty();
-				tabulate("#general", general, d3.keys(general));
+				tabulate("#general", 'General', general, d3.keys(general));
 			}
 			
 			if(typeof data[shelter_id]['Disaster & Response'] !== 'undefined') {
 				var disasterresponse = data[shelter_id]['Disaster & Response']['Attributes'];
 				$("#disasterresponse").empty();
-				tabulate("#disasterresponse", disasterresponse, d3.keys(disasterresponse));
+				tabulate("#disasterresponse", 'Disaster & Response', disasterresponse, d3.keys(disasterresponse));
 			}
 			
 			if(typeof data[shelter_id]['Foundation'] !== 'undefined') {
 				var foundation = data[shelter_id]['Foundation']['Attributes'];
 				$("#foundation").empty();
-				tabulate("#foundation", foundation, d3.keys(foundation));
+				tabulate("#foundation", 'Foundation', foundation, d3.keys(foundation));
 			}
 			
 			if(typeof data[shelter_id]['Identification'] !== 'undefined') {
@@ -165,7 +162,7 @@
 				// add attributes
 				var identification = data[shelter_id]['Identification']['Attributes'];
 				$("#identification").empty();
-				tabulate("#identification", identification, d3.keys(identification));
+				tabulate("#identification", 'Identification', identification, d3.keys(identification));
 			
 				// Get coordinates for this shelter
 				var lat = data[shelter_id]['Identification']['Attributes']['GPS Latitude'];
@@ -237,7 +234,7 @@
 			}
 		}
 
-		function tabulate(table_id, d, columns) {
+		function tabulate(table_id, section, d, columns) {
 
 			// convert object keys to an attribute value pair
 			var data = Object.keys(d).map(function(k) { return {attribute:k, value:d[k]} })
@@ -264,55 +261,45 @@
 				.append('span')
 					.attr("class", function (d) { 
 						// TODO test if attribute has drawing
-						return "info attribute-multimedia-asset"})
-					.attr("value", function (d) { return d.attribute;});
+						if(hasOwnProperty.call(attributes, section) && hasOwnProperty.call(attributes[section], d.attribute)){
+							return "info attribute-multimedia-asset";
+						}
+						else {
+							return '';
+						}
+					})
+					.attr("attribute-name", function (d) { return d.attribute;})
+					.attr("section-name", function (d) { return section;});
 		}
 	</script>
     <script type="text/javascript">
 	
 	$(document).ready(function() {
 			$(document).on('click', '.attribute-multimedia-asset' , show_multimedia_assets);
-		
-			function retrieve_and_display_multimedia_asset(attributeName) {
-				var filters = [{"name":"name","op":"eq","val": attributeName}];
-				$.ajax({
-					type: 'GET',
-					url: '/api/attribute',
-					contentType: "application/json",
-					dataType: "json",
-					data: {"q": JSON.stringify({"filters": filters})},
-					success: function(result) {
-						$('#listOfPictures').empty();
-						if(result.objects.length > 0){
-							result.objects[0].pictures.map(function(picture) {
-								oImg = document.createElement("img");
-								oImg.setAttribute('src', "{{ url_for('static', filename = 'pictures/attributes/en/')}}" + picture.file_name );
-								oImg.setAttribute('alt', picture.file_name);
-								oImg.setAttribute('title', picture.file_name);
-								oImg.setAttribute('height', '600px');
-								oImg.setAttribute('width', '600px');
-								$('#listOfPictures').append(oImg);
-								$('#listOfPictures').append(document.createElement("hr"));
-							})
-							$('#listOfPictures hr:last-child').remove();
-							infoDialogOpen();
-						}
-					},
-					error: function(XMLHttpRequest, textStatus, errorThrown){
-						//document.getElementById("geolocation").innerHTML = XMLHttpRequest.responseText;
-					}
-					}); // ajax closed
-			}
 
-			function show_multimedia_assets(evt) {
-				evt = evt || window.event; // The event that was fired
-				var targ = evt.target || evt.srcElement; // the element that was clicked
-
-				$('#infoDialogTitle').text("Description");
-				var attrName = $(this).attr("value");
-
-				retrieve_and_display_multimedia_asset(attrName);
-
+			function show_multimedia_assets(e) {
+				var attribute = $(this).attr("attribute-name");
+				var section = $(this).attr("section-name")
+				
+				if(hasOwnProperty.call(attributes, section) && hasOwnProperty.call(attributes[section], attribute)){
+					var drawings = attributes[section][attribute];
+				
+					// empty modal list of pictures
+					$('#listOfPictures').empty();
+					drawings.map(function(picture) {
+						var oImg = $('<img />')
+									.attr('src', '/' + picture)
+									.attr('alt', attribute)
+									.attr('title', attribute)
+									.attr('class', 'attribute-drawing');
+							
+						$('#listOfPictures').append(oImg);
+						$('#listOfPictures').append($('<hr>'));
+					});
+					
+					$('#listOfPictures hr:last-child').remove();
+					infoDialogOpen();
+				}
 			}
 	});
 		
