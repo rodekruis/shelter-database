@@ -21,7 +21,7 @@
 		<section class="shelter-main-image">
                 <img id="coverpictureprint" src="" />
             </section>
-        <section id="coverpicture" class="shelterimg" onclick="modalOpen()">
+        <section id="coverpicture" class="shelterimg" onclick="modalOpen('main-image-swipe')">
 			<div class="dots">
                 <div class="dot selected"></div>
                 <div class="dot"></div>
@@ -90,26 +90,55 @@
 
 {% block footer %}
 		<div class="mymodal" id="main-image-swipe">
-            <div class="mymodal-close" onclick="modalClose()"></div>
-            <div class="swipe">
-                <div id="modalIdentificationPanes" class="panes"></div>
-                <div id="modalIdentificationDots" class="dots"></div>
-            </div>
+			<div class="content">
+				<div class="mymodal-close" onclick="modalClose()"></div>
+				<div class="swipe">
+					<div id="modalIdentificationPanes" class="panes"></div>
+					<div id="modalIdentificationDots" class="dots"></div>
+				</div>
+			</div>
         </div>
 		
 		<div class="mymodal" id="infoDialog">
-			<div class="mymodal-close" onclick="modalClose()"></div>
-			<div align="center" id="listOfPictures"></div>
+			<div class="content">
+				<div class="mymodal-close" onclick="modalClose()"></div>
+				<div align="center" id="listOfPictures"></div>
+			</div>
 		</div>
 		
 	<script type="text/javascript">
-        var wrapper = document.getElementById("wrapper")
-        var modalOpen = function(){
-            wrapper.className = "modal-open modal-open-dark"
-        }
-        var modalClose = function(){
-            wrapper.className = ""
-        }
+        var modalPage = 0
+            var modalName = ""
+            var modalOpen = function(modalid){
+                modalName = modalid
+                $("#wrapper").addClass("modal-open")
+                $("#" + modalid).css("visibility", "visible")
+                setPage(1)
+            }
+            var modalClose = function(){
+                $("#wrapper").removeClass("modal-open")
+                $("#" + modalName).css("visibility", "hidden")
+                modalName = ""
+                modalResetPages()
+            }
+            var modalPrev = function(){
+                setPage(modalPage - 1)
+            }
+            var modalNext = function(){
+                setPage(modalPage + 1)
+            }
+            var setPage = function(page){
+                modalPage = page
+                modalResetPages()
+                console.log(page)
+                console.log($(".mymodal .page" + page))
+                $(".mymodal .page" + page).css("display", "block")
+            }
+            var modalResetPages = function(){
+                $(".mymodal .page").each(function(el){
+                    $(this).css("display", "none")
+                })
+            }
     </script>
 
     <script src="{{ url_for('static', filename = 'js/hammer.min.js') }}"></script>
@@ -298,27 +327,13 @@
 					});
 					
 					$('#listOfPictures hr:last-child').remove();
-					infoDialogOpen();
+					modalOpen('infoDialog')
 				}
 			}
 	});
 		
 	
 </script>
-
-<script type="text/javascript">
-            var cnt = document.getElementById("modalcontent")
-            var wrapper = document.getElementById("wrapper")
-            var page = 1
-            var infoDialogOpen = function(){
-                wrapper.className = "modal-open"
-            }
-            var infoDialogClose = function(){
-                wrapper.className = ""
-                page = 1
-                cnt.className = "content page1"
-            }
-    </script>
 	
 {% endblock %}
 {% block wrapper_end %}
