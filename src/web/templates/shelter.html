@@ -6,6 +6,8 @@
     <script src="{{ url_for('static', filename = 'lib/bower/d3/d3.min.js') }}"></script>
 	<script src="{{ url_for('static', filename = 'lib/bower/leaflet/dist/leaflet.js') }}"></script>
 	<script src="{{ url_for('static', filename = 'lib/bower/leaflet-image/leaflet-image.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'js/hammer.min.js') }}"></script>
+
 	<link href="{{ url_for('static', filename = 'lib/bower/leaflet/dist/leaflet.css') }}" rel="stylesheet" media="screen" />
     {% endblock %}
 {% block wrapper_start %}
@@ -22,11 +24,6 @@
                 <img id="coverpictureprint" src="" />
             </section>
         <section id="coverpicture" class="shelterimg" onclick="modalOpen('main-image-swipe')">
-			<div class="dots">
-                <div class="dot selected"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
         </section>
 		<section>
             <div class="details">
@@ -89,21 +86,17 @@
 {% endblock %}
 
 {% block footer %}
-		<div class="mymodal" id="main-image-swipe">
-			<div class="content">
-				<div class="mymodal-close" onclick="modalClose()"></div>
-				<div class="swipe">
-					<div id="modalIdentificationPanes" class="panes"></div>
-					<div id="modalIdentificationDots" class="dots"></div>
-				</div>
+		<div class="mymodal mymodal-dark" id="main-image-swipe">
+			<div class="mymodal-close" onclick="modalClose()"></div>
+			<div class="swipe">
+				<div id="modalIdentificationPanes" class="panes"></div>
+				<div id="modalIdentificationDots" class="dots"></div>
 			</div>
         </div>
 		
-		<div class="mymodal" id="infoDialog">
-			<div class="content">
-				<div class="mymodal-close" onclick="modalClose()"></div>
-				<div align="center" id="listOfPictures"></div>
-			</div>
+		<div class="mymodal mymodal-dark" id="infoDialog">
+			<div class="mymodal-close" onclick="modalClose()"></div>
+			<div align="center" id="listOfPictures"></div>
 		</div>
 		
 	<script type="text/javascript">
@@ -140,9 +133,6 @@
                 })
             }
     </script>
-
-    <script src="{{ url_for('static', filename = 'js/hammer.min.js') }}"></script>
-	<script src="{{ url_for('static', filename = 'js/swipe.js') }}"></script>
 		
     {{ super() }}
 	
@@ -246,7 +236,6 @@
 					   .attr("style",function (d){ return "background-image:  url('/" + d + "')";});
 				
 				// add dots
-				// TODO increment show id
 				var dot = 0;
 				
 				d3.select(elementId + "Dots")
@@ -261,6 +250,9 @@
 						return r;
 					});
 			}
+			
+			// dynamically load swipe, because created dots need to be ready
+			$.getScript('{{ url_for('static', filename = 'js/swipe.js') }}');
 		}
 
 		function tabulate(table_id, section, d, columns) {
@@ -301,6 +293,7 @@
 					.attr("section-name", function (d) { return section;});
 		}
 	</script>
+		
     <script type="text/javascript">
 	
 	$(document).ready(function() {
