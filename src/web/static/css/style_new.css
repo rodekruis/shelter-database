@@ -553,7 +553,7 @@ header {
             padding: 10px 20px; }
   @media only screen and (min-width: 768px) {
     header {
-      position: fixed;
+      position: absolute;
       height: 50px; }
       header nav > ul {
         border-top: none;
@@ -1353,5 +1353,11 @@ section.map {
 }
 
 .attribute-drawing {
-	width: 50%;
+	width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+	.attribute-drawing {
+		width: 50%;
+	};
 }
