@@ -1,3 +1,4 @@
+
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -427,25 +428,25 @@ a {
 .dropdown + .dropdown {
   margin-left: 20px; }
 
-form.myform .mygroup {
+.myform .mygroup {
   margin-bottom: 30px; }
-  form.myform .mygroup .error {
+  .myform .mygroup .error {
     display: none;
     color: #CC0000;
     margin-bottom: 5px;
     font-size: 0.8em;
     font-weight: bold;
     letter-spacing: 1px; }
-  form.myform .mygroup.myerror input, form.myform .mygroup.myerror label, form.myform .mygroup.myerror textarea {
+  .myform .mygroup.myerror input, .myform .mygroup.myerror label, .myform .mygroup.myerror textarea {
     border-color: #CC0000; }
-  form.myform .mygroup.myerror .error {
+  .myform .mygroup.myerror .error {
     display: block; }
 
-form.myform label.button select * {
+.myform label.button select * {
   background-color: #FFF;
   color: #666; }
 
-form.myform label.button select {
+.myform label.button select {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -461,24 +462,26 @@ form.myform label.button select {
   display: inline-block;
   letter-spacing: 1px;
   font-size: 14px;
-  font-weight: 400; }
-  form.myform label.button select option {
+  font-weight: 400;
+  height: 40px;
+  width: 100%; }
+  .myform label.button select option {
     background-color: #FFF;
     color: #666;
     border: 1px solid #CCC; }
-  form.myform label.button select::-ms-expand {
+  .myform label.button select::-ms-expand {
     display: none; }
-  form.myform label.button select:hover {
+  .myform label.button select:hover {
     color: #FFF; }
 
-form.myform input[type="radio"] {
+.myform input[type="radio"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
   -o-appearance: none;
   appearance: none; }
 
-form.myform input[type="radio"]:checked + label.option {
+.myform input[type="radio"]:checked + label.option {
   border-color: #425ca9; }
 
 header {
@@ -656,42 +659,17 @@ header {
   background-color: rgba(255, 255, 255, 0.95);
   overflow: scroll;
   z-index: 200; }
+  .mymodal.mymodal-dark {
+    background-color: rgba(0, 0, 0, 0.9); }
+    .mymodal.mymodal-dark .mymodal-close:after {
+      color: #FFF;
+      text-shadow: 0 0 20px #000; }
   .mymodal .content {
     position: relative;
     padding: 50px 50px;
     max-width: 600px; }
     .mymodal .content .page {
       display: none; }
-    .mymodal .content.page1 .page1 {
-      display: block; }
-    .mymodal .content.page2 .page2 {
-      display: block; }
-    .mymodal .content.page3 .page3 {
-      display: block; }
-    .mymodal .content.page4 .page4 {
-      display: block; }
-    .mymodal .content.page5 .page5 {
-      display: block; }
-    .mymodal .content.page6 .page6 {
-      display: block; }
-    .mymodal .content.page7 .page7 {
-      display: block; }
-    .mymodal .content.page8 .page8 {
-      display: block; }
-    .mymodal .content.page9 .page9 {
-      display: block; }
-    .mymodal .content.page10 .page10 {
-      display: block; }
-    .mymodal .content.page11 .page11 {
-      display: block; }
-    .mymodal .content.page12 .page12 {
-      display: block; }
-    .mymodal .content.page13 .page13 {
-      display: block; }
-    .mymodal .content.page14 .page14 {
-      display: block; }
-    .mymodal .content.page15 .page15 {
-      display: block; }
   .mymodal .mymodal-close {
     position: absolute;
     top: 20px;
@@ -703,6 +681,8 @@ header {
       font-size: 2em;
       color: #333;
       text-shadow: 0 0 20px #FFF; }
+  .mymodal label.button {
+    width: 100%; }
   .mymodal .mylabel {
     font-size: 1.1em;
     font-weight: bold;
@@ -756,13 +736,6 @@ header {
 
 #wrapper.modal-open {
   overflow: hidden; }
-  #wrapper.modal-open .mymodal {
-    visibility: visible; }
-  #wrapper.modal-open.modal-open-dark .mymodal {
-    background-color: rgba(0, 0, 0, 0.9); }
-    #wrapper.modal-open.modal-open-dark .mymodal .mymodal-close:after {
-      color: #FFF;
-      text-shadow: 0 0 20px #000; }
 
 .options {
   text-align: center; }
@@ -1342,7 +1315,8 @@ section.map {
 
 .dc-chart text {
   fill: black !important; }
-  
+
+/** custom **/  
 .select2-container {
     width: 100% !important;
 }
@@ -1356,8 +1330,6 @@ section.map {
 	width: 100%;
 }
 
-@media only screen and (min-width: 768px) {
-	.attribute-drawing {
-		width: 50%;
-	};
-}
+  @media only screen and (max-width: 767px) {
+    section.first .arrow .arrow-down { display: none; }
+  }
