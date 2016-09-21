@@ -81,7 +81,7 @@ def allshelters():
     result = tree()
 
     #shelter pictures folder path
-    picpath = os.path.relpath(conf.SHELTERS_PICTURES_PATH)
+    picpath = os.path.relpath(conf.SHELTERS_PICTURES_SITE_PATH)
 
     querybase = db.session.query(Property.shelter_id,Attribute.name,Attribute.uniqueid,func.string_agg(Value.name,';').label("value"))\
     		.join(Shelter)\
@@ -154,7 +154,7 @@ def shelters(shelter_id):
     result = tree()
 
     #shelter pictures folder path
-    picpath = os.path.relpath(conf.SHELTERS_PICTURES_PATH)
+    picpath = os.path.relpath(conf.SHELTERS_PICTURES_SITE_PATH)
 
     ## shelter picture query
     shelter_pictures = db.session.query(ShelterPicture.shelter_id, func.string_agg(ShelterPicture.file_name,';').label("filename"), Category.name)\

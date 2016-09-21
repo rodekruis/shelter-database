@@ -67,7 +67,7 @@ def attribute_pictures(language_code='en'):
     
     result = tree()
     
-    picpath = conf.ATTRIBUTES_PICTURES_PATH_PUBLIC
+    picpath = conf.ATTRIBUTES_PICTURES_SITE_PATH
    
     query = db.session.query(Attribute.name, Category.name.label("category_name"), func.array_agg(picpath + '/' + language_code + '/' + AttributePicture.file_name).label("file_names"))\
     		.join(AttributePicture, Attribute.id==AttributePicture.attribute_id)\
@@ -174,7 +174,7 @@ def allshelters(shelter_id=None):
     #shelter pictures folder path
     
     
-    picpath = os.path.relpath(conf.SHELTERS_PICTURES_PATH)
+    picpath = os.path.relpath(conf.SHELTERS_PICTURES_SITE_PATH)
     
     Supercategory = db.aliased(Category)
     
@@ -278,7 +278,7 @@ def latestshelters(count=1):
     #shelter pictures folder path
     
     
-    picpath = os.path.relpath(conf.SHELTERS_PICTURES_PATH)
+    picpath = os.path.relpath(conf.SHELTERS_PICTURES_SITE_PATH)
     
     Supercategory = db.aliased(Category)
     subquery= db.session.query(Shelter).filter(Shelter.is_published == True).order_by(desc(Shelter.updated_at)).limit(count).subquery()

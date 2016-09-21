@@ -58,9 +58,11 @@ DEFAULTS = {"platform_url": "http://127.0.0.1:5000",
             "log_level": "info",
 
             "public_path": "src/web/public",
-            "shelters_pictures_path": "src/web/public/pictures/shelters",
-            "shelters_documents_path": "src/web/public/documents/shelters",
-            "attributes_pictures_path": "src/web/public/pictures/attributes",
+            "shelters_pictures_site_path": "static/pictures/shelters",
+			"shelters_pictures_server_path": "src/web/static/pictures/shelters",
+            "shelters_documents_server_path": "src/web/static/documents/shelters",
+            "attributes_pictures_site_path": "static/pictures/attributes",
+			"attributes_pictures_server_path": "src/web/static/pictures/attributes",
 
             "geoserver_url": "https://shelter-database.org:8443",
 
@@ -100,14 +102,18 @@ ALLOWED_EXTENSIONS_ARCHIVE = set(['zip'])
 
 PUBLIC_PATH = os.path.join(PATH,
                             config.get('misc', 'public_path'))
-SHELTERS_PICTURES_PATH = os.path.join(PATH,
-                            config.get('misc', 'shelters_pictures_path'))
-SHELTERS_DOCUMENTS_PATH = os.path.join(PATH,
-                            config.get('misc', 'shelters_documents_path'))
-ATTRIBUTES_PICTURES_PATH = os.path.join(PATH,
-                            config.get('misc', 'attributes_pictures_path'))
-
-ATTRIBUTES_PICTURES_PATH_PUBLIC = config.get('misc', 'attributes_pictures_path')
+SHELTERS_PICTURES_SERVER_PATH = os.path.join(PATH,
+                            config.get('misc', 'shelters_pictures_server_path'))
+SHELTERS_PICTURES_SITE_PATH = os.path.join(PATH,
+                            config.get('misc', 'shelters_pictures_site_path'))
+SHELTERS_DOCUMENTS_SERVER_PATH = os.path.join(PATH,
+                            config.get('misc', 'shelters_documents_server_path'))
+SHELTERS_DOCUMENTS_SITE_PATH = os.path.join(PATH,
+                            config.get('misc', 'shelters_documents_site_path'))
+ATTRIBUTES_PICTURES_SERVER_PATH = os.path.join(PATH,
+                            config.get('misc', 'attributes_pictures_server_path'))
+ATTRIBUTES_PICTURES_SITE_PATH = os.path.join(PATH,
+                            config.get('misc', 'attributes_pictures_site_path'))
 
 GEOSERVER_URL = config.get('geoserver', 'geoserver_url')
 
