@@ -430,6 +430,7 @@ a {
 
 .myform .mygroup {
   margin-bottom: 30px; }
+  /**
   .myform .mygroup .error {
     display: none;
     color: #CC0000;
@@ -437,6 +438,7 @@ a {
     font-size: 0.8em;
     font-weight: bold;
     letter-spacing: 1px; }
+	*/
   .myform .mygroup.myerror input, .myform .mygroup.myerror label, .myform .mygroup.myerror textarea {
     border-color: #CC0000; }
   .myform .mygroup.myerror .error {
