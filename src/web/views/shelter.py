@@ -101,9 +101,9 @@ def get_media(shelter_id=0, section_name=""):
                                 conf.ALLOWED_EXTENSIONS_PICTURE.union(
                                             conf.ALLOWED_EXTENSIONS_DOCUMENT)):
         if 'pictures' in request.form:
-            path = os.path.join(conf.SHELTERS_PICTURES_PATH, str(shelter.id))
+            path = os.path.join(conf.SHELTERS_PICTURES_SERVER_PATH, str(shelter.id))
         if 'documents' in request.form:
-            path = os.path.join(conf.SHELTERS_DOCUMENTS_PATH, str(shelter.id))
+            path = os.path.join(conf.SHELTERS_DOCUMENTS_SERVER_PATH, str(shelter.id))
         if not os.path.exists(path):
             os.makedirs(path)
         filename = secure_filename(file.filename)
@@ -143,7 +143,7 @@ def get_media2(shelter_id=0, section_name=""):
         if request.files[f] and allowed_file(request.files[f].filename,
                                 conf.ALLOWED_EXTENSIONS_PICTURE.union(
                                             conf.ALLOWED_EXTENSIONS_DOCUMENT)):
-            path = os.path.join(conf.SHELTERS_PICTURES_PATH, str(shelter.id))
+            path = os.path.join(conf.SHELTERS_PICTURES_SERVER_PATH, str(shelter.id))
             
             if not os.path.exists(path):
                 os.makedirs(path)
@@ -165,7 +165,7 @@ def get_media2(shelter_id=0, section_name=""):
 def delete_picture(picture_id=None):
     picture = ShelterPicture.query.filter(ShelterPicture.id==picture_id).first()
     if picture:
-        os.unlink(os.path.join(conf.SHELTERS_PICTURES_PATH,
+        os.unlink(os.path.join(conf.SHELTERS_PICTURES_SERVER_PATH,
                                 str(picture.shelter_id),
                                 str(picture.file_name)))
         db.session.delete(picture)
@@ -179,7 +179,7 @@ def delete_picture(picture_id=None):
 def delete_document(document_id=None):
     document = ShelterDocument.query.filter(ShelterDocument.id==document_id).first()
     if document:
-        os.unlink(os.path.join(conf.SHELTERS_DOCUMENTS_PATH,
+        os.unlink(os.path.join(conf.SHELTERS_DOCUMENTS_SERVER_PATH,
                                 str(document.shelter_id),
                                 str(document.file_name)))
         db.session.delete(document)

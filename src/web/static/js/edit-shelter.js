@@ -38,7 +38,7 @@ function new_free_text_property(shelter_id, category_id, attribute_id, value,
         success: function (result) {
             // set the property-id of the input, so that
             // new time update_property() will be called (HTTP PUT request)
-            event_target.attr("value-id", result.id);
+            event_target.attr("value-id", result.values[0].id);
             console.log(result);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown){

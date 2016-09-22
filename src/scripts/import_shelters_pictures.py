@@ -52,7 +52,7 @@ def import_shelters_pictures(folder):
                 db.session.add(new_picture)
                 db.session.commit()
 
-                path = os.path.join(conf.SHELTERS_PICTURES_PATH,
+                path = os.path.join(conf.SHELTERS_PICTURES_SERVER_PATH,
                                                             str(shelter.id))
                 if not os.path.exists(path):
                     os.makedirs(path)

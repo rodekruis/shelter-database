@@ -92,7 +92,7 @@ def init_shelters_structure(csv_file, drawnings_folder):
                             attribute.pictures.append(new_picture)
                             db.session.add(new_picture)
 
-                            path = os.path.join(conf.ATTRIBUTES_PICTURES_PATH,
+                            path = os.path.join(conf.ATTRIBUTES_PICTURES_SERVER_PATH,
                                                 'en')
                             if not os.path.exists(path):
                                 os.makedirs(path)

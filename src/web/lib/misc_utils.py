@@ -40,5 +40,5 @@ def create_pdf(html_code):
     """
     """
     pdf_file = HTML(string=html_code,
-                    base_url=conf.SHELTERS_PICTURES_PATH).write_pdf()
+                    base_url=conf.SHELTERS_PICTURES_SERVER_PATH).write_pdf()
     return pdf_file

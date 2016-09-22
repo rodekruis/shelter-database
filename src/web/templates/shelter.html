@@ -101,37 +101,37 @@
 		
 	<script type="text/javascript">
         var modalPage = 0
-            var modalName = ""
-            var modalOpen = function(modalid){
-                modalName = modalid
-                $("#wrapper").addClass("modal-open")
-                $("#" + modalid).css("visibility", "visible")
-                setPage(1)
-            }
-            var modalClose = function(){
-                $("#wrapper").removeClass("modal-open")
-                $("#" + modalName).css("visibility", "hidden")
-                modalName = ""
-                modalResetPages()
-            }
-            var modalPrev = function(){
-                setPage(modalPage - 1)
-            }
-            var modalNext = function(){
-                setPage(modalPage + 1)
-            }
-            var setPage = function(page){
-                modalPage = page
-                modalResetPages()
-                console.log(page)
-                console.log($(".mymodal .page" + page))
-                $(".mymodal .page" + page).css("display", "block")
-            }
-            var modalResetPages = function(){
-                $(".mymodal .page").each(function(el){
-                    $(this).css("display", "none")
-                })
-            }
+		var modalName = ""
+		var modalOpen = function(modalid){
+			modalName = modalid
+			$("#wrapper").addClass("modal-open")
+			$("#" + modalid).css("visibility", "visible")
+			setPage(1)
+		}
+		var modalClose = function(){
+			$("#wrapper").removeClass("modal-open")
+			$("#" + modalName).css("visibility", "hidden")
+			modalName = ""
+			modalResetPages()
+		}
+		var modalPrev = function(){
+			setPage(modalPage - 1)
+		}
+		var modalNext = function(){
+			setPage(modalPage + 1)
+		}
+		var setPage = function(page){
+			modalPage = page
+			modalResetPages()
+			console.log(page)
+			console.log($(".mymodal .page" + page))
+			$(".mymodal .page" + page).css("display", "block")
+		}
+		var modalResetPages = function(){
+			$(".mymodal .page").each(function(el){
+				$(this).css("display", "none")
+			})
+		}
     </script>
 		
     {{ super() }}

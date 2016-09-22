@@ -28,7 +28,7 @@
                 <h1>Add your project</h1>
                 <p>The Shelter Database exists because of people like you!<br />We need you to help us build the content</p>
 				{% if g.user.is_authenticated %}
-                <a id="newShelter" onclick="modalOpen()" class="bt button button-red"><i class="fa fa-plus"></i><span class="text">Add Project</span></a>
+                <a id="newShelter" onclick="modalOpen('create')" class="bt button button-red"><i class="fa fa-plus"></i><span class="text">Add Project</span></a>
 				{% else %}
 				    <a href="{{ url_for('join') }}" class="bt button button-red"><i class="fa fa-user"></i><span class="text">Please login to add your project</span></a>
 				{% endif %}
@@ -52,14 +52,14 @@
             </div>
         </section>
 
-    <div class="mymodal">
+    <div class="mymodal" id="create">
         <div class="content page1" id="modalcontent">
             <div class="page page1">
 			    <form class="myform" id="createShelterForm" action="#" method="GET" name="save">
 					<div class="mygroup">
 						<div class="mylabel">Title of your project:</div>
 						<p class="error">This field is required</p>
-						<div class="myinput"><input class="required-input" type="text" name="name" placeholder="Name" /></div>
+						<div class="myinput"><input class="required-input" id="titleofproject" type="text" name="name" placeholder="Name" /></div>
 					</div>
 
 					<div class="mygroup">
@@ -78,62 +78,68 @@
 					</div>
 				</form>
             </div>
-			<form class="myform" id="saveAdditional" action="#" method="GET" name="saveAdditional">
-
 			<div class="page page2">
-				<div class="mygroup">
-					<div class="mylabel">Who is the implementing organization?</div>
-					<p class="error">This field is required</p>
+				<div class="myform">
+					<div class="mygroup">
+						<div class="mylabel">Who is the implementing organization?</div>
+						<p class="error">This field is required</p>
 
-					<select class="organizations" id="2269" property-id="" attribute-id="16" category-id="4" value-id="None" value="" type="text" name="">
-					  <option value="-1" selected="selected">Your organization</option>
-					</select>
+						<select class="organizations" id="organizations" property-id="" attribute-id="16" category-id="4" value-id="None" value="">
+						</select>
+					</div>
+					<div class="buttons">
+						<div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
+						<div onclick="modalNext()" class="button button-light button-right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+					</div>
 				</div>
-                <div class="buttons">
-                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
-                    <div onclick="next()" class="button button-light button-right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
-                </div>
             </div>
             <div class="page page3">
-				<div class="mygroup">
-					<div class="mylabel">What is the year of construction of the first shelters?</div>
-					<p class="error">This field is required</p>
-					<div class="myinput"><input type="number" name="yearofconstructionfirstshelters" required id="3674" class="free-text-attribute" property-id="" attribute-id="36" category-id="8" value-id="None" value="" placeholder="2016"></div>
+				<div class="myform">
+					<div class="mygroup">
+						<div class="mylabel">What is the year of construction of the first shelters?</div>
+						<p class="error">This field is required</p>
+						<div class="myinput"><input type="number" name="yearofconstructionfirstshelters" required id="yearofconstructionfirstshelters" class="free-text-attribute" property-id="" attribute-id="36" category-id="8" value-id="None" value="" placeholder="2016"></div>
+					</div>
+					<div class="mylabel">Where is the shelter located?</div>
+					<div id="locationpicker" style="width:100%; height:250px;">
+						<input type="hidden" id="latitude" name="lattitude" required class="free-text-attribute" property-id="" attribute-id="8" category-id="2" value-id="None" value="">
+						<input type="hidden" id="longitude" name="longitude" required class="free-text-attribute" property-id="" attribute-id="9" category-id="2" value-id="None" value="">
+					</div>
+			
+					<div class="buttons">
+						<div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
+						<div onclick="modalPrev()" class="button button-light button-left"><i class="fa fa-arrow-left"></i><span class="text">Previous</span></div>
+						<div onclick="modalNext()" class="button button-light button-right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+					</div>
 				</div>
-				<div class="mylabel">Where is the shelter located?</div>
-				<div id="locationpicker" style="width:100%; height:250px;">
-					<input type="hidden" id="latitude" name="lattitude" required class="free-text-attribute" property-id="" attribute-id="8" category-id="2" value-id="None" value="">
-					<input type="hidden" id="longitude" name="longitude" required class="free-text-attribute" property-id="" attribute-id="9" category-id="2" value-id="None" value="">
-				</div>
-
-				
-                <div class="buttons">
-                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
-                    <div onclick="next()" class="button button-light button-right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
-                </div>
             </div>
-			<div class="page page4">	
-				<div class="mylabel">What type of disaster is the shelter associated with?</div>
-				<p class="error">This field is required</p>
-				<label for="associatedDisasterSelect" class="button button-drop">
-					<select id="associatedDisasterSelect" name="associateddisaster" required class="select-attribute" property-id="" attribute-id="13" category-id="4" id="select13" data-live-search="true">
-						  <option value=""></option>
-					</select>
-				</label>
-				
-				<div class="mygroup">
-					<div class="mylabel">What type of humanitarian response is it?</div>
-					<label for="shelterTypeSelect" class="button button-drop">
-						<select id="shelterTypeSelect" required class="select-attribute" property-id="" attribute-id="21" category-id="4" id="select21">
-							  <option value=""></option>
-						</select>
-					</label>
-				</div>
+			<div class="page page4">
+				<div class="myform">
+					<div class="mygroup">			
+						<div class="mylabel">What type of disaster is the shelter associated with?</div>
+						<p class="error">This field is required</p>
+						<label for="associatedDisasterSelect" class="button button-drop">
+							<select id="associatedDisasterSelect" name="associateddisaster" required class="select-attribute" property-id="" attribute-id="13" category-id="4" id="select13" data-live-search="true">
+								  <option value=""></option>
+							</select>
+						</label>
+					</div>
+					
+					<div class="mygroup">
+						<div class="mylabel">What type of humanitarian response is it?</div>
+						<label for="shelterTypeSelect" class="button button-drop">
+							<select id="shelterTypeSelect" required class="select-attribute" property-id="" attribute-id="21" category-id="4" id="select21">
+								  <option value=""></option>
+							</select>
+						</label>
+					</div>
 
-				<div class="buttons">
-                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
-                    <div onclick="next()" class="button button-light button-right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
-                </div>
+					<div class="buttons">
+						<div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
+						<div onclick="modalPrev()" class="button button-light button-left"><i class="fa fa-arrow-left"></i><span class="text">Previous</span></div>
+						<div onclick="modalNext()" class="button button-light button-right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+					</div>
+				</div>
             </div>
 			<!--
             <div class="page page3">
@@ -151,51 +157,54 @@
 
                 <div class="buttons">
                     <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
-                    <div onclick="next()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+                    <div onclick="modalNext()" class="button button-light right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
                 </div>
             </div>
-			-->
-			</form>
-            
+			-->            
 			<div class="page page5">
-				<div class="mygroup">
-					<div class="mylabel">Upload photos of the shelter</div>
-					<p class="error">This field is required</p>
-					<div id="uploader">
-					   <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
-					   <div class="fallback">
-						   <input id="files" multiple="true" name="files" type="file">
+				<div class="myform">
+					<div class="mygroup">
+						<div class="mylabel">Upload photos of the shelter</div>
+						<p class="error">This field is required</p>
+						<div id="uploader">
+						   <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+						   <div class="fallback">
+							   <input id="files" multiple="true" name="files" type="file">
+							</div>
 						</div>
 					</div>
-				</div>
-			
-				<div class="buttons">
-                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
-                    <div onclick="next()" class="button button-light button-right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+				
+					<div class="buttons">
+						<div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
+						<div onclick="modalPrev()" class="button button-light button-left"><i class="fa fa-arrow-left"></i><span class="text">Previous</span></div>
+						<div onclick="modalNext()" class="button button-light button-right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+					</div>
                 </div>
-                
             </div>
 			<div class="page page6">
-				<div class="mygroup">
-					<div class="mylabel">What is the unit cost of the shelter (USD)?</div>
-					<p class="error">This field is required</p>
-					<div class="myinput"><input type="number" required class="free-text-attribute" id="2486" property-id="" attribute-id="49" category-id="8" value-id="None" value=""></div>
+				<div class="myform">
+					<div class="mygroup">
+						<div class="mylabel">What is the unit cost of the shelter (USD)?</div>
+						<p class="error">This field is required</p>
+						<div class="myinput"><input type="number" required class="free-text-attribute" id="unitCost" property-id="" attribute-id="49" category-id="8" value-id="None" value=""></div>
+					</div>
+					
+					<div class="mygroup">
+						<div class="mylabel">What is the number of inhabitants of the shelter?</div>
+						<p class="error">This field is required</p>
+						<div class="myinput"><input type="number" required min="1" max="200" class="free-text-attribute" id="inhabitants" property-id="" attribute-id="37" category-id="8" value-id="None" value=""></div>
+					</div>
+					
+					<div class="mygroup">
+						<div class="mylabel">What is the total surface area in square meters (m2)?</div>	
+						<p class="error">This field is required</p>					
+						<div class="myinput"><input type="number" required class="free-text-attribute" id="surface" property-id="" attribute-id="45" category-id="8" value-id="None" value=""></div>
+					</div>
+					<div class="buttons">
+						<div onclick="modalPrev()" class="button button-light button-left"><i class="fa fa-arrow-left"></i><span class="text">Previous</span></div>
+						<div onclick="modalNext()" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
+					</div>
 				</div>
-				
-				<div class="mygroup">
-					<div class="mylabel">What is the number of inhabitants of the shelter?</div>
-					<p class="error">This field is required</p>
-					<div class="myinput"><input type="number" required min="1" max="200" class="free-text-attribute" id="1996" property-id="" attribute-id="37" category-id="8" value-id="None" value=""></div>
-			    </div>
-				
-				<div class="mygroup">
-					<div class="mylabel">What is the total surface area in square meters (m2)?</div>	
-					<p class="error">This field is required</p>					
-					<div class="myinput"><input type="number" required class="free-text-attribute" id="2274" property-id="" attribute-id="45" category-id="8" value-id="None" value=""></div>
-				</div>
-				<div class="buttons">
-                    <div onclick="next()" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
-                </div>
             </div>
 			
 			<div class="page page7">
@@ -217,9 +226,11 @@
 		   return name.toLowerCase().replace(/[^\w]/gi, '');
 		};
 		
+		var dropzone;
+		
 		var createDropzone = function(){
-	  
-			$("div#uploader").dropzone({ url: "/shelter/edit/multi/" + shelter_id + '/General information'});
+
+			dropzone = $("div#uploader").dropzone({ url: "/shelter/edit/multi/" + shelter_id + '/General information'});
 			  
 			Dropzone.options.uploader = {
 			  paramName: "file", // The name that will be used to transfer the file
@@ -348,7 +359,7 @@
 							// update the map given the country
 							updateLocationPicker();
 							
-							next();
+							modalNext();
 						}
 					});
                 } else {
@@ -451,7 +462,7 @@
 			countries = data;
 						
 			// Initiate leaflet map
-			locationpicker = L.map('locationpicker');
+			locationpicker = L.map('locationpicker').setView([51.505, -0.09], 13);;
 			
 			// Add OSM base layer
 			L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(locationpicker);
@@ -525,8 +536,8 @@
 	
 	// listen when page3 with leaflet map is opened
 	$('#modalcontent').on('page3', function(){ 
-		locationpicker.fitBounds(bounds);
 		locationpicker.invalidateSize();
+		locationpicker.fitBounds(bounds);
 	});
 	</script>
 	
@@ -619,34 +630,71 @@
 				}
 			}
 		});
+		
+		var resetForm = function(){
+			//reset shelter title field
+			$('#titleofproject').val('');
+			$('#countrySelect').val('');
+			$('#organizations').val('');
+			$('#yearofconstructionfirstshelters').val('');
+			$('#latitude').val('');
+			$('#longitude').val('');
+			$('#associatedDisasterSelect').val('');
+			$('#shelterTypeSelect').val('');
+			$('#unitCosts').val('');
+			$('#inhabitants').val('');
+			$('#surface').val('');
+			
+			if (dropzone != undefined) {
+				Dropzone.forElement("div#uploader").destroy();
+			}
+			
+			
+		}
 	
 	</script>
 
     <script type="text/javascript">
-            var cnt = document.getElementById("modalcontent")
-            var wrapper = document.getElementById("wrapper")
-            var page = 1
-            var modalOpen = function(){
-                wrapper.className = "modal-open"
-            }
-            var modalClose = function(){
-                wrapper.className = ""
-                page = 1
-                cnt.className = "content page1"
-            }
-            var setPage = function(){
-                cnt.className = "content page" + page
+            var modalPage = 0
+			var modalName = ""
+			var modalOpen = function(modalid){
+				modalName = modalid
+				$("#wrapper").addClass("modal-open")
+				$("#" + modalid).css("visibility", "visible")
+				setPage(1)
+			}
+			var modalClose = function(){
+				$("#wrapper").removeClass("modal-open")
+				$("#" + modalName).css("visibility", "hidden")
+				modalName = ""
+				modalResetPages()
+				
+				// reset form
+				resetForm();
+				
+			}
+			var modalPrev = function(){
+				setPage(modalPage - 1)
+			}
+			var modalNext = function(){
+				setPage(modalPage + 1)
+			}
+			var setPage = function(page){
+				modalPage = page
+				modalResetPages()
+				console.log(page)
+				console.log($(".mymodal .page" + page))
+				$(".mymodal .page" + page).css("display", "block")
+				
 				// trigger event that class changed
 				$('#modalcontent').trigger('page'+page);
-            }
-            var next = function(){
-                page++
-                setPage()
-            }
-            var prev = function(){
-                page--
-                setPage()
-            }
+			}
+			var modalResetPages = function(){
+				$(".mymodal .page").each(function(el){
+					$(this).css("display", "none")
+				})
+			}
+			/**
             var optClick = function(nr){
                 var elements = document.getElementsByClassName('option')
                 var length = elements.length
@@ -655,7 +703,7 @@
                     elements[length].className = "option"
                 }
                 elements[nr].className = "option selected"
-            }
+            }**/
     </script>
 {% endblock %}
 
