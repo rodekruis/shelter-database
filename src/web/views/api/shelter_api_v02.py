@@ -18,7 +18,7 @@ from bootstrap import db, app
 from sqlalchemy.sql import func, select, desc
 from flask import Blueprint, jsonify, request, json, Response
 from collections import defaultdict
-from web.models import Shelter, Attribute, AttributePicture, Property, Value, Association, ShelterPicture, Category, Tsvector, Translation
+from web.models import Shelter, Attribute, AttributePicture, Property, Value, Association, ShelterPicture, ShelterDocument, Category, Tsvector, Translation
 
 import conf, os.path
 
@@ -176,6 +176,8 @@ def allshelters(shelter_id=None):
     
     picpath = os.path.relpath(conf.SHELTERS_PICTURES_SITE_PATH)
     
+    docpath = os.path.relpath(conf.SHELTERS_DOCUMENTS_SITE_PATH)
+    
     Supercategory = db.aliased(Category)
     
     querybase = db.session.query(Property.shelter_id, Category.name.label("category_name"), Supercategory.name.label("supercategory_name"), Attribute.name, Attribute.uniqueid,func.string_agg(Value.name,';').label("value"))\
@@ -193,15 +195,19 @@ def allshelters(shelter_id=None):
     
     catquery = db.session.query(Category.name).filter(Category.section_id != None)
     
+    docquerybase = db.session.query(ShelterDocument.shelter_id, ShelterDocument.file_name.label("filename"), ShelterDocument.category_id, Category.name)\
+    		.join(Category, Category.id == ShelterDocument.category_id)
+    
     ##queries if no request arguments
     shelter_properties = querybase
     shelter_pictures = picquerybase
+    shelter_documents = docquerybase
      
         	
     if shelter_id:
     	shelter_properties = shelter_properties.filter(Property.shelter_id==shelter_id)
     	shelter_pictures = shelter_pictures.filter(ShelterPicture.shelter_id==shelter_id)
-    	
+    	shelter_documents = shelter_documents.filter(ShelterDocument.shelter_id==shelter_id)
     
     
     
@@ -215,6 +221,7 @@ def allshelters(shelter_id=None):
     			
     	shelter_properties = shelter_properties.filter(subquery.subquery().c.shelter_id==Property.shelter_id)
     	shelter_pictures = shelter_pictures.filter(subquery.subquery().c.shelter_id==ShelterPicture.shelter_id)
+    	shelter_documents = shelter_documents.filter(subquery.subquery().c.shelter_id==ShelterDocument.shelter_id)
     
     if request.args.getlist('value'):
     	value = request.args.getlist('value')
@@ -228,13 +235,14 @@ def allshelters(shelter_id=None):
     	
     	shelter_properties = shelter_properties.filter(subquery.subquery().c.shelter_id==Property.shelter_id)
     	shelter_pictures = shelter_pictures.filter(subquery.subquery().c.shelter_id==ShelterPicture.shelter_id)
+    	shelter_documents = shelter_documents.filter(subquery.subquery().c.shelter_id==ShelterDocument.shelter_id)
     
     if request.args.get('q'):
     	attribute = request.args.get('q')
     	
     	shelter_properties = shelter_properties.join(Tsvector, Property.shelter_id==Tsvector.shelter_id).filter(Tsvector.lexeme.match(attribute))
     	shelter_pictures = shelter_pictures.join(Tsvector, ShelterPicture.shelter_id==Tsvector.shelter_id).filter(Tsvector.lexeme.match(attribute))
-
+    	shelter_documents = shelter_documents.join(Tsvector, ShelterDocument.shelter_id==Tsvector.shelter_id).filter(Tsvector.lexeme.match(attribute))
     #print(shelter_properties)
     #print(shelter_pictures)
     
@@ -246,7 +254,8 @@ def allshelters(shelter_id=None):
     				result[shelter_property.shelter_id][category.name]["Cover"]
     			result[shelter_property.shelter_id][category.name]["Attributes"]
     			result[shelter_property.shelter_id][category.name]["Pictures"]
-    	
+    			result[shelter_property.shelter_id][category.name]["Documents"]
+    			
     	if request.args.get('format') == 'prettytext':
     		result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.name] = shelter_property.value
     	else:
@@ -261,7 +270,15 @@ def allshelters(shelter_id=None):
     			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
     		else:
     			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
-  
+
+    
+    for document in shelter_documents:
+    	if document.shelter_id in result:
+    		if not result[document.shelter_id][document.name]["Documents"]:
+    			result[document.shelter_id][document.name]["Documents"] = ["{}/{}/{}".format(docpath, document.shelter_id, document.filename)]
+    		else:
+    			result[document.shelter_id][document.name]["Documents"].append("{}/{}/{}".format(docpath, document.shelter_id, document.filename))
+    
     return jsonify(result)
 
 @apiv02_bp.route('/shelters/latest', methods=['GET'])
