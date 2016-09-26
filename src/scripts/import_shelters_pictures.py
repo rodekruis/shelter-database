@@ -25,7 +25,8 @@ def import_shelters_pictures(folder):
 
     for shelter in shelters:
         shelter_rid = shelter.get_values_of_attribute(attribute_name='ID')[0].name
-
+        print("Shelter_rid '{}' ...".format(shelter_rid))
+			
         for picture in glob.glob(folder + shelter_rid + '/**.jpg'):
             picture_name = os.path.basename(picture)
             print("Picture name '{}' ...".format(picture_name))
@@ -34,6 +35,7 @@ def import_shelters_pictures(folder):
                 category_name = picture_name.split('_')[1]
                 picture_subject = os.path.splitext(picture_name.split('_')[2])[0]
             except:
+                print("failed")
                 continue
 
             print("Picture subject '{}' ...".format(picture_subject))
