@@ -49,13 +49,14 @@ def shelter_POST_preprocessor(data=None, **kw):
     if current_user.is_admin:
         data["is_published"] = True
         flash("Your shelter has been created." +
-            " You can already edit it by clicking on the pen to the right of the screen.",
-            'success')
-    else:
-        flash("Thank you! Your shelter has been created but is not yet public." +
-            " An administrator will review it." +
-            " You can already edit it by clicking on the pen to the right of the screen.",
-            'success')
+              " You can already edit it by clicking on the pen to the right of the screen.",
+             'success')
+    #else:
+    #    flash("Thank you for entering your shelter in the shelter database. Your shelter " +
+	#			  "will be visible in the database after a short review by the administrator. " +
+	#		  "We kindly request you to add additional data about your shelter, such as " + 
+	#		  "technical documentation and drawings, and different attributes. You can edit your " +
+	#		  "shelter when you log in to the website and go to 'your shelters'.", 'success');
 
 
 def property_preprocessor(data=None, **kw):

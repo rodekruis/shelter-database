@@ -28,6 +28,7 @@ def import_shelters_pictures(folder):
 
         for picture in glob.glob(folder + shelter_rid + '/**.jpg'):
             picture_name = os.path.basename(picture)
+            print("Picture name '{}' ...".format(picture_name))
             
             try:
                 category_name = picture_name.split('_')[1]
@@ -35,6 +36,8 @@ def import_shelters_pictures(folder):
             except:
                 continue
 
+            print("Picture subject '{}' ...".format(picture_subject))
+            print("Category name '{}' ...".format(category_name))
             category = Category.query.filter(Category.name==category_name,
                                     Category.parent_id!=None).first()
 
@@ -58,3 +61,5 @@ def import_shelters_pictures(folder):
                     os.makedirs(path)
 
                 shutil.copy(picture, path)
+                print("Copy from '{}' ...".format(picture))
+                print("Copy to '{}' ...".format(path))
