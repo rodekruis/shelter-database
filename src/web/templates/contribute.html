@@ -115,7 +115,7 @@
 					<div class="mygroup">			
 						<div class="mylabel">What type of disaster is the shelter associated with?</div>
 						<label for="associatedDisasterSelect" class="button button-drop">
-							<select id="associatedDisasterSelect" name="associateddisaster" data-validation="required" class="select-attribute" property-id="" attribute-id="13" category-id="4" id="select13" data-live-search="true">
+							<select id="associatedDisasterSelect" name="associateddisaster" data-validation="required" class="select-attribute" property-id="" attribute-id="13" category-id="4" data-live-search="true">
 								  <option value=""></option>
 							</select>
 						</label>
@@ -124,7 +124,7 @@
 					<div class="mygroup">
 						<div class="mylabel">What type of humanitarian response is it?</div>
 						<label for="shelterTypeSelect" class="button button-drop">
-							<select id="shelterTypeSelect" data-validation="required" class="select-attribute" property-id="" attribute-id="21" category-id="4" id="select21">
+							<select id="shelterTypeSelect" data-validation="required" class="select-attribute" property-id="" attribute-id="21" category-id="4">
 								  <option value=""></option>
 							</select>
 						</label>
@@ -133,7 +133,7 @@
 					<div class="buttons">
 						<div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
 						<div onclick="modalPrev()" class="button button-light button-left"><i class="fa fa-arrow-left"></i><span class="text">Previous</span></div>
-						<div onclick="modalNext('disasters')" class="button button-light button-right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+						<div onclick="modalNext('#disasters')" class="button button-light button-right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
 					</div>
 				</form>
             </div>
@@ -164,7 +164,14 @@
 						<div id="uploader">
 						   <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 						   <div class="fallback">
-							   <input id="files" data-validation="required" multiple="true" name="files" type="file">
+							   <input id="files" multiple="true" name="files" type="file"
+									  data-validation="length mime size"
+									  data-validation-length="min1"
+									  data-validation-allowing="jpg, png, gif"
+									  data-validation-max-size="4000kb"
+									  data-validation-error-msg-size="You can not upload images larger than 4000kb"
+									  data-validation-error-msg-mime="You can only upload images"
+									  data-validation-error-msg-length="You have to upload at least one images">
 							</div>
 						</div>
 					</div>
@@ -172,7 +179,7 @@
 					<div class="buttons">
 						<div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Cancel</span></div>
 						<div onclick="modalPrev()" class="button button-light button-left"><i class="fa fa-arrow-left"></i><span class="text">Previous</span></div>
-						<div onclick="modalNext('photos')" class="button button-light button-right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
+						<div onclick="modalNext('#photos')" class="button button-light button-right"><i class="fa fa-arrow-right"></i><span class="text">Next</span></div>
 					</div>
                 </form>
             </div>
@@ -194,7 +201,7 @@
 					</div>
 					<div class="buttons">
 						<div onclick="modalPrev()" class="button button-light button-left"><i class="fa fa-arrow-left"></i><span class="text">Previous</span></div>
-						<div onclick="modalNext('specs')" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
+						<div onclick="modalNext('#specs')" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
 					</div>
 				</form>
             </div>

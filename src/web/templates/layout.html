@@ -97,6 +97,11 @@
 			<script src="{{ url_for('static', filename = 'lib/bower/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 			
 			<script>
+			 // make alerts disappear
+			 setTimeout(function() {
+				$(".alert").fadeOut().empty();
+			 }, 7000);
+
 			 // if home page, add class is landingpage to header
 			 $(function() {
 			  var loc = window.location.pathname; // returns the full URL

@@ -1335,3 +1335,18 @@ section.map {
   @media only screen and (max-width: 767px) {
     section.first .arrow .arrow-down { display: none; }
   }
+
+  .flexbox .box .image {
+    top: 0;
+    left: 0;
+    height: 200px;
+    background-color: #CCC;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+  
+  .flexbox .box .country {
+	text-align: center;
+    min-height: 30px;
+  }

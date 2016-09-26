@@ -1,4 +1,11 @@
 {% extends "layout.html" %}
+{% block head %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename = 'lib/bower/d3/d3.min.js') }}"></script>
+{% endblock %}
+{% block wrapper_start %}
+
+{% endblock %}
 {% block content %}
         <section class="first background" style="background-image: url('{{ url_for('static', filename='img/1.jpg') }}')">
             <div class="overlay"></div>
@@ -39,25 +46,33 @@
                 </div>
             </div>
         </section>
+		 <section class="recommendations background" style="background-image: url('{{ url_for('static', filename='img/mapview.png') }}')">
+            <div class="overlay"></div>
+            <div class="toplayer">
+                <h3>Find shelters</h3>
+                        <p>Search shelter designs worldwide and get access to detailed information and statistics.</p>
+                        <a href="{{ url_for('dashboard') }}" class="button button-white"><i class="fa fa-lightbulb-o"></i><span class="text">Go to the shelter search</span></a>
+            </div>
+        </section>
         <section class="info">
             <div class="content">
                 <h3>Newest shelters</h3>
-                <div class="flexbox">
+				<div class="flexbox" id="newest">
                     <div class="box">
-                        <i class="head fa fa-arrows"></i>
-                        <h4>Deliver</h4>
-                        <p>Confronted with the reality of rising numbers of disasters where sheltering presents a key component of the humanitarian assistance, the Humanitarian Shelter Sector is challenged to deliver more, efficient and sustainable responses in very different contexts.</p>
-                    </div>
+                        <div class="image" style="background-image: url('/')"></div>
+						<h4><a href="/shelter/81">GRC\SRC Benguet</a></h4>
+						<p class="country">Philippines</p>
+					</div>
                     <div class="box">
-                        <i class="head fa fa-cloud"></i>
-                        <h4>Experience</h4>
-                        <p>Within the Red Cross Movement and other Organisations active in sheltering, there exists extensive experience in the implementation of emergency, transitional and permanent shelters.</p>
-                    </div>
+                        <div class="image" style="background-image: url('/')"></div>
+						<h4><a href="/shelter/81">GRC\SRC Benguet</a></h4>
+						<p class="country">Philippines</p>
+					</div>
                     <div class="box">
-                        <i class="head fa fa-diamond"></i>
-                        <h4>Unite</h4>
-                        <p>To consolidate and make available this knowledge the IFRC-SRU is tasked to build up an inventory of shelter solutions documented in a systematic, methodological manner that particularly captures technical details, construction practices, climatic conditions, availability and suitability of materials and techniques and other information for the planning process that helps save time and resources.</p>
-                    </div>
+                        <div class="image" style="background-image: url('/')"></div>
+						<h4><a href="/shelter/81">GRC\SRC Benguet</a></h4>
+						<p class="country">Philippines</p>
+					</div>
                 </div>
             </div>
         </section>
@@ -113,6 +128,77 @@
                 $("body").animate({ scrollTop: window.innerHeight}, 400);
                 return false;
             });
-        });
+			
+			d3.json('/api/v0.2/shelters/latest/3', function (error, data) {
+		  			
+				// render the table(s)
+				var d = Object.keys(data); /*.map(function(k) { 
+												if(hasOwnProperty.call(data[k], "Identification")){
+													return data[k].Identification ;
+												}
+											  });*/
+				
+				generate('#newest', d);
+				/**
+				<div class="box">
+							<div class="image" style="background-image: url('/')"></div>
+							<h4><a href="/shelter/81">GRC\SRC Benguet</a></h4>
+							<p class="country">Philippines</p>
+						</div>**/
+				
+				function generate(flexbox, data) {
+
+					var fb = d3.select(flexbox);
+					
+
+					// create a box for each object in the data
+					var box = fb.selectAll('div')
+					  .data(data)
+					  /**, function(d) {
+						  var array = [];
+						  jQuery.each(d, function(i, val) {
+							var db;
+							db.shelter_id = d;
+							db.cover = data[d].Identification.Cover;
+							db.country = data[d].Identification.Attributes.country;
+							db.nameofshelter = data[d].Identification.Attributes.nameofshelter;
+							
+							array.push(db);
+						  });
+						  
+						  return array;					  
+					   })**/
+					  .enter()
+					  .append('div')
+					     .attr('class', function (r) {
+								return 'box';
+							})
+
+					// Add content
+					box
+						.append('div')
+							.attr('class', 'image')
+							.attr('style', function(d) {
+								return 'background-image: url(' + d.cover + ')';
+							})
+						.append('h4').append('a')
+							.attr('href', function (d) {
+								return '/shelter/' + d.shelter_id;
+							})
+							.text(function (d) { 
+								return d.nameofshelter; 
+							})
+						.append('p')
+							.attr('class', 'country')
+							.text(function (d) { 
+								return d.country; 
+							});
+					 
+					}
+			});
+		});
     </script>
+{% endblock %}
+{% block wrapper_end %}
+
 {% endblock %}
