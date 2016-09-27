@@ -104,16 +104,13 @@ PUBLIC_PATH = os.path.join(PATH,
                             config.get('misc', 'public_path'))
 SHELTERS_PICTURES_SERVER_PATH = os.path.join(PATH,
                             config.get('misc', 'shelters_pictures_server_path'))
-SHELTERS_PICTURES_SITE_PATH = os.path.join(PATH,
-                            config.get('misc', 'shelters_pictures_site_path'))
+SHELTERS_PICTURES_SITE_PATH = config.get('misc', 'shelters_pictures_site_path')
 SHELTERS_DOCUMENTS_SERVER_PATH = os.path.join(PATH,
                             config.get('misc', 'shelters_documents_server_path'))
-SHELTERS_DOCUMENTS_SITE_PATH = os.path.join(PATH,
-                            config.get('misc', 'shelters_documents_site_path'))
+SHELTERS_DOCUMENTS_SITE_PATH = config.get('misc', 'shelters_documents_site_path')
 ATTRIBUTES_PICTURES_SERVER_PATH = os.path.join(PATH,
                             config.get('misc', 'attributes_pictures_server_path'))
-ATTRIBUTES_PICTURES_SITE_PATH = os.path.join(PATH,
-                            config.get('misc', 'attributes_pictures_site_path'))
+ATTRIBUTES_PICTURES_SITE_PATH = config.get('misc', 'attributes_pictures_site_path')
 
 GEOSERVER_URL = config.get('geoserver', 'geoserver_url')
 

@@ -444,6 +444,11 @@ a {
   .myform .mygroup.myerror .error {
     display: block; }
 
+  .myform .mylabel {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 20px; }
+	
 .myform label.button select * {
   background-color: #FFF;
   color: #666; }
@@ -475,6 +480,12 @@ a {
     display: none; }
   .myform label.button select:hover {
     color: #FFF; }
+	
+
+
+  .myform label.button select[multiple] option {
+	border: 0px;
+  }
 
 .myform input[type="radio"] {
   -webkit-appearance: none;
@@ -693,7 +704,7 @@ header {
     height: 200px;
     width: 100%;
     cursor: pointer; }
-  .mymodal .myinput input {
+  .myform .myinput input {
     padding: 10px 12px;
     font-size: 18px;
     line-height: 1.2;
@@ -719,17 +730,17 @@ header {
       display: none; }
     .mymodal .mycheckbox a {
       text-decoration: underline !important; }
-  .mymodal form.myform label.button {
+  .myform label.button {
     width: 100%;
     margin-bottom: 0; }
-    .mymodal form.myform label.button select {
+    .myform label.button select {
       width: 100%;
       letter-spacing: 0px;
       font-size: 18px;
       line-height: 1.2;
       font-weight: 300;
       color: #333; }
-      .mymodal form.myform label.button select:hover {
+      .myform label.button select:hover {
         color: #FFF; }
   .mymodal .buttons {
     margin-top: 40px; }
@@ -1349,4 +1360,22 @@ section.map {
   .flexbox .box .country {
 	text-align: center;
     min-height: 30px;
+  }
+  
+.submit {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.submit:hover {
+    background-color: black; /* Green */
+    color: white;
+}
+
+.myform label.button select[multiple]{
+	overflow: hidden;
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+	height: auto;
   }

@@ -1,11 +1,7 @@
 {% extends "layout.html" %}
 {% block head %}
     {{ super() }}
-    <script src="{{ url_for('static', filename='lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/lightbox.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/edit-shelter.js') }}"></script>
-    <link href="{{ url_for('static', filename='lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" media="screen" />
-    <link href="{{ url_for('static', filename='css/lightbox.css') }}" rel="stylesheet" media="screen" />
+     <script src="{{ url_for('static', filename='js/edit-shelter.js') }}"></script>
 {% endblock %}
 {% block content %}
 <div class="container-fluid">
@@ -24,137 +20,128 @@
             </a>
         </li>
     </ul>
+	
+	<div class="content page1" id="modalcontent">
+        <div class="page page1">
+			
+			<div class="myform" role="form" action="" shelterId="{{shelter.id}}" id="shelterForm">
+				{% for category in section.categories %}
+					{% for sub_category in category.sub_categories %}
+						<h3>{{ sub_category.name | translate }}</h3>
+						{% for attribute in sub_category.attributes %}
+									<div class="mygroup">
+										<div class="mylabel">{{ attribute.name | translate }}</div>
 
-    <div class="form-horizontal" role="form" action="" shelterId="{{shelter.id}}" id="shelterForm">
-        {% for category in section.categories %}
-            {% for sub_category in category.sub_categories %}
-                <fieldset id="{{ category }}" class="border">
-                    <legend class="border">
-                        <span class="section-title">{{ sub_category.name | translate }}</span>
-                    </legend>
-                    <div class="col-md-8">
-                            {% for attribute in sub_category.attributes %}
-                                <div class="row">
-                                    <div class="form-group">
-                                        <div class="col-md-4">
-                                            <b>{{ attribute.name | translate }}</b>
-                                        </div>
+										<div class="myinput">
+											{% if not attribute.is_editable %}
+												{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name  | translate }}
 
-                                        <div class="col-md-4">
-                                            {% if not attribute.is_editable %}
-                                                {{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name  | translate }}
+											{% elif not attribute.free_text %}
+												<label for="select{{ attribute.id }}" class="button button-drop">
+													<select 
+													property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
+													{% if attribute.multiple %}multiple="multiple" class="expandable" {% endif %}
+													attribute-id="{{ attribute.id }}"
+													category-id="{{ attribute.category_id }}"
+													id="select{{ attribute.id }}">
+														<option disabled selected value>-- select an option --</option>
+														{% for value in attribute.associated_values %}
+															{{ shelter.get_idvalues_of_attribute(attribute.id) }}
+															<option value="{{value.id}}"
+																{% if value.id in shelter.get_idvalues_of_attribute(attribute.id) %}selected="selected"{% endif %}>{{ value.name | translate }}
+															</option>
+														{% endfor %}
+													</select>
+												</label>
+												{% if attribute.user_can_add_values %}
+													<!--<h6>
+														<span class="glyphicon glyphicon-plus add-value"
+														title="Other"
+														attribute-id="{{ attribute.id }}"
+														aria-hidden="true"></span>
+													</h6>-->
+												{% endif %}
 
-                                            {% elif not attribute.free_text %}
-                                                <select class="form-control select-attribute selectpicker show-tick"
-                                                property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
-                                                {% if attribute.multiple %}multiple="multiple"{% endif %}
-                                                attribute-id="{{ attribute.id }}"
-                                                category-id="{{ attribute.category_id }}"
-                                                id="select{{ attribute.id }}">
-                                                    <option value=""></option>
-                                                    {% for value in attribute.associated_values %}
-                                                        {{ shelter.get_idvalues_of_attribute(attribute.id) }}
-                                                        <option value="{{value.id}}"
-                                                            {% if value.id in shelter.get_idvalues_of_attribute(attribute.id) %}selected="selected"{% endif %}>{{ value.name | translate }}
-                                                        </option>
-                                                    {% endfor %}
-                                                </select>
-                                                {% if attribute.user_can_add_values %}
-                                                    <h6>
-                                                        <span class="glyphicon glyphicon-plus add-value"
-                                                        title="Other"
-                                                        attribute-id="{{ attribute.id }}"
-                                                        aria-hidden="true"></span>
-                                                    </h6>
-                                                {% endif %}
+											{% else %}
+												{% if attribute.type == "TextArea" %}
+													<textarea rows="10" id="{{ attribute.associated_values.first().id }}"
+													class="form-control free-text-attribute"
+													property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
+													attribute-id="{{ attribute.id }}"
+													category-id="{{ attribute.category_id }}"
+													value-id="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].id }}">{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name | translate }}</textarea>
+												{% elif attribute.type == "Date" %}
+													<input type="date"
+													id="{{ attribute.associated_values.first().id }}"
+													class="free-text-attribute"
+													property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
+													attribute-id="{{ attribute.id }}"
+													category-id="{{ attribute.category_id }}"
+													value-id="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].id }}"
+													value="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name }}" />
+												{% elif attribute.type == "yes / no" %}
+													<input type="checkbox" class="free-text-attribute"
+													property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
+													attribute-id="{{ attribute.id }}"
+													category-id="{{ attribute.category_id }}"
+													value-id="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].id }}"
+													value="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name }}"
+													{% if shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name in ("1","on")  %}checked{% endif %}
+													 />
+												{% else %}
+													<input type="text"
+													id="{{ attribute.associated_values.first().id }}"
+													class="free-text-attribute"
+													property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
+													attribute-id="{{ attribute.id }}"
+													category-id="{{ attribute.category_id }}"
+													value-id="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].id }}"
+													value="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name | translate }}" />
+												{% endif %}
+											{% endif %}
+										</div>
+								</div>
+							{% endfor %}
+							
+							<h4>Pictures for {{ sub_category.name | translate }}</h4>
+							<form action="" method="post" enctype="multipart/form-data">
+								<input class="" type="file" name="mediafile" accept="image/*" />
+								<input type="hidden" name="category_id" value="{{ sub_category.id }}" />
+								<input class="submit" type="submit" name="pictures" value="Submit" />
+							</form>
+							{% for picture in pictures[sub_category.name] %}
+								<div class="col-md-1 thumbShelterPicture">
+									<a href="/public/pictures/shelters/{{ shelter.id }}/{{ picture.file_name }}" data-lightbox="{{ category_name }}">
+										<div><img height="150px" src="/public/pictures/shelters/{{ shelter.id }}/{{ picture.file_name }}" style="padding-top:3px;" /></div>
+									</a>
+									<a href="{{ url_for('shelter_bp.delete_picture', picture_id=picture.id) }}"><span class="glyphicon glyphicon-remove" title="Remove"></span></a>
+									<br />
+								</div>
+							{% endfor %}
 
-                                            {% else %}
-                                                {% if attribute.type == "TextArea" %}
-                                                    <textarea rows="10" id="{{ attribute.associated_values.first().id }}"
-                                                    class="form-control free-text-attribute"
-                                                    property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
-                                                    attribute-id="{{ attribute.id }}"
-                                                    category-id="{{ attribute.category_id }}"
-                                                    value-id="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].id }}">{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name | translate }}</textarea>
-                                                {% elif attribute.type == "Date" %}
-                                                    <input type="date"
-                                                    id="{{ attribute.associated_values.first().id }}"
-                                                    class="form-control datepicker free-text-attribute"
-                                                    property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
-                                                    attribute-id="{{ attribute.id }}"
-                                                    category-id="{{ attribute.category_id }}"
-                                                    value-id="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].id }}"
-                                                    value="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name }}" />
-                                                {% elif attribute.type == "yes / no" %}
-                                                    <input type="checkbox" class="form-control free-text-attribute"
-                                                    property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
-                                                    attribute-id="{{ attribute.id }}"
-                                                    category-id="{{ attribute.category_id }}"
-                                                    value-id="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].id }}"
-                                                    value="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name }}"
-                                                    {% if shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name in ("1","on")  %}checked{% endif %}
-                                                     />
-                                                {% else %}
-                                                    <input type="text"
-                                                    id="{{ attribute.associated_values.first().id }}"
-                                                    class="form-control free-text-attribute"
-                                                    property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
-                                                    attribute-id="{{ attribute.id }}"
-                                                    category-id="{{ attribute.category_id }}"
-                                                    value-id="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].id }}"
-                                                    value="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name | translate }}" />
-                                                {% endif %}
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
+							{% if sub_category.name == "Documents"  %}
+							<h4>Documents</h4>
+							<form action="" method="post" enctype="multipart/form-data">
+								<input class="" type="file" name="mediafile" accept="application/pdf,application/doc" />
+								<input type="hidden" name="category_id" value="{{ sub_category.id }}" />
+								<input class="submit" type="submit" name="documents" value="Submit" />
+							</form>
 
-                    </div>
-                    <div class="col-md-4">
-                        <div class="row">
-                            <h4>Pictures</h4>
-                            <form action="" method="post" enctype="multipart/form-data">
-                                <input class="form-group" type="file" name="mediafile" accept="image/*" />
-                                <input type="hidden" name="category_id" value="{{ sub_category.id }}" />
-                                <input class="form-group" type="submit" name="pictures" value="Submit" />
-                            </form>
-                            {% for picture in pictures[sub_category.name] %}
-                                <div class="col-md-1 thumbShelterPicture">
-                                    <a href="/public/pictures/shelters/{{ shelter.id }}/{{ picture.file_name }}" data-lightbox="{{ category_name }}">
-                                        <div><img height="150px" src="/public/pictures/shelters/{{ shelter.id }}/{{ picture.file_name }}" style="padding-top:3px;" /></div>
-                                    </a>
-                                    <a href="{{ url_for('shelter_bp.delete_picture', picture_id=picture.id) }}"><span class="glyphicon glyphicon-remove" title="Remove"></span></a>
-                                    <br />
-                                </div>
-                            {% endfor %}
-                        </div>
+							{% for document in documents[sub_category.name] %}
+								<div>
+									<a href="/public/documents/shelters/{{ shelter.id }}/{{ document.file_name }}" download>
+										<span class="glyphicon glyphicon-file" title="{{ document.file_name }}"></span>&nbsp;{{ document.file_name }}
+									</a>
+									<a href="{{ url_for('shelter_bp.delete_document', document_id=document.id) }}"><span class="glyphicon glyphicon-remove" title="Remove"></span></a>
+									<br />
 
-                        {% if sub_category.name == "Documents"  %}
-                            <div class="row">
-                                <h4>Documents</h4>
-                                <form action="" method="post" enctype="multipart/form-data">
-                                    <input class="form-group" type="file" name="mediafile" accept="application/pdf,application/doc" />
-                                    <input type="hidden" name="category_id" value="{{ sub_category.id }}" />
-                                    <input class="form-group" type="submit" name="documents" value="Submit" />
-                                </form>
-
-                                {% for document in documents[sub_category.name] %}
-                                    <div>
-                                        <a href="/public/documents/shelters/{{ shelter.id }}/{{ document.file_name }}" download>
-                                            <span class="glyphicon glyphicon-file" title="{{ document.file_name }}"></span>&nbsp;{{ document.file_name }}
-                                        </a>
-                                        <a href="{{ url_for('shelter_bp.delete_document', document_id=document.id) }}"><span class="glyphicon glyphicon-remove" title="Remove"></span></a>
-                                        <br />
-
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                    </div>
-                </fieldset>
-            {% endfor %}
-        {% endfor %}
+								</div>
+							{% endfor %}
+						{% endif %}
+					{% endfor %}
+				{% endfor %}
+			</div>
+		</div>
     </div>
 </div><!-- /.container -->
 
@@ -179,6 +166,8 @@
 
 <script type="text/javascript" class="source">
 $(document).ready(function() {
+	$('select.expandable').each(function() { $(this).attr('size', $(this).find('option').length) })	
+
     var dateSupported = (function() {
         var el = document.createElement('input'),
             invalidVal = 'foo'; // Any value that is not a date
