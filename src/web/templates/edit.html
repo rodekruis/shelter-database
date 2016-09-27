@@ -37,14 +37,15 @@
 												{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name  | translate }}
 
 											{% elif not attribute.free_text %}
-												<label for="select{{ attribute.id }}" class="button button-drop">
+												<label for="select{{ attribute.id }}" class="button button-stretch{% if attribute.multiple %} {% else %} button-stretch-drop{% endif %}">
 													<select 
 													property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
 													{% if attribute.multiple %}multiple="multiple" class="expandable" {% endif %}
 													attribute-id="{{ attribute.id }}"
 													category-id="{{ attribute.category_id }}"
 													id="select{{ attribute.id }}">
-														<option disabled selected value>-- select an option --</option>
+														{% if attribute.multiple %}<option disabled selected value>-- select one or more options --</option> {% else %} <option disabled selected value>-- select one option --</option> {% endif %}
+														
 														{% for value in attribute.associated_values %}
 															{{ shelter.get_idvalues_of_attribute(attribute.id) }}
 															<option value="{{value.id}}"
