@@ -2,6 +2,10 @@
 {% block head %}
     {{ super() }}
      <script src="{{ url_for('static', filename='js/edit-shelter.js') }}"></script>
+	 <script src="{{ url_for('static', filename='lib/bower/dropzone/dist/dropzone.js') }}"></script>
+
+	 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/bower/dropzone/dist/dropzone.css') }}" />
+
 {% endblock %}
 {% block content %}
 <div class="container-fluid">
@@ -105,32 +109,49 @@
 							{% endfor %}
 							
 							<h4>Pictures for {{ sub_category.name | translate }}</h4>
-							<form action="" method="post" enctype="multipart/form-data">
-								<input class="" type="file" name="mediafile" accept="image/*" />
-								<input type="hidden" name="category_id" value="{{ sub_category.id }}" />
-								<input class="submit" type="submit" name="pictures" value="Submit" />
-							</form>
-							{% for picture in pictures[sub_category.name] %}
-								<div class="col-md-1 thumbShelterPicture">
-									<a href="/public/pictures/shelters/{{ shelter.id }}/{{ picture.file_name }}" data-lightbox="{{ category_name }}">
-										<div><img height="150px" src="/public/pictures/shelters/{{ shelter.id }}/{{ picture.file_name }}" style="padding-top:3px;" /></div>
+							<div class="mygroup">
+								<ul>
+								{% for picture in pictures[sub_category.name] %}
+								  <li>
+									<a href="/static/pictures/shelters/{{ shelter.id }}/{{ picture.file_name }}" data-lightbox="{{ category_name }}">
+										<div><img height="150px" src="/static/pictures/shelters/{{ shelter.id }}/{{ picture.file_name }}" style="padding-top:3px;" /></div>
 									</a>
 									<a href="{{ url_for('shelter_bp.delete_picture', picture_id=picture.id) }}"><span class="glyphicon glyphicon-remove" title="Remove"></span></a>
-									<br />
+								  </li>
+								{% endfor %}
+								</ul>
+								<div class="mylabel">Upload photos of the shelter</div>
+								<div id="dropzone_{{ sub_category.id }}">
+								   <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+								   <div class="fallback">
+									   <input id="files" multiple="true" name="files" type="file"
+											  data-validation="length mime size"
+											  data-validation-length="min1"
+											  data-validation-allowing="jpg, png, gif"
+											  data-validation-max-size="4000kb"
+											  data-validation-error-msg-size="You can not upload images larger than 4000kb"
+											  data-validation-error-msg-mime="You can only upload images"
+											  data-validation-error-msg-length="You have to upload at least one images">
+									</div>
 								</div>
-							{% endfor %}
-
+							</div>
+							<script type="text/javascript">
+								$(document).ready(function() {
+									createDropzone('dropzone_{{ sub_category.id }}', '{{ sub_category.name }}', {{ sub_category.id }})
+								});
+							</script>
+							
 							{% if sub_category.name == "Documents"  %}
 							<h4>Documents</h4>
 							<form action="" method="post" enctype="multipart/form-data">
 								<input class="" type="file" name="mediafile" accept="application/pdf,application/doc" />
 								<input type="hidden" name="category_id" value="{{ sub_category.id }}" />
-								<input class="submit" type="submit" name="documents" value="Submit" />
+								<input class="button button-light submit" type="submit" name="documents" value="Upload" />
 							</form>
 
 							{% for document in documents[sub_category.name] %}
 								<div>
-									<a href="/public/documents/shelters/{{ shelter.id }}/{{ document.file_name }}" download>
+									<a href="/static/documents/shelters/{{ shelter.id }}/{{ document.file_name }}" download>
 										<span class="glyphicon glyphicon-file" title="{{ document.file_name }}"></span>&nbsp;{{ document.file_name }}
 									</a>
 									<a href="{{ url_for('shelter_bp.delete_document', document_id=document.id) }}"><span class="glyphicon glyphicon-remove" title="Remove"></span></a>
@@ -166,10 +187,28 @@
 </div>
 
 <script type="text/javascript" class="source">
+
+	// create outside of dom ready, so that it is available when section uploads are created
+	var createDropzone = function(id, section, category_id){
+
+		var dropzone = $('#' + id).dropzone({ url: "/shelter/edit/multi/" + {{shelter.id}} + '/' + category_id + '/' + section});
+		  
+		Dropzone.options[id] = {
+		  paramName: "file", // The name that will be used to transfer the file
+		  uploadMultiple: true,
+		  parallelUploads: 1,
+		  maxFilesize: 4, // MB
+		  acceptedFiles: "image/*",
+		};
+		
+		// add class
+		$('#' + id).addClass('dropzone');
+	}
+	
 $(document).ready(function() {
 	$('select.expandable').each(function() { $(this).attr('size', $(this).find('option').length) })	
 
-    var dateSupported = (function() {
+	var dateSupported = (function() {
         var el = document.createElement('input'),
             invalidVal = 'foo'; // Any value that is not a date
         el.setAttribute('type','date');

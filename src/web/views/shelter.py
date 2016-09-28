@@ -24,6 +24,7 @@ from flask import Blueprint, request, flash, render_template, current_app, \
 from flask_login import login_required, current_user
 
 import conf
+import time
 from bootstrap import db
 from web.views.common import load_shelter_info
 from web.lib.utils import redirect_url, allowed_file
@@ -110,6 +111,7 @@ def get_media(shelter_id=0, section_name=""):
         file.save(os.path.join(path , filename))
 
         category_id = request.form['category_id']
+		
         if category_id:
             if 'pictures' in request.form:
                 new_media = ShelterPicture(file_name=filename,
@@ -123,39 +125,46 @@ def get_media(shelter_id=0, section_name=""):
     return redirect(request.url)
 
 
-@shelter_bp.route('/edit/multi/<int:shelter_id>/<section_name>', methods=['POST'])
+@shelter_bp.route('/edit/multi/<int:shelter_id>/<category_id>/<section>', methods=['POST'])
 #@login_required
-def get_media2(shelter_id=0, section_name=""):
+def get_media2(shelter_id=0, category_id=2, section = 'Identification'):
     """
     Get pictures for the shelter sent by Dropzone via a POST
     request.
     """
+    first = False;
+	
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
     if not shelter:
         flash("No such shelter", "warning")
         return redirect(redirect_url())
 
     for f in request.files:
-        print(request.files[f])
         if request.files[f] and request.files[f].filename == '':
             flash('No selected file', 'warning')
             return redirect(request.url)
         if request.files[f] and allowed_file(request.files[f].filename,
                                 conf.ALLOWED_EXTENSIONS_PICTURE.union(
-                                            conf.ALLOWED_EXTENSIONS_DOCUMENT)):
+                                            conf.ALLOWED_EXTENSIONS_DOCUMENT)):								
             path = os.path.join(conf.SHELTERS_PICTURES_SERVER_PATH, str(shelter.id))
             
             if not os.path.exists(path):
                 os.makedirs(path)
-            filename = secure_filename(request.files[f].filename)
+
+            file_extension = os.path.splitext(request.files[f].filename)[1]
+            filename = str(shelter_id) + '_' + section + "_" + str(time.time()) + file_extension
+
             request.files[f].save(os.path.join(path , filename))
 
-            #category_id = request.form['category_id']
-            #if category_id:
+            print("Category id '{}' ...".format(category_id))
+            
+        if category_id:
             new_media = ShelterPicture(file_name=filename,  is_main_picture=False,
-                    shelter_id=shelter.id, category_id=2)
+                shelter_id=shelter.id, category_id=category_id)
             db.session.add(new_media)
             db.session.commit()
+			
+        first = True
 
     return redirect(request.url)
 

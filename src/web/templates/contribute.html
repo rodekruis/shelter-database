@@ -10,6 +10,8 @@
 	<script src="{{ url_for('static', filename='lib/bower/select2/dist/js/select2.full.min.js') }}"></script>
 	<script src="{{ url_for('static', filename='lib/bower/jquery-form-validator/form-validator/jquery.form-validator.min.js') }}"></script>
 	<script src="{{ url_for('static', filename='js/edit-shelter.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'lib/bower/spin.js/spin.min.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'lib/bower/spin.js/jquery.spin.js') }}"></script>
 	
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/bower/leaflet/dist/leaflet.css') }}" rel="stylesheet" media="screen" />
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/bower/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.css') }}" />
@@ -54,7 +56,11 @@
             </div>
         </section>
 
-    <div class="mymodal" id="create">
+    
+{% endblock %}
+
+{% block footer %}
+<div class="mymodal" id="create">
         <div class="content page1" id="modalcontent">
             <div class="page page1">
 			    <form class="myform" id="createShelterForm" action="#" method="GET" name="save">
@@ -199,6 +205,11 @@
 						<div class="mylabel">What is the total surface area in square meters (m2)?</div>					
 						<div class="myinput"><input type="number" data-validation="required" class="free-text-attribute" id="surface" property-id="" attribute-id="45" category-id="8" value-id="None" value=""></div>
 					</div>
+					
+					<div class="mygroup">
+                            <div class="mylabel">Terms</div>
+                            <div class="mycheckbox"><input type="checkbox" id="field8507618" data-validation="required"><label class="checkbox" for="field8507618"><i class="fa fa-check"></i> Accept the <a href="#" target="_blank">terms of service</a></label></div>
+                    </div>
 					<div class="buttons">
 						<div onclick="modalPrev()" class="button button-light button-left"><i class="fa fa-arrow-left"></i><span class="text">Previous</span></div>
 						<div onclick="modalNext('#specs')" class="button button-light"><i class="fa fa-check"></i><span class="text">Finish</span></div>
@@ -229,26 +240,13 @@
 		
 		var createDropzone = function(){
 
-			dropzone = $("div#uploader").dropzone({ url: "/shelter/edit/multi/" + shelter_id + '/General information'});
-			  
+			dropzone = $("div#uploader").dropzone({ url: "/shelter/edit/multi/" + shelter_id + '/' + category_id + '/General information'});
 			Dropzone.options.uploader = {
 			  paramName: "file", // The name that will be used to transfer the file
 			  uploadMultiple: true,
 			  parallelUploads: 1,
 			  maxFilesize: 4, // MB
 			  acceptedFiles: "image/*",
-			  init: function() {
-				this.on("sending", function(file, xhr, formData) {
-					var name = "shelter_" + shelter_id + "_" + new Date().getTime();
-					//formData.append(name, file);
-					formData.append('category_id', '2');
-					//formData.append('pictures', '0');
-				});
-				
-				this.on("successmultiple", function (files) {
-					  alert("All files have uploaded ");
-				});
-			  }
 			};
 			
 			// add class
@@ -263,6 +261,7 @@
 			initiateLocationPicker();
 			
             $("#newShelter").click(function(evt) {
+			    
                 // fetch shelters
 				fetchCountries();
 				
@@ -329,12 +328,24 @@
 					
 			}); 
 			
-            //Attach a submit handler to the form
+            //Attach a submit handler to the form (only allow to click once)
 			$('#createShelter').on( "click", function() {
 				if(! $('#createShelterForm').isValid({},{}, true) ) {
 					return;
 				}
 				
+				// check if form was already submitted
+				var submitted = $('#createShelterForm').attr('submitted');
+				if (typeof submitted !== typeof undefined && submitted !== false) {
+					return;
+				}
+				
+				// set form to submitted
+				$('#createShelterForm').attr('submitted', 'yes');
+				
+				// start spinner
+				$('#wrapper').spin();		
+		
 				// Send the data using post
 				name_of_shelter = $('#titleofproject').val();
 				country_value_id = $('#countrySelect option:selected').val();
@@ -351,7 +362,16 @@
 						// update the map given the country
 						updateLocationPicker();
 						
+						// add spinner
+						$('#wrapper').spin(false);
+		
+						// go to next page
 						modalNext();
+						
+						// Make sure we can submit the form again for a new shelter
+						$('#createShelterForm').removeAttr('submitted');
+						
+						
 					}
 				});
 			});
