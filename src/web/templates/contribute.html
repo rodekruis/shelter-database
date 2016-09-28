@@ -60,6 +60,8 @@
 {% endblock %}
 
 {% block footer %}
+{{ super() }}
+
 <div class="mymodal" id="create">
         <div class="content page1" id="modalcontent">
             <div class="page page1">
@@ -208,7 +210,7 @@
 					
 					<div class="mygroup">
                             <div class="mylabel">Terms</div>
-                            <div class="mycheckbox"><input type="checkbox" id="field8507618" data-validation="required"><label class="checkbox" for="field8507618"><i class="fa fa-check"></i> Accept the <a href="#" target="_blank">terms of service</a></label></div>
+                            <div class="mycheckbox"><input type="checkbox" id="field8507618" data-validation="required"><label class="checkbox" for="field8507618"><i class="fa fa-check"></i> Accept the <a href="/termsofservice" target="_blank">terms of service</a></label></div>
                     </div>
 					<div class="buttons">
 						<div onclick="modalPrev()" class="button button-light button-left"><i class="fa fa-arrow-left"></i><span class="text">Previous</span></div>
