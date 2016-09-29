@@ -60,7 +60,8 @@ def authentication_required(e):
 
 @current_app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    shelters = Shelter.query.filter(Shelter.is_published==True).count()
+    return render_template('index.html', num_shelters=shelters)
 
 @current_app.route('/map', methods=['GET'])
 def map():

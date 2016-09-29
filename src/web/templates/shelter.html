@@ -7,6 +7,8 @@
 	<script src="{{ url_for('static', filename = 'lib/bower/leaflet/dist/leaflet.js') }}"></script>
 	<script src="{{ url_for('static', filename = 'lib/bower/leaflet-image/leaflet-image.js') }}"></script>
 	<script src="{{ url_for('static', filename = 'js/hammer.min.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'lib/bower/spin.js/spin.min.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'lib/bower/spin.js/jquery.spin.js') }}"></script>
 
 	<link href="{{ url_for('static', filename = 'lib/bower/leaflet/dist/leaflet.css') }}" rel="stylesheet" media="screen" />
     {% endblock %}
@@ -145,8 +147,11 @@
 			attributes = data;
 		});
 		
+		// add spinner
+		$('#wrapper').spin();
+			
 		d3.json('/api/v0.2/shelters/' + shelter_id + '?format=prettytext', function (error, data) {
-		  
+			
 			
 			// render the table(s)
 			
@@ -188,7 +193,7 @@
 				var lon = data[shelter_id]['Identification']['Attributes']['GPS Longitude'];
 				
 				// Initiate leaflet map
-				var map = L.map('location-map', {tap:false}).setView([lat, lon], 13);
+				var map = L.map('location-map', {tap:false, dragging:false}).setView([lat, lon], 13);
 				
 				// Add OSM base layer
 				L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
@@ -211,6 +216,9 @@
 					$('#location-image').prepend('<img id="location-image-picture" src="'+ canvas.toDataURL() + '" />')		
 				});
 			}
+			
+			// stop spinner if all has loaded
+			$('#wrapper').spin(false);
 		});
 		
 		function addCoverPictures(coverpicture, printpicture, section){

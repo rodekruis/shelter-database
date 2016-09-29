@@ -134,7 +134,7 @@ table {
   background-position: center center;
   background-repeat: no-repeat; }
 
-.fa, .button.button-drop:after, .search-wrapper:before, .mymodal .mymodal-close:after, table tr td span.info:before, section.first .arrow .arrow-down:after, section.shelterimg:after, .advanced .advanced-btn:after {
+.fa, .button.button-drop:after, .button.button-stretch-drop:after, .search-wrapper:before, .mymodal .mymodal-close:after, table tr td span.info:before, section.first .arrow .arrow-down:after, section.shelterimg:after, .advanced .advanced-btn:after {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -247,6 +247,14 @@ strong {
     top: 0;
     right: 10px;
     line-height: inherit;
+    content: "\f0d7";
+    font-size: 1.1em;
+    margin-left: 10px;
+    pointer-events: none; }
+  .button.button-stretch-drop:after {
+    position: absolute;
+    top: 0;
+    right: 10px;
     content: "\f0d7";
     font-size: 1.1em;
     margin-left: 10px;
@@ -444,6 +452,11 @@ a {
   .myform .mygroup.myerror .error {
     display: block; }
 
+  .myform .mylabel {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 20px; }
+	
 .myform label.button select * {
   background-color: #FFF;
   color: #666; }
@@ -475,7 +488,29 @@ a {
     display: none; }
   .myform label.button select:hover {
     color: #FFF; }
-
+  .myform label.button select[multiple]{
+	width: 100%;
+	border: 0px;
+	letter-spacing: 0px;
+	font-size: 18px;
+	line-height: 1.2;
+	font-weight: 300;
+	color: #333;
+	overflow: hidden;
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+	height: auto;
+  }
+  .myform label.button select[multiple] option {
+    background-color: #FFF;
+    color: #666;
+    border: 0px; }
+  .myform label.button select[multiple] option:disabled {
+    background-color: #FFF;
+    color: #666;
+    border: 0px; }
+	
 .myform input[type="radio"] {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -693,7 +728,7 @@ header {
     height: 200px;
     width: 100%;
     cursor: pointer; }
-  .mymodal .myinput input {
+  .myform .myinput input {
     padding: 10px 12px;
     font-size: 18px;
     line-height: 1.2;
@@ -719,17 +754,17 @@ header {
       display: none; }
     .mymodal .mycheckbox a {
       text-decoration: underline !important; }
-  .mymodal form.myform label.button {
+  .mymodal label.button {
     width: 100%;
     margin-bottom: 0; }
-    .mymodal form.myform label.button select {
+    .mymodal label.button select {
       width: 100%;
       letter-spacing: 0px;
       font-size: 18px;
       line-height: 1.2;
       font-weight: 300;
       color: #333; }
-      .mymodal form.myform label.button select:hover {
+      .mymodal label.button select:hover {
         color: #FFF; }
   .mymodal .buttons {
     margin-top: 40px; }
@@ -1350,3 +1385,14 @@ section.map {
 	text-align: center;
     min-height: 30px;
   }
+  
+.submit {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.submit:hover {
+    background-color: black; /* Green */
+    color: white;
+}
+		

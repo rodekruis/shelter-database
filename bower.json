@@ -35,7 +35,8 @@
 	"leaflet-ajax": "2.0.0",
 	"leaflet-image": "0.2.1",
 	"jquery-form-validator": "2.3.*",
-	"select2": "4.0.*"
+	"select2": "4.0.*",
+	"spin.js": "2.3.*"
 	
   }
 }

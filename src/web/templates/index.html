@@ -2,6 +2,8 @@
 {% block head %}
     {{ super() }}
     <script src="{{ url_for('static', filename = 'lib/bower/d3/d3.min.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'lib/bower/spin.js/spin.min.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'lib/bower/spin.js/jquery.spin.js') }}"></script>
 	<script src="{{ url_for('static', filename = 'js/index.js') }}"></script>
 {% endblock %}
 {% block wrapper_start %}
@@ -12,7 +14,7 @@
             <div class="overlay"></div>
             <div class="toplayer">
                 <h1>Open Shelter Database</h1>
-                <h2>An overview of the hundreds of thousands of shelters which are built<br />throughout the world every year in response to disasters</h2>
+                <h2>An overview of <strong>{{num_shelters}}</strong> shelters which are built<br />throughout the world every year in response to disasters</h2>
                 <div class="search">
                     <div class="search-wrapper">
                         <input type="text" name="" placeholder="Search Shelters" id="searchinput" />
@@ -30,19 +32,19 @@
                 <h3>What it is for</h3>
                 <div class="flexbox">
                     <div class="box">
-                        <i class="head fa fa-arrows"></i>
-                        <h4>Deliver</h4>
-                        <p>Confronted with the reality of rising numbers of disasters where sheltering presents a key component of the humanitarian assistance, the Humanitarian Shelter Sector is challenged to deliver more, efficient and sustainable responses in very different contexts.</p>
+                        <i class="head fa fa-question-circle-o"></i>
+                        <h4>Why</h4>
+                        <p>Shelter is one of the most costly and visible humanitarian interventions and at the same time a vital asset for affected people to rebuild their lives. Confronted with the reality of rising numbers of disasters where sheltering presents a key component of the humanitarian assistance, the Humanitarian Shelter Sector is challenged to upscale delivery of, cost-effective, sustainable and context specific shelter solutions. </p>
                     </div>
                     <div class="box">
-                        <i class="head fa fa-cloud"></i>
-                        <h4>Experience</h4>
-                        <p>Within the Red Cross Movement and other Organisations active in sheltering, there exists extensive experience in the implementation of emergency, transitional and permanent shelters.</p>
+                        <i class="head fa fa-globe"></i>
+                        <h4>What</h4>
+                        <p>Extensive experience in implementing emergency, transitional and permanent shelters exists within the humanitarian shelter sector. This knowledge needs to be documented and made available as reference and decision support to speed up the planning process in future responses. It can also support preparedness and long term impact assessments.</p>
                     </div>
                     <div class="box">
-                        <i class="head fa fa-diamond"></i>
-                        <h4>Unite</h4>
-                        <p>To consolidate and make available this knowledge the IFRC-SRU is tasked to build up an inventory of shelter solutions documented in a systematic, methodological manner that particularly captures technical details, construction practices, climatic conditions, availability and suitability of materials and techniques and other information for the planning process that helps save time and resources.</p>
+                        <i class="head fa fa-database"></i>
+                        <h4>How</h4>
+                        <p>The IFRC-SRU has been tasked to build up an inventory of shelters documented in a systematic, methodological manner that particularly captures technical details, construction practices, climatic conditions, availability and suitability of materials and techniques and other information. The database is a shared knowledge base open for any agency to upload their shelter solution.</p>
                     </div>
                 </div>
             </div>

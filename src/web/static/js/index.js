@@ -1,5 +1,7 @@
 		// when all dom elements are loaded
         $(document).ready(function() {
+			// add spinner
+			$('#newest').spin();
 			
 			// listen for the enter key to activate the search field
 			document.getElementById("searchinput").addEventListener("keyup", function(e) {
@@ -74,4 +76,7 @@
 					 
 					}
 			});
+			
+			// stop spinner
+			$('#newest').spin(false);
 		});
