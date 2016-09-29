@@ -21,6 +21,7 @@ from collections import defaultdict
 from flask import request, flash, render_template, url_for, \
                     redirect, current_app, send_from_directory, jsonify
 from flask_login import current_user
+from flask_babel import get_locale
 
 import conf
 from bootstrap import db
@@ -146,7 +147,8 @@ def shelters():
 
 @current_app.route('/shelter/<int:shelter_id>', methods=['GET'])
 def shelter(shelter_id):
-    return render_template('shelter.html', shelter_id=shelter_id)
+    language_code = get_locale().language
+    return render_template('shelter.html', shelter_id=shelter_id, language=language_code)
 
 
 @current_app.route('/stats', methods=['GET'])

@@ -71,6 +71,13 @@
 		</header>
 
 		<main class="page">
+			<!-- alert container for client side errors -->
+			<div class="container alert-x">
+				<div class="alert alert-info" id="alert_template" style="display: none;">
+					<button type="button" class="close">×</button>
+				</div>
+			</div>
+			<!-- alert container for server side errors -->
 			<div class="container alert-x">
 				{% with messages = get_flashed_messages(with_categories=true) %}
 				{% if messages %}
