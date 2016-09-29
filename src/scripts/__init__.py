@@ -9,3 +9,4 @@ from .import_translation import import_translation
 from .import_shelters_pictures import import_shelters_pictures
 from .import_shelters_documents import import_shelters_documents
 from .create_db_triggers import create_db_triggers
+from .create_shelters_thumbnails import create_shelters_thumbnails

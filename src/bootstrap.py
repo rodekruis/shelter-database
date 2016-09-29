@@ -28,8 +28,9 @@ import conf
 import flask_restless
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_thumbnails import Thumbnail
 # Create Flask app
+
 app = Flask('web')
 
 # Create a random secrey key so we can use sessions
@@ -47,6 +48,12 @@ app.config['PUBLIC_PATH'] = conf.PUBLIC_PATH
 app.config['JSON_AS_ASCII'] = False
 
 db = SQLAlchemy(app)
+
+# Set up thumbnail handling
+app.config['MEDIA_FOLDER'] = conf.SHELTERS_PICTURES_SERVER_PATH
+app.config['MEDIA_URL'] = conf.SHELTERS_PICTURES_SITE_PATH
+
+thumb = Thumbnail(app)
 
 # Create the Flask-Restless API manager.
 manager = flask_restless.APIManager(app, flask_sqlalchemy_db=db)

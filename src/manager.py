@@ -125,5 +125,12 @@ def create_db_triggers():
     with app.app_context():
         scripts.create_db_triggers()
 
+@manager.command
+def create_shelters_thumbnails():
+    "Creates thumbnails of the cover pictures of shelters"
+    print("Creating shelter picture thumbnails ...")
+    with app.app_context():
+        scripts.create_shelters_thumbnails()
+        
 if __name__ == '__main__':
     manager.run()

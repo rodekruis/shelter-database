@@ -21,6 +21,8 @@ python3.5 src/manager.py import_shelters admin data/shelters/Phil-Bangla-Burundi
 
 # Import pictures of the shelters
 python3.5 src/manager.py import_shelters_pictures data/shelters/pictures/
+# Create picture thumbnails
+python3.5 src/manager.py create_shelters_thumbnails
 
 # Import documents of the shelters
 python3.5 src/manager.py import_shelters_documents data/shelters/documents/
