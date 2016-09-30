@@ -11,3 +11,4 @@ Flask-Admin==1.4.2
 Flask-Principal==0.4.0
 Flask-Babel==0.11.1
 Flask-Migrate==2.0.0
+Flask-thumbnails==0.2.1

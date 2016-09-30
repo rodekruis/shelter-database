@@ -265,7 +265,10 @@ def allshelters(shelter_id=None):
     for picture in shelter_pictures:
     	if picture.shelter_id in result:
     		if picture.is_main_picture == True:
-    			result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
+    			if not result[picture.shelter_id]["Identification"]["Cover"]:
+    				result[picture.shelter_id]["Identification"]["Cover"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
+    			else:
+    				result[picture.shelter_id]["Identification"]["Cover"].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
     		elif not result[picture.shelter_id][picture.name]["Pictures"]:
     			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
     		else:
@@ -376,5 +379,7 @@ def latestshelters(count=1):
     			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
     		else:
     			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
-  
-    return jsonify(result)
+    obj = []
+    obj = result
+    print(obj)
+    return jsonify(list(result))

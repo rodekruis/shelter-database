@@ -4,18 +4,21 @@
 {% block head %}
     {{ super() }}
     <script src="{{ url_for('static', filename = 'lib/bower/d3/d3.min.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'lib/bower/d3-queue/d3-queue.js') }}"></script>
 	<script src="{{ url_for('static', filename = 'lib/bower/leaflet/dist/leaflet.js') }}"></script>
 	<script src="{{ url_for('static', filename = 'lib/bower/leaflet-image/leaflet-image.js') }}"></script>
 	<script src="{{ url_for('static', filename = 'js/hammer.min.js') }}"></script>
 	<script src="{{ url_for('static', filename = 'lib/bower/spin.js/spin.min.js') }}"></script>
 	<script src="{{ url_for('static', filename = 'lib/bower/spin.js/jquery.spin.js') }}"></script>
-
+	
 	<link href="{{ url_for('static', filename = 'lib/bower/leaflet/dist/leaflet.css') }}" rel="stylesheet" media="screen" />
     {% endblock %}
 {% block wrapper_start %}
 <div id="wrapper">
 {% endblock %}
 {% block content %}
+		
+
         <section class="shelterheader">
             <div class="content">
                 <h1 id="shelter-name">[UNKNOWN NAME]</h1>
@@ -27,67 +30,22 @@
             </section>
         <section id="coverpicture" class="shelterimg" onclick="modalOpen('main-image-swipe')">
         </section>
-		<section>
-            <div class="details">
-				<h3>Identification</h3>
-				<div id="location-image" class="location-image"></div>
-			    <div id="location-map" class="location-map"></div>
-				<div class="content">
-					<table id="identification">
-						<tr>
-							<td>No data available in this category</td>
-						</tr>
-					</table>
+		
+		<div id="sections">
+			
+			<section>
+				<div class="details">
+					<div id="location-image" class="location-image"></div>
+					<div id="location-map" class="location-map"></div>
 				</div>
-			</div>
-        </section>
-		<section class="details details-1">
-            <div class="content">
-                <h3>General</h3>
-                <table id="general">
-					<tr>
-						<td>No data available in this category</td>
-					</tr>
-				</table>
-            </div>
-        </section>
-        <section class="details details-2">
-            <div class="content">
-                <h3>Disaster & Response</h3>
-                <table id="disasterresponse">
-					<tr>
-						<td>No data available in this category</td>
-					</tr>
-				</table>
-            </div>
-        </section>
-
-        <section class="details details-1">
-            <div class="content">
-                <h3>Site</h3>
-                <table id="site">
-					<tr>
-						<td>No data available in this category</td>
-					</tr>
-				</table>
-            </div>
-        </section>
-		
-		 <section class="details details-2">
-            <div class="content">
-                <h3>Foundation</h3>
-                <table id="foundation">
-					<tr>
-						<td>No data available in this category</td>
-					</tr>
-				</table>
-            </div>
-        </section>
-				
-		
+			</section>
+			<!-- TODO: more button that shows/hides other categories -->
+		</div>
 {% endblock %}
 
 {% block footer %}
+{{ super() }}
+
 		<div class="mymodal mymodal-dark" id="main-image-swipe">
 			<div class="mymodal-close" onclick="modalClose()"></div>
 			<div class="swipe">
@@ -101,241 +59,14 @@
 			<div align="center" id="listOfPictures"></div>
 		</div>
 		
-	<script type="text/javascript">
-        var modalPage = 0
-		var modalName = ""
-		var modalOpen = function(modalid){
-			modalName = modalid
-			$("#wrapper").addClass("modal-open")
-			$("#" + modalid).css("visibility", "visible")
-			setPage(1)
-		}
-		var modalClose = function(){
-			$("#wrapper").removeClass("modal-open")
-			$("#" + modalName).css("visibility", "hidden")
-			modalName = ""
-			modalResetPages()
-		}
-		var modalPrev = function(){
-			setPage(modalPage - 1)
-		}
-		var modalNext = function(){
-			setPage(modalPage + 1)
-		}
-		var setPage = function(page){
-			modalPage = page
-			modalResetPages()
-			console.log(page)
-			console.log($(".mymodal .page" + page))
-			$(".mymodal .page" + page).css("display", "block")
-		}
-		var modalResetPages = function(){
-			$(".mymodal .page").each(function(el){
-				$(this).css("display", "none")
-			})
-		}
-    </script>
+		<script type="text/javascript">
+			// set shelter id and path for swipe include
+			var shelter_id = {{shelter_id}};
+			var language = '{{language}}';
+			var path = '{{ url_for('static', filename = '') }}';
+		</script>	
+		<script type="text/javascript" src="{{ url_for('static', filename = 'js/shelter.js') }}"></script>
 		
-    {{ super() }}
-	
-	<script type="text/javascript" class="source">
-		var shelter_id = {{shelter_id}};
-		var attributes;
-		
-		// get all attributes with drawings
-		d3.json('/api/v0.2/attributes/pictures/en', function (error, data) {
-			attributes = data;
-		});
-		
-		// add spinner
-		$('#wrapper').spin();
-			
-		d3.json('/api/v0.2/shelters/' + shelter_id + '?format=prettytext', function (error, data) {
-			
-			
-			// render the table(s)
-			
-			if(typeof data[shelter_id]['Site'] !== 'undefined') {
-				var site = data[shelter_id]['Site']['Attributes'];
-				$("#site").empty();
-				tabulate('#site', 'Site', site, d3.keys(site));
-			}
-			
-			if(typeof data[shelter_id]['General'] !== 'undefined') {
-				var general = data[shelter_id]['General']['Attributes'];
-				$("#general").empty();
-				tabulate("#general", 'General', general, d3.keys(general));
-			}
-			
-			if(typeof data[shelter_id]['Disaster & Response'] !== 'undefined') {
-				var disasterresponse = data[shelter_id]['Disaster & Response']['Attributes'];
-				$("#disasterresponse").empty();
-				tabulate("#disasterresponse", 'Disaster & Response', disasterresponse, d3.keys(disasterresponse));
-			}
-			
-			if(typeof data[shelter_id]['Foundation'] !== 'undefined') {
-				var foundation = data[shelter_id]['Foundation']['Attributes'];
-				$("#foundation").empty();
-				tabulate("#foundation", 'Foundation', foundation, d3.keys(foundation));
-			}
-			
-			if(typeof data[shelter_id]['Identification'] !== 'undefined') {
-				// Set shelter name
-				$('#shelter-name').text(data[shelter_id]['Identification']['Attributes']['Name of shelter']);
-				
-				// add attributes
-				var identification = data[shelter_id]['Identification']['Attributes'];
-				$("#identification").empty();
-				tabulate("#identification", 'Identification', identification, d3.keys(identification));
-			
-				// Get coordinates for this shelter
-				var lat = data[shelter_id]['Identification']['Attributes']['GPS Latitude'];
-				var lon = data[shelter_id]['Identification']['Attributes']['GPS Longitude'];
-				
-				// Initiate leaflet map
-				var map = L.map('location-map', {tap:false, dragging:false}).setView([lat, lon], 13);
-				
-				// Add OSM base layer
-				L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
-				
-				// disable dragging and scrolling for mobile view
-				map.scrollWheelZoom.disable();
-				map.dragging.disable();
-				
-				// add location of shelter to map
-				L.marker([lat, lon]).addTo(map);
-					
-				// add pictures
-				addCoverPictures('#coverpicture', '#coverpictureprint', data[shelter_id]['Identification']);
-				addSwipePictures('#modalIdentification', data[shelter_id]['Identification']);
-				
-				// convert map to image for better printing
-				leafletImage(map, function(err, canvas) {
-					// now you have canvas
-					// example thing to do with that canvas:
-					$('#location-image').prepend('<img id="location-image-picture" src="'+ canvas.toDataURL() + '" />')		
-				});
-			}
-			
-			// stop spinner if all has loaded
-			$('#wrapper').spin(false);
-		});
-		
-		function addCoverPictures(coverpicture, printpicture, section){
-			if(typeof section['Cover'] !== 'undefined' && section['Cover'].length > 0) {
-				$(coverpicture).css("background-image", "url('/" + section['Cover'][0] + "')");	
-				$(printpicture).attr("src", "/" + section['Cover'][0]);					
-			}
-		}
-		
-		function addSwipePictures(elementId, section){
-			if(typeof section['Pictures'] !== 'undefined') {
-			
-				//merge arrays
-				var d = $.merge(section.Cover, section.Pictures);
-				
-				// add panes
-				d3.select(elementId + "Panes")
-				   .selectAll("div")
-				   .data(d)
-				   .enter()
-				   .append("div")
-					   .attr("class","pane")
-					   .attr("style",function (d){ return "background-image:  url('/" + d + "')";});
-				
-				// add dots
-				var dot = 0;
-				
-				d3.select(elementId + "Dots")
-				   .selectAll("div")
-				   .data(d)
-				   .enter()
-				   .append("div")
-					   .attr("class","dot")
-					   .attr("onclick",function (d){ 
-						var r = "_swipe.show(" + dot + ",0,true)";
-						dot++;
-						return r;
-					});
-			}
-			
-			// dynamically load swipe, because created dots need to be ready
-			$.getScript('{{ url_for('static', filename = 'js/swipe.js') }}');
-		}
-
-		function tabulate(table_id, section, d, columns) {
-
-			// convert object keys to an attribute value pair
-			var data = Object.keys(d).map(function(k) { return {attribute:k, value:d[k]} })
-			
-			var table = d3.select(table_id)
-			var	tbody = table.append('tbody');
-
-			// create a row for each object in the data
-			var rows = tbody.selectAll('tr')
-			  .data(data)
-			  .enter()
-			  .append('tr');
-
-			// Add column with attribute names
-			rows.append('th').append('b')
-			    .text(function (d) { 
-					return d.attribute; 
-					
-				});
-			 
-			// Add column with values
-			rows.append('td')
-					.text(function (d) { return d.value; })
-				.append('span')
-					.attr("class", function (d) { 
-						// TODO test if attribute has drawing
-						if(hasOwnProperty.call(attributes, section) && hasOwnProperty.call(attributes[section], d.attribute)){
-							return "info attribute-multimedia-asset";
-						}
-						else {
-							return '';
-						}
-					})
-					.attr("attribute-name", function (d) { return d.attribute;})
-					.attr("section-name", function (d) { return section;});
-		}
-	</script>
-		
-    <script type="text/javascript">
-	
-	$(document).ready(function() {
-			$(document).on('click', '.attribute-multimedia-asset' , show_multimedia_assets);
-
-			function show_multimedia_assets(e) {
-				var attribute = $(this).attr("attribute-name");
-				var section = $(this).attr("section-name")
-				
-				if(hasOwnProperty.call(attributes, section) && hasOwnProperty.call(attributes[section], attribute)){
-					var drawings = attributes[section][attribute];
-				
-					// empty modal list of pictures
-					$('#listOfPictures').empty();
-					drawings.map(function(picture) {
-						var oImg = $('<img />')
-									.attr('src', '/' + picture)
-									.attr('alt', attribute)
-									.attr('title', attribute)
-									.attr('class', 'attribute-drawing');
-							
-						$('#listOfPictures').append(oImg);
-						$('#listOfPictures').append($('<hr>'));
-					});
-					
-					$('#listOfPictures hr:last-child').remove();
-					modalOpen('infoDialog')
-				}
-			}
-	});
-		
-	
-</script>
-	
 {% endblock %}
 {% block wrapper_end %}
 </div>
