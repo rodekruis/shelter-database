@@ -5,6 +5,7 @@
     AddOutputFilterByType DEFLATE text/html
     AddOutputFilterByType DEFLATE text/xml
     AddOutputFilterByType DEFLATE application/json
+	AddOutputFilterByType DEFLATE application/octet-stream
     AddOutputFilterByType DEFLATE application/x-httpd-php
     AddOutputFilterByType DEFLATE text/css
     AddOutputFilterByType DEFLATE application/xml
