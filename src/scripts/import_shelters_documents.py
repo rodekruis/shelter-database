@@ -29,7 +29,7 @@ def import_shelters_documents(folder):
             db.session.add(new_document)
             db.session.commit()
 
-            path = os.path.join(conf.SHELTERS_DOCUMENTS_PATH,
+            path = os.path.join(conf.SHELTERS_DOCUMENTS_SERVER_PATH,
                                                         str(shelter.id))
             if not os.path.exists(path):
                 os.makedirs(path)
