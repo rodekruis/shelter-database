@@ -44,7 +44,7 @@ $(document).ready(function () {
         'queryFilter': {'dbName': 'db_id'},
     }
 
-//    d3.csv('/static/data/shelters-sample.csv', function (data) {
+	// get shelters from api
      d3.json("api/v0.1.1/shelters", function(dataObject) {
 
           var data = []
@@ -609,17 +609,31 @@ generateShelterList  = function (data) {
 		// get url from api data if pictures exist
 		var url = '';
 		if(typeof(data[i].shelterpicture) !== 'undefined' && Object.keys(data[i].shelterpicture).length > 0){
-			for (var prop in data[i].shelterpicture) {
-				url = data[i].shelterpicture[prop][0];
-				break;
+				
+			// then search for Identification Facade thumbnail or Facade
+			if(typeof(data[i].shelterpicture['Identification']) !== 'undefined'){
+				
+				$.each(data[i].shelterpicture['Identification'], function(j, val) {
+					var found = val.indexOf('_thumbnail');
+					if ( found >= 0) {
+						url = data[i].shelterpicture['Identification'][j];
+						return false;
+					}
+				});
 			}
 		}
 
         var shelter = $('<div class="shelter"/>').appendTo('#shelterList');
-        shelter.append('<div class="image" style="background-image: url(\'/' + url  + '\')"></div> ' +
+        shelter.append('<div class="lazy image" data-original="/'  + url  + '" style="background-image: url(\'/\');"></div> ' +
             '<h4 class="title"><a href="/shelter/' + data[i].db_id + '">' +data[i].nameofshelter+ '</a></h4>'  +
             '<div class="country">'+data[i].country+'</div> ' +
             '<div class="description"><p>' +'' + '</p></div>');
     }
+	
+	$("div.lazy").lazyload({
+		  effect : "fadeIn"
+	});
 
 }
+
+
