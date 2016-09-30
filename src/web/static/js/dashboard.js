@@ -624,10 +624,16 @@ generateShelterList  = function (data) {
 		}
 
         var shelter = $('<div class="shelter"/>').appendTo('#shelterList');
-        shelter.append('<div class="image" style="background-image: url(\'/' + url  + '\')"></div> ' +
+        shelter.append('<div class="lazy image" data-original="/'  + url  + '" style="background-image: url(\'/\');"></div> ' +
             '<h4 class="title"><a href="/shelter/' + data[i].db_id + '">' +data[i].nameofshelter+ '</a></h4>'  +
             '<div class="country">'+data[i].country+'</div> ' +
             '<div class="description"><p>' +'' + '</p></div>');
     }
+	
+	$("div.lazy").lazyload({
+		  effect : "fadeIn"
+	});
 
 }
+
+

@@ -37,7 +37,8 @@
 	"jquery-form-validator": "2.3.*",
 	"select2": "4.0.*",
 	"spin.js": "2.3.*",
-	"d3-queue": "3.0.*"
+	"d3-queue": "3.0.*",
+	"jquery_lazyload": "1.9.*"
 	
   }
 }
