@@ -17,18 +17,13 @@
 	
     <link type='text/css' rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:100,400,300,700'>
 	<link href="{{ url_for('static', filename = 'lib/bower/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" media="screen" />
-	<link href="{{ url_for('static', filename = 'lib/bower/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" media="screen" />
+	<!--<link href="{{ url_for('static', filename = 'lib/bower/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" media="screen" />-->
 	<link href="{{ url_for('static', filename='css/style_new.css') }}" rel="stylesheet" media="screen" />
     <link href="{{ url_for('static', filename='css/print.css')}}" rel="stylesheet" media="print">
-    <link href="{{ url_for('static', filename='css/style-dashboard.css')}}" rel="stylesheet" media="screen" />
 	
 	<script src="{{ url_for('static', filename = 'lib/bower/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename = 'js/create-shelter.js') }}"></script>
     <script src="{{ url_for('static', filename = 'js/countries.js') }}"></script>
-
-	<!-- Add custom CSS here -->
-    <!--<link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" media="screen" />-->
-    <link href="{{ url_for('static', filename='css/climate.css') }}" rel="stylesheet" media="screen" />
     {% endblock %}
 		
 </head>
@@ -38,7 +33,7 @@
 {% endblock %}
 		<header>
 			<nav>
-				<a class="home" href="/"><i class="fa fa-plus-square"></i><span class="text">Open Shelter Database</span></a>
+				<a class="home" href="/"><i class="fa icon-plus-squared"></i><span class="text">Open Shelter Database</span></a>
 				<ul>
 					<li><a href="{{ url_for('dashboard') }}">Shelters</a></li>
 					 <li><a href="{{ url_for('contribute') }}" class="selected">Contribute</a></li>

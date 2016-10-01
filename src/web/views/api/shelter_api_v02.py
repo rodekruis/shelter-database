@@ -379,7 +379,5 @@ def latestshelters(count=1):
     			result[picture.shelter_id][picture.name]["Pictures"] = ["{}/{}/{}".format(picpath, picture.shelter_id, picture.filename)]
     		else:
     			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
-    obj = []
-    obj = result
-    print(obj)
-    return jsonify(list(result))
+
+    return jsonify(result)

@@ -5,6 +5,8 @@
 	<script src="{{ url_for('static', filename = 'lib/bower/spin.js/spin.min.js') }}"></script>
 	<script src="{{ url_for('static', filename = 'lib/bower/spin.js/jquery.spin.js') }}"></script>
 	<script src="{{ url_for('static', filename = 'js/index.js') }}"></script>
+	
+	<link href="{{ url_for('static', filename='icons/css/fontello.css') }}" rel="stylesheet" media="screen" />
 {% endblock %}
 {% block wrapper_start %}
 
@@ -32,42 +34,38 @@
                 <h3>What it is for</h3>
                 <div class="flexbox">
                     <div class="box">
-                        <i class="head fa fa-question"></i>
-                        <h4>Why</h4>
-                        <p><strong>Need</strong>. Humanitarian Shelter activities are a key component to rebuild affected populations’ lives and livelihoods while representing huge costs for agencies which face a lake of interacting hub.</p>
+                        <i class="head icon-help"></i>
+                        <h4>Need</h4>
+                        <p>Humanitarian Sheltering is a key component to rebuild affected populations’ lives and livelihoods.</p>
                     </div>
                     <div class="box">
-                        <i class="head fa fa-line-chart "></i>
-                        <h4>What</h4>
-                        <p><strong>Document, Share, Save</strong>. Extensive experiences and critical information need to be gathered and organized to support actors at different levels, from decision makers to field implementers.</p>
+                        <i class="head icon-database"></i>
+                        <h4>Document, Share, Save</h4>
+                        <p>Shelter data is collected systematically and shared with people ranging from decision makers to field implementers, to facilitate consultation, understanding and dissemination of best practices.</p>
                     </div>
-                    <div class="box">
-                        <i class="head fa fa-share-alt"></i>
-                        <h4>How</h4>
-                        <p><strong>Database</strong>. Using a systematic and methodological grid to facilitate consultation, understanding and dissemination of good practices</p>
+					<div class="box">
+                        <i class="head icon-group"></i>
+                        <h4>Everyone</h4>
+                        <p>Shelter implementing organizations are invited to contribute their shelter data to the benefit of all.</p>
                     </div>
 				</div>
-				<br /><br/>
+				<!-- the Humanitarian Shelter Sector becomes crucial in the planning of disaster risk reduction-oriented interventions.-->
 				<div class="flexbox">
-					<div class="box">
-                        <i class="head fa fa-question"></i>
-                        <h4>Who</h4>
-                        <p><strong>Everyone</strong>. Open source database that the Shelter Research Unit makes available to all actors of the Humanitarian Shelter Sector.</p>
+
+                    <div class="box">
+                        <i class="head icon-globe"></i>
+                        <h4>Global</h4>
+                        <p>Disasters hit parts of the globe with little or no predictability and their amount and consequences are alarmingly increasing year after year.</p>
                     </div>
                     <div class="box">
-                        <i class="head fa fa-line-chart "></i>
-                        <h4>Where</h4>
-                        <p><strong>Everywhere</strong>. Disasters hit parts of the globe with little or no predictability and their amount and consequences are alarmingly increasing year after year. As a consequence, the Humanitarian Shelter Sector becomes crucial in the planning of disaster risk reduction-oriented interventions. </p>
-                    </div>
-                    <div class="box">
-                        <i class="head fa fa-share-alt"></i>
-                        <h4>When</h4>
-                        <p><strong>Anytime</strong>. Organizations are always invited to document their experiences for the affected populations benefit and all other actors of the Humanitarian Shelter Sector.</p>
+                        <i class="head icon-codeopen"></i>
+                        <h4>Open</h4>
+                        <p>The shelter database is open and searchable. For developers an API is available.</p>
                     </div>
 					<div class="box">
-                        <i class="head fa fa-share-alt"></i>
-                        <h4>How much</h4>
-                        <p><strong>Free and open</strong>. Free and open access with only relevant projects from every agency.</p>
+                        <i class="head icon-chart-line"></i>
+                        <h4>Cost effective</h4>
+                        <p>Sheltering is representing huge costs for agencies. Sharing open data on best practices can drastically reduce costs of implementation</p>
                     </div>
                 </div>
             </div>
