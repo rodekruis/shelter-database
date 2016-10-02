@@ -33,6 +33,10 @@
 		%}
 		<script type="text/javascript" src="{{ ASSET_URL }}"></script>
 		{% endassets %}
+		<script type="text/javascript">
+			// set leaflet image path
+			L.Icon.Default.imagePath = "{{ url_for('static', filename='lib/bower/leaflet/dist/images') }}";
+		</script>
 	{% endblock %}
 	
 	{% block assets_end %}

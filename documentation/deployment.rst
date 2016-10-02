@@ -364,6 +364,16 @@ Enable the site:
 .. code-block:: shell
 
     sudo a2ensite shelter-database
+	
+Set rights on directories:
+
+.. code-block:: shell
+
+    cd shelter-database/
+	sudo mkdir src/web/static/assets
+	chown -R www-data:www-data src/web/static/assets
+	sudo mkdir src/web/static/.webassets-cache
+	chown -R www-data:www-data src/web/static/.webassets-cache
 
 
 The web application is now running with a dedicated user and a thread limit set
