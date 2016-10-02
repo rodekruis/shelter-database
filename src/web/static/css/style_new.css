@@ -1400,4 +1400,19 @@ section.map {
 #sections table tr td {
     width: 50%;
 }
-		
+
+.leaflet-control-layers-toggle {
+	background-image: url(../lib/bower/leaflet/dist/images/layers.png);
+}
+
+.leaflet-retina .leaflet-control-layers-toggle {
+	background-image: url(../lib/bower/leaflet/dist/images/layers-2x.png);
+}
+	
+/* overwrite bootstrap paths	 */
+@font-face {
+  font-family: 'Glyphicons Halflings';
+
+  src: url('../lib/bower/bootstrap/dist/fonts/glyphicons-halflings-regular.eot');
+  src: url('../lib/bower/bootstrap/dist/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../lib/bower/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../lib/bower/bootstrap/dist/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../lib/bower/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../lib/bower/bootstrap/dist/fontsfonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}

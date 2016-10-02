@@ -4,7 +4,7 @@
 			$('#newest').spin();
 			
 			// listen for the enter key to activate the search field
-			document.getElementById("searchinput").addEventListener("keyup", function(e) {
+			$('#searchinput').keyup(function(e){ 
 				e.preventDefault();
 				if (e.keyCode == 13) {
 					window.location.href = "dashboard#zone=&crisis=&climate=&time=&country=&query=" + $('#searchinput').val();

@@ -29,9 +29,13 @@ import flask_restless
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_thumbnails import Thumbnail
+from flask_assets import Environment, Bundle
+
 # Create Flask app
 
 app = Flask('web')
+
+assets = Environment(app)
 
 # Create a random secrey key so we can use sessions
 if conf.WEBSERVER_SECRET_KEY:
@@ -40,6 +44,9 @@ else:
     app.config['SECRET_KEY'] = os.urandom(12)
 
 app.debug = conf.LOG_LEVEL <= logging.DEBUG
+
+app.config['ASSETS_DEBUG'] = conf.WEBSERVER_DEBUG
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = conf.SQLALCHEMY_DATABASE_URI
 
