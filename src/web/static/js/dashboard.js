@@ -552,7 +552,7 @@ function addLayersToChart(mapChart) {
 		"fillColor": 'white'
 	};
 	
-	var countryLayer = new L.GeoJSON.AJAX("/static/data/countries.geojson", {style: countryStyle});
+	var countryLayer = new L.GeoJSON.AJAX("/static/data/countries_merge.geojson", {style: countryStyle});
 
     var overlayMaps = {
         "Climate simplified classification": redCrossLayer,
