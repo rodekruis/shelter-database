@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html lang="nl">
 {% extends "layout.html" %}
-{% block head %}
+{% block assets_start %}
     {{ super() }}
-    <script src="{{ url_for('static', filename = 'lib/bower/d3/d3.min.js') }}"></script>
-	<script src="{{ url_for('static', filename = 'lib/bower/d3-queue/d3-queue.js') }}"></script>
-	<script src="{{ url_for('static', filename = 'lib/bower/leaflet/dist/leaflet.js') }}"></script>
-	<script src="{{ url_for('static', filename = 'lib/bower/leaflet-image/leaflet-image.js') }}"></script>
-	<script src="{{ url_for('static', filename = 'js/hammer.min.js') }}"></script>
-	<script src="{{ url_for('static', filename = 'lib/bower/spin.js/spin.min.js') }}"></script>
-	<script src="{{ url_for('static', filename = 'lib/bower/spin.js/jquery.spin.js') }}"></script>
 	
-	<link href="{{ url_for('static', filename = 'lib/bower/leaflet/dist/leaflet.css') }}" rel="stylesheet" media="screen" />
-    {% endblock %}
+	<script type="text/javascript">
+		// set shelter id and path for swipe include
+		var shelter_id = {{shelter_id}};
+		var language = '{{language}}';
+		var path = '{{ url_for('static', filename = '') }}';
+	</script>	
+	
+	{% assets filters="jsmin", output="assets/packaged-shelter.js",
+          "lib/bower/leaflet-image/leaflet-image.js", 
+		  "js/hammer.min.js",
+		  "js/shelter.js"
+	%}
+		<script type="text/javascript" src="{{ ASSET_URL }}"></script>
+	{% endassets %}
+
+{% endblock %}
+
 {% block wrapper_start %}
 <div id="wrapper">
 {% endblock %}
@@ -58,15 +66,7 @@
 			<div class="mymodal-close" onclick="modalClose()"></div>
 			<div align="center" id="listOfPictures"></div>
 		</div>
-		
-		<script type="text/javascript">
-			// set shelter id and path for swipe include
-			var shelter_id = {{shelter_id}};
-			var language = '{{language}}';
-			var path = '{{ url_for('static', filename = '') }}';
-		</script>	
-		<script type="text/javascript" src="{{ url_for('static', filename = 'js/shelter.js') }}"></script>
-		
+				
 {% endblock %}
 {% block wrapper_end %}
 </div>

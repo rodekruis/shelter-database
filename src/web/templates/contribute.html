@@ -1,24 +1,28 @@
 {% extends "layout.html" %}
-{% block head %}
+{% block assets_start %}
     {{ super() }}
-	<script src="{{ url_for('static', filename = 'lib/bower/leaflet/dist/leaflet.js') }}"></script>
-	<script src="{{ url_for('static', filename='lib/bower/leaflet-geosearch/src/js/l.control.geosearch.js') }}"></script>
-	<script src="{{ url_for('static', filename='lib/bower/leaflet-geosearch/src/js/l.geosearch.provider.google.js') }}"></script>
-	<script src="{{ url_for('static', filename='lib/bower/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.js') }}"></script>
-	<script src="{{ url_for('static', filename='lib/bower/Leaflet.label/dist/leaflet.label.js') }}"></script>
-	<script src="{{ url_for('static', filename='lib/bower/dropzone/dist/dropzone.js') }}"></script>
-	<script src="{{ url_for('static', filename='lib/bower/select2/dist/js/select2.full.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='lib/bower/jquery-form-validator/form-validator/jquery.form-validator.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/edit-shelter.js') }}"></script>
-	<script src="{{ url_for('static', filename = 'lib/bower/spin.js/spin.min.js') }}"></script>
-	<script src="{{ url_for('static', filename = 'lib/bower/spin.js/jquery.spin.js') }}"></script>
 	
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/bower/leaflet/dist/leaflet.css') }}" rel="stylesheet" media="screen" />
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/bower/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.css') }}" />
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/bower/Leaflet.label/dist/leaflet.label.css') }}" />
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/bower/dropzone/dist/dropzone.css') }}" />
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/bower/select2/dist/css/select2.min.css') }}" />
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/bower/jquery-form-validator/form-validator/theme-default.min.css') }}" />
+	{% assets filters="jsmin", output="assets/packaged-contribute.js",
+          "lib/bower/leaflet-geosearch/src/js/l.control.geosearch.js", 
+		  "lib/bower/leaflet-geosearch/src/js/l.geosearch.provider.google.js",
+		  "lib/bower/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.js",
+		  "lib/bower/Leaflet.label/dist/leaflet.label.js",
+		  "lib/bower/dropzone/dist/dropzone.js", 
+		  "lib/bower/select2/dist/js/select2.full.min.js",
+		  "lib/bower/jquery-form-validator/form-validator/jquery.form-validator.min.js"
+	%}
+		<script type="text/javascript" src="{{ ASSET_URL }}"></script>
+	{% endassets %}
+	
+	{% assets filters="cssmin", output="assets/packaged-contribute.css",
+          "lib/bower/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.css", 
+		  "lib/bower/Leaflet.label/dist/leaflet.label.css", 
+		  "lib/bower/dropzone/dist/dropzone.css",
+		  "lib/bower/select2/dist/css/select2.min.css",
+		  "lib/bower/jquery-form-validator/form-validator/theme-default.min.css"
+	%}
+		<link rel="stylesheet" type="text/css" href='{{ ASSET_URL }}' media="screen">
+	{% endassets %}
 
 {% endblock %}
 
@@ -469,7 +473,7 @@
 		});
 
 		//get data from api
-		$.getJSON("/static/data/countries.geojson", function(data) {
+		$.getJSON("/static/data/countries_merge.geojson", function(data) {
 			// set countries
 			countries = data;
 						
@@ -478,6 +482,7 @@
 			
 			// Add OSM base layer
 			L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(locationpicker);
+			
 			
 			// Add Mapzen geocoder 
 			L.control.geocoder('search-Us5vhhe', {panToPoint: true, markers: false, attribution: null}).addTo(locationpicker);

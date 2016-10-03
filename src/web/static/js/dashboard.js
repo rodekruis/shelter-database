@@ -242,11 +242,8 @@ $(document).ready(function () {
             })
             .columns([
                 function (d) {
-                    return d.id;
-                },
-                function (d) {
-                    return d['nameofshelter'];
-                },
+					return '<a href="/shelter/' + d.db_id +'" target="_blank">' + d.nameofshelter + '</a>';
+				},
                 function (d) {
                     return d.zone;
                 },
@@ -254,10 +251,10 @@ $(document).ready(function () {
                     return d.country;
                 },
                 function (d) {
-                    return d['associateddisasterimmediatecause'];
+                    return d.associateddisasterimmediatecause;
                 },
                 function (d) {
-                    return d['climatezone'];
+                    return d.climatezone;
                 }
             ])
             .on('renderlet', function (table) {
@@ -555,7 +552,7 @@ function addLayersToChart(mapChart) {
 		"fillColor": 'white'
 	};
 	
-	var countryLayer = new L.GeoJSON.AJAX("/static/data/countries.geojson", {style: countryStyle});
+	var countryLayer = new L.GeoJSON.AJAX("/static/data/countries_merge.geojson", {style: countryStyle});
 
     var overlayMaps = {
         "Climate simplified classification": redCrossLayer,
@@ -579,7 +576,7 @@ function addLayersToChart(mapChart) {
 	map.addControl( Legend );
 
 	$(".legend-container").append( $("#legend") );
-	$(".legend-toggle").append( "<i class='legend-icon fa fa-info fa-2x' style='color: #000'></i>" );
+	$(".legend-toggle").append( "<i class='legend-icon icon-info' style='color: #000'></i>" );
 
     map.addLayer(redCrossLayer)
     L.control.layers(null, overlayMaps).addTo(map);

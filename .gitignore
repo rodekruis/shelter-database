@@ -38,3 +38,6 @@ src/web/public/
 
 # pycharm
 .idea/
+
+# generated asset css and js files
+assets/
