@@ -114,32 +114,21 @@
 		{% endblock %}
     </body>
 	{% block defer %}
-	
-		{% assets filters="jsmin", output="assets/packaged-jquery.js",
-			  "lib/bower/jquery/dist/jquery.min.js"
-		%}
-		<script type="text/javascript" src="{{ASSET_URL}}"></script>
-		{% endassets %}
-		
-	<script type="text/javascript">	
-		var main_functions = {};
-		var main_i = 1;
 
 		{% assets filters="jsmin", output="assets/packaged.js",
+			  "lib/bower/jquery/dist/jquery.min.js",
+			  "lib/bower/d3/d3.min.js",
+			  "lib/bower/leaflet/dist/leaflet.js",
 			  "lib/bower/spin.js/spin.min.js",
 			  "lib/bower/spin.js/jquery.spin.js",
 			  "lib/bower/bootstrap/dist/js/bootstrap.min.js",
 			  "lib/bower/datatables.net/js/jquery.dataTables.min.js",
 			  "lib/bower/dropzone/dist/dropzone.js",
-			  "lib/bower/leaflet/dist/leaflet.js",
 			  "lib/bower/leaflet-image/leaflet-image.js",
-			  "lib/bower/d3/d3.min.js",
 			  "lib/bower/d3-queue/d3-queue.js",
 			  "lib/bower/crossfilter/crossfilter.min.js", 
 			  "lib/bower/colorbrewer/colorbrewer.js",
-			  "lib/custom/dc/dc.min.js",
 			  "lib/bower/leaflet.markercluster/dist/leaflet.markercluster.js",
-			  "lib/custom/dc/dc.leaflet.js", 
 			  "lib/bower/FileSaver/FileSaver.min.js",
 			  "lib/bower/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js",
 			  "lib/bower/leaflet-ajax/dist/leaflet.ajax.min.js",
@@ -152,6 +141,8 @@
 			  "lib/bower/dropzone/dist/dropzone.js", 
 			  "lib/bower/select2/dist/js/select2.full.min.js",
 			  "lib/bower/jquery-form-validator/form-validator/jquery.form-validator.min.js",
+			  "lib/custom/dc/dc.min.js",
+			  "lib/custom/dc/dc.leaflet.js", 
 			  "js/hammer.min.js",
 			  "js/create-shelter.js", 
 			  "js/countries.js",
@@ -162,22 +153,7 @@
 			  "js/index.js",
 			  "js/contribute.js"
 		%}
-			main_functions['downloadJS' + main_i + 'AtOnload'] = function() {
-				var element = document.createElement("script");
-				element.src = "{{ ASSET_URL }}";
-				document.body.appendChild(element);
-			}
-			if (window.addEventListener)
-				window.addEventListener("load", main_functions['downloadJS' + main_i + 'AtOnload'], false);
-			else if (window.attachEvent)
-				window.attachEvent("onload", main_functions['downloadJS' + main_i + 'AtOnload']);
-			else 
-				window.onload = main_functions['downloadJS' + main_i + 'AtOnload'];
-				
-			// increment function variable
-			main_i=main_i+1;
+			<script type="text/javascript" src="{{ASSET_URL}}" defer></script>
 		{% endassets %}
-	</script>
-	
 	{% endblock %}
 </html>
