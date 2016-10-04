@@ -10,14 +10,6 @@
 		var language = '{{language}}';
 		var path = '{{ url_for('static', filename = '') }}';
 	</script>	
-	
-	{% assets filters="jsmin", output="assets/packaged-shelter.js",
-          "lib/bower/leaflet-image/leaflet-image.js", 
-		  "js/hammer.min.js",
-		  "js/shelter.js"
-	%}
-		<script type="text/javascript" src="{{ ASSET_URL }}"></script>
-	{% endassets %}
 
 {% endblock %}
 

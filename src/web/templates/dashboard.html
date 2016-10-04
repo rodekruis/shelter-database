@@ -1,22 +1,7 @@
 {% extends "layout.html" %}
 {% block assets_start %}
     {{ super() }}
-
-		{% assets filters="jsmin", output="assets/packaged-dashboard.js",
-			  "lib/bower/crossfilter/crossfilter.min.js", 
-			  "lib/bower/colorbrewer/colorbrewer.js",
-			  "lib/custom/dc/dc.min.js",
-			  "lib/bower/leaflet.markercluster/dist/leaflet.markercluster.js",
-			  "lib/custom/dc/dc.leaflet.js", 
-			  "lib/bower/FileSaver/FileSaver.min.js",
-			  "lib/bower/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js",
-			  "lib/bower/leaflet-ajax/dist/leaflet.ajax.min.js",
-			  "lib/custom/leaflet-legend/leaflet-legend.js",
-			  "lib/bower/jquery_lazyload/jquery.lazyload.js"
-		%}
-			<script type="text/javascript" src="{{ ASSET_URL }}"></script>
-		{% endassets %}
-		
+	
 		{% assets filters="cssmin", output="assets/packaged-dashboard.css",
 			  "lib/bower/leaflet.markercluster/dist/MarkerCluster.Default.css", 
 			  "lib/bower/leaflet.markercluster/dist/MarkerCluster.css", 
@@ -293,20 +278,6 @@
             
         </div>
     </section>
-
-<script type="text/javascript">
-    var setTab = function (tab) {
-        document.getElementById("tabs").className = "tab" + tab
-    }
-
-    var toggleAdvanced = function () {
-        var obj = document.getElementById("advanced")
-        if (obj.className == "advanced") {
-            obj.className = "advanced open"
-        } else {
-            obj.className = "advanced"
-        }
-    }
-</script>
-<script src="{{ url_for('static', filename = 'js/dashboard.js') }}"></script>
 {% endblock %}
+
+

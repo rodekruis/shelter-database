@@ -1,82 +1,113 @@
-		// when all dom elements are loaded
-        $(document).ready(function() {
-			// add spinner
-			$('#newest').spin();
+/**
+ * Created by nlrc on 22-7-16.
+ */
+// if home page, add class is landingpage to header
+
+if("/" === loc) {
+	
+	var modalName = "";
+	var modalOpen = function(modalid){
+		modalName = modalid;
+		$("#wrapper").addClass("modal-open");
+		$("#" + modalid).css("visibility", "visible");
+		setPage(1);
+	}
+	var modalClose = function(){
+		$("#wrapper").removeClass("modal-open");
+		$("#" + modalName).css("visibility", "hidden");
+		modalName = "";
+	}
+
+	var setPage = function(page){
+		modalPage = page;
+		modalResetPages();
+		$(".mymodal .page" + page).css("display", "block");
+	}
+
+	var modalResetPages = function(){
+		$(".mymodal .page").each(function(el){
+			$(this).css("display", "none");
+		})
+	}
+
+	// listen for the enter key to activate the search field
+	$('#searchinput').keyup(function(e){ 
+		e.preventDefault();
+		if (e.keyCode == 13) {
+			window.location.href = "dashboard#zone=&crisis=&climate=&time=&country=&query=" + $('#searchinput').val();
+		}
+	});
+
+	// the array down on the landing page
+	$(".arrow-down").click(function(){
+		$("body").animate({ scrollTop: window.innerHeight}, 400);
+		return false;
+	});
+
+	// add spinner
+	$('#newest').spin();
+
+	// load the 3 latest shelters
+	d3.json('/api/v0.2/shelters/latest/3', function (error, data) {
 			
-			// listen for the enter key to activate the search field
-			$('#searchinput').keyup(function(e){ 
-				e.preventDefault();
-				if (e.keyCode == 13) {
-					window.location.href = "dashboard#zone=&crisis=&climate=&time=&country=&query=" + $('#searchinput').val();
-				}
-			});
+		// convert the api data into a simpler array
+		var d = Object.keys(data).map(function(k) { 
+										if(hasOwnProperty.call(data[k], "Identification")){
+											var m = data[k].Identification;
+											m.shelter_id = k;
+											return m;
+										}
+									  });
 		
-			// the array down on the landing page
-            $(".arrow-down").click(function(){
-                $("body").animate({ scrollTop: window.innerHeight}, 400);
-                return false;
-            });
+		// generate the 3 blocks
+		generate('#newest', d);
+		
+		// function to generate blocls
+		function generate(flexbox, data) {
+
+			var fb = d3.select(flexbox);
 			
-			// load the 3 latest shelters
-			d3.json('/api/v0.2/shelters/latest/3', function (error, data) {
-		  			
-				// convert the api data into a simpler array
-				var d = Object.keys(data).map(function(k) { 
-												if(hasOwnProperty.call(data[k], "Identification")){
-													var m = data[k].Identification;
-													m.shelter_id = k;
-													return m;
-												}
-											  });
-				
-				// generate the 3 blocks
-				generate('#newest', d);
-				
-				// function to generate blocls
-				function generate(flexbox, data) {
 
-					var fb = d3.select(flexbox);
-					
+			// create a box for each object in the data
+			var box = fb.selectAll('div')
+			  .data(data)
+			  .enter()
+			  .append('div')
+				 .attr('class', function (r) {
+						return 'box';
+					})
 
-					// create a box for each object in the data
-					var box = fb.selectAll('div')
-					  .data(data)
-					  .enter()
-					  .append('div')
-					     .attr('class', function (r) {
-								return 'box';
-							})
-
-					// Add content
-					box
-								.append('div')
-									.attr('class', 'image')
-									.attr('style', function(d) {
-										if(d.Cover.length){
-											return 'background-image: url(' + d.Cover + ')';
-										}
-										else {
-											return 'background-image: url(/)';
-										}
-									});
-					box
-						.append('h4').append('a')
-							.attr('href', function (d) {
-								return '/shelter/' + d.shelter_id;
-							})
-							.text(function (d) { 
-								return d.Attributes.nameofshelter; 
+			// Add content
+			box
+						.append('div')
+							.attr('class', 'image')
+							.attr('style', function(d) {
+								if(d.Cover.length){
+									return 'background-image: url(' + d.Cover + ')';
+								}
+								else {
+									return 'background-image: url(/)';
+								}
 							});
-					box
-						.append('p')
-							.attr('class', 'country')
-							.text(function (d) { 
-								return d.Attributes.country; 
-							});
-					 
-					}
-			});
+			box
+				.append('h4').append('a')
+					.attr('href', function (d) {
+						return '/shelter/' + d.shelter_id;
+					})
+					.text(function (d) { 
+						return d.Attributes.nameofshelter; 
+					});
+			box
+				.append('p')
+					.attr('class', 'country')
+					.text(function (d) { 
+						return d.Attributes.country; 
+					});
+			 
+			}
 			
 			// stop spinner
 			$('#newest').spin(false);
-		});
+	});
+}
+

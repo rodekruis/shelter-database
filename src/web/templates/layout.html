@@ -17,26 +17,6 @@
 	
 	{% endblock %}
 	{% block assets_start %}
-		{% assets filters="jsmin", output="assets/packaged.js",
-			  "lib/bower/jquery/dist/jquery.min.js", 
-			  "lib/bower/spin.js/spin.min.js",
-			  "lib/bower/spin.js/jquery.spin.js",
-			  "lib/bower/bootstrap/dist/js/bootstrap.min.js",
-			  "lib/bower/datatables.net/js/jquery.dataTables.min.js",
-			  "lib/bower/dropzone/dist/dropzone.js",
-			  "lib/bower/leaflet/dist/leaflet.js",
-			  "lib/bower/d3/d3.min.js",
-			  "lib/bower/d3-queue/d3-queue.js",
-			  "js/create-shelter.js", 
-			  "js/countries.js",
-			  "js/edit-shelter.js"
-		%}
-		<script type="text/javascript" src="{{ ASSET_URL }}"></script>
-		{% endassets %}
-		<script type="text/javascript">
-			// set leaflet image path
-			L.Icon.Default.imagePath = "{{ url_for('static', filename='lib/bower/leaflet/dist/images') }}";
-		</script>
 	{% endblock %}
 	
 	{% block assets_end %}
@@ -59,7 +39,9 @@
 {% block wrapper_start %}
 
 {% endblock %}
+		{% block header_start %}
 		<header>
+		{% endblock %}
 			<nav>
 				<a id="home" class="home select-menu" href="/"><i class="fa icon-plus-squared"></i><span class="text">Open Shelter Database</span></a>
 				<ul>
@@ -94,7 +76,9 @@
 			</nav>
 		</header>
 
+		{% block main_start %}
 		<main class="page">
+		{% endblock %}
 			<!-- alert container for client side errors -->
 			<div class="container alert-x">
 				<div class="alert alert-info" id="alert_template" style="display: none;">
@@ -118,48 +102,82 @@
 			{% block content %}{% endblock %}
 			
 			<footer>
-				&copy; Copyright 2016
+				&copy; Copyright 2016. Build version 0.9
 			</footer>
 		</main>
 		{% block footer %}
-			<!-- Bootstrap core JavaScript -->
-			<!-- Placed at the end of the document so the pages load faster -->
-			<script>
-			 // make alerts disappear
-			 setTimeout(function() {
-				$(".alert").fadeOut().empty();
-			 }, 7000);
-
-			 // if home page, add class is landingpage to header
-			 $(function() {
-				  var loc = window.location.pathname; // returns the full URL
-				  if("" === loc || "/" === loc) {
-					// add landingpage class to header
-					$('header').addClass('landingpage');
-					
-					// remove page class from main
-					$('main').removeClass();
-					
-					selectMenuItem('#home');
-				  } else {
-					var m = loc.substring(1);
-					var dash = m.indexOf('/');
-					if(dash > -1){
-						selectMenuItem('#' + m.substring(0, m.indexOf('/')));
-					} else {
-						selectMenuItem('#' + m);
-					}						
-				  }		  
-			});
-			
-			var selectMenuItem = function(id){
-				$('.select-menu').removeClass('selected');		
-				$(id).addClass('selected');
-			}
-			</script>
+		
 		{% endblock %}
+		
 		{% block wrapper_end %}
 
 		{% endblock %}
     </body>
+	{% block defer %}
+	
+		{% assets filters="jsmin", output="assets/packaged-jquery.js",
+			  "lib/bower/jquery/dist/jquery.min.js"
+		%}
+		<script type="text/javascript" src="{{ASSET_URL}}"></script>
+		{% endassets %}
+		
+	<script type="text/javascript">	
+		var main_functions = {};
+		var main_i = 1;
+
+		{% assets filters="jsmin", output="assets/packaged.js",
+			  "lib/bower/spin.js/spin.min.js",
+			  "lib/bower/spin.js/jquery.spin.js",
+			  "lib/bower/bootstrap/dist/js/bootstrap.min.js",
+			  "lib/bower/datatables.net/js/jquery.dataTables.min.js",
+			  "lib/bower/dropzone/dist/dropzone.js",
+			  "lib/bower/leaflet/dist/leaflet.js",
+			  "lib/bower/leaflet-image/leaflet-image.js",
+			  "lib/bower/d3/d3.min.js",
+			  "lib/bower/d3-queue/d3-queue.js",
+			  "lib/bower/crossfilter/crossfilter.min.js", 
+			  "lib/bower/colorbrewer/colorbrewer.js",
+			  "lib/custom/dc/dc.min.js",
+			  "lib/bower/leaflet.markercluster/dist/leaflet.markercluster.js",
+			  "lib/custom/dc/dc.leaflet.js", 
+			  "lib/bower/FileSaver/FileSaver.min.js",
+			  "lib/bower/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js",
+			  "lib/bower/leaflet-ajax/dist/leaflet.ajax.min.js",
+			  "lib/custom/leaflet-legend/leaflet-legend.js",
+			  "lib/bower/jquery_lazyload/jquery.lazyload.js",
+			  "lib/bower/leaflet-geosearch/src/js/l.control.geosearch.js", 
+			  "lib/bower/leaflet-geosearch/src/js/l.geosearch.provider.google.js",
+			  "lib/bower/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.js",
+			  "lib/bower/Leaflet.label/dist/leaflet.label.js",
+			  "lib/bower/dropzone/dist/dropzone.js", 
+			  "lib/bower/select2/dist/js/select2.full.min.js",
+			  "lib/bower/jquery-form-validator/form-validator/jquery.form-validator.min.js",
+			  "js/hammer.min.js",
+			  "js/create-shelter.js", 
+			  "js/countries.js",
+			  "js/edit-shelter.js",
+			  "js/layout.js",
+			  "js/dashboard.js",
+			  "js/shelter.js",
+			  "js/index.js",
+			  "js/contribute.js"
+		%}
+			main_functions['downloadJS' + main_i + 'AtOnload'] = function() {
+				var element = document.createElement("script");
+				element.src = "{{ ASSET_URL }}";
+				document.body.appendChild(element);
+			}
+			if (window.addEventListener)
+				window.addEventListener("load", main_functions['downloadJS' + main_i + 'AtOnload'], false);
+			else if (window.attachEvent)
+				window.attachEvent("onload", main_functions['downloadJS' + main_i + 'AtOnload']);
+			else 
+				window.onload = main_functions['downloadJS' + main_i + 'AtOnload'];
+				
+			// increment function variable
+			main_i=main_i+1;
+		{% endassets %}
+	</script>
+	
+	{% endblock %}
 </html>
