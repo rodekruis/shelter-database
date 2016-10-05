@@ -109,11 +109,14 @@ if("/" === loc) {
 			 
 			}
 			
+			// generate the 3 blocks
+			generate('#newest', d);
+			
 			// stop spinner
 			$('#newest').spin(false);
+		
 	});
 	
-	// generate the 3 blocks
-	generate('#newest', d);
+	
 }
 
