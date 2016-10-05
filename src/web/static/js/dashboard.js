@@ -16,8 +16,6 @@ if(loc.indexOf("dashboard") > -1) {
         }
     }
 	
-	$("#query").val(getParameterByName('query'));
-
 	function getParameterByName(name)
 	{
 	  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
@@ -29,6 +27,8 @@ if(loc.indexOf("dashboard") > -1) {
 	  else
 		return decodeURIComponent(results[1].replace(/\+/g, " "));
 	}
+	
+	$("#query").val(getParameterByName('query'));
 
 	var zoneChart = dc.pieChart('#chart-ring-zone')
 	var crisisChart = dc.pieChart('#chart-ring-crisis')
