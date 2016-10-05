@@ -1,3 +1,7 @@
+/**
+ * LAYOUT : layout.js
+ */
+
 var loc = window.location.pathname; // returns the full URL
 
 var selectMenuItem = function selectMenuItem(id){

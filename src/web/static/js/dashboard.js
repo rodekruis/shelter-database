@@ -1,5 +1,5 @@
 /**
- * Created by nlrc on 22-7-16.
+ * DASHBOARD : dashboard.js
  */
 
 if(loc.indexOf("dashboard") > -1) {

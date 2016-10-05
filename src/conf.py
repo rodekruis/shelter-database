@@ -93,6 +93,8 @@ LOG_LEVEL = {'debug': logging.DEBUG,
              'warn': logging.WARN,
              'error': logging.ERROR,
              'fatal': logging.FATAL}[config.get('misc', 'log_level')]
+			 
+FLASK_ASSETS_DEBUG = config.get('misc', 'flask_assets_debug')
 
 ALLOWED_EXTENSIONS_PICTURE = set(['png', 'jpg', 'jpeg', 'gif'])
 ALLOWED_EXTENSIONS_DOCUMENT = set(['doc', 'docx', 'pdf', 'odt', 'xls', 'xlsx',

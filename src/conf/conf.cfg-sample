@@ -9,6 +9,7 @@ shelters_documents_server_path = src/web/static/documents/shelters
 attributes_pictures_site_path = static/pictures/attributes
 attributes_pictures_server_path = src/web/static/pictures/attributes
 public_path = src/web/static
+flask_assets_debug = false
 [webserver]
 debug = false
 host = 0.0.0.0

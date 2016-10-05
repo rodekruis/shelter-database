@@ -1,3 +1,7 @@
+/**
+ * SHELTER : shelter.js
+ */
+
 if(loc.indexOf('shelter') > -1) {
 
 	/**

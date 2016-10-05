@@ -1,3 +1,7 @@
+/**
+ * SWIPE : swipe.js
+ */
+ 
 var _swipe = {}
 _swipe.container     = document.getElementsByClassName("panes").length ? document.getElementsByClassName("panes")[0] : null
 _swipe.dots          = document.getElementsByClassName("dots").length ? Array.prototype.slice.call(document.getElementsByClassName("dots")[0].children, 0) : null;

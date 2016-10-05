@@ -1,7 +1,6 @@
 /**
- * Created by nlrc on 22-7-16.
+ * INDEX : index.js
  */
-// if home page, add class is landingpage to header
 
 if("/" === loc) {
 	

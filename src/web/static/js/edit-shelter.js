@@ -1,3 +1,7 @@
+/**
+ * EDIT-SHELTER : edit-shelter.js
+ */
+ 
 function update_free_text_value(value_id, value) {
     new_value = {name: value}
 

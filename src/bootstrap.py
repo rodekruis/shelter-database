@@ -37,6 +37,7 @@ app = Flask('web')
 
 assets = Environment(app)
 
+
 # Create a random secrey key so we can use sessions
 if conf.WEBSERVER_SECRET_KEY:
     app.config['SECRET_KEY'] = conf.WEBSERVER_SECRET_KEY
@@ -45,7 +46,8 @@ else:
 
 app.debug = conf.LOG_LEVEL <= logging.DEBUG
 
-app.config['ASSETS_DEBUG'] = conf.FLASK_ASSETS_DEBUG
+assets.debug = conf.FLASK_ASSETS_DEBUG
+#app.config['ASSETS_DEBUG'] = conf.FLASK_ASSETS_DEBUG
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = conf.SQLALCHEMY_DATABASE_URI

@@ -1,6 +1,5 @@
-
 /**
- * Created by nlrc on 22-7-16.
+ * CONTRIBUTE : contribute.js
  */
 
 if("/contribute" === loc) {

@@ -124,29 +124,3 @@
 		</div>
 </div>
 {% endblock %}
-
-{% block wrapper_end %}
-
-{% endblock %}
-{% block defer %}
-	{{ super() }}
-	
-	<script type="text/javascript">
-
-		{% assets filters="jsmin", output="assets/packaged-index.js",
-			  "js/index.js"
-		%}
-			function downloadPageJSAtOnload() {
-				var element = document.createElement("script");
-				element.src = "{{ ASSET_URL }}";
-				document.body.appendChild(element);
-			}
-			if (window.addEventListener)
-				window.addEventListener("load", downloadPageJSAtOnload, false);
-			else if (window.attachEvent)
-				window.attachEvent("onload", downloadPageJSAtOnload);
-			else 
-			window.onload = downloadJSAtOnload;
-		{% endassets %}
-	</script>
-{% endblock %}
