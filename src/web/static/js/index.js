@@ -29,7 +29,10 @@ if("/" === loc) {
 			$(this).css("display", "none");
 		})
 	}
-
+	
+	/**
+	 * EVENTS
+	 */
 	// listen for the enter key to activate the search field
 	$('#searchinput').keyup(function(e){ 
 		e.preventDefault();
@@ -44,6 +47,9 @@ if("/" === loc) {
 		return false;
 	});
 
+	/**
+	 * LOGIC
+	 */
 	// load the 3 latest shelters
 	d3.json('/api/v0.2/shelters/latest/3', function (error, data) {
 			
@@ -58,9 +64,6 @@ if("/" === loc) {
 											return m;
 										}
 									  });
-		
-		// generate the 3 blocks
-		generate('#newest', d);
 		
 		// function to generate blocls
 		var generate = function generate(flexbox, data) {
@@ -109,5 +112,8 @@ if("/" === loc) {
 			// stop spinner
 			$('#newest').spin(false);
 	});
+	
+	// generate the 3 blocks
+	generate('#newest', d);
 }
 
