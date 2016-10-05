@@ -1,54 +1,47 @@
-var loc = window.location.pathname; // returns the full URL
 if(loc.indexOf('shelter') > -1) {
 
 	/**
-	 * Modal code
+	 * VARIABLES
 	 */
-	var modalPage = 0
-	var modalName = ""
-	var modalOpen = function(modalid){
+	var modalPage = 0;
+	var modalName = "";
+	var translation = {};
+	var attributes;
+	var shelter;
+	
+	/**
+	 * FUNCTIONS
+	 */
+	var modalOpen = function modalOpen(modalid){
 		modalName = modalid
 		$("#wrapper").addClass("modal-open")
 		$("#" + modalid).css("visibility", "visible")
 		setPage(1)
 	}
-	var modalClose = function(){
+	var modalClose = function modalClose(){
 		$("#wrapper").removeClass("modal-open")
 		$("#" + modalName).css("visibility", "hidden")
 		modalName = ""
 		modalResetPages()
 	}
-	var modalPrev = function(){
+	var modalPrev = function modalPrev(){
 		setPage(modalPage - 1)
 	}
-	var modalNext = function(){
+	var modalNext = function modalNext(){
 		setPage(modalPage + 1)
 	}
-	var setPage = function(page){
+	var setPage = function setPage(page){
 		modalPage = page
 		modalResetPages()
-		console.log(page)
-		console.log($(".mymodal .page" + page))
 		$(".mymodal .page" + page).css("display", "block")
 	}
-	var modalResetPages = function(){
+	var modalResetPages = function modalResetPages(){
 		$(".mymodal .page").each(function(el){
 			$(this).css("display", "none")
 		})
-	}
+	}	
 
-	/**
-	 * END Modal code
-	 */
-		
-	var translation = {};
-	var attributes;
-	var shelter;
-
-	// add spinner
-	$('#wrapper').spin();
-
-	var getTranslations = function(callback){
+	var getTranslations = function getTranslations(callback){
 		if(language !== 'en'){
 			d3.json('/api/v0.2/translation/' + language, function (error, data) {
 				translation = data;
@@ -60,7 +53,7 @@ if(loc.indexOf('shelter') > -1) {
 		callback(null);
 	};
 
-	var getAttributes = function(callback){
+	var getAttributes = function getAttributes(callback){
 		d3.json('/api/v0.2/attributes/pictures/en', function (error, data) {
 			attributes = data;
 			
@@ -68,7 +61,7 @@ if(loc.indexOf('shelter') > -1) {
 		});
 	};
 
-	var getShelter = function(callback){
+	var getShelter = function getShelter(callback){
 		d3.json('/api/v0.2/shelters/' + shelter_id + '?format=prettytext', function (error, data) {
 			shelter = data;
 			
@@ -76,17 +69,10 @@ if(loc.indexOf('shelter') > -1) {
 		})
 	};
 
-	var q = d3.queue();
-		q.defer(getTranslations);
-		q.defer(getAttributes);
-		q.defer(getShelter);
-		q.await(function(error) {
-		  if (error) throw error;
-		  
-		  parseShelter();
-		});
+	// add spinner
+	$('#wrapper').spin();
 		
-	var parseShelter = function(){
+	var parseShelter = function parseShelter(){
 		
 		// if shelter or attribute queries have failed, show error. 
 		// if translation query failes, default to english
@@ -166,14 +152,14 @@ if(loc.indexOf('shelter') > -1) {
 		$('#wrapper').spin(false);
 	};
 
-	function addCoverPictures(coverpicture, printpicture, section){
+	var addCoverPictures = function addCoverPictures(coverpicture, printpicture, section){
 		if(typeof section['Cover'] !== 'undefined' && section['Cover'].length > 0) {
 			$(coverpicture).css("background-image", "url('/" + section['Cover'][0] + "')");	
 			$(printpicture).attr("src", "/" + section['Cover'][0]);					
 		}
 	}
 
-	function addSwipePictures(elementId, section){
+	var addSwipePictures = function addSwipePictures(elementId, section){
 		if(typeof section['Pictures'] !== 'undefined') {
 		
 			//merge arrays
@@ -208,7 +194,7 @@ if(loc.indexOf('shelter') > -1) {
 		$.getScript(path + 'js/swipe.js');
 	}
 
-	function createCategory(index, category, d) {
+	var createCategory = function createCategory(index, category, d) {
 
 		var columns = d3.keys(d);
 		
@@ -268,10 +254,7 @@ if(loc.indexOf('shelter') > -1) {
 				.attr("section-name", function (d) { return category;});
 	}
 
-
-	$(document).on('click', '.attribute-multimedia-asset' , show_multimedia_assets);
-
-	function show_multimedia_assets(e) {
+	var show_multimedia_assets = function show_multimedia_assets(e) {
 		var attribute = $(this).attr("attribute-name");
 		var section = $(this).attr("section-name")
 		
@@ -295,4 +278,23 @@ if(loc.indexOf('shelter') > -1) {
 			modalOpen('infoDialog')
 		}
 	}
+	
+	/**
+	 * EVENTS
+	 */
+	$(document).on('click', '.attribute-multimedia-asset' , show_multimedia_assets);
+	
+	/**
+	 * LOGIC
+	 */
+	 
+	var q = d3.queue();
+	q.defer(getTranslations);
+	q.defer(getAttributes);
+	q.defer(getShelter);
+	q.await(function(error) {
+	  if (error) throw error;
+	  
+	  parseShelter();
+	});
 }

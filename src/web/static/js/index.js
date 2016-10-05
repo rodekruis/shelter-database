@@ -6,25 +6,25 @@
 if("/" === loc) {
 	
 	var modalName = "";
-	var modalOpen = function(modalid){
+	var modalOpen = function modalOpen(modalid){
 		modalName = modalid;
 		$("#wrapper").addClass("modal-open");
 		$("#" + modalid).css("visibility", "visible");
 		setPage(1);
 	}
-	var modalClose = function(){
+	var modalClose = function modalClose(){
 		$("#wrapper").removeClass("modal-open");
 		$("#" + modalName).css("visibility", "hidden");
 		modalName = "";
 	}
 
-	var setPage = function(page){
+	var setPage = function setPage(page){
 		modalPage = page;
 		modalResetPages();
 		$(".mymodal .page" + page).css("display", "block");
 	}
 
-	var modalResetPages = function(){
+	var modalResetPages = function modalResetPages() {
 		$(".mymodal .page").each(function(el){
 			$(this).css("display", "none");
 		})
@@ -44,12 +44,12 @@ if("/" === loc) {
 		return false;
 	});
 
-	// add spinner
-	$('#newest').spin();
-
 	// load the 3 latest shelters
 	d3.json('/api/v0.2/shelters/latest/3', function (error, data) {
 			
+		// add spinner
+	    $('#newest').spin();
+		
 		// convert the api data into a simpler array
 		var d = Object.keys(data).map(function(k) { 
 										if(hasOwnProperty.call(data[k], "Identification")){
@@ -63,7 +63,7 @@ if("/" === loc) {
 		generate('#newest', d);
 		
 		// function to generate blocls
-		function generate(flexbox, data) {
+		var generate = function generate(flexbox, data) {
 
 			var fb = d3.select(flexbox);
 			

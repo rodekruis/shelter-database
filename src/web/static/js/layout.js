@@ -1,6 +1,6 @@
 var loc = window.location.pathname; // returns the full URL
 
-var selectMenuItem = function(id){
+var selectMenuItem = function selectMenuItem(id){
 	$('.select-menu').removeClass('selected');		
 	$(id).addClass('selected');
 }
