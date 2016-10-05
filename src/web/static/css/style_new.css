@@ -261,7 +261,7 @@ strong {
     pointer-events: none; }
 
 .button + .button {
-  margin-left: 10px; }
+  margin-left: 5px; }
 
 i + span.text {
   margin-left: 10px; }

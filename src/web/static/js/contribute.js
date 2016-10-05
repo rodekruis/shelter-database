@@ -5,15 +5,26 @@
 
 if("/contribute" === loc) {
 	
-	var modalPage = 0
-	var modalName = ""
-	var modalOpen = function(modalid){
+	/**
+	 * VARIABLES
+	 */
+	var modalPage = 0;
+	var modalName = "";
+	var dropzone;
+	var shelter_id;
+	var countries = {};
+	var layerGroup, marker, locationpicker, bounds;
+	
+	/**
+	 * FUNCTIONS
+	 */
+	var modalOpen = function modalOpen(modalid){
 		modalName = modalid
 		$("#wrapper").addClass("modal-open")
 		$("#" + modalid).css("visibility", "visible")
 		setPage(1)
 	}
-	var modalClose = function(){
+	var modalClose = function modalClose(){
 		$("#wrapper").removeClass("modal-open")
 		$("#" + modalName).css("visibility", "hidden")
 		modalName = ""
@@ -23,16 +34,16 @@ if("/contribute" === loc) {
 		resetForm();
 		
 	}
-	var modalPrev = function(){
+	var modalPrev = function modalPrev(){
 		setPage(modalPage - 1)
 	}
-	var modalNext = function(formId){
+	var modalNext = function modalNext(formId){
 		if(! $(formId).isValid({}, {}, true) ) {
 			return;
 		}
 		setPage(modalPage + 1)
 	}
-	var setPage = function(page){
+	var setPage = function setPage(page){
 		modalPage = page
 		modalResetPages()
 		console.log(page)
@@ -42,17 +53,17 @@ if("/contribute" === loc) {
 		// trigger event that class changed
 		$('#modalcontent').trigger('page'+page);
 	}
-	var modalResetPages = function(){
+	var modalResetPages = function modalResetPages(){
 		$(".mymodal .page").each(function(el){
 			$(this).css("display", "none")
 		})
 	}
 	
-	var cleanFilename = function (name) {
+	var cleanFilename = function cleanFilename(name) {
 	   return name.toLowerCase().replace(/[^\w]/gi, '');
 	};
 
-	var fetchCountries = function (){
+	var fetchCountries = function fetchCountries(){
 			var filters = [{"name":"name","op":"eq","val":"Country"}];
 			$.ajax({
 				type: 'GET',
@@ -72,7 +83,7 @@ if("/contribute" === loc) {
 			}) ;
 		};
 
-	var fetchAssociatedDisasters = function (){
+	var fetchAssociatedDisasters = function fetchAssociatedDisasters(){
 			var filters = [{"name":"name","op":"eq","val":"Associated disaster / Immediate cause"}];
 			$.ajax({
 				type: 'GET',
@@ -91,7 +102,7 @@ if("/contribute" === loc) {
 			}) ;
 	};
 
-	var fetchShelterTypes = function (){
+	var fetchShelterTypes = function fetchShelterTypes(){
 			var filters = [{"name":"name","op":"eq","val":"Type of shelter"}];
 			$.ajax({
 				type: 'GET',
@@ -109,9 +120,48 @@ if("/contribute" === loc) {
 				}
 			}) ;
 	};
+	
+	var editFreeTextOrDate = function editFreeTextOrDate(evt){
+		value = $(evt.target).val();
+		if ($(evt.target).context.type == "checkbox") {
+			if (value == "on" || value == "1") {
+				value = "0";
+			} else {
+				value = "1";
+			}
+		}
+		value_id = $(evt.target).attr("value-id");
 
-	var dropzone;
-	var createDropzone = function(){
+		if (value_id != "None") {
+			update_free_text_value(value_id, value);
+		} else {
+			category_id = $(evt.target).attr("category-id");
+			attribute_id = $(evt.target).attr("attribute-id");
+			new_free_text_property(shelter_id, category_id, attribute_id, value, $(evt.target));
+		}
+	}
+		
+	var resetForm = function resetForm(){
+		//reset shelter title field
+		$('#titleofproject').val('');
+		$('#countrySelect').val('');
+		$('#organizations').val('');
+		$('#yearofconstructionfirstshelters').val('');
+		$('#latitude').val('');
+		$('#longitude').val('');
+		$('#associatedDisasterSelect').val('');
+		$('#shelterTypeSelect').val('');
+		$('#unitCosts').val('');
+		$('#inhabitants').val('');
+		$('#surface').val('');
+		
+		if (dropzone != undefined) {
+			Dropzone.forElement("div#uploader").destroy();
+		}	
+	}
+
+	
+	var createDropzone = function createDropzone(){
 
 		dropzone = $("div#uploader").dropzone({ url: "/shelter/edit/multi/" + shelter_id + '/' + category_id + '/General information'});
 		Dropzone.options.uploader = {
@@ -125,11 +175,114 @@ if("/contribute" === loc) {
 		// add class
 		$('div#uploader').addClass('dropzone');
 	}
+	
+	var findCountry = function findCountry(data, country){
+		var countryData = {};
+		$.each(data.features, function (key, val) {
+			if (val.properties.other_name === country) {
+				countryData.lat = val.properties.lat;
+				countryData.lon = val.properties.lon;
+				countryData.polygon = val;
+				
+				//if found, break out of loop
+				return false;
+			}
+		});
+		
+		//return object (or empty object)
+		return countryData;
+	};
+	
+	var initiateLocationPicker = function initiateLocationPicker (){
 
-	var shelter_id;
+		//set encoding
+		$.ajaxSetup({
+			scriptCharset: "utf-8",
+			contentType: "application/json; charset=utf-8"
+		});
 
-	initiateLocationPicker();
+		//get data from api
+		$.getJSON("/static/data/countries_merge.geojson", function(data) {
+			// set countries
+			countries = data;
+						
+			// Initiate leaflet map
+			locationpicker = L.map('locationpicker').setView([51.505, -0.09], 13);
+			
+			// Add OSM base layer
+			L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(locationpicker);		
+			
+			// Add Mapzen geocoder 
+			L.control.geocoder('search-Us5vhhe', {panToPoint: true, markers: false, attribution: null}).addTo(locationpicker);
+			
+			// Create group for your layers and add it to the map
+			layerGroup = L.layerGroup().addTo(locationpicker);
+			
+			// add marker
+			marker = L.marker([0,0], {draggable:'true'}).bindLabel('This is where I have built this shelter');
+			marker.addTo(locationpicker);
+			
+			// add listeners	
+			locationpicker.on('click', function(e) {        
+				var location = e.latlng;
+				marker.setLatLng(location).update();
+				setLocation(e.latlng);
+			});	
+		});
+	};
 
+	var updateLocationPicker = function updateLocationPicker(){
+		//Query nomatimim for lat lon for country
+		var country = $('#countrySelect option:selected').text();
+		
+		var countryData = findCountry(countries, country);
+			
+		if(jQuery.isEmptyObject(countryData)){
+		  //country was not found
+		  //TODO: handle error
+		  return;
+		} 
+		
+		// remove all layers
+		layerGroup.clearLayers();
+		
+		// Add country polygon to map and fit map to bounds
+		var countryLayer = L.geoJson(countryData.polygon).addTo(layerGroup);
+		
+		// listen to clicks on the layer to set the marker
+		countryLayer.on('click', function(e) {        
+			var location = e.latlng;
+			marker.setLatLng(location).update();
+			setLocation(e.latlng);
+		});	
+		
+		// set position of marker to centroid of country
+		var centroid = {lat: countryData.lat, lng: countryData.lon};
+		marker.setLatLng(centroid); 
+		
+		// Add the location to the database, in case the user doesn't drag the marker
+		setLocation(centroid);
+		
+		marker.on('dragend', function(event){
+			var position = event.target.getLatLng();
+			setLocation(event.target.getLatLng());
+			marker.setLatLng(position,{draggable:'true'}).bindPopup(position).update();
+		});
+		
+		// fit map to bounds of country
+		bounds = countryLayer.getBounds();
+		//locationpicker.fitBounds(bounds);				
+	}
+
+	var setLocation = function setLocation(latlng){
+		$('#latitude').val(latlng.lat).trigger('change');
+		$('#longitude').val(latlng.lng).trigger('change');		
+	}
+
+
+	/**
+	 * EVENT LISTENERS
+	 */
 	$("#newShelter").click(function(evt) {
 		
 		// fetch shelters
@@ -141,9 +294,6 @@ if("/contribute" === loc) {
 		//fetch shelter types
 		fetchShelterTypes();
 	});
-
-	// initiate form validator
-	$.validate();
 
 	$(".organizations").select2({
 		  tags: true,
@@ -245,112 +395,6 @@ if("/contribute" === loc) {
 			}
 		});
 	});
-		
-	function findCountry(data, country){
-		var countryData = {};
-		$.each(data.features, function (key, val) {
-			if (val.properties.other_name === country) {
-				countryData.lat = val.properties.lat;
-				countryData.lon = val.properties.lon;
-				countryData.polygon = val;
-				
-				//if found, break out of loop
-				return false;
-			}
-		});
-		
-		//return object (or empty object)
-		return countryData;
-	};
-
-	var countries = {};
-	var layerGroup, marker, locationpicker, bounds;
-
-	function initiateLocationPicker (){
-
-		//set encoding
-		$.ajaxSetup({
-			scriptCharset: "utf-8",
-			contentType: "application/json; charset=utf-8"
-		});
-
-		//get data from api
-		$.getJSON("/static/data/countries_merge.geojson", function(data) {
-			// set countries
-			countries = data;
-						
-			// Initiate leaflet map
-			locationpicker = L.map('locationpicker').setView([51.505, -0.09], 13);
-			
-			// Add OSM base layer
-			L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(locationpicker);		
-			
-			// Add Mapzen geocoder 
-			L.control.geocoder('search-Us5vhhe', {panToPoint: true, markers: false, attribution: null}).addTo(locationpicker);
-			
-			// Create group for your layers and add it to the map
-			layerGroup = L.layerGroup().addTo(locationpicker);
-			
-			// add marker
-			marker = L.marker([0,0], {draggable:'true'}).bindLabel('This is where I have built this shelter');
-			marker.addTo(locationpicker);
-			
-			// add listeners	
-			locationpicker.on('click', function(e) {        
-				var location = e.latlng;
-				marker.setLatLng(location).update();
-				setLocation(e.latlng);
-			});	
-		});
-	};
-
-	var updateLocationPicker = function(){
-		//Query nomatimim for lat lon for country
-		var country = $('#countrySelect option:selected').text();
-		
-		var countryData = findCountry(countries, country);
-			
-		if(jQuery.isEmptyObject(countryData)){
-		  //country was not found
-		  //TODO: handle error
-		  return;
-		} 
-		
-		// remove all layers
-		layerGroup.clearLayers();
-		
-		// Add country polygon to map and fit map to bounds
-		var countryLayer = L.geoJson(countryData.polygon).addTo(layerGroup);
-		
-		// listen to clicks on the layer to set the marker
-		countryLayer.on('click', function(e) {        
-			var location = e.latlng;
-			marker.setLatLng(location).update();
-			setLocation(e.latlng);
-		});	
-		
-		// set position of marker to centroid of country
-		var centroid = {lat: countryData.lat, lng: countryData.lon};
-		marker.setLatLng(centroid); 
-		
-		// Add the location to the database, in case the user doesn't drag the marker
-		setLocation(centroid);
-		
-		marker.on('dragend', function(event){
-			var position = event.target.getLatLng();
-			setLocation(event.target.getLatLng());
-			marker.setLatLng(position,{draggable:'true'}).bindPopup(position).update();
-		});
-		
-		// fit map to bounds of country
-		bounds = countryLayer.getBounds();
-		//locationpicker.fitBounds(bounds);				
-	}
-
-	var setLocation = function(latlng){
-		$('#latitude').val(latlng.lat).trigger('change');
-		$('#longitude').val(latlng.lng).trigger('change');		
-	}
 
 	// listen when page3 with leaflet map is opened
 	$('#modalcontent').on('page3', function(){ 
@@ -421,56 +465,13 @@ if("/contribute" === loc) {
 			editFreeTextOrDate(evt);
 		}				
 	});
-
-	var editFreeTextOrDate = function (evt){
-		value = $(evt.target).val();
-		if ($(evt.target).context.type == "checkbox") {
-			if (value == "on" || value == "1") {
-				value = "0";
-			} else {
-				value = "1";
-			}
-		}
-		value_id = $(evt.target).attr("value-id");
-
-		if (value_id != "None") {
-			update_free_text_value(value_id, value);
-		} else {
-			category_id = $(evt.target).attr("category-id");
-			attribute_id = $(evt.target).attr("attribute-id");
-			new_free_text_property(shelter_id, category_id, attribute_id, value, $(evt.target));
-		}
-	}
-		
-	var resetForm = function(){
-		//reset shelter title field
-		$('#titleofproject').val('');
-		$('#countrySelect').val('');
-		$('#organizations').val('');
-		$('#yearofconstructionfirstshelters').val('');
-		$('#latitude').val('');
-		$('#longitude').val('');
-		$('#associatedDisasterSelect').val('');
-		$('#shelterTypeSelect').val('');
-		$('#unitCosts').val('');
-		$('#inhabitants').val('');
-		$('#surface').val('');
-		
-		if (dropzone != undefined) {
-			Dropzone.forElement("div#uploader").destroy();
-		}
-		
-		
-	}
 	
 	/**
-	var optClick = function(nr){
-		var elements = document.getElementsByClassName('option')
-		var length = elements.length
-
-		while(length--) {
-			elements[length].className = "option"
-		}
-		elements[nr].className = "option selected"
-	}**/
+	 * LOGIC
+	 */
+	 
+	// initiate form validator
+	$.validate();
+	
+	initiateLocationPicker();
 }

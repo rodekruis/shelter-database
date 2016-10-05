@@ -13,6 +13,9 @@
 .icon-download:before { content: '\e80b'; } /* '' */
 .icon-user:before { content: '\e80c'; } /* '' */
 .icon-logout:before { content: '\e80d'; } /* '' */
+.icon-ok:before { content: '\e80e'; } /* '' */
+.icon-left-big:before { content: '\e80f'; } /* '' */
+.icon-right-big:before { content: '\e810'; } /* '' */
 .icon-warehouse:before { content: '\e840'; } /* '' */
 .icon-list-bullet:before { content: '\f0ca'; } /* '' */
 .icon-plus-squared:before { content: '\f0fe'; } /* '' */

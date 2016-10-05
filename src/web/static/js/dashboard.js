@@ -7,7 +7,7 @@ if(loc.indexOf("dashboard") > -1) {
 	var setTab = function (tab) {
         document.getElementById("tabs").className = "tab" + tab
     }
-    var toggleAdvanced = function () {
+    var toggleAdvanced = function toggleAdvanced() {
         var obj = document.getElementById("advanced")
         if (obj.className == "advanced") {
             obj.className = "advanced open"
@@ -16,7 +16,7 @@ if(loc.indexOf("dashboard") > -1) {
         }
     }
 	
-	function getParameterByName(name)
+	var getParameterByName = function getParameterByName(name)
 	{
 	  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
 	  var regexS = "[\\?&#]" + name + "=([^&#]*)";
@@ -59,63 +59,56 @@ if(loc.indexOf("dashboard") > -1) {
 	// get shelters from api
 	 d3.json("api/v0.1.1/shelters", function(dataObject) {
 
-		  var data = []
-		  for (var key in dataObject) {
-			 var shelter = dataObject[key]
-			 shelter["db_id"] = key
-			 data.push(shelter)
-		  }
+	    var data = []
+	    for (var key in dataObject) {
+			var shelter = dataObject[key]
+			shelter["db_id"] = key
+			data.push(shelter)
+		}
+		
 		var dateFormat = d3.time.format('%Y');
 
+		for (var filterId in filters) {
+			var dropdown = document.getElementById(filterId)
+			if (dropdown && $(dropdown).is('select')) {
+				(function(attrName, htmlElement) {
+					d3.json("api/v0.1.1/attributes/" + encodeURI(attrName), function (valuesObject) {
+						// console.log(attrName + JSON.stringify(valuesObject));
+						if (valuesObject && valuesObject[attrName]) {
 
-		function loadFilterDomainValues() {
-
-			for (var filterId in filters) {
-				var dropdown = document.getElementById(filterId)
-				if (dropdown && $(dropdown).is('select')) {
-					(function(attrName, htmlElement) {
-						d3.json("api/v0.1.1/attributes/" + encodeURI(attrName), function (valuesObject) {
-							// console.log(attrName + JSON.stringify(valuesObject));
-							if (valuesObject && valuesObject[attrName]) {
-
-								var values = valuesObject[attrName].split(';')
-								for (var i = 0; i < values.length; ++i) {
-									addOption(htmlElement, values[i], values[i]);
-								}
+							var values = valuesObject[attrName].split(';')
+							for (var i = 0; i < values.length; ++i) {
+								addOption(htmlElement, values[i], values[i]);
 							}
-						})
-					})(filters[filterId]['dbName'], dropdown);
-				}
-			}
-
-			for (var filterId in filters) {
-				var element = document.getElementById(filterId)
-				if ($(element).is('input') && $(element).attr('data-type')=="range") {
-					(function(id) {
-						var dbAttrName = filters[id]['dbName']
-						d3.json("api/v0.1.1/attributes/" + encodeURI(dbAttrName), function (valuesObject) {
-								if (valuesObject && valuesObject[dbAttrName]) {
-									var values = valuesObject[dbAttrName].split(';')
-									for(var i=0; i<values.length; i++) { values[i] = parseInt(values[i], 10); }
-									var minValue = Math.min.apply(null, values)
-									var maxValue = Math.max.apply(null, values)
-
-									$('#' + id + 'MinValue').text(minValue);
-									$('#' + id + 'MaxValue').text(maxValue);
-									filters[id]['slider'] = new Slider('#' + id , {min: minValue, max: maxValue, id: filters[id]['sliderId'], })
-										.on('change', function(values) {onSliderChange(id, values.newValue)})
-
-									filters[id]['maxValue'] = maxValue
-								}
-							})
-					})(filterId);
-				}
+						}
+					})
+				})(filters[filterId]['dbName'], dropdown);
 			}
 		}
-		loadFilterDomainValues()
 
+		for (var filterId in filters) {
+			var element = document.getElementById(filterId)
+			if ($(element).is('input') && $(element).attr('data-type')=="range") {
+				(function(id) {
+					var dbAttrName = filters[id]['dbName']
+					d3.json("api/v0.1.1/attributes/" + encodeURI(dbAttrName), function (valuesObject) {
+							if (valuesObject && valuesObject[dbAttrName]) {
+								var values = valuesObject[dbAttrName].split(';')
+								for(var i=0; i<values.length; i++) { values[i] = parseInt(values[i], 10); }
+								var minValue = Math.min.apply(null, values)
+								var maxValue = Math.max.apply(null, values)
 
+								$('#' + id + 'MinValue').text(minValue);
+								$('#' + id + 'MaxValue').text(maxValue);
+								filters[id]['slider'] = new Slider('#' + id , {min: minValue, max: maxValue, id: filters[id]['sliderId'], })
+									.on('change', function(values) {onSliderChange(id, values.newValue)})
 
+								filters[id]['maxValue'] = maxValue
+							}
+						})
+				})(filterId);
+			}
+		}
 
 		var ndx = crossfilter(data);
 
@@ -281,13 +274,13 @@ if(loc.indexOf("dashboard") > -1) {
 
 		// Init chart filters using url values
 
-		function initFilters() {
+		var initFilters = function initFilters() {
 
 			var parseHash = /^#zone=([A-Za-z0-9,_\-\/\s]*)&crisis=([A-Za-z0-9,_\-\/\s]*)&climate=([A-Za-z0-9,_\-\/\s]*)&time=([A-Za-z0-9,_\-\/\s\(\):+]*)&country=([A-Za-z0-9,_\-\/\s]*)&query=([A-Za-z0-9,_\-\/\s]*)$/;
 			var parsed = parseHash.exec(decodeURIComponent(location.hash.replace(/\+/g, ' ')));
 	//             console.log("parsed:", parsed)
 
-			function filterQuery(rank){
+			var filterQuery = function filterQuery(rank){
 				if (parsed[rank] == "") {
 					return;
 				}
@@ -298,7 +291,7 @@ if(loc.indexOf("dashboard") > -1) {
 				
 			}
 			
-			function filter(chart, rank) {
+			var filter = function filter(chart, rank) {
 
 				if (parsed[rank] == "") {
 					chart.filter(null);
@@ -394,7 +387,7 @@ if(loc.indexOf("dashboard") > -1) {
 		});
 
 
-		function onSliderChange(id, values) {                          // User selected range using sliders
+		var onSliderChange = function onSliderChange(id, values) {                          // User selected range using sliders
 			filters[id]['dimension'].filter(values);
 			redrawAll();
 		}
@@ -468,7 +461,7 @@ if(loc.indexOf("dashboard") > -1) {
 				saveAs(blob, 'data.csv');
 		 });
 
-		function onFiltered(chart) {
+		var onFiltered = function onFiltered(chart) {
 			// Serialize selected options in url
 			// Synchronize dropdowns with changes made on charts
 			// Adjust shelter list
@@ -491,7 +484,7 @@ if(loc.indexOf("dashboard") > -1) {
 			}
 		}
 
-		function redrawAll() {
+		var redrawAll = function redrawAll() {
 			dc.renderAll();
 			generateShelterList(allDimensions.top(Infinity));
 		}
@@ -506,7 +499,7 @@ if(loc.indexOf("dashboard") > -1) {
 	// Serializing filters values in URL
 
 
-	function getFiltersValues() {
+	var getFiltersValues = function getFiltersValues() {
 		var filters = [
 			{name: 'zone', value: zoneChart.filters()},
 			{name: 'crisis', value: crisisChart.filters()},
@@ -524,7 +517,7 @@ if(loc.indexOf("dashboard") > -1) {
 		location.hash = recursiveEncoded;
 	}
 
-	function addLayersToChart(mapChart) {
+	var addLayersToChart = function addLayersToChart(mapChart) {
 
 		var redCrossLayer = L.tileLayer.wms("http://shelter-database.org:8080/geoserver/shelters/wms", {
 			layers: 'shelters:redcross',
@@ -602,7 +595,7 @@ if(loc.indexOf("dashboard") > -1) {
 
 
 
-	generateShelterList  = function (data) {
+	var generateShelterList  = function generateShelterList(data) {
 		$('#shelterList').empty();
 		for (var i = 0; i <data.length; i ++)
 		{
