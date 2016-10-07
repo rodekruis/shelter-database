@@ -187,7 +187,6 @@ def allshelters(shelter_id=None):
     		.join(Supercategory, Supercategory.id==Category.parent_id)\
     		.join(Association, Property.id==Association.property_id)\
     		.join(Value, Association.value_id==Value.id)\
-    		.filter(Shelter.is_published == True)\
     		.group_by(Property.shelter_id, Supercategory.name, Category.name, Attribute.name, Attribute.uniqueid)
     
     picquerybase = db.session.query(ShelterPicture.shelter_id, ShelterPicture.file_name.label("filename"), ShelterPicture.is_main_picture, Category.name)\
@@ -208,7 +207,9 @@ def allshelters(shelter_id=None):
     	shelter_properties = shelter_properties.filter(Property.shelter_id==shelter_id)
     	shelter_pictures = shelter_pictures.filter(ShelterPicture.shelter_id==shelter_id)
     	shelter_documents = shelter_documents.filter(ShelterDocument.shelter_id==shelter_id)
-    
+    else:
+    	#only query published shelters if no shelter_id supplied
+    	shelter_properties = shelter_properties.filter(Shelter.is_published == True)
     
     
     if request.args.getlist('attribute'):
