@@ -1416,3 +1416,7 @@ section.map {
   src: url('../lib/bower/bootstrap/dist/fonts/glyphicons-halflings-regular.eot');
   src: url('../lib/bower/bootstrap/dist/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../lib/bower/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../lib/bower/bootstrap/dist/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../lib/bower/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../lib/bower/bootstrap/dist/fontsfonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
+
+.leaflet-pelias-search-icon {
+  background-image: url('../lib/bower/leaflet-geocoder-mapzen/src/images/search.png');
+}

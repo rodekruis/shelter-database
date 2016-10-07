@@ -148,7 +148,7 @@ if(loc.indexOf('shelter/edit') > -1) {
 
 	$('.free-text-attribute').change(function(evt) {
 		value = $(evt.target).val();
-		if ($(evt.target).context.type == "checkbox") {
+		if ($(evt.target).attr('type') == "checkbox") {
 			if (value == "on" || value == "1") {
 				value = "0";
 			} else {
