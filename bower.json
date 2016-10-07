@@ -38,7 +38,9 @@
 	"select2": "4.0.*",
 	"spin.js": "2.3.*",
 	"d3-queue": "3.0.*",
-	"jquery_lazyload": "1.9.*"
+	"jquery_lazyload": "1.9.*",
+	"lightbox2": "2.8.*",
+	"tinymce": "4.4.*"
 	
   }
 }

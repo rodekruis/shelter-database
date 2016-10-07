@@ -16,6 +16,8 @@
 .icon-ok:before { content: '\e80e'; } /* '' */
 .icon-left-big:before { content: '\e80f'; } /* '' */
 .icon-right-big:before { content: '\e810'; } /* '' */
+.icon-print:before { content: '\e811'; } /* '' */
+.icon-edit:before { content: '\e812'; } /* '' */
 .icon-warehouse:before { content: '\e840'; } /* '' */
 .icon-list-bullet:before { content: '\f0ca'; } /* '' */
 .icon-plus-squared:before { content: '\f0fe'; } /* '' */

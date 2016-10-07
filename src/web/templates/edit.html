@@ -20,7 +20,7 @@
 	<div class="content page1" id="modalcontent">
         <div class="page page1">
 			
-			<div class="myform" role="form" action="" shelterId="{{shelter.id}}" id="shelterForm">
+			<div class="myform" role="form" action="" data-shelter-id="{{shelter.id}}" id="shelterForm">
 				{% for category in section.categories %}
 					{% for sub_category in category.sub_categories %}
 						<h3>{{ sub_category.name | translate }}</h3>
@@ -113,7 +113,7 @@
 								{% endfor %}
 								</ul>
 								<div class="mylabel">Upload photos of the shelter</div>
-								<div id="dropzone_{{ sub_category.id }}">
+								<div id="dropzone_{{ sub_category.id }}" class="dropzonediv" data-sub-category="{{ sub_category.name }}" data-sub-category-id="{{ sub_category.id }}" data-shelter-id="{{shelter.id}}">
 								   <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 								   <div class="fallback">
 									   <input id="files" multiple="true" name="files" type="file"
@@ -127,11 +127,6 @@
 									</div>
 								</div>
 							</div>
-							<script type="text/javascript">
-								$(document).ready(function() {
-									createDropzone('dropzone_{{ sub_category.id }}', '{{ sub_category.name }}', {{ sub_category.id }})
-								});
-							</script>
 							
 							{% if sub_category.name == "Documents"  %}
 							<h4>Documents</h4>
@@ -177,113 +172,4 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript" class="source">
-
-	// create outside of dom ready, so that it is available when section uploads are created
-	var createDropzone = function(id, section, category_id){
-
-		var dropzone = $('#' + id).dropzone({ url: "/shelter/edit/multi/" + {{shelter.id}} + '/' + category_id + '/' + section});
-		  
-		Dropzone.options[id] = {
-		  paramName: "file", // The name that will be used to transfer the file
-		  uploadMultiple: true,
-		  parallelUploads: 1,
-		  maxFilesize: 4, // MB
-		  acceptedFiles: "image/*",
-		};
-		
-		// add class
-		$('#' + id).addClass('dropzone');
-	}
-	
-$(document).ready(function() {
-	$('select.expandable').each(function() { $(this).attr('size', $(this).find('option').length) })	
-
-	var dateSupported = (function() {
-        var el = document.createElement('input'),
-            invalidVal = 'foo'; // Any value that is not a date
-        el.setAttribute('type','date');
-        el.setAttribute('value', invalidVal);
-        // A supported browser will modify this if it is a true date field
-        return el.value !== invalidVal;
-    }());
-    if (!dateSupported) {
-        $( ".datepicker" ).datepicker({dateFormat: 'dd/mm/yyyy'});
-    }
-
-
-    $('.select-attribute').change(function(evt) {
-        property_id = $(evt.target).attr("property-id");
-        id_of_values = $(evt.target).val();
-        if (typeof id_of_values === 'string') {
-            tmp = []
-            tmp.push(id_of_values)
-            id_of_values = tmp
-        }
-
-        if (property_id==""){
-            category_id = $(evt.target).attr("category-id");
-            attribute_id = $(evt.target).attr("attribute-id");
-            new_property({{ shelter.id }},
-                            category_id, attribute_id, id_of_values,
-                            $(evt.target))
-        } else {
-            update_property(property_id, id_of_values)
-        }
-    });
-
-    $('.free-text-attribute').change(function(evt) {
-        value = $(evt.target).val();
-        if ($(evt.target).context.type == "checkbox") {
-            if (value == "on" || value == "1") {
-                value = "0";
-            } else {
-                value = "1";
-            }
-        }
-        value_id = $(evt.target).attr("value-id");
-
-        if (value_id != "None") {
-            update_free_text_value(value_id, value);
-        } else {
-            category_id = $(evt.target).attr("category-id");
-            attribute_id = $(evt.target).attr("attribute-id");
-            new_free_text_property({{ shelter.id }}, category_id,
-                                        attribute_id, value, $(evt.target));
-        }
-    });
-
-    $('.add-value').click(function(evt) {
-        attribute_id = $(evt.target).attr('attribute-id');
-        $('#addValueDialog').attr('attribute-id', attribute_id);
-        $('#addValueDialog').modal({backdrop:'static', keyboard:false});
-    })
-
-    $('#add-new-value').click(function(evt) {
-
-        new_value = {
-            attribute_id: $('#addValueDialog').attr('attribute-id'),
-            name: $('#new-value-input').val()
-        }
-        $.ajax({
-            type: 'POST',
-            url: '/api/value',
-            contentType: "application/json",
-            dataType: "json",
-            data: JSON.stringify(new_value),
-            success: function (result) {
-                $('#select'+attribute_id)
-                    .append($("<option></option>")
-                                .attr("value", result.id)
-                                .text(result.name));
-                $('.selectpicker').selectpicker('refresh');
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown){
-                console.log(errorThrown);
-            }
-        });
-    })
-});
-</script>
 {% endblock %}

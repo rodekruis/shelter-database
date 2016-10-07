@@ -247,6 +247,9 @@ if(loc.indexOf("dashboard") > -1) {
 			})
 			.columns([
 				function (d) {
+					return '<a href="/shelter/' + d.db_id +'" target="_blank">' + d.id + '</a>';
+				},
+				function (d) {
 					return '<a href="/shelter/' + d.db_id +'" target="_blank">' + d.nameofshelter + '</a>';
 				},
 				function (d) {
@@ -620,6 +623,7 @@ if(loc.indexOf("dashboard") > -1) {
 			shelter.append('<div class="lazy image" data-original="/'  + url  + '" style="background-image: url(\'/\');"></div> ' +
 				'<h4 class="title"><a href="/shelter/' + data[i].db_id + '">' +data[i].nameofshelter+ '</a></h4>'  +
 				'<div class="country">'+data[i].country+'</div> ' +
+				'<div class="id">'+data[i].id+'</div> ' +
 				'<div class="description"><p>' +'' + '</p></div>');
 		}
 		

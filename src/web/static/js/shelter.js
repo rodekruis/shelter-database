@@ -2,7 +2,7 @@
  * SHELTER : shelter.js
  */
 
-if(loc.indexOf('shelter') > -1) {
+if(loc.indexOf('shelter') > -1 && loc.indexOf('shelter/edit') === -1) {
 
 	/**
 	 * VARIABLES

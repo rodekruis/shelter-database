@@ -63,3 +63,12 @@
     </div>
 </div>
 {% endblock %}
+{% block defer %}
+	{% assets filters="jsmin", output="assets/packaged-admin-dashboard.js",
+			  "lib/bower/jquery/dist/jquery.min.js",
+			  "lib/bower/bootstrap/dist/js/bootstrap.min.js",
+			  "lib/bower/dropzone/dist/dropzone.js",
+		%}
+			<script type="text/javascript" src="{{ASSET_URL}}"></script>
+		{% endassets %}
+{% endblock %}
