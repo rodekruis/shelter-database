@@ -40,5 +40,5 @@ src/web/public/
 .idea/
 
 # generated asset css and js files
-assets/
-src/web/.webassets-cache
+src/web/static/assets/
+src/web/static/.webassets-cache/
