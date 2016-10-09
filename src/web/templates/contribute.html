@@ -1,20 +1,4 @@
 {% extends "layout.html" %}
-{% block assets_start %}
-    {{ super() }}
-	
-	
-	{% assets filters="cssmin", output="assets/packaged-contribute.css",
-          "lib/bower/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.css", 
-		  "lib/bower/Leaflet.label/dist/leaflet.label.css", 
-		  "lib/bower/dropzone/dist/dropzone.css",
-		  "lib/bower/select2/dist/css/select2.min.css",
-		  "lib/bower/jquery-form-validator/form-validator/theme-default.min.css"
-	%}
-		<link rel="stylesheet" type="text/css" href='{{ ASSET_URL }}' media="screen">
-	{% endassets %}
-
-{% endblock %}
-
 {% block wrapper_start %}
 <div id="wrapper">
 {% endblock %}

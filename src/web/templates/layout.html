@@ -20,15 +20,26 @@
 	{% endblock %}
 	
 	{% block assets_end %}
-		<link href="{{ url_for('static', filename='icons/css/fontello.css') }}" rel="stylesheet" media="screen" />
 		{% assets filters="cssmin", output="assets/packaged.css",
 			  "lib/bower/bootstrap/dist/css/bootstrap.min.css",
 			  "lib/bower/datatables.net-bs/css/dataTables.bootstrap.min.css",
 			  "lib/bower/dropzone/dist/dropzone.css",
 			  "lib/bower/leaflet/dist/leaflet.css",
+			  "lib/bower/leaflet.markercluster/dist/MarkerCluster.Default.css", 
+			  "lib/bower/leaflet.markercluster/dist/MarkerCluster.css", 
+			  "lib/custom/dc/dc.css",
+			  "lib/bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css",
+			  "lib/custom/leaflet-legend/leaflet-legend.css",
+			  "lib/bower/leaflet-geocoder-mapzen/src/leaflet-geocoder-mapzen.css", 
+			  "lib/bower/Leaflet.label/dist/leaflet.label.css", 
+			  "lib/bower/select2/dist/css/select2.min.css",
+			  "lib/bower/jquery-form-validator/form-validator/theme-default.min.css",
+			  "css/style-dashboard.css",
+			  "css/climate.css",
 			  "css/googlefont.css",
 			  "css/style_new.css", 
-			  "css/print.css"			  
+			  "css/print.css",
+			  "icons/css/fontello-embedded.css"		  
 		%}
 		<link rel="stylesheet" type="text/css" href='{{ ASSET_URL }}' media="screen">
 		{% endassets %}
@@ -114,11 +125,13 @@
 		{% endblock %}
     </body>
 	{% block defer %}
+		
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+		
 
 		{% assets filters="jsmin", output="assets/packaged.js",
-			  "lib/bower/jquery/dist/jquery.min.js",
 			  "lib/bower/d3/d3.min.js",
-			  "lib/bower/leaflet/dist/leaflet.js",
 			  "lib/bower/dropzone/dist/dropzone.js",
 			  "lib/bower/leaflet-image/leaflet-image.js",
 			  "lib/bower/d3-queue/d3-queue.js",
