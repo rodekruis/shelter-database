@@ -166,10 +166,23 @@
 	}
 
 	var addSwipePictures = function addSwipePictures(elementId, section){
-		if(typeof section['Pictures'] !== 'undefined' && section['Pictures'].length > 0) {
+		
+		if(typeof section['Pictures'] !== 'undefined') {
 		
 			//merge arrays
 			var d = $.merge(section.Cover, section.Pictures);
+			
+			for (var i=d.length-1; i>=0; i--) {
+				if (d[i].indexOf("_thumbnail") > -1) {
+					d.splice(i, 1);
+					break;
+				}
+			}
+			
+			//if there are no pictures, return
+			if(d.length === 0){
+				return;
+			}
 			
 			// remove existing
 			d3.select(elementId + "Panes")
@@ -209,6 +222,9 @@
 		else {
 			$(elementId).hide();
 		}
+		
+		// initiate swipe
+		_swipe.initiate();
 	}
 
 	var createCategory = function createCategory(index, category, d) {
@@ -314,3 +330,5 @@
 	  
 	  parseShelter();
 	});
+	
+	L.Icon.Default.imagePath = '/static/lib/bower/leaflet/dist/images';
