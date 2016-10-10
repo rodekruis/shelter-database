@@ -211,3 +211,27 @@
 {% block wrapper_end %}
 </div>
 {% endblock %}
+
+{% block defer %}
+	{{ super() }}
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.44/jquery.form-validator.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.7.1/leaflet-geocoder-mapzen.min.js"></script>	
+	
+	{% assets filters="jsmin", output="assets/packaged-contribute.js",
+
+		  "lib/bower/leaflet-geosearch/src/js/l.control.geosearch.js", 
+		  "lib/bower/leaflet-geosearch/src/js/l.geosearch.provider.google.js",
+		  "lib/bower/Leaflet.label/dist/leaflet.label.js",
+		  "lib/bower/leaflet-image/leaflet-image.js",	
+		  "js/countries.js",
+		  "js/create-shelter.js",
+		  "js/edit-shelter.js",
+		  "js/contribute.js"
+	%}
+		<script type="text/javascript" src="{{ASSET_URL}}" defer></script>
+	{% endassets %}
+{% endblock %}

@@ -1,8 +1,6 @@
 /**
  * DASHBOARD : dashboard.js
  */
-
-if(loc.indexOf("dashboard") > -1) {
 				  
 	var setTab = function (tab) {
         document.getElementById("tabs").className = "tab" + tab
@@ -632,6 +630,5 @@ if(loc.indexOf("dashboard") > -1) {
 		});
 
 	}
-}
 
 

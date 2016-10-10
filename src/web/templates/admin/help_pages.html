@@ -19,14 +19,12 @@
 {% endblock %}
 
 {% block defer %}
-	{% assets filters="jsmin", output="assets/packaged-admin-help-pages.js",
-			  "lib/bower/jquery/dist/jquery.min.js",
-			  "lib/bower/bootstrap/dist/js/bootstrap.min.js",
-			  "lib/bower/tinymce/tinymce.min.js",
-			  "lib/bower/tinymce/themes/modern/theme.min.js"
-		%}
-		<script type="text/javascript" src="{{ASSET_URL}}"></script>
-	{% endassets %}
+
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.4.3/tinymce.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.4.3/themes/modern/theme.min.js"></script>
 		
 	<script type="text/javascript">
 		$(document).ready(function() {

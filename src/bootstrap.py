@@ -46,8 +46,9 @@ else:
 
 app.debug = conf.LOG_LEVEL <= logging.DEBUG
 
-assets.debug = conf.FLASK_ASSETS_DEBUG
-#app.config['ASSETS_DEBUG'] = conf.FLASK_ASSETS_DEBUG
+app.config['ASSETS_DEBUG'] = "merge"
+
+
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = conf.SQLALCHEMY_DATABASE_URI

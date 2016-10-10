@@ -1,8 +1,6 @@
 /**
  * CONTRIBUTE : contribute.js
  */
-
-if("/contribute" === loc) {
 	
 	/**
 	 * VARIABLES
@@ -574,4 +572,3 @@ if("/contribute" === loc) {
 	$.validate();
 	
 	initiateLocationPicker();
-}

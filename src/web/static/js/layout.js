@@ -27,6 +27,3 @@ if("" === loc || "/" === loc) {
  setTimeout(function() {
 	$(".alert").fadeOut().empty();
  }, 7000);
-
-// set leaflet image path
-L.Icon.Default.imagePath = "/static/lib/bower/leaflet/dist/images";

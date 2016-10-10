@@ -30,3 +30,8 @@
 </table>
 </div>
 {% endblock %}
+
+{% block defer %}
+	{{ super() }}
+	<script type="text/javascript" src="cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+{% endblock %}

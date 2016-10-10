@@ -167,22 +167,6 @@ function create_shelter (name_of_shelter, country_value_id, country_name, callba
                     //alert(errorThrown);
                 }
             })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         },
         error: function(XMLHttpRequest, textStatus, errorThrown){
             console.log(errorThrown);

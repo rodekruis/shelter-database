@@ -69,7 +69,7 @@
                 </div>
             </div>
         </section>
-		 <section class="recommendations background" style="background-image: url('{{ url_for('static', filename='img/mapview.png') }}')">
+		 <section class="recommendations background" style="background-image: url('{{ url_for('static', filename='img/mapview.jpg') }}')">
             <div class="overlay"></div>
             <div class="toplayer">
                 <h3>Find shelters</h3>
@@ -123,4 +123,15 @@
             </div>
 		</div>
 </div>
+{% endblock %}
+
+{% block defer %}
+	{{ super() }}
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+	
+	{% assets filters="jsmin", output="assets/packaged-index.js",
+			  "js/index.js"
+		%}
+			<script type="text/javascript" src="{{ASSET_URL}}" defer></script>
+		{% endassets %}
 {% endblock %}

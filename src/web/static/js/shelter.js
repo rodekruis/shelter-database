@@ -2,8 +2,6 @@
  * SHELTER : shelter.js
  */
 
-if(loc.indexOf('shelter') > -1 && loc.indexOf('shelter/edit') === -1) {
-
 	/**
 	 * VARIABLES
 	 */
@@ -161,14 +159,23 @@ if(loc.indexOf('shelter') > -1 && loc.indexOf('shelter/edit') === -1) {
 			$(coverpicture).css("background-image", "url('/" + section['Cover'][0] + "')");	
 			$(printpicture).attr("src", "/" + section['Cover'][0]);					
 		}
+		// if not hide element
+		else {
+			$(coverpicture).hide();
+		}
 	}
 
 	var addSwipePictures = function addSwipePictures(elementId, section){
-		if(typeof section['Pictures'] !== 'undefined') {
+		if(typeof section['Pictures'] !== 'undefined' && section['Pictures'].length > 0) {
 		
 			//merge arrays
 			var d = $.merge(section.Cover, section.Pictures);
 			
+			// remove existing
+			d3.select(elementId + "Panes")
+			   .selectAll("div")
+			   .remove();
+			   
 			// add panes
 			d3.select(elementId + "Panes")
 			   .selectAll("div")
@@ -180,6 +187,11 @@ if(loc.indexOf('shelter') > -1 && loc.indexOf('shelter/edit') === -1) {
 			
 			// add dots
 			var dot = 0;
+			
+			//remove existing
+			d3.select(elementId + "Dots")
+			   .selectAll("div")
+			   .remove();
 			
 			d3.select(elementId + "Dots")
 			   .selectAll("div")
@@ -193,9 +205,10 @@ if(loc.indexOf('shelter') > -1 && loc.indexOf('shelter/edit') === -1) {
 					return r;
 				});
 		}
-		
-		// dynamically load swipe, because created dots need to be ready
-		$.getScript(path + 'js/swipe.js');
+		// if not hide element
+		else {
+			$(elementId).hide();
+		}
 	}
 
 	var createCategory = function createCategory(index, category, d) {
@@ -301,4 +314,3 @@ if(loc.indexOf('shelter') > -1 && loc.indexOf('shelter/edit') === -1) {
 	  
 	  parseShelter();
 	});
-}
