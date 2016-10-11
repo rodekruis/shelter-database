@@ -23,7 +23,6 @@ venv
 build
 
 # bower
-
 src/web/static/lib/bower
 src/web/static/pictures/
 
@@ -41,3 +40,4 @@ src/web/public/
 
 # generated asset css and js files
 assets/
+src/web/static/.webassets-cache/
