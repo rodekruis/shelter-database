@@ -163,8 +163,9 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
                 hsize = int((float(im.size[1])*float(ratio)))
                 print((imgwidth, hsize))
                 resized_im = im.resize((imgwidth,hsize), Image.BILINEAR)
-
-            resized_im.save(os.path.join(path , filename), "JPEG")
+                resized_im.save(os.path.join(path , filename), "JPEG",quality=90)
+            else:
+                im.save(os.path.join(path , filename), "JPEG", quality=90)
             print("Category id '{}' ...".format(category_id))
             
         if category_id:
