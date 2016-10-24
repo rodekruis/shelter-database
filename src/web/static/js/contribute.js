@@ -480,6 +480,12 @@
 				// update the map given the country
 				updateLocationPicker();
 				
+				// Set edit url
+				d3.select('#editlink')
+					.append('a')
+						.attr('href', '/shelter/edit/' + shelter_id + '/General-Information')
+						.text('editing your shelter');
+				
 				// add spinner
 				$('#wrapper').spin(false);
 

@@ -6,10 +6,12 @@
 	 * VARIABLES
 	 */
 	var modalPage = 0;
+	var maxSections = 3;
 	var modalName = "";
 	var translation = {};
 	var attributes;
 	var shelter;
+	var index = 1;
 	
 	/**
 	 * FUNCTIONS
@@ -24,7 +26,9 @@
 		$("#wrapper").removeClass("modal-open")
 		$("#" + modalName).css("visibility", "hidden")
 		modalName = ""
-		modalResetPages()
+		modalResetPages();
+		
+		//$('.royalSlider').data('royalSlider').destroy();
 	}
 	var modalPrev = function modalPrev(){
 		setPage(modalPage - 1)
@@ -104,18 +108,32 @@
 					'Services', 
 					'Skin', 
 					'Spaceplan', 
-					'Walls & frame'
+					'Walls & frame',
+					'Documents'
 				  ];
+				  
+		// set main image
+		addCoverPictures(shelter[shelter_id]['Identification'], '#section-0', 'Identification');
+		addSwipePictures(shelter[shelter_id]['Identification'], 'Identification');
 					  
 		// create sections for different categories
 		var data = shelter[shelter_id];
-		var index = 0;
-		$.each(categories, function(index, category) {
+		$.each(categories, function(j, category) {
 			if(typeof data[category] !== 'undefined') {
 				createCategory(index, category, data[category]['Attributes']);
 				index = index + 1;
 			}
 		});
+		
+		// set more link for uncollapse sections
+		if(index > maxSections){
+			var targets = '';
+			for(i = maxSections; i < index; i++){
+				targets += ',#section-' + i;
+			}
+			targets = targets.substring(1);
+			$('#collapseButton').attr('data-target', targets);
+		}
 		
 		if(typeof shelter[shelter_id]['Identification'] !== 'undefined') {
 			// Set shelter name
@@ -137,10 +155,6 @@
 			
 			// add location of shelter to map
 			L.marker([lat, lon]).addTo(map);
-				
-			// add pictures
-			addCoverPictures('#coverpicture', '#coverpictureprint', shelter[shelter_id]['Identification']);
-			addSwipePictures('#modalIdentification', shelter[shelter_id]['Identification']);
 			
 			// convert map to image for better printing
 			leafletImage(map, function(err, canvas) {
@@ -149,29 +163,142 @@
 				$('#location-image').prepend('<img id="location-image-picture" src="'+ canvas.toDataURL() + '" />')		
 			});
 		}
+		
+		/*
+		<div class="flexbox">
+			<div class="box">
+				<i class="head icon-help"></i>
+				<h4>Need</h4>
+				<p>Humanitarian Sheltering is a key component to rebuild affected populations’ lives and livelihoods.</p>
+			</div>
+			*/
+		// add documents
+		if(typeof shelter[shelter_id]['Documents'] !== 'undefined' && shelter[shelter_id]['Documents']['Documents'].length > 0) {
+				var documentsdiv = d3.select('#documents')
+								.append("div")
+										   .attr("class","flexbox");
+										   
+				var box = documentsdiv
+							   .selectAll("div")
+							   .data(shelter[shelter_id]['Documents']['Documents'])
+							   .enter()
+							   .append("div")
+								   .attr("class","box");
+										   
+				var l = box.append("a")
+							.attr('href', function (di){ return "/" + di; } )
+							.attr('target', '_blank');					   
+							
+				var title = l.append('i')
+							.attr('class', function (di) {
+												var filename = di.replace(/^.*[\\\/]/, '');
+												var ext = filename.substr(filename.lastIndexOf('.')+1).toLowerCase();
+												
+												var c = 'head';
+												
+												if (ext.match('/\.(jpg|jpeg|png|gif)$/')) {
+													c += ' 	icon-file-image';
+												} else if (ext.match('/\.(ppt|pptx)$/')) {
+													c += ' 	icon-file-powerpoint';
+												} else if (ext.match('/\.(doc|docx)$/')) {
+													c += ' 	icon-file-word';
+												} else if (ext === 'pdf'){
+													c += ' icon-file-pdf';
+												} else if (ext.match('/\.(txt)$/')) {
+													c += ' icon-doc-text';
+												} else if (ext.match('/\.(mov|avi|mkv|wmv|mpg})$/')) {
+													c += ' icon-file-video';
+												} else {
+													c += ' icon-doc';
+												}
+												
+												return c;
+							});
+					
+				var h4 = l.append('h4')
+							.text(function (di){ return di.replace(/^.*[\\\/]/, '') } );
+					
+				
+				
+						
+			
+		}
+		
+		// Activate slider
+		$(".royalSlider").royalSlider({
+			transitionType:'fade',
+			loop: true,
+			arrowsNav: false,
+			keyboardNavEnabled: true,
+			addActiveClass: true,
+			arrowsNav: false,
+			fadeinLoadedSlide: false,
+			globalCaption: true,
+			globalCaptionInside: false,
+			imageScaleMode: 'fit-if-smaller',
+			autoScaleSlider:false,
+			autoHeight: false,
+			controlNavigation: 'thumbnails',
+			thumbs: {
+					  appendSpan: true,
+					  firstMargin: true,
+					  paddingBottom: 4
+					},
+		  }); 		 
 
 		// stop spinner if all has loaded
 		$('#wrapper').spin(false);
 	};
 
-	var addCoverPictures = function addCoverPictures(coverpicture, printpicture, section){
-		if(typeof section['Cover'] !== 'undefined' && section['Cover'].length > 0) {
-			$(coverpicture).css("background-image", "url('/" + section['Cover'][0] + "')");	
-			$(printpicture).attr("src", "/" + section['Cover'][0]);					
+	var addCoverPictures = function addCoverPictures(section, section_id, category){
+		var source = 'Pictures';
+		// for identification use cover
+		if(section_id === '#section-0' ){
+			source = 'Cover';
 		}
-		// if not hide element
-		else {
-			$(coverpicture).hide();
+		
+		if(typeof section[source] !== 'undefined' && section[source].length > 0) {
+			
+			// add panes
+			var divprint = d3.select(section_id)
+							 .selectAll('div')
+								.insert("div",'#section-table-' + index)
+									.attr('class', 'shelter-main-image' );
+							
+				divprint.append('img')
+					.attr('src', section[source][0])
+					.attr('id', 'coverpictureprint');
+				 
+			var divsection = d3.select(section_id)
+								.selectAll('div')
+									.insert("div", '#section-table-' + index)
+										.attr('class', 'shelterimg')
+										.attr('id', 'mainimage-' + category)
+										.attr('style' , "background-image: url('/" + section[source][0] + "')")
+										.on({
+										  "click":  function() { 
+												modalOpen('mymodal-' + category);
+										  }, 
+										});	
 		}
 	}
 
-	var addSwipePictures = function addSwipePictures(elementId, section){
+	var addSwipePictures = function addSwipePictures(section, category){
 		
-		if(typeof section['Pictures'] !== 'undefined') {
+		if(typeof section['Pictures'] === 'undefined') {
+			section['Pictures'] = [];
+		}
 		
-			//merge arrays
-			var d = $.merge(section.Cover, section.Pictures);
+		if(typeof section['Cover'] === 'undefined') {
+			section['Cover'] = [];
+		}
 			
+		//merge arrays
+		var d = $.merge(section.Cover, section.Pictures);
+		
+		if(d.length > 0){
+			
+			// remove the thumbnail if there is one
 			for (var i=d.length-1; i>=0; i--) {
 				if (d[i].indexOf("_thumbnail") > -1) {
 					d.splice(i, 1);
@@ -184,47 +311,33 @@
 				return;
 			}
 			
-			// remove existing
-			d3.select(elementId + "Panes")
-			   .selectAll("div")
-			   .remove();
-			   
+			// create modal
+			var modal = d3.select("#wrapper")
+							.append('div')
+								.attr('class', 'mymodal mymodal-dark mymodal-no-scroll')
+								.attr('id', 'mymodal-' + category);
+								
+			modal.append('div')
+					.attr('class', 'mymodal-close')
+					.on({
+						  "click":  function() { 
+								modalClose();
+						  }, 
+						});	
+						
+			var slider = modal.append('div')
+					.attr('class', 'royalSlider rsUni');
+								
 			// add panes
-			d3.select(elementId + "Panes")
-			   .selectAll("div")
-			   .data(d)
-			   .enter()
-			   .append("div")
-				   .attr("class","pane")
-				   .attr("style",function (d){ return "background-image:  url('/" + d + "')";});
-			
-			// add dots
-			var dot = 0;
-			
-			//remove existing
-			d3.select(elementId + "Dots")
-			   .selectAll("div")
-			   .remove();
-			
-			d3.select(elementId + "Dots")
-			   .selectAll("div")
-			   .data(d)
-			   .enter()
-			   .append("div")
-				   .attr("class","dot")
-				   .attr("onclick",function (d){ 
-					var r = "_swipe.show(" + dot + ",0,true)";
-					dot++;
-					return r;
-				});
+			slider.selectAll("img")
+				   .data(d)
+				   .enter()
+				   .append("img")
+					   .attr("class","rsImg")
+					   .attr("src", function (di){ return "/" + di; })
+					   .attr("data-rsTmb", function (di){ return "/" + di; });
+					   //.attr("style",function (d){ return "background-image:  url('/" + d + "')";});			
 		}
-		// if not hide element
-		else {
-			$(elementId).hide();
-		}
-		
-		// initiate swipe
-		_swipe.initiate();
 	}
 
 	var createCategory = function createCategory(index, category, d) {
@@ -239,9 +352,16 @@
 		// convert object keys to an attribute value pair
 		var data = Object.keys(d).map(function(k) { return {attribute:k, value:d[k]} })
 		
+		// set collapse class
+		var collapse = '';
+		if(index > maxSections) {
+			collapse = 'collapse ';
+		}
+		
 		var sections = d3.select('#sections');
 		var section = sections.append('section')
-						.attr('class', 'details details-' + ((index %2) + 1) );
+						.attr('id', 'section-' + index)
+						.attr('class', 'details ' + collapse + 'details-' + ((index %2) + 1) );
 						
 		var content = section.append('div')
 						.attr('class', 'content');
@@ -249,7 +369,30 @@
 		content.append('h3')
 			.text(category);
 			
-		var table = content.append('table');
+		// if there are images, show them
+		// skip identification section because this is the main image already
+		if(category !== 'Identification'){
+			addCoverPictures(shelter[shelter_id][category], '#section-' + index, category);
+			addSwipePictures(shelter[shelter_id][category], category);
+		} 
+		// in the identification section, add the map
+		else {
+			var details = content.append('div')
+						.attr('class', 'details');
+						
+			details.append('div')
+						.attr('id', 'location-image')
+						.attr('class', 'location-image');
+						
+			details.append('div')
+						.attr('id', 'location-map')
+						.attr('class', 'location-map');
+		}
+				
+		var table = content.append('table')
+								.attr('id', 'section-table-' + index)
+								.attr('class', 'section-data');
+								
 		var	tbody = table.append('tbody');
 
 		// create a row for each object in the data

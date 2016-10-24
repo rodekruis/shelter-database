@@ -17,8 +17,11 @@
         </li>
     </ul>
 	
-	<div class="content page1" id="modalcontent">
+	<div class="content page1 editpage" id="modalcontent">
         <div class="page page1">
+			<h3>Instructions</h3>
+			<p class="instructions">On this page you can edit your shelter. Click the tabs on the top to edit the different sections. Pictures can be uploaded
+			   to each of the sections, to that they appear under this section on your shelter page.</p>
 			
 			<div class="myform" role="form" action="" data-shelter-id="{{shelter.id}}" id="shelterForm">
 				{% for category in section.categories %}
@@ -124,18 +127,12 @@
 											  data-validation-error-msg-size="You can not upload images larger than 4000kb"
 											  data-validation-error-msg-mime="You can only upload images"
 											  data-validation-error-msg-length="You have to upload at least one images">
-									</div>
+								   </div>
 								</div>
 							</div>
 							
 							{% if sub_category.name == "Documents"  %}
 							<h4>Documents</h4>
-							<form action="" method="post" enctype="multipart/form-data">
-								<input class="" type="file" name="mediafile" accept="application/pdf,application/doc" />
-								<input type="hidden" name="category_id" value="{{ sub_category.id }}" />
-								<input class="button button-light submit" type="submit" name="documents" value="Upload" />
-							</form>
-
 							{% for document in documents[sub_category.name] %}
 								<div>
 									<a href="/static/documents/shelters/{{ shelter.id }}/{{ document.file_name }}" download>
@@ -176,5 +173,12 @@
 
 {% block defer %}
 	{{ super() }}
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
+		
+		{% assets filters="jsmin", output="assets/packaged-edit.js",
+		  "js/edit-shelter.js"
+		%}
+			<script type="text/javascript" src="{{ASSET_URL}}" defer></script>
+		{% endassets %}
+	
 {% endblock %}

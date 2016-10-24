@@ -10,6 +10,7 @@
                 <th>Name</th>
                 <th>Zone</th>
                 <th>Created at</th>
+				<th>Edit</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +21,7 @@
                 <td><a href="{{ url_for('shelter', shelter_id=shelter.id) }}">{{ shelter.get_values_of_attribute(attribute_name='Name of shelter')[0].name }}</a></td>
                 <td>{{ shelter.get_values_of_attribute(attribute_name='Zone')[0].name }}</td>
                 <td>{{ shelter.created_at }}</td>
+				<td><a href="{{ url_for('shelter_bp.edit', shelter_id=shelter.id, section_name='General-Information' | replace(' ', '-')) }}">edit</a></td>
             </tr>
         {% endfor %}
         </tbody>

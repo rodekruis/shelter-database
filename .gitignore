@@ -42,3 +42,6 @@ src/web/public/
 # generated asset css and js files
 src/web/static/assets/
 src/web/static/.webassets-cache/
+
+#data
+data/shelters/documents/

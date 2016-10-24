@@ -4,6 +4,15 @@
 {% block assets_start %}
     {{ super() }}
 	
+	<!-- basic stylesheet -->
+	<link rel="stylesheet" href='{{ url_for("static", filename="lib/custom/royalslider/royalslider.css") }}' media="screen">
+
+	<!-- skin stylesheet (change it if you use another) -->
+	<!--<link rel="stylesheet" href='{{ url_for("static", filename="lib/custom/royalslider/skins/default/rs-default.css") }}' media="screen"> -->
+	<link rel="stylesheet" href='{{ url_for("static", filename="lib/custom/royalslider/skins/universal/rs-universal.css") }}' media="screen"> 
+
+	<link rel="stylesheet" type="text/css" href='{{ url_for("static", filename="css/print.css") }}' media="print">
+	
 	<script type="text/javascript">
 		// set shelter id and path for swipe include
 		var shelter_id = {{shelter_id}};
@@ -20,7 +29,7 @@
 		
 
         <section class="shelterheader">
-            <div class="content">
+            <div class="content section-data">
                 <h1 id="shelter-name">[UNKNOWN NAME]</h1>
 				<i class="fa icon-print print-image" aria-hidden="true" onClick="window.print()"></i>
 				<a title="Edit" href="{{ url_for('shelter_bp.edit', shelter_id=shelter_id, section_name='General-Information' | replace(' ', '-')) }}">
@@ -28,24 +37,25 @@
 				</a>
             </div>
         </section>
-		<section class="shelter-main-image">
-                <img id="coverpictureprint" src="" />
-            </section>
-        <section id="coverpicture" class="shelterimg" onclick="modalOpen('main-image-swipe')">
-        </section>
-		
+
 		<div id="sections">
-			
-			<section>
-				<div class="details">
-					<div id="location-image" class="location-image"></div>
-					<div id="location-map" class="location-map"></div>
-				</div>
+			<!-- for main image -->
+			<section id="section-0">
+				<div class="content"></div>
 			</section>
-			<!-- TODO: more button that shows/hides other categories -->
 		</div>
 		
-		<div id="sections">
+		<div id="more">
+			<a id="collapseButton" class="btn btn-default" data-toggle="collapse">Click here to show / hide more information</a>
+		</div>
+		
+		<section id="section-documents" class="info">
+			<div class="content" id="documents">
+				<h3>Documents / Attachments</h3>
+			</div>			
+		</section>
+		
+		<div id="comments">
 			<div class="content">
 				<h3>Comments & Discussion</h3>
 			</div>
@@ -65,27 +75,28 @@
 			</script>
 			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 		</div>
+		
+
 {% endblock %}
 
 {% block footer %}
 {{ super() }}
-
+		<!--
 		<div class="mymodal mymodal-dark" id="main-image-swipe">
-			<div class="mymodal-close" onclick="modalClose()"></div>
-			<div class="swipe">
-				<div id="modalIdentificationPanes" class="panes">
-					<div class="pane" style="background-image: url('')"></div>
-				</div>
-				<div id="modalIdentificationDots" class="dots">
-					<div class="dot" onclick="swipe.show(0, 0, true)"></div>
-				</div>
-			</div>
-        </div>
+				<div class="mymodal-close" onclick="modalClose()"></div>
+				<div class="royalSlider rsDefault">
+					<img class="rsImg" src="{{ url_for("static", filename="img/1.jpg") }}" alt="image desc" />
+					<img class="rsImg" src="{{ url_for("static", filename="img/2.jpg") }}" alt="image desc" />
+				</div>	
+		</div>
+		-->
 		
 		<div class="mymodal mymodal-dark" id="infoDialog">
 			<div class="mymodal-close" onclick="modalClose()"></div>
 			<div align="center" id="listOfPictures"></div>
 		</div>
+		
+		
 				
 {% endblock %}
 {% block wrapper_end %}
@@ -97,13 +108,15 @@
 	<!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>-->
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3-queue/3.0.3/d3-queue.min.js"></script>
+
 	<!--<script type="text/javascript" src='https://api.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js'></script>-->
 	{% assets filters="jsmin", output="assets/packaged-shelter.js",
 			  "lib/bower/leaflet/dist/leaflet.js",
 			  "lib/bower/leaflet-image/leaflet-image.js",
-			  "js/swipe.js",
+			  "lib/custom/royalslider/jquery.royalslider.min.js",
 			  "js/shelter.js"		  
 		%}
 			<script type="text/javascript" src="{{ASSET_URL}}" defer></script>
-		{% endassets %}
+	{% endassets %}
+		
 {% endblock %}

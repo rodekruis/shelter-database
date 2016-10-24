@@ -197,9 +197,9 @@
             </div>
 			
 			<div class="page page7">
-				<p>Thank you for entering your shelter in the shelter database. Your shelter will be visible in the database after a short review by the administrator.
-				We kindly request you to add additional data about your shelter, such as technical documentation and drawings, and different attributes. You can edit your 
-				shelter when you log in to the website and go to 'your shelters'.</p>
+				<p id="thankyou">Thank you for entering your shelter in the shelter database. Your shelter will be visible in the database after a short review by the administrator.
+				We kindly request you to add additional data about your shelter, such as technical documentation and drawings, and different attributes. You can start <span id="editlink"></span> to add more details about your shelter.
+				</p>
 				<div class="buttons">
                     <div onclick="modalClose()" class="button button-light"><i class="fa icon-cancel"></i><span class="text">Close</span></div>
                 </div>
@@ -220,6 +220,7 @@
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.44/jquery.form-validator.min.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.7.1/leaflet-geocoder-mapzen.min.js"></script>	
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
 	
 	{% assets filters="jsmin", output="assets/packaged-contribute.js",
 
@@ -229,7 +230,6 @@
 		  "lib/bower/leaflet-image/leaflet-image.js",	
 		  "js/countries.js",
 		  "js/create-shelter.js",
-		  "js/edit-shelter.js",
 		  "js/contribute.js"
 	%}
 		<script type="text/javascript" src="{{ASSET_URL}}" defer></script>
