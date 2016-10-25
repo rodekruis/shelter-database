@@ -196,17 +196,17 @@
 												
 												var c = 'head';
 												
-												if (ext.match('/\.(jpg|jpeg|png|gif)$/')) {
+												if (ext.match('/(jpg|jpeg|png|gif)$/')) {
 													c += ' 	icon-file-image';
-												} else if (ext.match('/\.(ppt|pptx)$/')) {
+												} else if (ext.match('/(ppt|pptx)$/')) {
 													c += ' 	icon-file-powerpoint';
-												} else if (ext.match('/\.(doc|docx)$/')) {
+												} else if (ext.match('/(doc|docx)$/')) {
 													c += ' 	icon-file-word';
 												} else if (ext === 'pdf'){
 													c += ' icon-file-pdf';
-												} else if (ext.match('/\.(txt)$/')) {
+												} else if (ext.match('/(txt)$/')) {
 													c += ' icon-doc-text';
-												} else if (ext.match('/\.(mov|avi|mkv|wmv|mpg})$/')) {
+												} else if (ext.match('/(mov|avi|mkv|wmv|mpg})$/')) {
 													c += ' icon-file-video';
 												} else {
 													c += ' icon-doc';
