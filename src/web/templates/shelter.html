@@ -5,11 +5,10 @@
     {{ super() }}
 	
 	<!-- basic stylesheet -->
-	<link rel="stylesheet" href='{{ url_for("static", filename="lib/custom/royalslider/royalslider.css") }}' media="screen">
+	<link rel="stylesheet" href='{{ url_for("static", filename="lib/custom/slider/slider.css") }}' media="screen">
 
 	<!-- skin stylesheet (change it if you use another) -->
-	<!--<link rel="stylesheet" href='{{ url_for("static", filename="lib/custom/royalslider/skins/default/rs-default.css") }}' media="screen"> -->
-	<link rel="stylesheet" href='{{ url_for("static", filename="lib/custom/royalslider/skins/universal/rs-universal.css") }}' media="screen"> 
+	<link rel="stylesheet" href='{{ url_for("static", filename="lib/custom/slider/rs-universal.css") }}' media="screen"> 
 
 	<link rel="stylesheet" type="text/css" href='{{ url_for("static", filename="css/print.css") }}' media="print">
 	
@@ -81,16 +80,7 @@
 
 {% block footer %}
 {{ super() }}
-		<!--
-		<div class="mymodal mymodal-dark" id="main-image-swipe">
-				<div class="mymodal-close" onclick="modalClose()"></div>
-				<div class="royalSlider rsDefault">
-					<img class="rsImg" src="{{ url_for("static", filename="img/1.jpg") }}" alt="image desc" />
-					<img class="rsImg" src="{{ url_for("static", filename="img/2.jpg") }}" alt="image desc" />
-				</div>	
-		</div>
-		-->
-		
+
 		<div class="mymodal mymodal-dark" id="infoDialog">
 			<div class="mymodal-close" onclick="modalClose()"></div>
 			<div align="center" id="listOfPictures"></div>
@@ -113,7 +103,7 @@
 	{% assets filters="jsmin", output="assets/packaged-shelter.js",
 			  "lib/bower/leaflet/dist/leaflet.js",
 			  "lib/bower/leaflet-image/leaflet-image.js",
-			  "lib/custom/royalslider/jquery.royalslider.min.js",
+			  "lib/custom/slider/slider.min.js",
 			  "js/shelter.js"		  
 		%}
 			<script type="text/javascript" src="{{ASSET_URL}}" defer></script>
