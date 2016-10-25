@@ -25,7 +25,6 @@ build
 # bower
 
 src/web/static/lib/bower
-src/web/static/pictures/
 
 # node files
 node_modules
@@ -46,3 +45,5 @@ src/web/static/.webassets-cache/
 #data
 data/shelters/documents/
 src/web/static/documents/
+data/shelters/pictures/
+src/web/static/pictures/
