@@ -45,3 +45,4 @@ src/web/static/.webassets-cache/
 
 #data
 data/shelters/documents/
+src/web/static/documents/
