@@ -1,3 +1,7 @@
+/**
+ * COUNTRIES : countries.js
+ */
+ 
 var isoCountries = {
     'AF' : 'Afghanistan',
     'AX' : 'Aland Islands',

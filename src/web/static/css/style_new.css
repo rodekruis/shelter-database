@@ -124,7 +124,7 @@ table {
 /* TRIPLE BORDERS */
 /* KEYFRAMES */
 /* ANIMATION */
-.cover, .map2, .infoboxes .infobox .infobox-img, .mymodal .myimage, .options .option, section.first, section.recentshelters .recents .recent .image, section.recommendations, section.contribute .img, section.knowledge, section.shelterimg, section.map, .shelters .shelter .image {
+.cover, .map2, .infoboxes .infobox .infobox-img, .mymodal .myimage, .options .option, section.first, section.recentshelters .recents .recent .image, section.recommendations, section.contribute .img, section.knowledge, div.shelterimg, section.map, .shelters .shelter .image {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat; }
@@ -134,7 +134,7 @@ table {
   background-position: center center;
   background-repeat: no-repeat; }
 
-.fa, .button.button-drop:after, .button.button-stretch-drop:after, .search-wrapper:before, .mymodal .mymodal-close:after, table tr td span.info:before, section.first .arrow .arrow-down:after, section.shelterimg:after, .advanced .advanced-btn:after {
+.fa, .button.button-drop:after, .button.button-stretch-drop:after, .search-wrapper:before, .mymodal .mymodal-close:after, table tr td span.info:before, section.first .arrow .arrow-down:after, div.shelterimg:after, .advanced .advanced-btn:after {
   display: inline-block;
   font: normal normal normal 14px/1 fontello;
   font-size: inherit;
@@ -261,7 +261,7 @@ strong {
     pointer-events: none; }
 
 .button + .button {
-  margin-left: 10px; }
+  margin-left: 5px; }
 
 i + span.text {
   margin-left: 10px; }
@@ -328,7 +328,7 @@ main h3 {
   color: #CC0000;
   text-align: center;
   font-size: 1.8em;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   font-weight: 700;
   line-height: 1.2; }
 
@@ -639,7 +639,6 @@ header {
     margin-top: 50px; } }
 
 .content {
-  max-width: 1000px;
   margin: 0 auto; }
 
 .search-wrapper {
@@ -702,6 +701,9 @@ header {
     .mymodal.mymodal-dark .mymodal-close:after {
       color: #FFF;
       text-shadow: 0 0 20px #000; }
+  .mymodal.mymodal-dark.mymodal-no-scroll {
+	  overflow: auto;
+  }
   .mymodal .content {
     position: relative;
     padding: 50px 50px;
@@ -712,6 +714,12 @@ header {
     position: absolute;
     top: 20px;
     right: 20px;
+    z-index: 300;
+    cursor: pointer; }
+  .mymodal .mymodal-close-left {
+    position: absolute;
+    top: 20px;
+    left: 20px;
     z-index: 300;
     cursor: pointer; }
     .mymodal .mymodal-close:after {
@@ -1175,21 +1183,22 @@ section.knowledge {
     section.knowledge a:hover {
       color: #EEE; }
 
-section.shelterimg {
-  height: 400px;
-  cursor: pointer; }
-  section.shelterimg:after {
+div.shelterimg {
+  height: 250px;
+  cursor: pointer; 
+  margin-bottom: 15px;}
+  div.shelterimg:after {
     content: "\e807";
     font-size: 30px;
     color: #FFF;
     text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     position: absolute;
-    top: 20px;
+    margin-top: 20px;
     right: 20px;
     text-align: center;
     z-index: 100; }
 
-section.shelter-main-image {
+div.shelter-main-image {
   display: none; }
 
 section.shelterheader {
@@ -1222,7 +1231,7 @@ section .location-image {
 
 section .location-map {
   width: 100%;
-  height: 400px; }
+  height: 250px; }
 
 section.search {
   min-height: 100px;
@@ -1415,4 +1424,42 @@ section.map {
 
   src: url('../lib/bower/bootstrap/dist/fonts/glyphicons-halflings-regular.eot');
   src: url('../lib/bower/bootstrap/dist/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../lib/bower/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../lib/bower/bootstrap/dist/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../lib/bower/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../lib/bower/bootstrap/dist/fontsfonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+.leaflet-pelias-search-icon {
+  background-image: url('../lib/bower/leaflet-geocoder-mapzen/src/images/search.png');
+}
+
+#collapseButton {
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: #CC0000;
+    color: white;
+}
+
+.section-data, div .editpage {
+	max-width: 1000px;
+}
+
+#section-0 {
+	padding: 0px;
+}
+
+.instructions {
+	margin-bottom: 15px;
+}
+
+#editlink {
+	text-decoration: none !important;
+    color: #CC0000;
+}
+
+.royalSlider {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0px; /* height of thumbs (if not required set to 0) */
+    height: auto; /* optionally add !important for WP version */
+    width: auto;
 }

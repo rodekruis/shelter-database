@@ -1,3 +1,7 @@
+/**
+ * CREATE-SHELTER : create-shelter.js
+ */
+ 
 function create_shelter (name_of_shelter, country_value_id, country_name, callback) {
     new_shelter_dict = {} // the id of the shelter's owner is controlled by a POST preprocessor function
     $.ajax({
@@ -163,22 +167,6 @@ function create_shelter (name_of_shelter, country_value_id, country_name, callba
                     //alert(errorThrown);
                 }
             })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         },
         error: function(XMLHttpRequest, textStatus, errorThrown){
             console.log(errorThrown);

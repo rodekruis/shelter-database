@@ -10,6 +10,7 @@
                 <th>Name</th>
                 <th>Zone</th>
                 <th>Created at</th>
+				<th>Edit</th>
             </tr>
         </thead>
         <tbody>
@@ -17,35 +18,44 @@
             <tr>
                 <td>{{ loop.index }}</td>
                 <td>{{ shelter.get_values_of_attribute(attribute_name='ID')[0].name }}</td>
-                <td><a href="{{ url_for('shelter_bp.details', shelter_id=shelter.id, section_name='General-Information') }}">{{ shelter.get_values_of_attribute(attribute_name='Name of shelter')[0].name }}</a></td>
+                <td><a href="{{ url_for('shelter', shelter_id=shelter.id) }}">{{ shelter.get_values_of_attribute(attribute_name='Name of shelter')[0].name }}</a></td>
                 <td>{{ shelter.get_values_of_attribute(attribute_name='Zone')[0].name }}</td>
                 <td>{{ shelter.created_at }}</td>
+				<td><a href="{{ url_for('shelter_bp.edit', shelter_id=shelter.id, section_name='General-Information' | replace(' ', '-')) }}">edit</a></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 </div>
-<script>
-$(document).ready(function() {
+{% endblock %}
+{% block defer %}
 
-    $('#allshelters').DataTable({
-            "bStateSave": true, // on sauvegarde l'état dans un cookie
-            "aaSorting": [[2, "asc" ]], // on trie par défaut sur la colonne "Name"
-            "bJQueryUI": false,
-            "bInfo": false,
-            "aoColumnDefs": [
-                                {
-                                    "bSortable": false, "aTargets": [ 0 ]
-                                }
-                            ],
-           "aoColumns": [
-                        null,
-                        { "sSortDataType": "dom-checkbox" },
-                        { "sSortDataType": "dom-checkbox" },
-                        { "sSortDataType": "dom-checkbox" },
-                        { "sSortDataType": "dom-checkbox" }
-                        ]
-        });
-});
-</script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+		
+		<script>
+			$(document).ready(function() {
+
+				$('#allshelters').DataTable({
+						"bStateSave": true, // on sauvegarde l'état dans un cookie
+						"aaSorting": [[2, "asc" ]], // on trie par défaut sur la colonne "Name"
+						"bJQueryUI": false,
+						"bInfo": false,
+						"aoColumnDefs": [
+											{
+												"bSortable": false, "aTargets": [ 0 ]
+											}
+										],
+					   "aoColumns": [
+									null,
+									{ "sSortDataType": "dom-checkbox" },
+									{ "sSortDataType": "dom-checkbox" },
+									{ "sSortDataType": "dom-checkbox" },
+									{ "sSortDataType": "dom-checkbox" }
+									]
+					});
+			});
+			</script>
 {% endblock %}

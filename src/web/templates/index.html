@@ -1,11 +1,13 @@
 {% extends "layout.html" %}
-{% block assets_start %}
-    {{ super() }}
-     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
-{% endblock %}
-{% block wrapper_start %}
 
+{% block header_start %}
+<header class="landingpage">
 {% endblock %}
+
+{% block main_start %}
+<main>
+{% endblock %}
+		
 {% block content %}
         <section class="first background" style="background-image: url('{{ url_for('static', filename='img/1.jpg') }}')">
             <div class="overlay"></div>
@@ -14,7 +16,9 @@
                 <h2>An overview of <strong>{{num_shelters}}</strong> shelters which have been built<br />throughout the world in response to disasters</h2>
                 <div class="search">
                     <div class="search-wrapper">
-                        <input type="text" name="" placeholder="Search Shelters" id="searchinput" />
+                        <input type="text" name="" placeholder="Search Shelters" id="searchinput" /> 
+						<a id="searchinfo" onclick="modalOpen('infomodal')"><i class="fa icon-help fa-inverse" style="color:white;"></i></a>
+
                     </div>
                 </div>
                 <p>- or -</p>
@@ -65,7 +69,7 @@
                 </div>
             </div>
         </section>
-		 <section class="recommendations background" style="background-image: url('{{ url_for('static', filename='img/mapview.png') }}')">
+		 <section class="recommendations background" style="background-image: url('{{ url_for('static', filename='img/mapview.jpg') }}')">
             <div class="overlay"></div>
             <div class="toplayer">
                 <h3>Find shelters</h3>
@@ -74,7 +78,7 @@
             </div>
         </section>
         <section class="info">
-            <div class="content">
+            <div class="content" id="newestcontent">
                 <h3>Newest shelters</h3>
 				<div class="flexbox" id="newest"></div>
             </div>
@@ -106,6 +110,28 @@
             </div>
 		</section>
 {% endblock %}
-{% block wrapper_end %}
 
+{% block footer %}
+{{ super() }}
+<div class="mymodal" id="infomodal">
+        <div class="content" id="modalcontent">
+			<div class="page page1">
+				<p>Just enter a keyword in this search and press Enter (or Next on mobile). You can search on any of the shelter attributes, such as country name, building materials, and many more. Small spelling mistakes are possible. Search is English only. </p>
+				<div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Close</span></div>
+                </div>
+            </div>
+		</div>
+</div>
+{% endblock %}
+
+{% block defer %}
+	{{ super() }}
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+	
+	{% assets filters="jsmin", output="assets/packaged-index.js",
+			  "js/index.js"
+		%}
+			<script type="text/javascript" src="{{ASSET_URL}}" defer></script>
+		{% endassets %}
 {% endblock %}

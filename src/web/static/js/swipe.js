@@ -1,3 +1,7 @@
+/**
+ * SWIPE : swipe.js
+ */
+ 
 var _swipe = {}
 _swipe.container     = document.getElementsByClassName("panes").length ? document.getElementsByClassName("panes")[0] : null
 _swipe.dots          = document.getElementsByClassName("dots").length ? Array.prototype.slice.call(document.getElementsByClassName("dots")[0].children, 0) : null;
@@ -5,6 +9,13 @@ _swipe.panes         = Array.prototype.slice.call(_swipe.container.children, 0)
 _swipe.containerSize = null;
 _swipe.currentIndex  = 0;
     dots =
+	
+_swipe.initiate = function() {
+	_swipe.container     = document.getElementsByClassName("panes").length ? document.getElementsByClassName("panes")[0] : null
+	_swipe.dots          = document.getElementsByClassName("dots").length ? Array.prototype.slice.call(document.getElementsByClassName("dots")[0].children, 0) : null;
+	_swipe.panes         = Array.prototype.slice.call(_swipe.container.children, 0)
+	_swipe.show(0,0,true);
+}
 
 _swipe.show = function(showIndex, percent, animate){
     showIndex = Math.max(0, Math.min(showIndex, _swipe.panes.length - 1))

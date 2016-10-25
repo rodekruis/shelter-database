@@ -23,6 +23,8 @@ from flask import Blueprint, request, flash, render_template, current_app, \
                     url_for, redirect, make_response
 from flask_login import login_required, current_user
 
+from PIL import Image
+
 import conf
 import time
 from bootstrap import db
@@ -127,12 +129,13 @@ def get_media(shelter_id=0, section_name=""):
 
 @shelter_bp.route('/edit/multi/<int:shelter_id>/<category_id>/<section>', methods=['POST'])
 #@login_required
-def get_media2(shelter_id=0, category_id=2, section = 'Identification'):
+def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
     """
     Get pictures for the shelter sent by Dropzone via a POST
     request.
     """
     first = False;
+    imgwidth = 800
 	
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
     if not shelter:
@@ -153,9 +156,16 @@ def get_media2(shelter_id=0, category_id=2, section = 'Identification'):
 
             file_extension = os.path.splitext(request.files[f].filename)[1]
             filename = str(shelter_id) + '_' + section + "_" + str(time.time()) + file_extension
-
-            request.files[f].save(os.path.join(path , filename))
-
+            
+            im = Image.open(request.files[f])
+            if im.size[0] > imgwidth:
+                ratio = (imgwidth/float(im.size[0]))
+                hsize = int((float(im.size[1])*float(ratio)))
+                print((imgwidth, hsize))
+                resized_im = im.resize((imgwidth,hsize), Image.BILINEAR)
+                resized_im.save(os.path.join(path , filename), "JPEG",quality=90)
+            else:
+                im.save(os.path.join(path , filename), "JPEG", quality=90)
             print("Category id '{}' ...".format(category_id))
             
         if category_id:

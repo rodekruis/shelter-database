@@ -1,79 +1,470 @@
 /**
- * Modal code
+ * SHELTER : shelter.js
  */
-var modalPage = 0
-var modalName = ""
-var modalOpen = function(modalid){
-	modalName = modalid
-	$("#wrapper").addClass("modal-open")
-	$("#" + modalid).css("visibility", "visible")
-	setPage(1)
-}
-var modalClose = function(){
-	$("#wrapper").removeClass("modal-open")
-	$("#" + modalName).css("visibility", "hidden")
-	modalName = ""
-	modalResetPages()
-}
-var modalPrev = function(){
-	setPage(modalPage - 1)
-}
-var modalNext = function(){
-	setPage(modalPage + 1)
-}
-var setPage = function(page){
-	modalPage = page
-	modalResetPages()
-	console.log(page)
-	console.log($(".mymodal .page" + page))
-	$(".mymodal .page" + page).css("display", "block")
-}
-var modalResetPages = function(){
-	$(".mymodal .page").each(function(el){
-		$(this).css("display", "none")
-	})
-}
 
-/**
- * END Modal code
- */
+	/**
+	 * VARIABLES
+	 */
+	var modalPage = 0;
+	var maxSections = 3;
+	var modalName = "";
+	var translation = {};
+	var attributes;
+	var shelter;
+	var index = 1;
 	
-var translation = {};
-var attributes;
-var shelter;
+	/**
+	 * FUNCTIONS
+	 */
+	var modalOpen = function modalOpen(modalid){
+		modalName = modalid
+		$("#wrapper").addClass("modal-open")
+		$("#" + modalid).css("visibility", "visible")
+		setPage(1)
+	}
+	var modalClose = function modalClose(){
+		$("#wrapper").removeClass("modal-open")
+		$("#" + modalName).css("visibility", "hidden")
+		modalName = ""
+		modalResetPages();
+		
+		//$('.royalSlider').data('royalSlider').destroy();
+	}
+	var modalPrev = function modalPrev(){
+		setPage(modalPage - 1)
+	}
+	var modalNext = function modalNext(){
+		setPage(modalPage + 1)
+	}
+	var setPage = function setPage(page){
+		modalPage = page
+		modalResetPages()
+		$(".mymodal .page" + page).css("display", "block")
+	}
+	var modalResetPages = function modalResetPages(){
+		$(".mymodal .page").each(function(el){
+			$(this).css("display", "none")
+		})
+	}	
 
-// add spinner
-$('#wrapper').spin();
+	var getTranslations = function getTranslations(callback){
+		if(language !== 'en'){
+			d3.json('/api/v0.2/translation/' + language, function (error, data) {
+				translation = data;
+				
+				callback(null);
+			});
+		}
+		
+		callback(null);
+	};
 
-var getTranslations = function(callback){
-	if(language !== 'en'){
-		d3.json('/api/v0.2/translation/' + language, function (error, data) {
-			translation = data;
+	var getAttributes = function getAttributes(callback){
+		d3.json('/api/v0.2/attributes/pictures/en', function (error, data) {
+			attributes = data;
 			
 			callback(null);
 		});
+	};
+
+	var getShelter = function getShelter(callback){
+		d3.json('/api/v0.2/shelters/' + shelter_id + '?format=prettytext', function (error, data) {
+			shelter = data;
+			
+			callback(null);
+		})
+	};
+
+	// add spinner
+	$('#wrapper').spin();
+		
+	var parseShelter = function parseShelter(){
+		
+		// if shelter or attribute queries have failed, show error. 
+		// if translation query failes, default to english
+		if(jQuery.isEmptyObject(shelter) || jQuery.isEmptyObject(attributes)){
+			$("#alert_template button").after('<span>We were unable to retrieve the data for this shelter.</span>');
+			$('#alert_template').fadeIn('slow');
+			
+			// stop spinner
+			$('#wrapper').spin(false);
+			
+			// break out of function
+			return;
+		}
+		
+		// Sorted array of categories
+		var categories = [
+					'Identification',
+					'General',
+					'Disaster & Response', 
+					'Site',
+					'Foundation',
+					'Beams & floor', 
+					'Cladding', 					 
+					'Insulation', 
+					'Openings', 
+					'Roof', 
+					'Services', 
+					'Skin', 
+					'Spaceplan', 
+					'Walls & frame',
+					'Documents'
+				  ];
+				  
+		// set main image
+		addCoverPictures(shelter[shelter_id]['Identification'], '#section-0', 'Identification');
+		addSwipePictures(shelter[shelter_id]['Identification'], 'Identification');
+					  
+		// create sections for different categories
+		var data = shelter[shelter_id];
+		$.each(categories, function(j, category) {
+			if(typeof data[category] !== 'undefined') {
+				createCategory(index, category, data[category]['Attributes']);
+				index = index + 1;
+			}
+		});
+		
+		// set more link for uncollapse sections
+		if(index > maxSections){
+			var targets = '';
+			for(i = maxSections; i < index; i++){
+				targets += ',#section-' + i;
+			}
+			targets = targets.substring(1);
+			$('#collapseButton').attr('data-target', targets);
+		}
+		
+		if(typeof shelter[shelter_id]['Identification'] !== 'undefined') {
+			// Set shelter name
+			$('#shelter-name').text(shelter[shelter_id]['Identification']['Attributes']['Name of shelter']);
+			
+			// Get coordinates for this shelter
+			var lat = shelter[shelter_id]['Identification']['Attributes']['GPS Latitude'];
+			var lon = shelter[shelter_id]['Identification']['Attributes']['GPS Longitude'];
+			
+			// Initiate leaflet map
+			var map = L.map('location-map', {tap:false, dragging:false}).setView([lat, lon], 13);
+			
+			// Add OSM base layer
+			L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
+			
+			// disable dragging and scrolling for mobile view
+			map.scrollWheelZoom.disable();
+			map.dragging.disable();
+			
+			// add location of shelter to map
+			L.marker([lat, lon]).addTo(map);
+			
+			// convert map to image for better printing
+			leafletImage(map, function(err, canvas) {
+				// now you have canvas
+				// example thing to do with that canvas:
+				$('#location-image').prepend('<img id="location-image-picture" src="'+ canvas.toDataURL() + '" />')		
+			});
+		}
+		
+		/*
+		<div class="flexbox">
+			<div class="box">
+				<i class="head icon-help"></i>
+				<h4>Need</h4>
+				<p>Humanitarian Sheltering is a key component to rebuild affected populations’ lives and livelihoods.</p>
+			</div>
+			*/
+		// add documents
+		if(typeof shelter[shelter_id]['Documents'] !== 'undefined' && shelter[shelter_id]['Documents']['Documents'].length > 0) {
+				var documentsdiv = d3.select('#documents')
+								.append("div")
+										   .attr("class","flexbox");
+										   
+				var box = documentsdiv
+							   .selectAll("div")
+							   .data(shelter[shelter_id]['Documents']['Documents'])
+							   .enter()
+							   .append("div")
+								   .attr("class","box");
+										   
+				var l = box.append("a")
+							.attr('href', function (di){ return "/" + di; } )
+							.attr('target', '_blank');					   
+							
+				var title = l.append('i')
+							.attr('class', function (di) {
+												var filename = di.replace(/^.*[\\\/]/, '');
+												var ext = filename.substr(filename.lastIndexOf('.')+1).toLowerCase();
+												
+												var c = 'head';
+												
+												if (ext.match('/(jpg|jpeg|png|gif)$/')) {
+													c += ' 	icon-file-image';
+												} else if (ext.match('/(ppt|pptx)$/')) {
+													c += ' 	icon-file-powerpoint';
+												} else if (ext.match('/(doc|docx)$/')) {
+													c += ' 	icon-file-word';
+												} else if (ext === 'pdf'){
+													c += ' icon-file-pdf';
+												} else if (ext.match('/(txt)$/')) {
+													c += ' icon-doc-text';
+												} else if (ext.match('/(mov|avi|mkv|wmv|mpg})$/')) {
+													c += ' icon-file-video';
+												} else {
+													c += ' icon-doc';
+												}
+												
+												return c;
+							});
+					
+				var h4 = l.append('h4')
+							.text(function (di){ return di.replace(/^.*[\\\/]/, '') } );
+					
+				
+				
+						
+			
+		}
+		
+		// Activate slider
+		$(".royalSlider").royalSlider({
+			transitionType:'fade',
+			loop: true,
+			arrowsNav: false,
+			keyboardNavEnabled: true,
+			addActiveClass: true,
+			arrowsNav: false,
+			fadeinLoadedSlide: false,
+			globalCaption: true,
+			globalCaptionInside: false,
+			imageScaleMode: 'fit-if-smaller',
+			autoScaleSlider:false,
+			autoHeight: false,
+			controlNavigation: 'thumbnails',
+			thumbs: {
+					  appendSpan: true,
+					  firstMargin: true,
+					  paddingBottom: 4
+					},
+		  }); 		 
+
+		// stop spinner if all has loaded
+		$('#wrapper').spin(false);
+	};
+
+	var addCoverPictures = function addCoverPictures(section, section_id, category){
+		var source = 'Pictures';
+		// for identification use cover
+		if(section_id === '#section-0' ){
+			source = 'Cover';
+		}
+		
+		if(typeof section[source] !== 'undefined' && section[source].length > 0) {
+			
+			// add panes
+			var divprint = d3.select(section_id)
+							 .selectAll('div')
+								.insert("div",'#section-table-' + index)
+									.attr('class', 'shelter-main-image' );
+							
+				divprint.append('img')
+					.attr('src', section[source][0])
+					.attr('id', 'coverpictureprint');
+				 
+			var divsection = d3.select(section_id)
+								.selectAll('div')
+									.insert("div", '#section-table-' + index)
+										.attr('class', 'shelterimg')
+										.attr('id', 'mainimage-' + category)
+										.attr('style' , "background-image: url('/" + section[source][0] + "')")
+										.on({
+										  "click":  function() { 
+												modalOpen('mymodal-' + category);
+										  }, 
+										});	
+		}
+	}
+
+	var addSwipePictures = function addSwipePictures(section, category){
+		
+		if(typeof section['Pictures'] === 'undefined') {
+			section['Pictures'] = [];
+		}
+		
+		if(typeof section['Cover'] === 'undefined') {
+			section['Cover'] = [];
+		}
+			
+		//merge arrays
+		var d = $.merge(section.Cover, section.Pictures);
+		
+		if(d.length > 0){
+			
+			// remove the thumbnail if there is one
+			for (var i=d.length-1; i>=0; i--) {
+				if (d[i].indexOf("_thumbnail") > -1) {
+					d.splice(i, 1);
+					break;
+				}
+			}
+			
+			//if there are no pictures, return
+			if(d.length === 0){
+				return;
+			}
+			
+			// create modal
+			var modal = d3.select("#wrapper")
+							.append('div')
+								.attr('class', 'mymodal mymodal-dark mymodal-no-scroll')
+								.attr('id', 'mymodal-' + category);
+								
+			modal.append('div')
+					.attr('class', 'mymodal-close')
+					.on({
+						  "click":  function() { 
+								modalClose();
+						  }, 
+						});	
+						
+			var slider = modal.append('div')
+					.attr('class', 'royalSlider rsUni');
+								
+			// add panes
+			slider.selectAll("img")
+				   .data(d)
+				   .enter()
+				   .append("img")
+					   .attr("class","rsImg")
+					   .attr("src", function (di){ return "/" + di; })
+					   .attr("data-rsTmb", function (di){ return "/" + di; });
+					   //.attr("style",function (d){ return "background-image:  url('/" + d + "')";});			
+		}
+	}
+
+	var createCategory = function createCategory(index, category, d) {
+
+		var columns = d3.keys(d);
+		
+		// if there is no data for this category, skip
+		if(jQuery.isEmptyObject(columns)){
+			return;
+		}		
+		
+		// convert object keys to an attribute value pair
+		var data = Object.keys(d).map(function(k) { return {attribute:k, value:d[k]} })
+		
+		// set collapse class
+		var collapse = '';
+		if(index > maxSections) {
+			collapse = 'collapse ';
+		}
+		
+		var sections = d3.select('#sections');
+		var section = sections.append('section')
+						.attr('id', 'section-' + index)
+						.attr('class', 'details ' + collapse + 'details-' + ((index %2) + 1) );
+						
+		var content = section.append('div')
+						.attr('class', 'content');
+						
+		content.append('h3')
+			.text(category);
+			
+		// if there are images, show them
+		// skip identification section because this is the main image already
+		if(category !== 'Identification'){
+			addCoverPictures(shelter[shelter_id][category], '#section-' + index, category);
+			addSwipePictures(shelter[shelter_id][category], category);
+		} 
+		// in the identification section, add the map
+		else {
+			var details = content.append('div')
+						.attr('class', 'details');
+						
+			details.append('div')
+						.attr('id', 'location-image')
+						.attr('class', 'location-image');
+						
+			details.append('div')
+						.attr('id', 'location-map')
+						.attr('class', 'location-map');
+		}
+				
+		var table = content.append('table')
+								.attr('id', 'section-table-' + index)
+								.attr('class', 'section-data');
+								
+		var	tbody = table.append('tbody');
+
+		// create a row for each object in the data
+		var rows = tbody.selectAll('tr')
+		  .data(data)
+		  .enter()
+		  .append('tr');
+
+		// Add column with attribute names
+		rows.append('th').append('b')
+			.text(function (d) { 
+				if(language == 'en' || jQuery.isEmptyObject(translation) || typeof(translation[d.attribute]) == 'undefined'){
+					return d.attribute;
+				}
+				else {
+					// return translated attribute name
+					return translation[d.attribute]; 
+				}				
+			});
+		 
+		// Add column with values
+		rows.append('td')
+				.text(function (d) { return d.value.replace(new RegExp(';', 'g'), ', '); })
+			.append('span')
+				.attr("class", function (d) { 
+					// TODO test if attribute has drawing
+					if(hasOwnProperty.call(attributes, category) && hasOwnProperty.call(attributes[category], d.attribute)){
+						return "info attribute-multimedia-asset";
+					}
+					else {
+						return '';
+					}
+				})
+				.attr("attribute-name", function (d) { return d.attribute;})
+				.attr("section-name", function (d) { return category;});
+	}
+
+	var show_multimedia_assets = function show_multimedia_assets(e) {
+		var attribute = $(this).attr("attribute-name");
+		var section = $(this).attr("section-name")
+		
+		if(hasOwnProperty.call(attributes, section) && hasOwnProperty.call(attributes[section], attribute)){
+			var drawings = attributes[section][attribute];
+		
+			// empty modal list of pictures
+			$('#listOfPictures').empty();
+			drawings.map(function(picture) {
+				var oImg = $('<img />')
+							.attr('src', '/' + picture)
+							.attr('alt', attribute)
+							.attr('title', attribute)
+							.attr('class', 'attribute-drawing');
+					
+				$('#listOfPictures').append(oImg);
+				$('#listOfPictures').append($('<hr>'));
+			});
+			
+			$('#listOfPictures hr:last-child').remove();
+			modalOpen('infoDialog')
+		}
 	}
 	
-	callback(null);
-};
-
-var getAttributes = function(callback){
-	d3.json('/api/v0.2/attributes/pictures/en', function (error, data) {
-		attributes = data;
-		
-		callback(null);
-	});
-};
-
-var getShelter = function(callback){
-	d3.json('/api/v0.2/shelters/' + shelter_id + '?format=prettytext', function (error, data) {
-		shelter = data;
-		
-		callback(null);
-	})
-};
-
-var q = d3.queue();
+	/**
+	 * EVENTS
+	 */
+	$(document).on('click', '.attribute-multimedia-asset' , show_multimedia_assets);
+	
+	/**
+	 * LOGIC
+	 */
+	 
+	var q = d3.queue();
 	q.defer(getTranslations);
 	q.defer(getAttributes);
 	q.defer(getShelter);
@@ -83,212 +474,4 @@ var q = d3.queue();
 	  parseShelter();
 	});
 	
-var parseShelter = function(){
-	
-	// if shelter or attribute queries have failed, show error. 
-	// if translation query failes, default to english
-	if(jQuery.isEmptyObject(shelter) || jQuery.isEmptyObject(attributes)){
-		$("#alert_template button").after('<span>We were unable to retrieve the data for this shelter.</span>');
-		$('#alert_template').fadeIn('slow');
-		
-		// stop spinner
-		$('#wrapper').spin(false);
-		
-		// break out of function
-		return;
-	}
-	
-	// Sorted array of categories
-	var categories = [
-				'Identification',
-				'General',
-				'Disaster & Response', 
-				'Site',
-				'Foundation',
-				'Beams & floor', 
-				'Cladding', 					 
-				'Insulation', 
-				'Openings', 
-				'Roof', 
-				'Services', 
-				'Skin', 
-				'Spaceplan', 
-				'Walls & frame'
-			  ];
-				  
-	// create sections for different categories
-	var data = shelter[shelter_id];
-	var index = 0;
-	$.each(categories, function(index, category) {
-		if(typeof data[category] !== 'undefined') {
-			createCategory(index, category, data[category]['Attributes']);
-			index = index + 1;
-		}
-	});
-	
-	if(typeof shelter[shelter_id]['Identification'] !== 'undefined') {
-		// Set shelter name
-		$('#shelter-name').text(shelter[shelter_id]['Identification']['Attributes']['Name of shelter']);
-		
-		// Get coordinates for this shelter
-		var lat = shelter[shelter_id]['Identification']['Attributes']['GPS Latitude'];
-		var lon = shelter[shelter_id]['Identification']['Attributes']['GPS Longitude'];
-		
-		// Initiate leaflet map
-		var map = L.map('location-map', {tap:false, dragging:false}).setView([lat, lon], 13);
-		
-		// Add OSM base layer
-		L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
-		
-		// disable dragging and scrolling for mobile view
-		map.scrollWheelZoom.disable();
-		map.dragging.disable();
-		
-		// add location of shelter to map
-		L.marker([lat, lon]).addTo(map);
-			
-		// add pictures
-		addCoverPictures('#coverpicture', '#coverpictureprint', shelter[shelter_id]['Identification']);
-		addSwipePictures('#modalIdentification', shelter[shelter_id]['Identification']);
-		
-		// convert map to image for better printing
-		leafletImage(map, function(err, canvas) {
-			// now you have canvas
-			// example thing to do with that canvas:
-			$('#location-image').prepend('<img id="location-image-picture" src="'+ canvas.toDataURL() + '" />')		
-		});
-	}
-
-	// stop spinner if all has loaded
-	$('#wrapper').spin(false);
-};
-
-function addCoverPictures(coverpicture, printpicture, section){
-	if(typeof section['Cover'] !== 'undefined' && section['Cover'].length > 0) {
-		$(coverpicture).css("background-image", "url('/" + section['Cover'][0] + "')");	
-		$(printpicture).attr("src", "/" + section['Cover'][0]);					
-	}
-}
-
-function addSwipePictures(elementId, section){
-	if(typeof section['Pictures'] !== 'undefined') {
-	
-		//merge arrays
-		var d = $.merge(section.Cover, section.Pictures);
-		
-		// add panes
-		d3.select(elementId + "Panes")
-		   .selectAll("div")
-		   .data(d)
-		   .enter()
-		   .append("div")
-			   .attr("class","pane")
-			   .attr("style",function (d){ return "background-image:  url('/" + d + "')";});
-		
-		// add dots
-		var dot = 0;
-		
-		d3.select(elementId + "Dots")
-		   .selectAll("div")
-		   .data(d)
-		   .enter()
-		   .append("div")
-			   .attr("class","dot")
-			   .attr("onclick",function (d){ 
-				var r = "_swipe.show(" + dot + ",0,true)";
-				dot++;
-				return r;
-			});
-	}
-	
-	// dynamically load swipe, because created dots need to be ready
-	$.getScript(path + 'js/swipe.js');
-}
-
-function createCategory(index, category, d) {
-
-	var columns = d3.keys(d);
-	
-	// if there is no data for this category, skip
-	if(jQuery.isEmptyObject(columns)){
-		return;
-	}		
-	
-	// convert object keys to an attribute value pair
-	var data = Object.keys(d).map(function(k) { return {attribute:k, value:d[k]} })
-	
-	var sections = d3.select('#sections');
-	var section = sections.append('section')
-					.attr('class', 'details details-' + ((index %2) + 1) );
-					
-	var content = section.append('div')
-					.attr('class', 'content');
-					
-	content.append('h3')
-		.text(category);
-		
-	var table = content.append('table');
-	var	tbody = table.append('tbody');
-
-	// create a row for each object in the data
-	var rows = tbody.selectAll('tr')
-	  .data(data)
-	  .enter()
-	  .append('tr');
-
-	// Add column with attribute names
-	rows.append('th').append('b')
-		.text(function (d) { 
-			if(language == 'en' || jQuery.isEmptyObject(translation) || typeof(translation[d.attribute]) == 'undefined'){
-				return d.attribute;
-			}
-			else {
-				// return translated attribute name
-				return translation[d.attribute]; 
-			}				
-		});
-	 
-	// Add column with values
-	rows.append('td')
-			.text(function (d) { return d.value.replace(new RegExp(';', 'g'), ', '); })
-		.append('span')
-			.attr("class", function (d) { 
-				// TODO test if attribute has drawing
-				if(hasOwnProperty.call(attributes, category) && hasOwnProperty.call(attributes[category], d.attribute)){
-					return "info attribute-multimedia-asset";
-				}
-				else {
-					return '';
-				}
-			})
-			.attr("attribute-name", function (d) { return d.attribute;})
-			.attr("section-name", function (d) { return category;});
-}
-
-
-$(document).on('click', '.attribute-multimedia-asset' , show_multimedia_assets);
-
-function show_multimedia_assets(e) {
-	var attribute = $(this).attr("attribute-name");
-	var section = $(this).attr("section-name")
-	
-	if(hasOwnProperty.call(attributes, section) && hasOwnProperty.call(attributes[section], attribute)){
-		var drawings = attributes[section][attribute];
-	
-		// empty modal list of pictures
-		$('#listOfPictures').empty();
-		drawings.map(function(picture) {
-			var oImg = $('<img />')
-						.attr('src', '/' + picture)
-						.attr('alt', attribute)
-						.attr('title', attribute)
-						.attr('class', 'attribute-drawing');
-				
-			$('#listOfPictures').append(oImg);
-			$('#listOfPictures').append($('<hr>'));
-		});
-		
-		$('#listOfPictures hr:last-child').remove();
-		modalOpen('infoDialog')
-	}
-}
+	L.Icon.Default.imagePath = '/static/lib/bower/leaflet/dist/images';

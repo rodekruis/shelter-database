@@ -4,20 +4,20 @@
 {% block assets_start %}
     {{ super() }}
 	
+	<!-- basic stylesheet -->
+	<link rel="stylesheet" href='{{ url_for("static", filename="lib/custom/slider/slider.css") }}' media="screen">
+
+	<!-- skin stylesheet (change it if you use another) -->
+	<link rel="stylesheet" href='{{ url_for("static", filename="lib/custom/slider/rs-universal.css") }}' media="screen"> 
+
+	<link rel="stylesheet" type="text/css" href='{{ url_for("static", filename="css/print.css") }}' media="print">
+	
 	<script type="text/javascript">
 		// set shelter id and path for swipe include
 		var shelter_id = {{shelter_id}};
 		var language = '{{language}}';
 		var path = '{{ url_for('static', filename = '') }}';
 	</script>	
-	
-	{% assets filters="jsmin", output="assets/packaged-shelter.js",
-          "lib/bower/leaflet-image/leaflet-image.js", 
-		  "js/hammer.min.js",
-		  "js/shelter.js"
-	%}
-		<script type="text/javascript" src="{{ ASSET_URL }}"></script>
-	{% endassets %}
 
 {% endblock %}
 
@@ -28,46 +28,85 @@
 		
 
         <section class="shelterheader">
-            <div class="content">
+            <div class="content section-data">
                 <h1 id="shelter-name">[UNKNOWN NAME]</h1>
-				<i class="fa fa-print print-image" aria-hidden="true" onClick="window.print()"></i>
+				<i class="fa icon-print print-image" aria-hidden="true" onClick="window.print()"></i>
+				<a title="Edit" href="{{ url_for('shelter_bp.edit', shelter_id=shelter_id, section_name='General-Information' | replace(' ', '-')) }}">
+					<i class="fa icon-edit print-image" aria-hidden="true"></i>
+				</a>
             </div>
         </section>
-		<section class="shelter-main-image">
-                <img id="coverpictureprint" src="" />
-            </section>
-        <section id="coverpicture" class="shelterimg" onclick="modalOpen('main-image-swipe')">
-        </section>
-		
+
 		<div id="sections">
-			
-			<section>
-				<div class="details">
-					<div id="location-image" class="location-image"></div>
-					<div id="location-map" class="location-map"></div>
-				</div>
+			<!-- for main image -->
+			<section id="section-0">
+				<div class="content"></div>
 			</section>
-			<!-- TODO: more button that shows/hides other categories -->
 		</div>
+		
+		<div id="more">
+			<a id="collapseButton" class="btn btn-default" data-toggle="collapse">Click here to show / hide more information</a>
+		</div>
+		
+		<section id="section-documents" class="info">
+			<div class="content" id="documents">
+				<h3>Documents / Attachments</h3>
+			</div>			
+		</section>
+		
+		<section id="comments">
+			<div>
+				<h3>Comments & Discussion</h3>
+			</div>
+			<div id="disqus_thread" class="content section-data"></div>
+			<script>
+				var disqus_config = function () {
+					this.page.url = "{{ url_for('index', _external=True) }}shelter/{{shelter_id}}";  // Replace PAGE_URL with your page's canonical URL variable
+					this.page.identifier = {{shelter_id}}; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+				};
+
+				(function() { // DON'T EDIT BELOW THIS LINE
+				var d = document, s = d.createElement('script');
+				s.src = '//shelter-database.disqus.com/embed.js';
+				s.setAttribute('data-timestamp', +new Date());
+				(d.head || d.body).appendChild(s);
+				})();
+			</script>
+			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		</section>
+		
+
 {% endblock %}
 
 {% block footer %}
 {{ super() }}
 
-		<div class="mymodal mymodal-dark" id="main-image-swipe">
-			<div class="mymodal-close" onclick="modalClose()"></div>
-			<div class="swipe">
-				<div id="modalIdentificationPanes" class="panes"></div>
-				<div id="modalIdentificationDots" class="dots"></div>
-			</div>
-        </div>
-		
 		<div class="mymodal mymodal-dark" id="infoDialog">
 			<div class="mymodal-close" onclick="modalClose()"></div>
 			<div align="center" id="listOfPictures"></div>
 		</div>
+		
+		
 				
 {% endblock %}
 {% block wrapper_end %}
 </div>
+{% endblock %}
+{% block defer %}
+	{{ super() }}
+	
+	<!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>-->
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3-queue/3.0.3/d3-queue.min.js"></script>
+
+	<!--<script type="text/javascript" src='https://api.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js'></script>-->
+	{% assets filters="jsmin", output="assets/packaged-shelter.js",
+			  "lib/bower/leaflet/dist/leaflet.js",
+			  "lib/bower/leaflet-image/leaflet-image.js",
+			  "lib/custom/slider/slider.min.js",
+			  "js/shelter.js"		  
+		%}
+			<script type="text/javascript" src="{{ASSET_URL}}" defer></script>
+	{% endassets %}
+		
 {% endblock %}

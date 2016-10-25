@@ -93,6 +93,9 @@ LOG_LEVEL = {'debug': logging.DEBUG,
              'warn': logging.WARN,
              'error': logging.ERROR,
              'fatal': logging.FATAL}[config.get('misc', 'log_level')]
+			 
+FLASK_ASSETS_MINIFY = config.getboolean('misc', 'flask_assets_minify')
+FLASK_ASSETS_MERGE = config.getboolean('misc', 'flask_assets_merge')
 
 ALLOWED_EXTENSIONS_PICTURE = set(['png', 'jpg', 'jpeg', 'gif'])
 ALLOWED_EXTENSIONS_DOCUMENT = set(['doc', 'docx', 'pdf', 'odt', 'xls', 'xlsx',

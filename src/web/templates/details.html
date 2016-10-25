@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% block head %}
     {{ super() }}
-    <script src="{{ url_for('static', filename='js/lightbox.min.js') }}"></script>
-    <link href="{{ url_for('static', filename='css/lightbox.css') }}" rel="stylesheet" media="screen" />
+    <script src="{{ url_for('static', filename='lib/bower/lightbox2/dist/js/lightbox.min.js') }}"></script>
+    <link href="{{ url_for('static', filename='lib/bower/lightbox2/dist/css/lightbox.css') }}" rel="stylesheet" media="screen" />
 {% endblock %}
 {% block content %}
 <div class="container-fluid">

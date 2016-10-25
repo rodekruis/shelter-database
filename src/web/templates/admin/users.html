@@ -1,9 +1,4 @@
 {% extends "layout.html" %}
-{% block head %}
-    {{ super() }}
-    <link href="{{ url_for('static', filename='lib/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" media="screen" >
-    <script src="{{ url_for('static', filename='lib/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-{% endblock %}
 {% block content %}
 <div class="container">
     <h1>Registered users</h1>
@@ -47,28 +42,36 @@
 </table>
 <a href="{{ url_for("administration.user_form") }}" class="btn btn-default">Add a new user</a>
 </div>
-<script>
-$(document).ready(function() {
-    $('#allusers').DataTable({
-        "bStateSave": true, // on sauvegarde l'état dans un cookie
-        "aaSorting": [[0, "asc" ]], // on trie par défaut sur la colonne "Name"
-        "bJQueryUI": false,
-        "bInfo": false,
-        "aoColumnDefs": [
-                            {
-                                "bSortable": false, "aTargets": [ 6 ]
-                            }
-                        ],
-       "aoColumns": [
-                        { "sSortDataType": "dom-checkbox" },
-                        { "sSortDataType": "dom-checkbox" },
-                        { "sSortDataType": "dom-checkbox" },
-                        { "sSortDataType": "dom-checkbox" },
-                        { "sSortDataType": "dom-checkbox" },
-                        { "sSortDataType": "dom-checkbox" },
-                        null
-                    ]
-    });
-});
-</script>
+{% endblock %}
+
+{% block defer %}
+
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+		
+	<script>
+		$(document).ready(function() {
+			$('#allusers').DataTable({
+				"bStateSave": true, // on sauvegarde l'état dans un cookie
+				"aaSorting": [[0, "asc" ]], // on trie par défaut sur la colonne "Name"
+				"bJQueryUI": false,
+				"bInfo": false,
+				"aoColumnDefs": [
+									{
+										"bSortable": false, "aTargets": [ 6 ]
+									}
+								],
+			   "aoColumns": [
+								{ "sSortDataType": "dom-checkbox" },
+								{ "sSortDataType": "dom-checkbox" },
+								{ "sSortDataType": "dom-checkbox" },
+								{ "sSortDataType": "dom-checkbox" },
+								{ "sSortDataType": "dom-checkbox" },
+								{ "sSortDataType": "dom-checkbox" },
+								null
+							]
+			});
+		});
+	</script>
 {% endblock %}
