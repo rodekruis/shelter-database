@@ -130,4 +130,16 @@
 	table tr td span.info {
 		display: none;
 	}
+	
+	.mymodal {
+		display:none;
+	}
+	
+	#section-documents, #comments, #more {
+		display:none;
+	}
+	
+	footer a.browserstack {
+		color: #FFFFFF;
+	}
 }

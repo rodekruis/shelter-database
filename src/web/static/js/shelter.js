@@ -164,15 +164,6 @@
 			});
 		}
 		
-		/*
-		<div class="flexbox">
-			<div class="box">
-				<i class="head icon-help"></i>
-				<h4>Need</h4>
-				<p>Humanitarian Sheltering is a key component to rebuild affected populations’ lives and livelihoods.</p>
-			</div>
-			*/
-		// add documents
 		if(typeof shelter[shelter_id]['Documents'] !== 'undefined' && shelter[shelter_id]['Documents']['Documents'].length > 0) {
 				var documentsdiv = d3.select('#documents')
 								.append("div")
@@ -266,7 +257,7 @@
 									.attr('class', 'shelter-main-image' );
 							
 				divprint.append('img')
-					.attr('src', section[source][0])
+					.attr('src', '/' + section[source][0])
 					.attr('id', 'coverpictureprint');
 				 
 			var divsection = d3.select(section_id)
