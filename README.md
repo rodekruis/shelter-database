@@ -32,4 +32,4 @@ This application is under MIT license.
 * [Luxembourg Institute of Science and Technology](http://www.list.lu)
 
 Browser testing provided by -
-[![BrowserStack](https://raw.githubusercontent.com/rodekruis/shelter-database/master/src/web/static/img/browserstack-original.svg)](https://browserstack.com)
+[![BrowserStack](https://scottlogic.github.io/d3fc/images/browser-stack.svg)](https://browserstack.com)
