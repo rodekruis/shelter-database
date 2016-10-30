@@ -395,20 +395,26 @@
 
 
 		d3.select('#all').on('click', function () {   //    Reset All Filters
+
+		    // reset all dimensions, if chart is associated, reset it via chart
 			for (var id in filters) {
-				if (filters[id]['dimension']) {
-					filters[id]['dimension'].filterAll();
+				if (filters[id]['chart']) {
+					filters[id]['chart'].filterAll();
+				} else {
+				    filters[id]['dimension'].filterAll();
 				}
 			}
+            // reset map
+            mapChart.map().setZoom(1);
 
+            // reset inputs
 			$("select").val("");
 			$("#query").val("");
-			for (id in filters) {
+			for (var id in filters) {
 				if (filters[id]['slider']) {
 					filters[id]['slider'].setValue([0, filters[id]['maxValue']]);
 				}
 			}
-			mapChart.map().setZoom(1);
 			redrawAll();
 
 		});
@@ -462,11 +468,12 @@
 				saveAs(blob, 'data.csv');
 		 });
 
-		var onFiltered = function onFiltered(chart) {
+		function onFiltered(chart) {
 			// Serialize selected options in url
 			// Synchronize dropdowns with changes made on charts
 			// Adjust shelter list
 
+//            console.log('onFiltered called')
 			getFiltersValues();
 			generateShelterList(allDimensions.top(Infinity));
 
@@ -486,7 +493,9 @@
 		}
 
 		var redrawAll = function redrawAll() {
+//		    console.log('redrawAll called')
 			dc.renderAll();
+			dc.redrawAll();
 			generateShelterList(allDimensions.top(Infinity));
 		}
 		 
@@ -591,8 +600,6 @@
 		optn.value = value;
 		selectbox.options.add(optn);
 	}
-
-
 
 
 
