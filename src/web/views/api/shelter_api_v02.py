@@ -180,14 +180,14 @@ def allshelters(shelter_id=None):
     
     Supercategory = db.aliased(Category)
     
-    querybase = db.session.query(Property.shelter_id, Category.name.label("category_name"), Supercategory.name.label("supercategory_name"), Attribute.name, Attribute.uniqueid,func.string_agg(Value.name,';').label("value"))\
+    querybase = db.session.query(Property.shelter_id, Category.name.label("category_name"), Supercategory.name.label("supercategory_name"), Attribute.name, Attribute.uniqueid, Attribute.type, func.string_agg(Value.name,';').label("value"))\
     		.join(Shelter, Shelter.id==Property.shelter_id)\
     		.join(Category, Category.id==Property.category_id)\
     		.join(Attribute, Attribute.id==Property.attribute_id)\
     		.join(Supercategory, Supercategory.id==Category.parent_id)\
     		.join(Association, Property.id==Association.property_id)\
     		.join(Value, Association.value_id==Value.id)\
-    		.group_by(Property.shelter_id, Supercategory.name, Category.name, Attribute.name, Attribute.uniqueid)
+    		.group_by(Property.shelter_id, Supercategory.name, Category.name, Attribute.name, Attribute.uniqueid, Attribute.type)
     
     picquerybase = db.session.query(ShelterPicture.shelter_id, ShelterPicture.file_name.label("filename"), ShelterPicture.is_main_picture, Category.name)\
     		.join(Category, Category.id == ShelterPicture.category_id)		
@@ -247,6 +247,7 @@ def allshelters(shelter_id=None):
     #print(shelter_properties)
     #print(shelter_pictures)
     
+    booleantext = ("no","yes")
     
     for shelter_property in shelter_properties:
     	if not result[shelter_property.shelter_id]:
@@ -258,9 +259,15 @@ def allshelters(shelter_id=None):
     			result[shelter_property.shelter_id][category.name]["Documents"]
     			
     	if request.args.get('format') == 'prettytext':
-    		result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.name] = shelter_property.value
+    		if shelter_property.type == "yes / no":
+    			result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.name] = booleantext[int(shelter_property.value)]
+    		else:
+    			result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.name] = shelter_property.value
     	else:
-    		result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.uniqueid] = shelter_property.value
+    		if shelter_property.type == "yes / no":
+    			result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.uniqueid] = booleantext[int(shelter_property.value)]
+    		else:
+    			result[shelter_property.shelter_id][shelter_property.supercategory_name]["Attributes"][shelter_property.uniqueid] = shelter_property.value
     
     
     for picture in shelter_pictures:
