@@ -256,7 +256,7 @@ def allshelters(shelter_id=None):
     				result[shelter_property.shelter_id][category.name]["Cover"]
     			result[shelter_property.shelter_id][category.name]["Attributes"]
     			result[shelter_property.shelter_id][category.name]["Pictures"]
-    			result[shelter_property.shelter_id][category.name]["Documents"]
+    			#result[shelter_property.shelter_id][category.name]["Documents"]
     			
     	if request.args.get('format') == 'prettytext':
     		if shelter_property.type == "yes / no":
