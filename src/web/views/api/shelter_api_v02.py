@@ -282,13 +282,12 @@ def allshelters(shelter_id=None):
     		else:
     			result[picture.shelter_id][picture.name]["Pictures"].append("{}/{}/{}".format(picpath, picture.shelter_id, picture.filename))
 
-    
-    for document in shelter_documents:
-    	if document.shelter_id in result:
-    		if not result[document.shelter_id][document.name]["Documents"]:
-    			result[document.shelter_id][document.name]["Documents"] = ["{}/{}/{}".format(docpath, document.shelter_id, document.filename)]
-    		else:
-    			result[document.shelter_id][document.name]["Documents"].append("{}/{}/{}".format(docpath, document.shelter_id, document.filename))
+    #for document in shelter_documents:
+    #	if document.shelter_id in result:
+    #		if not result[document.shelter_id][document.name]["Documents"]:
+    #			result[document.shelter_id][document.name]["Documents"] = ["{}/{}/{}".format(docpath, document.shelter_id, document.filename)]
+    #		else:
+    #			result[document.shelter_id][document.name]["Documents"].append("{}/{}/{}".format(docpath, document.shelter_id, document.filename))
     
     return jsonify(result)
 
