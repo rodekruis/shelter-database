@@ -30,3 +30,6 @@ This application is under MIT license.
 
 * https://github.com/rodekruis/shelter-database
 * [Luxembourg Institute of Science and Technology](http://www.list.lu)
+
+Browser testing provided by -
+[![BrowserStack](https://scottlogic.github.io/d3fc/images/browser-stack.svg)](https://browserstack.com)
