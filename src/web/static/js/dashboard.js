@@ -219,7 +219,8 @@
 			        return d.key[0] + ', ' + d.key[1];
 			    }
 			})
-			.on("filtered", onFiltered);
+			.on("filtered", onFiltered)
+			.renderTitle(false);
 
 		addLayersToChart(mapChart)
 		mapChart.map().scrollWheelZoom.disable()
