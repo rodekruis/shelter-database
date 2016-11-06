@@ -67,23 +67,6 @@
 		
 		var dateFormat = d3.time.format('%Y');
 
-		for (var filterId in filters) {
-			var dropdown = document.getElementById(filterId)
-			if (dropdown && $(dropdown).is('select')) {
-				(function(attrName, htmlElement) {
-					d3.json("api/v0.1.1/attributes/" + encodeURI(attrName), function (valuesObject) {
-						// console.log(attrName + JSON.stringify(valuesObject));
-						if (valuesObject && valuesObject[attrName]) {
-
-							var values = valuesObject[attrName].split(';')
-							for (var i = 0; i < values.length; ++i) {
-								addOption(htmlElement, values[i], values[i]);
-							}
-						}
-					})
-				})(filters[filterId]['dbName'], dropdown);
-			}
-		}
 
 		for (var filterId in filters) {
 			var element = document.getElementById(filterId)
@@ -173,12 +156,26 @@
 						if (d[filters[id]['dbName']]) {
 							return d[filters[id]['dbName']];
 						} else {
-							return "No data"
+							return "no data"
 						}
 					})
-					if (filters[id]['chart']) {
-						filters[id]['count'] = filters[id]['dimension'].group().reduceCount();
-					}
+					filters[id]['count'] = filters[id]['dimension'].group().reduceCount();
+
+                    // populate all available options in dropdowns
+					var dropdown = document.getElementById(id)
+                    if (dropdown && $(dropdown).is('select')) {
+                        (function(filterId, htmlElement) {
+                            var counts = filters[filterId]['count'].top(Infinity);
+                            var values = []
+                            for (var i in counts) {
+                                values.push(counts[i].key);
+                            }
+                            for (var i in values.sort()) {
+                                addOption(dropdown, values[i], values[i]);
+                            }
+
+                        })(id, dropdown);
+                    }
 				}
 		}
 
