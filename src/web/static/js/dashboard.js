@@ -161,6 +161,30 @@
 				}
 		}
 
+		var onFiltered = function onFiltered(chart) {
+			// Serialize selected options in url
+			// Synchronize dropdowns with changes made on charts
+			// Adjust shelter list
+
+//            console.log('onFiltered called')
+			getFiltersValues();
+			generateShelterList(allDimensions.top(Infinity));
+
+			var value = ''
+			if (chart.filters().length>0) {
+				value = chart.filters()[chart.filters().length-1]
+			}
+
+			// Find menu filter corresponding to chart and adjust displayed selected option as selected using dc chart
+
+			for (var filter in filters) {
+				var chartx = filters[filter]['chart']
+				if (chartx && chartx.filters() == chart.filters()) {
+					$('#' + filter).val(value);
+				}
+			}
+		}
+
 		mapChart.dimension(filters['positionFilter']['dimension'])
 			.group(filters['positionFilter']['count'] )
 			.center([51.505, -0.09])
@@ -476,30 +500,6 @@
 				var blob = new Blob([d3.csv.format(data)], {type: "text/csv;charset=utf-8"});
 				saveAs(blob, 'data.csv');
 		 });
-
-		function onFiltered(chart) {
-			// Serialize selected options in url
-			// Synchronize dropdowns with changes made on charts
-			// Adjust shelter list
-
-//            console.log('onFiltered called')
-			getFiltersValues();
-			generateShelterList(allDimensions.top(Infinity));
-
-			var value = ''
-			if (chart.filters().length>0) {
-				value = chart.filters()[chart.filters().length-1]
-			}
-
-			// Find menu filter corresponding to chart and adjust displayed selected option as selected using dc chart
-
-			for (var filter in filters) {
-				var chartx = filters[filter]['chart']
-				if (chartx && chartx.filters() == chart.filters()) {
-					$('#' + filter).val(value);
-				}
-			}
-		}
 
 		var redrawAll = function redrawAll() {
 //		    console.log('redrawAll called')
