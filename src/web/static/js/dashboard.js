@@ -139,8 +139,29 @@
 			} else
 				if (id == 'positionFilter') {
 					filters[id]['dimension'] = ndx.dimension(function (d) {
+
+                        var tooltipContent = '<a href="/shelter/' + d.db_id +'" target="_blank">' + d.id + ', ' + d.nameofshelter + '</a>'
+                        var url = undefined;
+                        if(typeof(d.shelterpicture) !== 'undefined' && Object.keys(d.shelterpicture).length > 0){
+
+                            // then search for Identification Facade thumbnail or Facade
+                            if(typeof(d.shelterpicture['Identification']) !== 'undefined'){
+
+                                $.each(d.shelterpicture['Identification'], function(j, val) {
+                                    var found = val.indexOf('_thumbnail');
+                                    if ( found >= 0) {
+                                        url = d.shelterpicture['Identification'][j];
+                                        return false;
+                                    }
+                                });
+                            }
+                        }
+                        if (url) {
+                            tooltipContent= '<div>' + tooltipContent + '<br><br><img src=\''+url+'\'/>' + ' </div>'
+                        }
+
 						if (d['gpslatitude'] && d['gpslongitude']) {
-							return [d['gpslatitude'], d['gpslongitude'], '<a href="/shelter/' + d.db_id +'" target="_blank">' + d.id + ', ' + d.nameofshelter + '</a>'];
+							return [d['gpslatitude'], d['gpslongitude'], tooltipContent ];
 						} else {
 							return undefined;
 						}
