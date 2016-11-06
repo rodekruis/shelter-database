@@ -54,6 +54,7 @@
 		'queryFilter': {'dbName': 'db_id'},
 	}
 
+
 	// get shelters from api
 	 d3.json("api/v0.1.1/shelters", function(dataObject) {
 
@@ -113,6 +114,7 @@
 		var allDimensions = ndx.dimension(function (d) {
 			return d;
 		});
+
 		var all = ndx.groupAll();
 		var dataCount = dc.dataCount('#data-count')
 
@@ -138,7 +140,7 @@
 				if (id == 'positionFilter') {
 					filters[id]['dimension'] = ndx.dimension(function (d) {
 						if (d['gpslatitude'] && d['gpslongitude']) {
-							return [d['gpslatitude'], d['gpslongitude']];
+							return [d['gpslatitude'], d['gpslongitude'], '<a href="/shelter/' + d.db_id +'" target="_blank">' + d.id + ', ' + d.nameofshelter + '</a>'];
 						} else {
 							return undefined;
 						}
@@ -165,6 +167,13 @@
 			.zoom(2)
 			.filterByArea(true)
 			.cluster(true)
+			.popup(function(d) {
+			    if (d.key.length>2) {
+                    return d.key[2];
+			    } else {
+			        return d.key[0] + ', ' + d.key[1];
+			    }
+			})
 			.on("filtered", onFiltered);
 
 		addLayersToChart(mapChart)
