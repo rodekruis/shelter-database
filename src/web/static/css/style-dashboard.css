@@ -19,8 +19,13 @@
 }
 
 .dc-chart {
-    float: none !important
+    float: none !important;
  }
+
+.dc-table-row {
+    font-size:small;
+}
+
 .dc-chart text {
       fill: black !important;
  }
