@@ -224,16 +224,16 @@
 
 
 		zoneChart
-			.width(110)
-			.height(110)
+			.width(120)
+			.height(120)
 			.dimension(filters['zoneFilter']['dimension'])
 			.group(filters['zoneFilter']['count'])
 			.innerRadius(20)
 			.on("filtered", onFiltered);
 
 		crisisChart
-			.width(110)
-			.height(110)
+			.width(120)
+			.height(120)
 			.dimension(filters['disasterFilter']['dimension'])
 			.group(filters['disasterFilter']['count'])
 			.innerRadius(20)
@@ -241,8 +241,8 @@
 
 
 		climateChart
-			.width(110)
-			.height(110)
+			.width(120)
+			.height(120)
 			.dimension(filters['climateFilter']['dimension'])
 			.group(filters['climateFilter']['count'])
 			.innerRadius(20)
@@ -250,13 +250,13 @@
 		;
 
 		timeChart
-			.width(500)
+			.width(540)
 			.height(120)
 			.dimension(filters['timeFilter']['dimension'])
 			.group(filters['timeFilter']['count'])
 			.barPadding(5)
 			.x(d3.time.scale().domain([new Date(2003, 01, 01), new Date()]))
-			.xUnits(d3.time.year)
+			.xUnits(function() {return 10;})
 			.on("filtered", onFiltered)
 			.yAxis().tickFormat(
 			function (v) {
@@ -265,7 +265,7 @@
 
 
 		countryChart
-			.width(200)
+			.width(220)
 			.height(200)
 			.margins({left: 0, right: 10, top: 10, bottom: 20})
 			.dimension(filters['countryFilter']['dimension'])
@@ -279,7 +279,7 @@
 		countryChart.xAxis().ticks(10)
 
 		topographyChart
-			.width(200)
+			.width(220)
 			.height(200)
 			.margins({left: 0, right: 10, top: 10, bottom: 20})
 			.dimension(filters['topographyFilter']['dimension'])
