@@ -86,40 +86,41 @@
                         </label>
 						-->
                         <br>
-                        <label for="costRange" class="button button-small">
-                        Construction cost per unit:&nbsp<input id="costRange" data-type="range" class="span2"  data-slider-value="[0,1000000000]" />
-                        <span id="costRangeMinValue" class="minValue"> 0</span> - <span id="costRangeMaxValue">0</span> $
-                        </label>
+                        <div class="hidden-xs">
+                            <label for="costRange" class="button button-small">
+                            Construction cost per unit:&nbsp<input id="costRange" data-type="range" class="span2"  data-slider-value="[0,1000000000]" />
+                            <span id="costRangeMinValue" class="minValue"> 0</span> - <span id="costRangeMaxValue">0</span> $
+                            </label>
 
-                        <label  for="widthRange" class="button button-small">
-                        Width:&nbsp<input id="widthRange" data-type="range" class="span2"  data-slider-value="[0,1000000000]"/>
-                        <span id="widthRangeMinValue" class="minValue"> 0</span> - <span id="widthRangeMaxValue">0</span>m
-                        </label>
-                        <label  for="lengthRange" class="button button-small">
-                        Length:&nbsp<input id="lengthRange" data-type="range" class="span2"  data-slider-value="[0,1000000000]" />
-                        <span id="lengthRangeMinValue" class="minValue"> 0</span> - <span id="lengthRangeMaxValue">0</span>m
-                        </label>
-
+                            <label  for="widthRange" class="button button-small">
+                            Width:&nbsp<input id="widthRange" data-type="range" class="span2"  data-slider-value="[0,1000000000]"/>
+                            <span id="widthRangeMinValue" class="minValue"> 0</span> - <span id="widthRangeMaxValue">0</span>m
+                            </label>
+                            <label  for="lengthRange" class="button button-small">
+                            Length:&nbsp<input id="lengthRange" data-type="range" class="span2"  data-slider-value="[0,1000000000]" />
+                            <span id="lengthRangeMinValue" class="minValue"> 0</span> - <span id="lengthRangeMaxValue">0</span>m
+                            </label>
+                        </div>
 
 
 
                     </div>
                 </div>
-                <div class="advanced container-fluid">
+                <div class="container-fluid data-options">
                      <div class="row">
 
-                         <div class="col-md-4">
+                         <div class="col-md-4 col-sm-6 col-xs-12">
                             <div class="dc-data-count dc-chart" id="data-count">
                             Selected <span class="filter-count"></span> shelters out of <span
                                 class="total-count"></span>
                             </div>
                          </div>
-                        <div class="col-md-4 ">
-                            <div class="menu-btn">
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="menu-btn ">
                                 <a id="all" href="#"  class="menu-href"> Reset All Filters&emsp;<i class="fa icon-cancel"></i></a>
                             </div>
                         </div>
-                         <div class="col-md-4">
+                         <div class="col-md-4 col-sm-12 col-xs-12">
                              <div class="menu-btn">
                                     <a id="download" class="menu-href">Download <i class="fa icon-download"></i></a>
                                     |

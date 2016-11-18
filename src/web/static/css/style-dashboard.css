@@ -25,9 +25,10 @@
       fill: black !important;
  }
 
-.dc-data-count {
-    float:right !important;
-}
+ .data-options {
+    margin-top:15px;
+    margin-bottom:15px;
+ }
 
 .menu-btn {
   font-size: 0.9em;
@@ -42,9 +43,6 @@
     padding-left:1em
  }
 
-.advanced-content {
-    max-height: 300px ;
-}
 .advanced-content .button {
     margin-top:5px !important;
 }
