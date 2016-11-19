@@ -250,7 +250,7 @@
 		;
 
 		timeChart
-			.width(540)
+			.width(540) //this is not responsive on mobile
 			.height(120)
 			.dimension(filters['timeFilter']['dimension'])
 			.group(filters['timeFilter']['count'])
