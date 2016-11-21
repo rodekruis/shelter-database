@@ -67,17 +67,105 @@
     }
 
 
+    var restructureData = function(dataObject) {
+        var data = []
 
+         for (var key in dataObject) {
+			var shelter = dataObject[key]
+			var shelterFlat = {}
+			shelterFlat["db_id"] = key
+
+            if (shelter['General'] && shelter['General']['Attributes']) {
+                if (shelter['General']['Attributes']['yearofconstructionfirstcompletedshelters']) {
+                    shelterFlat['yearofconstructionfirstcompletedshelters'] = shelter['General']['Attributes']['yearofconstructionfirstcompletedshelters']
+                }
+                if (shelter['General']['Attributes']['constructioncostperunitusd']) {
+                    shelterFlat['constructioncostperunitusd'] = shelter['General']['Attributes']['constructioncostperunitusd']
+                }
+                if (shelter['General']['Attributes']['lengthm']) {
+                    shelterFlat['lengthm'] = shelter['General']['Attributes']['lengthm']
+                }
+                if (shelter['General']['Attributes']['widthm']) {
+                    shelterFlat['widthm'] = shelter['General']['Attributes']['widthm']
+                }
+            }
+            if (shelter['Identification'] && shelter['Identification']['Attributes']) {
+                if (shelter['Identification']['Attributes']['id']) {
+                    shelterFlat['id'] = shelter['Identification']['Attributes']['id']
+                }
+                if (shelter['Identification']['Attributes']['gpslatitude']) {
+                    shelterFlat['gpslatitude'] = shelter['Identification']['Attributes']['gpslatitude']
+                }
+                if (shelter['Identification']['Attributes']['gpslongitude']) {
+                    shelterFlat['gpslongitude'] = shelter['Identification']['Attributes']['gpslongitude']
+                }
+                if (shelter['Identification']['Attributes']['nameofshelter']) {
+                    shelterFlat['nameofshelter'] = shelter['Identification']['Attributes']['nameofshelter']
+                }
+                if (shelter['Identification']['Attributes']['zone']) {
+                    shelterFlat['zone'] = shelter['Identification']['Attributes']['zone']
+                }
+                if (shelter['Identification']['Attributes']['climatezone']) {
+                    shelterFlat['climatezone'] = shelter['Identification']['Attributes']['climatezone']
+                }
+                if (shelter['Identification']['Attributes']['country']) {
+                    shelterFlat['country'] = shelter['Identification']['Attributes']['country']
+                }
+            }
+            if (shelter['Identification'] && shelter['Identification']['Cover'] &&
+            shelterFlat['gpslongitude'] && shelterFlat['gpslatitude'])  {
+
+                // gps position and marker tooltip
+
+                shelterFlat['tooltipContent'] = '<a href="/shelter/' + shelterFlat.db_id +'" target="_blank">' + shelterFlat.id + ', ' + shelterFlat.nameofshelter + '</a>'
+
+                if (shelter['Identification']['Cover'].length> 0 )  {
+                    // then search for Identification Facade thumbnail or Facade
+                    shelterFlat['thumbnailUrl'] = undefined;
+                    $.each(shelter['Identification']['Cover'], function(j, val) {
+                        var found = val.indexOf('_thumbnail');
+                        if ( found >= 0) {
+                            shelterFlat['thumbnailUrl'] = shelter['Identification']['Cover'][j];
+                            return false;
+                        }
+                    });
+                    if (shelterFlat['thumbnailUrl']) {
+                        shelterFlat['tooltipContent']= '<div>' + shelterFlat['tooltipContent'] + '<br><br><img src=\''+ shelterFlat['thumbnailUrl']+'\'/>' + ' </div>'
+                    }
+                }
+
+            }
+
+            if (shelter["Disaster & Response"] && shelter["Disaster & Response"]["Attributes"] ) {
+                if (shelter["Disaster & Response"]["Attributes"]["associateddisasterimmediatecause"]) {
+                    shelterFlat["associateddisasterimmediatecause"] = shelter["Disaster & Response"]["Attributes"]["associateddisasterimmediatecause"]
+                }
+                if (shelter["Disaster & Response"]["Attributes"]["typeofimplementingagency"]) {
+                    shelterFlat["typeofimplementingagency"] = shelter["Disaster & Response"]["Attributes"]["typeofimplementingagency"]
+                }
+                if (shelter["Disaster & Response"]["Attributes"]["typeofshelter"]) {
+                    shelterFlat["typeofshelter"] = shelter["Disaster & Response"]["Attributes"]["typeofshelter"]
+                }
+            }
+
+            if (shelter["Site"] && shelter["Site"]["Attributes"] ) {
+                if (shelter["Site"]["Attributes"]["soiltype"]) {
+                    shelterFlat["soiltype"] = shelter["Site"]["Attributes"]["soiltype"]
+                }
+                if (shelter["Site"]["Attributes"]["topography"]) {
+                    shelterFlat["topography"] = shelter["Site"]["Attributes"]["topography"]
+                }
+            }
+            data.push(shelterFlat)
+
+        }
+        return data;
+    }
 
 	// get shelters from api
-	 d3.json("api/v0.1.1/shelters", function(dataObject) {
+	 d3.json("api/v0.2/shelters", function(dataObject) {
 
-	    var data = []
-	    for (var key in dataObject) {
-			var shelter = dataObject[key]
-			shelter["db_id"] = key
-			data.push(shelter)
-		}
+        var data = restructureData(dataObject)
 		
 		var dateFormat = d3.time.format('%Y');
 
@@ -87,7 +175,7 @@
 			if ($(element).is('input') && $(element).attr('data-type')=="range") {
 				(function(id) {
 					var dbAttrName = filters[id]['dbName']
-					d3.json("api/v0.1.1/attributes/" + encodeURI(dbAttrName), function (valuesObject) {
+					d3.json("api/v0.2/attributes/" + encodeURI(dbAttrName), function (valuesObject) {
 							if (valuesObject && valuesObject[dbAttrName]) {
 								var values = valuesObject[dbAttrName].split(';')
 								for(var i=0; i<values.length; i++) { values[i] = parseInt(values[i], 10); }
@@ -136,29 +224,8 @@
 			} else
 				if (id == 'positionFilter') {
 					filters[id]['dimension'] = ndx.dimension(function (d) {
-
-                        var tooltipContent = '<a href="/shelter/' + d.db_id +'" target="_blank">' + d.id + ', ' + d.nameofshelter + '</a>'
-                        var url = undefined;
-                        if(typeof(d.shelterpicture) !== 'undefined' && Object.keys(d.shelterpicture).length > 0){
-
-                            // then search for Identification Facade thumbnail or Facade
-                            if(typeof(d.shelterpicture['Identification']) !== 'undefined'){
-
-                                $.each(d.shelterpicture['Identification'], function(j, val) {
-                                    var found = val.indexOf('_thumbnail');
-                                    if ( found >= 0) {
-                                        url = d.shelterpicture['Identification'][j];
-                                        return false;
-                                    }
-                                });
-                            }
-                        }
-                        if (url) {
-                            tooltipContent= '<div>' + tooltipContent + '<br><br><img src=\''+url+'\'/>' + ' </div>'
-                        }
-
 						if (d['gpslatitude'] && d['gpslongitude']) {
-							return [d['gpslatitude'], d['gpslongitude'], tooltipContent ];
+							return [d['gpslatitude'], d['gpslongitude'], d['tooltipContent'] ];
 						} else {
 							return undefined;
 						}
@@ -428,7 +495,7 @@
 		
 		var queryByString = function(query){
 			if (query!="") {
-				d3.json("api/v0.1.1/shelters/search/" + query, function(results) {
+				d3.json("api/v0.2/shelters?q=" + query, function(results) {
 					if (results != null) {
 						filters['queryFilter']['dimension'].filterFunction(function(id) {
 							return id in results;
@@ -664,25 +731,8 @@
 		$('#shelterList').empty();
 		for (var i = 0; i <data.length; i ++)
 		{
-			// get url from api data if pictures exist
-			var url = '';
-			if(typeof(data[i].shelterpicture) !== 'undefined' && Object.keys(data[i].shelterpicture).length > 0){
-					
-				// then search for Identification Facade thumbnail or Facade
-				if(typeof(data[i].shelterpicture['Identification']) !== 'undefined'){
-					
-					$.each(data[i].shelterpicture['Identification'], function(j, val) {
-						var found = val.indexOf('_thumbnail');
-						if ( found >= 0) {
-							url = data[i].shelterpicture['Identification'][j];
-							return false;
-						}
-					});
-				}
-			}
-
 			var shelter = $('<div class="shelter"/>').appendTo('#shelterList');
-			shelter.append('<div class="lazy image" data-original="/'  + url  + '" style="background-image: url(\'/\');"></div> ' +
+			shelter.append('<div class="lazy image" data-original="/'  + data[i].thumbnailUrl  + '" style="background-image: url(\'/\');"></div> ' +
 				'<h4 class="title"><a href="/shelter/' + data[i].db_id + '">' +data[i].nameofshelter+ '</a></h4>'  +
 				'<div class="country">'+data[i].country+'</div> ' +
 				'<div class="id">'+data[i].id+'</div> ' +
