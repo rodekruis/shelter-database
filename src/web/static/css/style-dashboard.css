@@ -2,24 +2,38 @@
   display: inline-block;
 }
 
+.stats [class*="col-"]{
+    text-align: center;
+}
 .stats .table {
    font-size: smaller;
 }
 
 .stats h5 {
   margin-top:20px;
+  text-align: left;
 }
+
 .leaflet-container a {
   margin-left:0px !important;
+}
+
+.dc-chart {
+    float: none !important;
+ }
+
+.dc-table-row {
+    font-size:small;
 }
 
 .dc-chart text {
       fill: black !important;
  }
 
-.dc-data-count {
-    float:right !important;
-}
+ .data-options {
+    margin-top:15px;
+    margin-bottom:15px;
+ }
 
 .menu-btn {
   font-size: 0.9em;
@@ -34,9 +48,6 @@
     padding-left:1em
  }
 
-.advanced-content {
-    max-height: 300px ;
-}
 .advanced-content .button {
     margin-top:5px !important;
 }
@@ -48,4 +59,15 @@
 }
 .slider-horizontal {
     width: 100px !important;
+}
+
+#tabs {
+    margin-left: 50px;
+    margin-right:50px;
+}
+
+@media only screen and (max-width: 767px) {
+	#matching-shelters {
+		display:none;
+	}
 }

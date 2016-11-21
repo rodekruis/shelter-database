@@ -54,6 +54,7 @@
 		'queryFilter': {'dbName': 'db_id'},
 	}
 
+
 	// get shelters from api
 	 d3.json("api/v0.1.1/shelters", function(dataObject) {
 
@@ -66,23 +67,6 @@
 		
 		var dateFormat = d3.time.format('%Y');
 
-		for (var filterId in filters) {
-			var dropdown = document.getElementById(filterId)
-			if (dropdown && $(dropdown).is('select')) {
-				(function(attrName, htmlElement) {
-					d3.json("api/v0.1.1/attributes/" + encodeURI(attrName), function (valuesObject) {
-						// console.log(attrName + JSON.stringify(valuesObject));
-						if (valuesObject && valuesObject[attrName]) {
-
-							var values = valuesObject[attrName].split(';')
-							for (var i = 0; i < values.length; ++i) {
-								addOption(htmlElement, values[i], values[i]);
-							}
-						}
-					})
-				})(filters[filterId]['dbName'], dropdown);
-			}
-		}
 
 		for (var filterId in filters) {
 			var element = document.getElementById(filterId)
@@ -113,6 +97,7 @@
 		var allDimensions = ndx.dimension(function (d) {
 			return d;
 		});
+
 		var all = ndx.groupAll();
 		var dataCount = dc.dataCount('#data-count')
 
@@ -137,8 +122,29 @@
 			} else
 				if (id == 'positionFilter') {
 					filters[id]['dimension'] = ndx.dimension(function (d) {
+
+                        var tooltipContent = '<a href="/shelter/' + d.db_id +'" target="_blank">' + d.id + ', ' + d.nameofshelter + '</a>'
+                        var url = undefined;
+                        if(typeof(d.shelterpicture) !== 'undefined' && Object.keys(d.shelterpicture).length > 0){
+
+                            // then search for Identification Facade thumbnail or Facade
+                            if(typeof(d.shelterpicture['Identification']) !== 'undefined'){
+
+                                $.each(d.shelterpicture['Identification'], function(j, val) {
+                                    var found = val.indexOf('_thumbnail');
+                                    if ( found >= 0) {
+                                        url = d.shelterpicture['Identification'][j];
+                                        return false;
+                                    }
+                                });
+                            }
+                        }
+                        if (url) {
+                            tooltipContent= '<div>' + tooltipContent + '<br><br><img src=\''+url+'\'/>' + ' </div>'
+                        }
+
 						if (d['gpslatitude'] && d['gpslongitude']) {
-							return [d['gpslatitude'], d['gpslongitude']];
+							return [d['gpslatitude'], d['gpslongitude'], tooltipContent ];
 						} else {
 							return undefined;
 						}
@@ -150,13 +156,51 @@
 						if (d[filters[id]['dbName']]) {
 							return d[filters[id]['dbName']];
 						} else {
-							return "No data"
+							return "no data"
 						}
 					})
-					if (filters[id]['chart']) {
-						filters[id]['count'] = filters[id]['dimension'].group().reduceCount();
-					}
+					filters[id]['count'] = filters[id]['dimension'].group().reduceCount();
+
+                    // populate all available options in dropdowns
+					var dropdown = document.getElementById(id)
+                    if (dropdown && $(dropdown).is('select')) {
+                        (function(filterId, htmlElement) {
+                            var counts = filters[filterId]['count'].top(Infinity);
+                            var values = []
+                            for (var i in counts) {
+                                values.push(counts[i].key);
+                            }
+                            for (var i in values.sort()) {
+                                addOption(dropdown, values[i], values[i]);
+                            }
+
+                        })(id, dropdown);
+                    }
 				}
+		}
+
+		var onFiltered = function onFiltered(chart) {
+			// Serialize selected options in url
+			// Synchronize dropdowns with changes made on charts
+			// Adjust shelter list
+
+//            console.log('onFiltered called')
+			getFiltersValues();
+			generateShelterList(allDimensions.top(Infinity));
+
+			var value = ''
+			if (chart.filters().length>0) {
+				value = chart.filters()[chart.filters().length-1]
+			}
+
+			// Find menu filter corresponding to chart and adjust displayed selected option as selected using dc chart
+
+			for (var filter in filters) {
+				var chartx = filters[filter]['chart']
+				if (chartx && chartx.filters() == chart.filters()) {
+					$('#' + filter).val(value);
+				}
+			}
 		}
 
 		mapChart.dimension(filters['positionFilter']['dimension'])
@@ -165,23 +209,31 @@
 			.zoom(2)
 			.filterByArea(true)
 			.cluster(true)
-			.on("filtered", onFiltered);
+			.popup(function(d) {
+			    if (d.key.length>2) {
+                    return d.key[2];
+			    } else {
+			        return d.key[0] + ', ' + d.key[1];
+			    }
+			})
+			.on("filtered", onFiltered)
+			.renderTitle(false);
 
 		addLayersToChart(mapChart)
 		mapChart.map().scrollWheelZoom.disable()
 
 
 		zoneChart
-			.width(110)
-			.height(110)
+			.width(120)
+			.height(120)
 			.dimension(filters['zoneFilter']['dimension'])
 			.group(filters['zoneFilter']['count'])
 			.innerRadius(20)
 			.on("filtered", onFiltered);
 
 		crisisChart
-			.width(110)
-			.height(110)
+			.width(120)
+			.height(120)
 			.dimension(filters['disasterFilter']['dimension'])
 			.group(filters['disasterFilter']['count'])
 			.innerRadius(20)
@@ -189,8 +241,8 @@
 
 
 		climateChart
-			.width(110)
-			.height(110)
+			.width(120)
+			.height(120)
 			.dimension(filters['climateFilter']['dimension'])
 			.group(filters['climateFilter']['count'])
 			.innerRadius(20)
@@ -198,13 +250,13 @@
 		;
 
 		timeChart
-			.width(500)
+			.width(540) //this is not responsive on mobile
 			.height(120)
 			.dimension(filters['timeFilter']['dimension'])
 			.group(filters['timeFilter']['count'])
 			.barPadding(5)
 			.x(d3.time.scale().domain([new Date(2003, 01, 01), new Date()]))
-			.xUnits(d3.time.year)
+			.xUnits(function() {return 10;})
 			.on("filtered", onFiltered)
 			.yAxis().tickFormat(
 			function (v) {
@@ -213,7 +265,7 @@
 
 
 		countryChart
-			.width(200)
+			.width(220)
 			.height(200)
 			.margins({left: 0, right: 10, top: 10, bottom: 20})
 			.dimension(filters['countryFilter']['dimension'])
@@ -227,7 +279,7 @@
 		countryChart.xAxis().ticks(10)
 
 		topographyChart
-			.width(200)
+			.width(220)
 			.height(200)
 			.margins({left: 0, right: 10, top: 10, bottom: 20})
 			.dimension(filters['topographyFilter']['dimension'])
@@ -395,20 +447,26 @@
 
 
 		d3.select('#all').on('click', function () {   //    Reset All Filters
+
+		    // reset all dimensions, if chart is associated, reset it via chart
 			for (var id in filters) {
-				if (filters[id]['dimension']) {
-					filters[id]['dimension'].filterAll();
+				if (filters[id]['chart']) {
+					filters[id]['chart'].filterAll();
+				} else {
+				    filters[id]['dimension'].filterAll();
 				}
 			}
+            // reset map
+            mapChart.map().setZoom(1);
 
+            // reset inputs
 			$("select").val("");
 			$("#query").val("");
-			for (id in filters) {
+			for (var id in filters) {
 				if (filters[id]['slider']) {
 					filters[id]['slider'].setValue([0, filters[id]['maxValue']]);
 				}
 			}
-			mapChart.map().setZoom(1);
 			redrawAll();
 
 		});
@@ -462,31 +520,10 @@
 				saveAs(blob, 'data.csv');
 		 });
 
-		var onFiltered = function onFiltered(chart) {
-			// Serialize selected options in url
-			// Synchronize dropdowns with changes made on charts
-			// Adjust shelter list
-
-			getFiltersValues();
-			generateShelterList(allDimensions.top(Infinity));
-
-			var value = ''
-			if (chart.filters().length>0) {
-				value = chart.filters()[chart.filters().length-1]
-			}
-
-			// Find menu filter corresponding to chart and adjust displayed selected option as selected using dc chart
-
-			for (var filter in filters) {
-				var chartx = filters[filter]['chart']
-				if (chartx && chartx.filters() == chart.filters()) {
-					$('#' + filter).val(value);
-				}
-			}
-		}
-
 		var redrawAll = function redrawAll() {
+//		    console.log('redrawAll called')
 			dc.renderAll();
+			dc.redrawAll();
 			generateShelterList(allDimensions.top(Infinity));
 		}
 		 
@@ -591,8 +628,6 @@
 		optn.value = value;
 		selectbox.options.add(optn);
 	}
-
-
 
 
 
