@@ -54,6 +54,20 @@
 		'queryFilter': {'dbName': 'db_id'},
 	}
 
+    timeChartWidthLarge = 520;
+    timeChartWidthMobile = 270;
+    var getTimeChartWidth = function() {
+            var windowWidth = $(window).width()
+            console.log(windowWidth)
+            if (windowWidth <=700) {
+                return timeChartWidthMobile;
+            } else {
+                return timeChartWidthLarge;
+            }
+    }
+
+
+
 
 	// get shelters from api
 	 d3.json("api/v0.1.1/shelters", function(dataObject) {
@@ -249,8 +263,10 @@
 			.on("filtered", onFiltered);
 		;
 
+        timeChartWidth = getTimeChartWidth();
+
 		timeChart
-			.width(540) //this is not responsive on mobile
+			.width(timeChartWidth)
 			.height(120)
 			.dimension(filters['timeFilter']['dimension'])
 			.group(filters['timeFilter']['count'])
@@ -263,6 +279,19 @@
 				return d3.format('f')(v);
 			});
 
+
+        $(window).resize(function() {
+		    if (document.getElementById("tabs").className == "tab2") {
+		        var adjustedWidth = getTimeChartWidth();
+		        if (timeChartWidth != adjustedWidth) {
+		            timeChartWidth = adjustedWidth;
+                    console.log("resizing");
+                    timeChart.width(timeChartWidth);
+                    dc.redrawAll();
+                    dc.renderAll();
+		        }
+		    }
+	    })
 
 		countryChart
 			.width(220)
