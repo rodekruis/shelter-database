@@ -54,15 +54,17 @@
 		'queryFilter': {'dbName': 'db_id'},
 	}
 
-    timeChartWidthLarge = 520;
-    timeChartWidthMobile = 270;
-    var getTimeChartWidth = function() {
+	var chartSizes = {
+        'pieChart': {'desktopChartWidth': 130, 'mobileChartMargin': 70},
+        'timeChart': {'desktopChartWidth': 460, 'mobileChartMargin': 30},
+	}
+
+    var getChartWidth = function(chartType) {
             var windowWidth = $(window).width()
-            console.log(windowWidth)
             if (windowWidth <=700) {
-                return timeChartWidthMobile;
+                return windowWidth-chartSizes[chartType]['mobileChartMargin'];
             } else {
-                return timeChartWidthLarge;
+                return chartSizes[chartType]['desktopChartWidth'];
             }
     }
 
@@ -303,18 +305,16 @@
 		addLayersToChart(mapChart)
 		mapChart.map().scrollWheelZoom.disable()
 
-
+        pieChartWidth = getChartWidth('pieChart')
 		zoneChart
-			.width(120)
-			.height(120)
+			.width(pieChartWidth)
 			.dimension(filters['zoneFilter']['dimension'])
 			.group(filters['zoneFilter']['count'])
 			.innerRadius(20)
 			.on("filtered", onFiltered);
 
 		crisisChart
-			.width(120)
-			.height(120)
+			.width(pieChartWidth)
 			.dimension(filters['disasterFilter']['dimension'])
 			.group(filters['disasterFilter']['count'])
 			.innerRadius(20)
@@ -322,19 +322,19 @@
 
 
 		climateChart
-			.width(120)
-			.height(120)
+			.width(pieChartWidth)
 			.dimension(filters['climateFilter']['dimension'])
 			.group(filters['climateFilter']['count'])
 			.innerRadius(20)
 			.on("filtered", onFiltered);
 		;
 
-        timeChartWidth = getTimeChartWidth();
+        timeChartWidth = getChartWidth('timeChart');
 
 		timeChart
 			.width(timeChartWidth)
 			.height(120)
+			.margins({top:20, right:10, bottom:30, left:25})
 			.dimension(filters['timeFilter']['dimension'])
 			.group(filters['timeFilter']['count'])
 			.barPadding(5)
@@ -346,24 +346,10 @@
 				return d3.format('f')(v);
 			});
 
-
-        $(window).resize(function() {
-		    if (document.getElementById("tabs").className == "tab2") {
-		        var adjustedWidth = getTimeChartWidth();
-		        if (timeChartWidth != adjustedWidth) {
-		            timeChartWidth = adjustedWidth;
-                    console.log("resizing");
-                    timeChart.width(timeChartWidth);
-                    dc.redrawAll();
-                    dc.renderAll();
-		        }
-		    }
-	    })
-
 		countryChart
-			.width(220)
-			.height(200)
-			.margins({left: 0, right: 10, top: 10, bottom: 20})
+			.width(210)
+			.height(250)
+			.margins({left: 10, right: 10, top: 20, bottom: 30})
 			.dimension(filters['countryFilter']['dimension'])
 			.group(filters['countryFilter']['count'])
 			.on("filtered", onFiltered)
@@ -375,9 +361,9 @@
 		countryChart.xAxis().ticks(10)
 
 		topographyChart
-			.width(220)
-			.height(200)
-			.margins({left: 0, right: 10, top: 10, bottom: 20})
+			.width(210)
+			.height(250)
+			.margins({left: 10, right: 10, top: 20, bottom: 30})
 			.dimension(filters['topographyFilter']['dimension'])
 			.group(filters['topographyFilter']['count'])
 			.on("filtered", onFiltered)
@@ -416,6 +402,31 @@
 				table.select('tr.dc-table-group').remove();
 			})
 
+
+        $(window).resize(function() {
+		    if (document.getElementById("tabs").className == "tab2") {
+		        var adjustedWidth = getChartWidth("timeChart");
+		        var redraw = false;
+		        if (adjustedWidth!=timeChartWidth) {
+		            timeChartWidth = adjustedWidth;
+		            timeChart.width(timeChartWidth);
+		            redraw = true;
+		        }
+		        adjustedWidth = getChartWidth("pieChart");
+		        if (adjustedWidth!=pieChartWidth) {
+		            pieChartWidth = adjustedWidth;
+		            zoneChart.width(pieChartWidth);
+		            crisisChart.width(pieChartWidth);
+		            climateChart.width(pieChartWidth);
+		            redraw = true;
+		        }
+		        if (redraw) {
+		            dc.redrawAll();
+                    dc.renderAll();
+		        }
+
+		    }
+	    })
 		dataCount
 			.dimension(ndx)
 			.group(all)
