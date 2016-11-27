@@ -68,7 +68,7 @@
             }
     }
 
-    mapCenter = [51.505, -0.09];
+    mapCenter = [48.2361, 21.22574]  // geographical midpoint of Europe
 
 
     var restructureData = function(dataObject) {
@@ -735,12 +735,8 @@
         var windowWidth = $(window).width();
         console.log(windowWidth)
         var maxZoom = 0
-        if (windowWidth > 959) {
-            maxZoom = 2;
-        } else {
-            if (windowWidth > 767) {
-                maxZoom = 1;
-            }
+        if (windowWidth > 767) {
+            maxZoom = 1;
         }
         console.log(maxZoom);
         mapChart.map().setView(mapCenter,maxZoom);
