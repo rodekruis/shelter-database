@@ -291,7 +291,7 @@
 		mapChart.dimension(filters['positionFilter']['dimension'])
 			.group(filters['positionFilter']['count'] )
 			.center(mapCenter)
-			.zoom(2)
+			.zoom(1)
 			.filterByArea(true)
 			.cluster(true)
 			.popup(function(d) {
@@ -439,7 +439,7 @@
 
 		var initFilters = function initFilters() {
 
-			var parseHash = /^#zone=([A-Za-z0-9,_\-\/\s]*)&crisis=([A-Za-z0-9,_\-\/\s]*)&climate=([A-Za-z0-9,_\-\/\s]*)&time=([A-Za-z0-9,_\-\/\s\(\):+]*)&country=([A-Za-z0-9,_\-\/\s]*)&query=([A-Za-z0-9,_\-\/\s]*)&topography=(.*)$/;
+			var parseHash = /^#zone=([A-Za-z0-9,_\-\/\s]*)&crisis=([A-Za-z0-9,_\-\/\s]*)&climate=([A-Za-z0-9,_\-\/\s]*)&time=([A-Za-z0-9,_\-\/\s\(\):+]*)&country=([A-Za-z0-9,_\-\/\s]*)&query=([A-Za-z0-9,_\-\/\s]*)&topography=(.*)&map=(.*)$/;
 			var parsed = parseHash.exec(decodeURIComponent(location.hash.replace(/\+/g, ' ')));
 //	             console.log("parsed:", parsed)
 
@@ -447,13 +447,12 @@
 				if (parsed[rank] == "") {
 					return;
 				}
-											
 				// perform query
 				queryByString(parsed[rank]);
-				
-				
+
+
 			}
-			
+
 			var filter = function filter(chart, rank) {
 
 				if (parsed[rank] == "") {
@@ -461,7 +460,7 @@
 				}
 				else {
 					var filterValues = parsed[rank].split(",");
-					// console.log(filterValues)
+//					 console.log(filterValues)
 
 					switch (rank) {
 						case 4: //timeChart
@@ -474,9 +473,14 @@
 							}
 							break;
 						case 8: //mapChart
-							// console.log('parsed:', filterValues)
-							// filterValues = JSON.parse(filterValues)
-							// console.log(filterValues)
+
+							 filterValues = JSON.parse(filterValues)
+							 if (filterValues.length>0) {
+							    var ne = filterValues[0]['_northEast'];
+                                var sw = filterValues[0]['_southWest'];
+                                mapChart.map().fitBounds(L.latLngBounds(ne,sw))
+							 }
+
 							break;
 						default:
 							for (var i = 0; i < filterValues.length; i++) {
@@ -486,6 +490,7 @@
 				}
 			}
 			if (parsed) {
+			    dc.renderAll();
 				filter(zoneChart, 1);
 				filter(crisisChart, 2);
 				filter(climateChart, 3);
@@ -493,7 +498,7 @@
 				filter(countryChart, 5);
 				filterQuery(6);
 				filter(topographyChart, 7);
-				// filter(mapChart, 8);
+				filter(mapChart, 8);
 			}
 
 		}
@@ -541,7 +546,7 @@
 							filters[this.id]['dimension'].filter(value);
 						} else {
 							filters[this.id]['dimension'].filterAll();
-							console.log("no value")
+//							console.log("no value")
 						}
 
 						redrawAll();
@@ -657,12 +662,10 @@
 			{name: 'time', value: timeChart.filters()},
 			{name: 'country', value: countryChart.filters()},
 			{name: 'query', value: $('#query').val()},
-	            {name: 'topography', value: topographyChart.filters()}
-			// {name: 'map', value: JSON.stringify(mapChart.filters())}
+            {name: 'topography', value: topographyChart.filters()},
+			{name: 'map', value: JSON.stringify(mapChart.filters())}
 		];
 
-		// console.log("map:")
-		// console.log(JSON.stringify(mapChart.filters()))
 		var recursiveEncoded = $.param(filters);
 		location.hash = recursiveEncoded;
 	}
@@ -734,12 +737,10 @@
         // centers map
 
         var windowWidth = $(window).width();
-//        console.log(windowWidth)
         var maxZoom = 0
         if (windowWidth > 767) {
             maxZoom = 1;
         }
-//        console.log(maxZoom);
         mapChart.map().setView(mapCenter,maxZoom);
 
     }
