@@ -68,6 +68,8 @@
             }
     }
 
+    mapCenter = [51.505, -0.09];
+
 
     var restructureData = function(dataObject) {
         var data = []
@@ -288,21 +290,22 @@
 
 		mapChart.dimension(filters['positionFilter']['dimension'])
 			.group(filters['positionFilter']['count'] )
-			.center([51.505, -0.09])
+			.center(mapCenter)
 			.zoom(2)
 			.filterByArea(true)
 			.cluster(true)
 			.popup(function(d) {
 			    if (d.key.length>2) {
-                    return d.key[2];
+                    return d.key[2];  // generated tooltip
 			    } else {
-			        return d.key[0] + ', ' + d.key[1];
+			        return d.key[0] + ', ' + d.key[1]; // lat, lng
 			    }
 			})
 			.on("filtered", onFiltered)
 			.renderTitle(false);
 
-		addLayersToChart(mapChart)
+		addLayersToChart(mapChart);
+        setMapView(mapChart);
 		mapChart.map().scrollWheelZoom.disable()
 
         pieChartWidth = getChartWidth('pieChart')
@@ -424,9 +427,9 @@
 		            dc.redrawAll();
                     dc.renderAll();
 		        }
-
 		    }
 	    })
+
 		dataCount
 			.dimension(ndx)
 			.group(all)
@@ -563,8 +566,9 @@
 				    filters[id]['dimension'].filterAll();
 				}
 			}
+
             // reset map
-            mapChart.map().setZoom(1);
+            setMapView(mapChart)
 
             // reset inputs
 			$("select").val("");
@@ -723,6 +727,25 @@
 		L.control.layers(null, overlayMaps).addTo(map);
 
 	};
+
+    var setMapView = function(mapChart) {
+        // sets Max Zoom depending on screen width,
+        // centers map
+
+        var windowWidth = $(window).width();
+        console.log(windowWidth)
+        var maxZoom = 0
+        if (windowWidth > 959) {
+            maxZoom = 2;
+        } else {
+            if (windowWidth > 767) {
+                maxZoom = 1;
+            }
+        }
+        console.log(maxZoom);
+        mapChart.map().setView(mapCenter,maxZoom);
+
+    }
 
 	d3.select("#share")
 		.on('click', function () {
