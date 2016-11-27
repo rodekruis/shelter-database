@@ -439,9 +439,9 @@
 
 		var initFilters = function initFilters() {
 
-			var parseHash = /^#zone=([A-Za-z0-9,_\-\/\s]*)&crisis=([A-Za-z0-9,_\-\/\s]*)&climate=([A-Za-z0-9,_\-\/\s]*)&time=([A-Za-z0-9,_\-\/\s\(\):+]*)&country=([A-Za-z0-9,_\-\/\s]*)&query=([A-Za-z0-9,_\-\/\s]*)$/;
+			var parseHash = /^#zone=([A-Za-z0-9,_\-\/\s]*)&crisis=([A-Za-z0-9,_\-\/\s]*)&climate=([A-Za-z0-9,_\-\/\s]*)&time=([A-Za-z0-9,_\-\/\s\(\):+]*)&country=([A-Za-z0-9,_\-\/\s]*)&query=([A-Za-z0-9,_\-\/\s]*)&topography=(.*)$/;
 			var parsed = parseHash.exec(decodeURIComponent(location.hash.replace(/\+/g, ' ')));
-	//             console.log("parsed:", parsed)
+//	             console.log("parsed:", parsed)
 
 			var filterQuery = function filterQuery(rank){
 				if (parsed[rank] == "") {
@@ -473,7 +473,7 @@
 								chart.filter(dc.filters.RangedFilter(start, end))
 							}
 							break;
-						case 7: //mapChart
+						case 8: //mapChart
 							// console.log('parsed:', filterValues)
 							// filterValues = JSON.parse(filterValues)
 							// console.log(filterValues)
@@ -492,7 +492,8 @@
 				filter(timeChart, 4);
 				filter(countryChart, 5);
 				filterQuery(6);
-				// filter(mapChart, 7);
+				filter(topographyChart, 7);
+				// filter(mapChart, 8);
 			}
 
 		}
@@ -655,8 +656,8 @@
 			{name: 'climate', value: climateChart.filters()},
 			{name: 'time', value: timeChart.filters()},
 			{name: 'country', value: countryChart.filters()},
-			{name: 'query', value: $('#query').val()}
-	//            {name: 'topography', value: topographyChart.filters()}
+			{name: 'query', value: $('#query').val()},
+	            {name: 'topography', value: topographyChart.filters()}
 			// {name: 'map', value: JSON.stringify(mapChart.filters())}
 		];
 
@@ -733,12 +734,12 @@
         // centers map
 
         var windowWidth = $(window).width();
-        console.log(windowWidth)
+//        console.log(windowWidth)
         var maxZoom = 0
         if (windowWidth > 767) {
             maxZoom = 1;
         }
-        console.log(maxZoom);
+//        console.log(maxZoom);
         mapChart.map().setView(mapCenter,maxZoom);
 
     }
