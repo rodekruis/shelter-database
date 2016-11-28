@@ -54,17 +54,21 @@
 		'queryFilter': {'dbName': 'db_id'},
 	}
 
-    timeChartWidthLarge = 520;
-    timeChartWidthMobile = 270;
-    var getTimeChartWidth = function() {
+	var chartSizes = {
+        'pieChart': {'desktopChartWidth': 130, 'mobileChartMargin': 70},
+        'timeChart': {'desktopChartWidth': 460, 'mobileChartMargin': 30},
+	}
+
+    var getChartWidth = function(chartType) {
             var windowWidth = $(window).width()
-            console.log(windowWidth)
             if (windowWidth <=700) {
-                return timeChartWidthMobile;
+                return windowWidth-chartSizes[chartType]['mobileChartMargin'];
             } else {
-                return timeChartWidthLarge;
+                return chartSizes[chartType]['desktopChartWidth'];
             }
     }
+
+    mapCenter = [48.2361, 21.22574]  // geographical midpoint of Europe
 
 
     var restructureData = function(dataObject) {
@@ -286,35 +290,34 @@
 
 		mapChart.dimension(filters['positionFilter']['dimension'])
 			.group(filters['positionFilter']['count'] )
-			.center([51.505, -0.09])
-			.zoom(2)
+			.center(mapCenter)
+			.zoom(1)
 			.filterByArea(true)
 			.cluster(true)
 			.popup(function(d) {
 			    if (d.key.length>2) {
-                    return d.key[2];
+                    return d.key[2];  // generated tooltip
 			    } else {
-			        return d.key[0] + ', ' + d.key[1];
+			        return d.key[0] + ', ' + d.key[1]; // lat, lng
 			    }
 			})
 			.on("filtered", onFiltered)
 			.renderTitle(false);
 
-		addLayersToChart(mapChart)
+		addLayersToChart(mapChart);
+        setMapView(mapChart);
 		mapChart.map().scrollWheelZoom.disable()
 
-
+        pieChartWidth = getChartWidth('pieChart')
 		zoneChart
-			.width(120)
-			.height(120)
+			.width(pieChartWidth)
 			.dimension(filters['zoneFilter']['dimension'])
 			.group(filters['zoneFilter']['count'])
 			.innerRadius(20)
 			.on("filtered", onFiltered);
 
 		crisisChart
-			.width(120)
-			.height(120)
+			.width(pieChartWidth)
 			.dimension(filters['disasterFilter']['dimension'])
 			.group(filters['disasterFilter']['count'])
 			.innerRadius(20)
@@ -322,19 +325,19 @@
 
 
 		climateChart
-			.width(120)
-			.height(120)
+			.width(pieChartWidth)
 			.dimension(filters['climateFilter']['dimension'])
 			.group(filters['climateFilter']['count'])
 			.innerRadius(20)
 			.on("filtered", onFiltered);
 		;
 
-        timeChartWidth = getTimeChartWidth();
+        timeChartWidth = getChartWidth('timeChart');
 
 		timeChart
 			.width(timeChartWidth)
 			.height(120)
+			.margins({top:20, right:10, bottom:30, left:25})
 			.dimension(filters['timeFilter']['dimension'])
 			.group(filters['timeFilter']['count'])
 			.barPadding(5)
@@ -346,24 +349,10 @@
 				return d3.format('f')(v);
 			});
 
-
-        $(window).resize(function() {
-		    if (document.getElementById("tabs").className == "tab2") {
-		        var adjustedWidth = getTimeChartWidth();
-		        if (timeChartWidth != adjustedWidth) {
-		            timeChartWidth = adjustedWidth;
-                    console.log("resizing");
-                    timeChart.width(timeChartWidth);
-                    dc.redrawAll();
-                    dc.renderAll();
-		        }
-		    }
-	    })
-
 		countryChart
-			.width(220)
-			.height(200)
-			.margins({left: 0, right: 10, top: 10, bottom: 20})
+			.width(210)
+			.height(250)
+			.margins({left: 10, right: 10, top: 20, bottom: 30})
 			.dimension(filters['countryFilter']['dimension'])
 			.group(filters['countryFilter']['count'])
 			.on("filtered", onFiltered)
@@ -375,9 +364,9 @@
 		countryChart.xAxis().ticks(10)
 
 		topographyChart
-			.width(220)
-			.height(200)
-			.margins({left: 0, right: 10, top: 10, bottom: 20})
+			.width(210)
+			.height(250)
+			.margins({left: 10, right: 10, top: 20, bottom: 30})
 			.dimension(filters['topographyFilter']['dimension'])
 			.group(filters['topographyFilter']['count'])
 			.on("filtered", onFiltered)
@@ -416,6 +405,31 @@
 				table.select('tr.dc-table-group').remove();
 			})
 
+
+        $(window).resize(function() {
+		    if (document.getElementById("tabs").className == "tab2") {
+		        var adjustedWidth = getChartWidth("timeChart");
+		        var redraw = false;
+		        if (adjustedWidth!=timeChartWidth) {
+		            timeChartWidth = adjustedWidth;
+		            timeChart.width(timeChartWidth);
+		            redraw = true;
+		        }
+		        adjustedWidth = getChartWidth("pieChart");
+		        if (adjustedWidth!=pieChartWidth) {
+		            pieChartWidth = adjustedWidth;
+		            zoneChart.width(pieChartWidth);
+		            crisisChart.width(pieChartWidth);
+		            climateChart.width(pieChartWidth);
+		            redraw = true;
+		        }
+		        if (redraw) {
+		            dc.redrawAll();
+                    dc.renderAll();
+		        }
+		    }
+	    })
+
 		dataCount
 			.dimension(ndx)
 			.group(all)
@@ -425,21 +439,20 @@
 
 		var initFilters = function initFilters() {
 
-			var parseHash = /^#zone=([A-Za-z0-9,_\-\/\s]*)&crisis=([A-Za-z0-9,_\-\/\s]*)&climate=([A-Za-z0-9,_\-\/\s]*)&time=([A-Za-z0-9,_\-\/\s\(\):+]*)&country=([A-Za-z0-9,_\-\/\s]*)&query=([A-Za-z0-9,_\-\/\s]*)$/;
+			var parseHash = /^#zone=([A-Za-z0-9,_\-\/\s]*)&crisis=([A-Za-z0-9,_\-\/\s]*)&climate=([A-Za-z0-9,_\-\/\s]*)&time=([A-Za-z0-9,_\-\/\s\(\):+]*)&country=([A-Za-z0-9,_\-\/\s]*)&query=([A-Za-z0-9,_\-\/\s]*)&topography=(.*)&map=(.*)$/;
 			var parsed = parseHash.exec(decodeURIComponent(location.hash.replace(/\+/g, ' ')));
-	//             console.log("parsed:", parsed)
+//	             console.log("parsed:", parsed)
 
 			var filterQuery = function filterQuery(rank){
 				if (parsed[rank] == "") {
 					return;
 				}
-											
 				// perform query
 				queryByString(parsed[rank]);
-				
-				
+
+
 			}
-			
+
 			var filter = function filter(chart, rank) {
 
 				if (parsed[rank] == "") {
@@ -447,7 +460,7 @@
 				}
 				else {
 					var filterValues = parsed[rank].split(",");
-					// console.log(filterValues)
+//					 console.log(filterValues)
 
 					switch (rank) {
 						case 4: //timeChart
@@ -459,10 +472,15 @@
 								chart.filter(dc.filters.RangedFilter(start, end))
 							}
 							break;
-						case 7: //mapChart
-							// console.log('parsed:', filterValues)
-							// filterValues = JSON.parse(filterValues)
-							// console.log(filterValues)
+						case 8: //mapChart
+
+							 filterValues = JSON.parse(filterValues)
+							 if (filterValues.length>0) {
+							    var ne = filterValues[0]['_northEast'];
+                                var sw = filterValues[0]['_southWest'];
+                                mapChart.map().fitBounds(L.latLngBounds(ne,sw))
+							 }
+
 							break;
 						default:
 							for (var i = 0; i < filterValues.length; i++) {
@@ -472,13 +490,15 @@
 				}
 			}
 			if (parsed) {
+			    dc.renderAll();
 				filter(zoneChart, 1);
 				filter(crisisChart, 2);
 				filter(climateChart, 3);
 				filter(timeChart, 4);
 				filter(countryChart, 5);
 				filterQuery(6);
-				// filter(mapChart, 7);
+				filter(topographyChart, 7);
+				filter(mapChart, 8);
 			}
 
 		}
@@ -526,7 +546,7 @@
 							filters[this.id]['dimension'].filter(value);
 						} else {
 							filters[this.id]['dimension'].filterAll();
-							console.log("no value")
+//							console.log("no value")
 						}
 
 						redrawAll();
@@ -552,8 +572,9 @@
 				    filters[id]['dimension'].filterAll();
 				}
 			}
+
             // reset map
-            mapChart.map().setZoom(1);
+            setMapView(mapChart)
 
             // reset inputs
 			$("select").val("");
@@ -640,13 +661,11 @@
 			{name: 'climate', value: climateChart.filters()},
 			{name: 'time', value: timeChart.filters()},
 			{name: 'country', value: countryChart.filters()},
-			{name: 'query', value: $('#query').val()}
-	//            {name: 'topography', value: topographyChart.filters()}
-			// {name: 'map', value: JSON.stringify(mapChart.filters())}
+			{name: 'query', value: $('#query').val()},
+            {name: 'topography', value: topographyChart.filters()},
+			{name: 'map', value: JSON.stringify(mapChart.filters())}
 		];
 
-		// console.log("map:")
-		// console.log(JSON.stringify(mapChart.filters()))
 		var recursiveEncoded = $.param(filters);
 		location.hash = recursiveEncoded;
 	}
@@ -712,6 +731,19 @@
 		L.control.layers(null, overlayMaps).addTo(map);
 
 	};
+
+    var setMapView = function(mapChart) {
+        // sets Max Zoom depending on screen width,
+        // centers map
+
+        var windowWidth = $(window).width();
+        var maxZoom = 0
+        if (windowWidth > 767) {
+            maxZoom = 1;
+        }
+        mapChart.map().setView(mapCenter,maxZoom);
+
+    }
 
 	d3.select("#share")
 		.on('click', function () {
