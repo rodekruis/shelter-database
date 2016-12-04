@@ -69,7 +69,7 @@
     }
 
     mapCenter = [48.2361, 21.22574]  // geographical midpoint of Europe
-
+    var dateFormat = d3.time.format('%Y');
 
     var restructureData = function(dataObject) {
         var data = []
@@ -81,16 +81,17 @@
 
             if (shelter['General'] && shelter['General']['Attributes']) {
                 if (shelter['General']['Attributes']['yearofconstructionfirstcompletedshelters']) {
-                    shelterFlat['yearofconstructionfirstcompletedshelters'] = shelter['General']['Attributes']['yearofconstructionfirstcompletedshelters']
+                    var year = shelter['General']['Attributes']['yearofconstructionfirstcompletedshelters']
+                    shelterFlat['yearofconstructionfirstcompletedshelters'] = dateFormat.parse(year);
                 }
                 if (shelter['General']['Attributes']['constructioncostperunitusd']) {
-                    shelterFlat['constructioncostperunitusd'] = shelter['General']['Attributes']['constructioncostperunitusd']
+                    shelterFlat['constructioncostperunitusd'] = parseFloat(shelter['General']['Attributes']['constructioncostperunitusd'])
                 }
                 if (shelter['General']['Attributes']['lengthm']) {
-                    shelterFlat['lengthm'] = shelter['General']['Attributes']['lengthm']
+                    shelterFlat['lengthm'] = parseFloat(shelter['General']['Attributes']['lengthm'])
                 }
                 if (shelter['General']['Attributes']['widthm']) {
-                    shelterFlat['widthm'] = shelter['General']['Attributes']['widthm']
+                    shelterFlat['widthm'] = parseFloat(shelter['General']['Attributes']['widthm'])
                 }
             }
             if (shelter['Identification'] && shelter['Identification']['Attributes']) {
@@ -170,9 +171,6 @@
 	 d3.json("api/v0.2/shelters", function(dataObject) {
 
         var data = restructureData(dataObject)
-		
-		var dateFormat = d3.time.format('%Y');
-
 
 		for (var filterId in filters) {
 			var element = document.getElementById(filterId)
@@ -184,7 +182,8 @@
 								var values = valuesObject[dbAttrName].split(';')
 								for(var i=0; i<values.length; i++) { values[i] = parseInt(values[i], 10); }
 								var minValue = Math.min.apply(null, values)
-								var maxValue = Math.max.apply(null, values)
+								var maxValue = Math.max.apply(null, values)+1
+//								console.log(dbAttrName, maxValue, values)
 
 								$('#' + id + 'MinValue').text(minValue);
 								$('#' + id + 'MaxValue').text(maxValue);
@@ -211,20 +210,13 @@
 			if (id == 'timeFilter') {
 				filters[id]['dimension'] = ndx.dimension(function (d) {
 					if (d['yearofconstructionfirstcompletedshelters']) {
-						return d3.time.year(dateFormat.parse(d['yearofconstructionfirstcompletedshelters']));
+                        return d['yearofconstructionfirstcompletedshelters'];
 					}
 					else {
 						return undefined;
 					}
 				});
-				filters[id]['count'] = filters[id]['dimension'].group().reduceCount(
-					function (d) {
-						if (d['yearofconstructionfirstcompletedshelters']) {
-							return d['yearofconstructionfirstcompletedshelters'];
-						} else {
-							return undefined;
-						}
-					});
+				filters[id]['count'] = filters[id]['dimension'].group().reduceCount();
 			} else
 				if (id == 'positionFilter') {
 					filters[id]['dimension'] = ndx.dimension(function (d) {
@@ -277,6 +269,7 @@
 			if (chart.filters().length>0) {
 				value = chart.filters()[chart.filters().length-1]
 			}
+
 
 			// Find menu filter corresponding to chart and adjust displayed selected option as selected using dc chart
 
@@ -341,13 +334,21 @@
 			.dimension(filters['timeFilter']['dimension'])
 			.group(filters['timeFilter']['count'])
 			.barPadding(5)
-			.x(d3.time.scale().domain([new Date(2003, 01, 01), new Date()]))
+			.elasticX(true)
+			.elasticY(true)
+			.x(d3.time.scale().domain([new Date(2000, 01, 01), new Date()]))
+			.round(d3.time.year.round)
+			.xUnits(d3.time.years)
 			.xUnits(function() {return 10;})
 			.on("filtered", onFiltered)
 			.yAxis().tickFormat(
 			function (v) {
 				return d3.format('f')(v);
 			});
+
+        timeChart.filter = function(){}
+        timeChart.onClick = function(){}
+
 
 		countryChart
 			.width(210)
@@ -400,6 +401,7 @@
 					return d.climatezone;
 				}
 			])
+			.size(data.length)
 			.on('renderlet', function (table) {
 				// each time table is rendered remove nasty extra row dc.js insists on adding
 				table.select('tr.dc-table-group').remove();
@@ -439,7 +441,7 @@
 
 		var initFilters = function initFilters() {
 
-			var parseHash = /^#zone=([A-Za-z0-9,_\-\/\s]*)&crisis=([A-Za-z0-9,_\-\/\s]*)&climate=([A-Za-z0-9,_\-\/\s]*)&time=([A-Za-z0-9,_\-\/\s\(\):+]*)&country=([A-Za-z0-9,_\-\/\s]*)&query=([A-Za-z0-9,_\-\/\s]*)&topography=(.*)&map=(.*)$/;
+			var parseHash = /^#zone=([A-Za-z0-9,_\-\/\s]*)&crisis=([A-Za-z0-9,_\-\/\s]*)&climate=([A-Za-z0-9,_\-\/\s]*)&time=([A-Za-z0-9,_\-\/\s\(\):+\.]*)&country=([A-Za-z0-9,_\-\/\s]*)&query=([A-Za-z0-9,_\-\/\s]*)&topography=(.*)&map=(.*)$/;
 			var parsed = parseHash.exec(decodeURIComponent(location.hash.replace(/\+/g, ' ')));
 //	             console.log("parsed:", parsed)
 
@@ -449,7 +451,6 @@
 				}
 				// perform query
 				queryByString(parsed[rank]);
-
 
 			}
 
@@ -466,9 +467,10 @@
 						case 4: //timeChart
 							chart.filter(null);
 							if (filterValues.length == 2) {
-								filterValues[i] = new Date(filterValues[i])
 								var start = new Date(filterValues[0])
 								var end = new Date(filterValues[1])
+//								console.log('start', start, '\nend', end)
+
 								chart.filter(dc.filters.RangedFilter(start, end))
 							}
 							break;
@@ -506,7 +508,7 @@
 		d3.select('#query').on('keydown', function() {
 			if (d3.event.keyCode == 13) {
 				var query = this.value
-				console.log("Searching for " + query);
+//				console.log("Searching for " + query);
 
 				queryByString(query);
 			}
@@ -633,7 +635,7 @@
 		d3.select('#download')
 			.on('click', function () {
 				var data = allDimensions.top(Infinity);
-				var blob = new Blob([d3.csv.format(data)], {type: "text/csv;charset=utf-8"});
+                var blob = new Blob([d3.csv.format(data)], {type: "text/csv;charset=utf-8"});
 				saveAs(blob, 'data.csv');
 		 });
 
@@ -655,7 +657,7 @@
 
 
 	var getFiltersValues = function getFiltersValues() {
-		var filters = [
+		var filterValues = [
 			{name: 'zone', value: zoneChart.filters()},
 			{name: 'crisis', value: crisisChart.filters()},
 			{name: 'climate', value: climateChart.filters()},
@@ -666,7 +668,9 @@
 			{name: 'map', value: JSON.stringify(mapChart.filters())}
 		];
 
-		var recursiveEncoded = $.param(filters);
+		var recursiveEncoded = $.param(filterValues);
+//		console.log('timeChart filters', timeChart.filters());
+//		console.log('timeFilter', filters['timeFilter']['dimension'].top(Infinity))
 		location.hash = recursiveEncoded;
 	}
 
