@@ -30,6 +30,12 @@
       fill: black !important;
  }
 
+ #chart-timeline .x.axis text {
+    text-anchor: end !important;
+    transform: rotate(-45deg);
+}
+ }
+
  .data-options {
     margin-top:15px;
     margin-bottom:15px;
