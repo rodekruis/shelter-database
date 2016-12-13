@@ -4,7 +4,7 @@
 import csv
 import os.path
 import sys
-from web.models import Section, Category, Attribute, Property, Value, Association
+from web.models import Section, Category, Attribute, Property, Value, Association, Shelter
 from bootstrap import db
 
 def export_shelters(dump_file, truncate=''):
@@ -26,6 +26,8 @@ def export_shelters(dump_file, truncate=''):
         .join(Association, Association.property_id==Property.id)\
         .join(Value, Value.id==Association.value_id)\
         .join(Attribute, Attribute.id==Property.attribute_id)\
+        .join(Shelter, Shelter.id==Property.shelter_id)\
+        .filter(Shelter.is_published==True)\
         .order_by(Property.shelter_id,Property.attribute_id)
 
     #print(dataquery)
