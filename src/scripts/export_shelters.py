@@ -27,7 +27,6 @@ def export_shelters(dump_file, truncate=''):
         .join(Value, Value.id==Association.value_id)\
         .join(Attribute, Attribute.id==Property.attribute_id)\
         .join(Shelter, Shelter.id==Property.shelter_id)\
-        .filter(Shelter.is_published==True)\
         .order_by(Property.shelter_id,Property.attribute_id)
 
     #print(dataquery)
@@ -52,7 +51,13 @@ def export_shelters(dump_file, truncate=''):
     columns_length = len(array)
     
     
-    with open(dump_file, mode='wt',newline='', encoding='utf-8') as csvfile:
+    
+    ###dump published shelters
+    
+    pubdataquery = dataquery.filter(Shelter.is_published==True)
+    pubfilename = dump_file + "shelterdump_published.csv"
+    
+    with open(pubfilename, mode='wt',newline='', encoding='utf-8') as csvfile:
         shelters = csv.writer(csvfile, delimiter=',')
         
         #transpose array before write
@@ -61,7 +66,7 @@ def export_shelters(dump_file, truncate=''):
         
         r = [''] * columns_length
         
-        for index, cursor in enumerate(dataquery):
+        for index, cursor in enumerate(pubdataquery):
             
             if index != 0:
                 if cursor.shelter_id == prev_row.shelter_id:
@@ -76,9 +81,36 @@ def export_shelters(dump_file, truncate=''):
             prev_row = cursor
         shelters.writerow(r)
         
+    
+     
+    ###  dump unpublished shelters
+     
+    unpubdataquery = dataquery.filter(Shelter.is_published==False)
+    unpubfilename = dump_file + "shelterdump_unpublished.csv"
         
+    with open(unpubfilename, mode='wt',newline='', encoding='utf-8') as csvfile:
+        shelters = csv.writer(csvfile, delimiter=',')
         
+        #transpose array before write
+        for cursor in zip(*array):
+            shelters.writerow(cursor)
         
+        r = [''] * columns_length
+        
+        for index, cursor in enumerate(unpubdataquery):
+            
+            if index != 0:
+                if cursor.shelter_id == prev_row.shelter_id:
+                    r[cursor.att_id-1] = cursor.value
+                else:
+                    shelters.writerow(r)
+                    r = [''] * columns_length
+                    r[cursor.att_id-1] = cursor.value
+            else:
+                r[cursor.att_id-1] = cursor.value
+    
+            prev_row = cursor
+        shelters.writerow(r)
         
         
         
