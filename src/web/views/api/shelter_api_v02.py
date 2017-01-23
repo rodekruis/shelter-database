@@ -43,6 +43,18 @@ def documentation():
     """
     return ""
 
+@apiv02_bp.route('/glossary', methods=['GET'])
+def glossary():
+	"""
+	Retrieve the glossary in JSON format, readable by Glossarizer
+	(https://github.com/PebbleRoad/glossarizer) 
+	"""
+	
+	with app.open_resource('static/data/glossary.json') as f:
+		text = json.load(f, encoding='utf-8')
+	return Response(json.dumps(text, indent=3, sort_keys=False), mimetype='application/json;charset=utf-8')
+	
+
 @apiv02_bp.route('/worldmap', methods=['GET'])
 def worldmap():
 	"""
@@ -54,6 +66,7 @@ def worldmap():
 		data = json.load(f, encoding='utf-8')
 	return Response(json.dumps(data), mimetype='application/json;charset=utf-8')
 	#return app.send_static_file('data/world_borders.geojson')
+
 
 @apiv02_bp.route('/attributes/pictures', methods=['GET'])
 @apiv02_bp.route('/attributes/pictures/<language_code>', methods=['GET'])
@@ -310,7 +323,7 @@ def latestshelters(count=1):
     
     Supercategory = db.aliased(Category)
     
-    subsubquery = db.session.query(ShelterPicture.shelter_id).subquery()
+    subsubquery = db.session.query(ShelterPicture.shelter_id).filter(ShelterPicture.is_main_picture == True).subquery()
     subquery= db.session.query(Shelter)\
             .filter(Shelter.is_published == True)\
             .filter(Shelter.id.in_(subsubquery))\
