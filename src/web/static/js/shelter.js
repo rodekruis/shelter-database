@@ -213,6 +213,7 @@
 			imageScaleMode: 'fit-if-smaller',
 			autoScaleSlider:false,
 			autoHeight: false,
+			numImagesToPreload: 0,
 			controlNavigation: 'thumbnails',
 			thumbs: {
 					  appendSpan: true,
@@ -320,13 +321,22 @@
 					.attr('class', 'royalSlider rsUni');
 								
 			// add panes
-			slider.selectAll("img")
+			slider.selectAll("a")
 				   .data(pictures)
 				   .enter()
-				   .append("img")
+				   .append("a")
 					   .attr("class","rsImg")
-					   .attr("src", function (di){ return "/" + di; })
-					   .attr("data-rsTmb", function (di){ return "/" + di; });	
+					   .attr("href", function (di){ return "/" + di; })
+					   .text("image description")
+				   .append("img")
+					   .attr("class", "rsTmb")
+					   .attr("src", function (di){ 
+										var url = di.substring(0, di.length - 4);
+										var ext = di.substring(di.length - 4, di.length);
+										return "/" + url + "_thumbnail" + ext; 
+									});	
+					   
+			//<a class="rsImg" href="image.jpg">image description<img src="small-image.jpg" class="rsTmb" /></a>
 	}
 	
 	var createIdentification = function createIdentification(data){
