@@ -37,7 +37,6 @@ src/web/public/
 
 # pycharm
 .idea/
-web/
 conf/conf.cfg
 
 # generated asset css and js files

@@ -1,0 +1,882 @@
+[
+   {
+      "term": "direct labour (beneficiary)", 
+      "description": "Construction of the shelter carried out by the beneficiary and relatives."
+   }, 
+   {
+      "term": "adobe", 
+      "description": "A building material made from water, sand and soil containing clay and dried in the sun. Straw and other organic fibrous materials may be added to reduce cracking, aid drying, and to help bind the materials together. An adode brick, or mud brick, is made by placing adobe into a mould."
+   }, 
+   {
+      "term": "air conditioning (AC)", 
+      "description": "a system for controlling the humidity, ventilation, and temperature in a building, typically to maintain a cool atmosphere in warm conditions."
+   }, 
+   {
+      "term": "air vent", 
+      "description": "An opening that allows air to flow from one room to another."
+   }, 
+   {
+      "term": "anchor block", 
+      "description": "Heavy block cast buried in the ground, used to hold something, such as a the rope of a tent/ tarpaulin, a guy, etc."
+   }, 
+   {
+      "term": "anchor bolt/ holding-down bolt/ foundation bolt", 
+      "description": "Anchor bolt: A threaded bolt (J-shape), usually embedded in a foundation, for securing a sill plate (bottom wall plate), or embedded in a bond beam for securing a top wall plate or a truss. Holding-down bolt: long steel bolt that is set in concrete foundations to hold fast the base plate of columns (steel columns)."
+   }, 
+   {
+      "term": "angle brace/ angle tie", 
+      "description": "A brace fixed across an interior angle of a frame to improve the frame's rigidity."
+   }, 
+   {
+      "term": "apartment", 
+      "description": "Several self-contained living units /shelters grouped in a building."
+   }, 
+   {
+      "term": "arch brick", 
+      "description": "Brick (in a voussoir shape) placed in between small steel beams contained in a suspended floor."
+   }, 
+   {
+      "term": "backfill", 
+      "description": "Soil returned to an excavation, after a foundation has been cast, typically compacted in layers."
+   }, 
+   {
+      "term": "ballast", 
+      "description": "Heavy weights that are used to stabilize or hold something, such as a the rope of a tent/ tarpaulin, a guy, etc."
+   }, 
+   {
+      "term": "batten/ lath", 
+      "description": "A thin long strip of material (typically wood) used to strengthen secure or fix something to. Used to fix roof covering, such as roofing tiles."
+   }, 
+   {
+      "term": "beam", 
+      "description": "A horizontal structural member that resists bending loadings. Typically made of wood, steel or concrete and used to support a storey or roof above."
+   }, 
+   {
+      "term": "beam and block floor/ beam fill floor", 
+      "description": "A type of suspended floor made of pre-cast concrete joists/beams resting on main beams or walls and in-fill blocks. A compression slab is cast over to create a monolithic floor."
+   }, 
+   {
+      "term": "bearing wall", 
+      "description": "Wall that supports vertical load (from the structure above, such as beams and roof) in addition to its own weight."
+   }, 
+   {
+      "term": "block", 
+      "description": "Stone component from a quarry or pre-fabricated component in manufactured material."
+   }, 
+   {
+      "term": "bond beam/ ring beam", 
+      "description": "Bond beam: A horizontally reinforced concrete or concrete masonry beam built to strengthen and tie a masonry wall together. A bond beam is often placed at the top of a masonry wall with continuous reinforcing around the perimeter. Ring beam: A horizontal beam placed at the top of a wall to tie the wall together."
+   }, 
+   {
+      "term": "brace", 
+      "description": "A member/element within a structure to strengthen it."
+   }, 
+   {
+      "term": "brace rod", 
+      "description": "A round steel member used as a tension brace, especially to transfer wind or seismic loads."
+   }, 
+   {
+      "term": "bracing", 
+      "description": "Serving to strengthen or reinforce a structure. Any structure resisting racking and overturning forces."
+   }, 
+   {
+      "term": "bucket", 
+      "description": "container"
+   }, 
+   {
+      "term": "bucket foundation", 
+      "description": "A foundation made of reinforced concrete with a device for enclosing a column."
+   }, 
+   {
+      "term": "bush", 
+      "description": "A shrub or clump of shrubs with stems of moderate length and height."
+   }, 
+   {
+      "term": "canvas", 
+      "description": "a strong, coarse unbleached cloth made from hemp, flax, cotton, or a similar yarn, used to make items such as sails and tents and as a surface for oil painting."
+   }, 
+   {
+      "term": "cart with small tank/drum", 
+      "description": "Water sold by a provider who transports water into a community. The types of transportation used include donkey carts, motorized vehicles and other means."
+   }, 
+   {
+      "term": "cement plaster", 
+      "description": "Plaster containing Portland cement as the binder and commonly used on exterior surfaces or in damp areas."
+   }, 
+   {
+      "term": "central heating", 
+      "description": "A system for warming a building by heating water or air in one place and circulating it through pipes and radiators or vents."
+   }, 
+   {
+      "term": "chimney", 
+      "description": "A vertical channel or pipe that conducts smoke and combustion gases from a fire or furnace out of the room/kitchen, typically through the roof of a building. "
+   }, 
+   {
+      "term": "cladding", 
+      "description": "The non-load-bearing external envelope or skin of a building/ shelter that provides shelter from the elements. It is designed to carry its own weight plus the loads imposed on it by snow, wind, and during maintenance."
+   }, 
+   {
+      "term": "clay tile", 
+      "description": "A fired earthenware tile used on roofs."
+   }, 
+   {
+      "term": "collar tie/ collar beam ", 
+      "description": "A structural framing member located in the upper third of opposing rafters that ties rafters together to resist roof suction loads at the ridge."
+   }, 
+   {
+      "term": "collective centre", 
+      "description": "Shelters that can host several families, e.g. existing large structures, such as schools, can serve as collective shelters."
+   }, 
+   {
+      "term": "column", 
+      "description": "A long supporting pillar, usually loaded axially in compression."
+   }, 
+   {
+      "term": "community labour", 
+      "description": "Construction of the shelter carried out by community members. This could be planned and organized by a NGO and local partners."
+   }, 
+   {
+      "term": "composting toilet", 
+      "description": "A dry toilet into which carbon-rich material (e.g., vegetable waste, straw, grass, sawdust, ash, etc.) are added to the excreta and special conditions maintained to produce inoffensive compost. A composting latrine may or may not have a urine separation device."
+   }, 
+   {
+      "term": "concrete block", 
+      "description": "A masonry building unit of concrete that has been cast into a standard shape, size, and style."
+   }, 
+   {
+      "term": "concrete tile", 
+      "description": "A tile made of concrete used on roofs."
+   }, 
+   {
+      "term": "conical roof", 
+      "description": "A roof shaped like a cone."
+   }, 
+   {
+      "term": "connector / nail plate", 
+      "description": "A metal plate with holes for nails, to join tow elemetns together. Especially used to assemble truss elements."
+   }, 
+   {
+      "term": "contract labour", 
+      "description": "Construction of the shelter carried out by a contractor, with skilled workers (carpenters, masons, etc.)."
+   }, 
+   {
+      "term": "cooling", 
+      "description": "Action to become or cause to become less hot."
+   }, 
+   {
+      "term": "core shelter", 
+      "description": "Permanent structure designed to be extended. It is usually one basic minimum unit but well-constructed and durable; provides adequate living space and sanitation facilities for the average family size, complying with the humanitarian standards. It is designed with the expectation that the owner will add on to the structure to extend the livign area as circumstances permit."
+   }, 
+   {
+      "term": "corner brace", 
+      "description": "Diagonal braces attached to the studs of a wood-/ bamboo-frame structure, for reinforcement."
+   }, 
+   {
+      "term": "corrugated bitumen roofing sheet", 
+      "description": "Painted corrugated roofing panels made of asphalt and fibres. Resists corrosion, unlike metal. High wind resistance. Easy installation, low maintenance. Lasts longer than corrugated metal sheets."
+   }, 
+   {
+      "term": "Corrugated Galvanized Iron (CGI) roofing sheet", 
+      "description": "Corrugated sheet made of galvanized steel, available in various sizes and thickness (gauge)."
+   }, 
+   {
+      "term": "corrugated sheeting", 
+      "description": "A sinusoidal-shaped sheeting material used for cladding and roof covering, and available in a range of materials including aluminium, galvanized steel, copper, bitumen, fibreglass, and PVC."
+   }, 
+   {
+      "term": "covered area", 
+      "description": "Living area including all other covered surfaces such as the surface covered by the walls, veranda, porch, etc."
+   }, 
+   {
+      "term": "covering", 
+      "description": "Materials used on roofs, walls and floors to close the structure."
+   }, 
+   {
+      "term": "crawl space", 
+      "description": "Ventilated cavity located between the ground and the lowest floor of a building."
+   }, 
+   {
+      "term": "cross brace/ cross-bracing", 
+      "description": "Diagonal bracing or brace/tie rods that resist shear forces from wind or seismic loads, to provide internal stability/ stiffness in rectangular frames and roof trusses. "
+   }, 
+   {
+      "term": "daub", 
+      "description": "Plaster, clay, or another substance used for coating a surface, especially when mixed with straw and applied to laths or wattles to form a wall."
+   }, 
+   {
+      "term": "debris", 
+      "description": "Loose natural material consisting mostly of broken pieces of rock."
+   }, 
+   {
+      "term": "decking", 
+      "description": "Heavy planking used on roofs or floors."
+   }, 
+   {
+      "term": "detached", 
+      "description": "Shelter standing by itself, i.e., not sharing any wall with another shelter or building."
+   }, 
+   {
+      "term": "dome", 
+      "description": "A hemispherical roof."
+   }, 
+   {
+      "term": "dowel/ pin", 
+      "description": "A cylindrical piece of stock (wood, metal, bamboo, etc.) inserted into holes in adjacent pieces of material to align or attach the two pieces."
+   }, 
+   {
+      "term": "earth anchor / mechanical soil anchor", 
+      "description": "A driven, tipping plate soil anchor, which is dependent on soil strength for reaction of tensile loads."
+   }, 
+   {
+      "term": "eaves (rafter overhang)", 
+      "description": "The part of a pitched or a flat roof that projects over the external wall. Comprises a fascia. Protects the external wall from the rain."
+   }, 
+   {
+      "term": "electrical heater", 
+      "description": "A device for warming the air or water, using electricity."
+   }, 
+   {
+      "term": "electricity (battery)", 
+      "description": "A container consisting of one or more cells, in which chemical energy is converted into electricity and used as a source of power"
+   }, 
+   {
+      "term": "electricity (grid)", 
+      "description": " A network of cables or pipes for distributing power, esecially high-voltage transmission lines for electricity."
+   }, 
+   {
+      "term": "emergency shelter", 
+      "description": "Temporary structure, appropriate for sheltering families for emergency solutions based on immediate needs, such as protection from the climate, security and personal safety, enhanced resistance to ill health and disease, support for family and community life&#8230;"
+   }, 
+   {
+      "term": "family land", 
+      "description": "The occupant lives on land that belong to a family member."
+   }, 
+   {
+      "term": "fan", 
+      "description": "An appliance with rotating blades that creates a current of air for cooling or ventilation."
+   }, 
+   {
+      "term": "fireplace", 
+      "description": "A place for a domestic fire, especially a grate or hearth at the base of a chimney."
+   }, 
+   {
+      "term": "fixing", 
+      "description": "Fastener used to hold something in place, e.g., nails, screws, lag screws/bolts, bolts and nuts, etc."
+   }, 
+   {
+      "term": "flat roof", 
+      "description": "A roof with only enough pitch to allow drainage (slope&lt;3&#176; - 5%)."
+   }, 
+   {
+      "term": "flush toilet", 
+      "description": "A toilet which is cleared of waste through the use of a cistern or holding tank for flushing water, and a water seal (which is a U-shaped pipe below the seat or squatting pan) that prevents the passage of flies and odours."
+   }, 
+   {
+      "term": "flush/pour flush to elsewhere", 
+      "description": "Excreta being deposited in or nearby the household environment (not into a pit, septic tank, or sewer). Excreta may be flushed to the street, yard/plot, open sewer, a ditch, a drainage way or other location."
+   }, 
+   {
+      "term": "flush/pour flush to pit latrine", 
+      "description": "A system that flushes excreta to a hole in the ground or leaching pit (protected, covered). "
+   }, 
+   {
+      "term": "footing", 
+      "description": "The portion of the foundation of a structure that spreads and transmits the load directly to the soil."
+   }, 
+   {
+      "term": "foundation", 
+      "description": "Lowest load-bearing part of a building, typically below ground level. "
+   }, 
+   {
+      "term": "foundation vent", 
+      "description": "An opening located in the crawl space to control moisture. Usually at leat 2 vents/openings are necessary."
+   }, 
+   {
+      "term": "framed wall", 
+      "description": "Load-bearing structural frame made of corner posts, studs and wall plates. It supports itself and the structure above, such as beams and roof."
+   }, 
+   {
+      "term": "gable", 
+      "description": "Triangular portion of the end wall of a building beneath a dual-slope, pitched roof (gable roof). "
+   }, 
+   {
+      "term": "gable end", 
+      "description": "The end wall of a building that has a pitched roof."
+   }, 
+   {
+      "term": "gable roof/ pitched roof", 
+      "description": "A ridged roof having one or two gabled ends."
+   }, 
+   {
+      "term": "gambrel roof", 
+      "description": "A roof whose slope on each side is interrupted by an obtuse angle that forms two pitches on each side, the lower slope being steeper than the upper."
+   }, 
+   {
+      "term": "granular fill", 
+      "description": "Compacted fill under ground slab or monolithic slab."
+   }, 
+   {
+      "term": "granular fill", 
+      "description": "Compacted fill under ground slab or monolithic slab."
+   }, 
+   {
+      "term": "granular fill", 
+      "description": "Compacted fill under ground slab or monolithic slab."
+   }, 
+   {
+      "term": "grass", 
+      "description": "Vegetation consisting of typically short plants with long narrow leaves, growing wild or cultivated on lawns and in pastures, and as a fodder crop."
+   }, 
+   {
+      "term": "ground floor", 
+      "description": "The floor of a building that is closest to the external ground level."
+   }, 
+   {
+      "term": "ground slab / slab on grade", 
+      "description": "A concrete slab resting directly on the ground. Made of concrete and welded-wire mesh."
+   }, 
+   {
+      "term": "GRP panel (fibreglass)", 
+      "description": "Glass-fibre Reinforced Plastic (polymer strengthened by the addition of glass fibres), transparent roof sheeting used to cover the roof and provide light."
+   }, 
+   {
+      "term": "gusset plate", 
+      "description": "A plate fastened across a joint, as in wood or steel framework members, to add strength and stability."
+   }, 
+   {
+      "term": "guy rope", 
+      "description": "A rope, line, cable fixed to the ground to secure a tent or other structure."
+   }, 
+   {
+      "term": "hanging toilet/ hanging latrine", 
+      "description": "A toilet built over the sea, a river, or other body of water, into which excreta drops directly."
+   }, 
+   {
+      "term": "heating", 
+      "description": "Equipment or devices used to provide heat, especially to a building."
+   }, 
+   {
+      "term": "helical pile/ screw pile", 
+      "description": "A giant metal \"screw\", consisting of a central hollow shaft and a helical plate welded on it. The pile is screwed into the ground until the desired bearing capacity is achieved. This foundation screw pile guarantees that your structure (tent, timber frame, bamboo frame, etc.) is anchored on a solid base."
+   }, 
+   {
+      "term": "hip-roof/ hipped roof", 
+      "description": "A roof formed by several adjacent inclining planes, each rising from a different wall of the building, and forming hips at their adjacent sloping sides."
+   }, 
+   {
+      "term": "hollow brick", 
+      "description": "Cellular brick (usually made of clay and calcium silicate), normally considered hollow when it has greater than 25% voids within it. It has greater thermal insulation properties than concrete block."
+   }, 
+   {
+      "term": "hollow concrete block", 
+      "description": "A concrete block with a cellular core."
+   }, 
+   {
+      "term": "honeycomb wall", 
+      "description": "A brick wall having openings created either by allowing gaps between stretchers or by omitting bricks, and used to support floor joists and provide ventilation under floors."
+   }, 
+   {
+      "term": "host families", 
+      "description": "Local families shelter the displaced population within their households or on their properties."
+   }, 
+   {
+      "term": "house tenant", 
+      "description": "The occupant rents housing and land from the owner in a formal or informal arrangement. "
+   }, 
+   {
+      "term": "hurricane strap/ hurricane tie/ hurricane clip", 
+      "description": "What are called hurricane straps are in fact seismic and hurricane ties. They are connectors made of galvanized steel or stainless steel, that allow nails to work in shear, which is the most efficient way for them to perform. They help to make a wooden structure more resistant to high wind pressure, uplift, racking, sliding (shear) and overturning. Each crucial connection in a structure has a corresponding type of tie, from the foundation up to the roof. Fastened across the intersection of two timber elements. "
+   }, 
+   {
+      "term": "infill block/ block floor", 
+      "description": "Non-load-bearing block positioned between structural elements, can be made of various materials, such as concrete, polystyrene, etc."
+   }, 
+   {
+      "term": "insect screening mesh", 
+      "description": "Mesh placed at windows and doors to prevent insects from entering the shelter or house. Mesh can be made of stainless steel or fibreglass."
+   }, 
+   {
+      "term": "insulated metal roofing", 
+      "description": "A type of roofing panel made from mineral fiber, insular glass, foamed plastic, etc. , and covered with light-gauge flexible metal."
+   }, 
+   {
+      "term": "insulated metal roofing", 
+      "description": "A type of roofing panel made from mineral fiber, insular glass, foamed plastic, etc. , and covered with light-gauge flexible metal."
+   }, 
+   {
+      "term": "insulation", 
+      "description": "Material used to reduce the effects of heat, cold and sound."
+   }, 
+   {
+      "term": "isolated footing", 
+      "description": "Foundation supporting a post or pillar, with a course of concrete wider than the section of the post/pillar."
+   }, 
+   {
+      "term": "joist", 
+      "description": "A beam that supports the floor."
+   }, 
+   {
+      "term": "K-brace", 
+      "description": "Brace shaped as a K."
+   }, 
+   {
+      "term": "lag screw/ lag bolt", 
+      "description": "A threaded screw or bolt with a square head."
+   }, 
+   {
+      "term": "land tenant", 
+      "description": "The occupant rents land but owns the house. "
+   }, 
+   {
+      "term": "lashing", 
+      "description": "A cord, wire, rope, etc., used to fasten something securely."
+   }, 
+   {
+      "term": "lintel", 
+      "description": "Horizontal support of timber, stone, concrete, or steel across the top of a door or window."
+   }, 
+   {
+      "term": "living area", 
+      "description": "The total area of finished, above-ground accommodation space. It is calculated by measuring theinside perimeter of the structure and includes only finished, habitable, above-ground living space. It does not include the surface covered by the walls, veranda, porch or terrace."
+   }, 
+   {
+      "term": "mansard roof", 
+      "description": "A roof with a double pitch on all four sides, the lower level having a steeper pitch."
+   }, 
+   {
+      "term": "monolithic slab", 
+      "description": "The pouring of concrete grade beam and floor slab together to form a building foundation."
+   }, 
+   {
+      "term": "mud plaster", 
+      "description": "Plaster containing clay, sand, and sometimes short pieces of fibrous organic material. Used on exterior and interior surfaces, it helps to protect the walls."
+   }, 
+   {
+      "term": "natural ventilation", 
+      "description": "The provision of fresh air to a room, building, etc., from a non-mechanical source, such as an opened window, vents above doors and windows."
+   }, 
+   {
+      "term": "no facilities or bush or field", 
+      "description": "Defecation in the bush or field or ditch; excreta deposited on the ground and covered with a layer of earth (cat method); excreta wrapped and thrown into garbage; and defecation into surface water (e.g., drainage channel, beach, river, stream or sea). "
+   }, 
+   {
+      "term": "General properties", 
+      "description": "occupancy"
+   }, 
+   {
+      "term": "occupied with no legal status", 
+      "description": "The occupant informally lives on property without the explicit permission of the owner. "
+   }, 
+   {
+      "term": "open sewer system", 
+      "description": "An open drain used for carrying off drainage water and waste matter (sewage)."
+   }, 
+   {
+      "term": "outside-air intake/ fresh-air intake", 
+      "description": "an opening or inlet to the outside of a building, through which fresh air is introducted to a room. Opening usually located above the doors and windows to ensure ventilation in the house, especially in hot climate."
+   }, 
+   {
+      "term": "owner-occupier", 
+      "description": "The occupant owns or partially owns the house and land. This includes a mortgage or a loan as well as formal and informal ownership agreements. "
+   }, 
+   {
+      "term": "pad footing/ pad foundation", 
+      "description": "An isolated foundation that is square or rectangle on plan and used to distribute point loads, such as columns, to the ground. The columns that rest on the pad are secured and positioned using holding-down bolts (anchor bolts), which are cast into the concrete."
+   }, 
+   {
+      "term": "peg", 
+      "description": "A short cylindrical piece of wood, metal, or plastic, typically tapered at one end, that is used for holding things together, hanging things on, or marking a position. It can be driven into the ground to hold one of the ropes or corners of a tent in place."
+   }, 
+   {
+      "term": "perforated brick", 
+      "description": "A brick that incorporates a number of vertical holes. It is lighter than solid brick and has better thermal insulation properties."
+   }, 
+   {
+      "term": "permanent shelter", 
+      "description": "Long-term housing, including all necessary services, such as water and sanitation, etc."
+   }, 
+   {
+      "term": "pile", 
+      "description": "Any slim item thrust, cast or buried in the ground to stabilise or provide foundation for a building."
+   }, 
+   {
+      "term": "piling", 
+      "description": "Set of piles."
+   }, 
+   {
+      "term": "pillar", 
+      "description": "A tall vertical structure of stone, wood or metal, used as a support for a building."
+   }, 
+   {
+      "term": "piped sewer system", 
+      "description": "System of sewer pipes, also called sewerage, that is designed to collect human excreta (faeces and urine) and wastewater and remove them from the household environment. Sewerage systems consist of facilities for collection, pumping, treating and disposing of human excreta and wastewater. "
+   }, 
+   {
+      "term": "piped sewer system", 
+      "description": "An underground conduit/pipe and network for carrying off drainage water and waste matter."
+   }, 
+   {
+      "term": "piped water", 
+      "description": "A water service pipe connected with in-house plumbing to one or more taps. The tap can also be placed in the yard or plot outside the house."
+   }, 
+   {
+      "term": "pit latrine with slab", 
+      "description": "A dry pit latrine whereby the pit is fully covered by a slab or platform that is fitted either with a squatting hole or seat. The platform should be solid and can be made of any type of material (e.g., concrete, logs with earth or mud, cement, etc.) as long as it adequately covers the pit without exposing the pit content other than through the squatting hole or seat."
+   }, 
+   {
+      "term": "pit latrine without slab", 
+      "description": "A hole in the ground for excreta collection and does not have a squatting slab, platform or seat. An open pit is a rudimentary hole."
+   }, 
+   {
+      "term": "planned camp", 
+      "description": "Government or aid organizations planned living areas, including infrastructure, to house displaced populations."
+   }, 
+   {
+      "term": "platform", 
+      "description": "A floor or surface raised above the ground level."
+   }, 
+   {
+      "term": "pole-frame construction", 
+      "description": "A construction system using vertical poles (long, usually round piece of wood, often a small diameter log with bark removed) or timbers (square-sawn lumber)."
+   }, 
+   {
+      "term": "post", 
+      "description": "A vertical member used to support a beam or other structural member in a building. In lumber/ timber, 4x4s are often referred to as posts."
+   }, 
+   {
+      "term": "post anchor/ post base / baseplate", 
+      "description": "A steel plate located at the bottom of a column (steel, wood, bamboo) with holes pre-drilled for holding-down bolts (anchor bolts), used to distribute vertical loads from structural columns to the foundations."
+   }, 
+   {
+      "term": "post and beam framing", 
+      "description": "A structural framing system in which beams rest on posts rather than bearing walls."
+   }, 
+   {
+      "term": "pour flush toilet", 
+      "description": "A pour flush toilet uses a water seal, but unlike a flush toilet, it uses water poured by hand for flushing (no cistern is used)."
+   }, 
+   {
+      "term": "protected dug well", 
+      "description": "A dug well that is protected from runoff water by a well lining or casing that is raised above ground level and a platform that diverts spilled water away from the well. A protected dug well is also covered, so that bird droppings and animals cannot fall into the well."
+   }, 
+   {
+      "term": "protected spring", 
+      "description": "The spring (natural source of groundwater) is typically protected from run-off, bird droppings and animals by a \"spring box\", which is constructed of brick, masonry, or concrete and is built around the spring so that water flows directly out of the box into a pipe or cistern, without being exposed to outside pollution."
+   }, 
+   {
+      "term": "purlin", 
+      "description": "A horizontal roof member that runs parallel to the ridge and spans between the roof trusses. Used to support the roof covering."
+   }, 
+   {
+      "term": "rafter", 
+      "description": "A horizontal or sloped structural framing member that supports roof loads."
+   }, 
+   {
+      "term": "rafter brace", 
+      "description": "Placed below the rafters, starting from the top of the rafter at one gable end to the bottom of the middle rafter, with another installed from the bottom of the middle rafter to just below the top of the rafter at the opposite gable end."
+   }, 
+   {
+      "term": "rainwater collection", 
+      "description": "Rain that is collected or harvested from surfaces (by roof or ground catchment) and stored in a container, tank or cistern until used."
+   }, 
+   {
+      "term": "rake beam", 
+      "description": "A reinforced concrete beam cast on the gable ends, on top of the bricks or concrete blocks, where the masonry is carried full height to the roof line."
+   }, 
+   {
+      "term": "reinforced concrete", 
+      "description": "Concrete containing adequate reinforcing bars, and designed on the assumption that the two materials (steel and concrete) act together in resisting forces."
+   }, 
+   {
+      "term": "reinforcing bar", 
+      "description": "A steel bar, usually with manufactured deformations, used in concrete and masonry construction to provide additional strength."
+   }, 
+   {
+      "term": "roof covering", 
+      "description": "The external surface of the roof, normally the part that protects the structure from the rain and other external elements."
+   }, 
+   {
+      "term": "roof decking", 
+      "description": "The covering of a roof using boarding or timber planks to provide a solid surface on which the flexible sheeting roof covering can be placed. The decking can act as a bracing of the roof if using adequate material, such as sheathing. The roof decking can be made of timber planks, plywood, sheathing, steel, etc."
+   }, 
+   {
+      "term": "roof vent", 
+      "description": "An opening used to ventilate an attic or roof cavity."
+   }, 
+   {
+      "term": "roofing nail", 
+      "description": "A special-purpose, short threated nail with a large head, usually galvanized or aluminium with a neoprene or plastic washer to aid in fastening roof coverings."
+   }, 
+   {
+      "term": "roofing screw", 
+      "description": "Long threaded screw used for attaching corrugated and profiled roofing sheets."
+   }, 
+   {
+      "term": "row unit", 
+      "description": "Shelters in a row, three or more shelters are built side-by-side and share adjoining walls. Each shelter has private entrances."
+   }, 
+   {
+      "term": "rubble", 
+      "description": "Rough stones of irregular shape and size, broken from larger masses by geological processes or by quarrying."
+   }, 
+   {
+      "term": "rubble masonry / rubble ashlar", 
+      "description": "A type of stone with an irregular shape, utilized in walls and foundations of buildings"
+   }, 
+   {
+      "term": "rubble stone/ rubble masonry", 
+      "description": "A type of stone with an irregular shape utilized in walls and foundations of buildings."
+   }, 
+   {
+      "term": "salvage material", 
+      "description": "Construction material salvaged from the demolition of a building and recycled."
+   }, 
+   {
+      "term": "sanitation", 
+      "description": "Conditions relating to public health, especially the provision of clean drinking water and adequate sewage disposal."
+   }, 
+   {
+      "term": "self-settlement in-situ", 
+      "description": "Displaced populations create a settlement on their own land."
+   }, 
+   {
+      "term": "self-settlement with relocation", 
+      "description": "Displaced populations relocate and create a settlement."
+   }, 
+   {
+      "term": "semi-detached", 
+      "description": "Two shelters joined by a shared wall."
+   }, 
+   {
+      "term": "septic system", 
+      "description": "A tank, typically underground, in which sewage is collected and allowed to decompose through bacterial activity before draining by means of a leaching field. Found in buildings that do not have a connection to the main sewer system."
+   }, 
+   {
+      "term": "septic tank", 
+      "description": "An excreta collection device consisting of a water-tight settling tank, which is normally located underground, away from the house or toilet. The treated effluent of a septic tank usually seeps into the ground through a leaching pit. It can also be discharged into a sewerage system."
+   }, 
+   {
+      "term": "sewage", 
+      "description": "The waste liquids and solids that are carried away for treatment by drains and sewers."
+   }, 
+   {
+      "term": "sewerage", 
+      "description": "The entire works/infrastructure required to collect, treat, and dispose of sewage, including the sewer system, pumping stations, and treatment plant."
+   }, 
+   {
+      "term": "shade net", 
+      "description": "Large plastic net used for creating shade over all types of shelter in hot sunny climate. This will reduce the temperature under the shelter."
+   }, 
+   {
+      "term": "sheathing/ load bearing shell", 
+      "description": "A layer of boards applied to the studs of a timber-frame wall or to the rafters of a pitched roof to strengthen the construction. Sheets (wooden or metal) providing stability to the structure."
+   }, 
+   {
+      "term": "shelter", 
+      "description": "Shelter is more than a roof. It is a secure habitable covered living space providing privacy and dignity for those within it."
+   }, 
+   {
+      "term": "shingle", 
+      "description": "A roof covering unit made of asphalt, wood, slate, cement, or other material cut into stock sizes and applied on sloping roofs in an overlapping pattern."
+   }, 
+   {
+      "term": "shrub", 
+      "description": "A woody plant that is smaller than a tree and has several main stems arising at or near the ground."
+   }, 
+   {
+      "term": "shutter", 
+      "description": "A protective panel which is pulled over a window or door to provide security, reduce heat loss at night, or provide privacy."
+   }, 
+   {
+      "term": "single pit", 
+      "description": "A large and deep hole in the ground used to collect waste matter (sewage). At least the top 1m of the pit should be lined to prevent collapse, and where the soil is suspected to be unstable the entire pit should be lined."
+   }, 
+   {
+      "term": "single-pitch roof/ shed roof", 
+      "description": "A roof with just one pitch (slope) to it. Also called mono-pitch or shed roof."
+   }, 
+   {
+      "term": "slab", 
+      "description": "A flat, horizontal molded layer of plain or reinforced concrete, positionned on the ground or supported by beams, columns, walls, or other framework."
+   }, 
+   {
+      "term": "slum household", 
+      "description": "A group of individuals living under the same roof in an urban area, and lacking one or more of the following: (1) Durable housing of a permanent nature that protects against extreme climate conditions. (2) Sufficient living space which means not more than three people sharing the same room. (3) Easy access to safe water in sufficient amounts at an affordable price. (4) Access to adequate sanitation in the form of a private or public toilet shared by a reasonable number of people. (5) Security of tenure that prevents forced evictions."
+   }, 
+   {
+      "term": "solid block", 
+      "description": "A concrete block with no perforations or holes that have been deliberately cut into it."
+   }, 
+   {
+      "term": "solid brick", 
+      "description": "A brick (usually made of clay and calcium silicate) with no perforations or holes that have been deliberately cut into it."
+   }, 
+   {
+      "term": "spiral ground anchor", 
+      "description": "A giant corkscrew driven into the ground to hold a rope, a guy, or even a post through a base plate, or a structure (timber frame, bamboo frame, etc.)."
+   }, 
+   {
+      "term": "squared rubble", 
+      "description": "A rubble wall (wall made of randomly cut stone) made from stones that have been squared but are different sizes. The courses are lined up every 3 or 4 rows to give the wall a uniform appearance."
+   }, 
+   {
+      "term": "stilt", 
+      "description": "A post used to raise a structure above ground or water level."
+   }, 
+   {
+      "term": "stove", 
+      "description": "An appliance fixed or portable for cooking or heating that operates by burning fuel or using electricity."
+   }, 
+   {
+      "term": "strap", 
+      "description": "A metal plate fastened across the intersection of two or more timber elements."
+   }, 
+   {
+      "term": "strip footing", 
+      "description": "Foundation supporting a wall, with a course of concrete wider than the base of the wall."
+   }, 
+   {
+      "term": "stud", 
+      "description": "Vertical structural element of wall assemblies which transfers vertical and/or lateral loads."
+   }, 
+   {
+      "term": "sun-dried brick", 
+      "description": "Brick made of earth and dried in the sun (as opposed to dried in a kiln/oven)."
+   }, 
+   {
+      "term": "superstructure", 
+      "description": "Load-bearing part of a building located above its foundations"
+   }, 
+   {
+      "term": "surface water", 
+      "description": "Water located above ground and includes rivers, dams, lakes, ponds, streams, canals, and irrigation channels."
+   }, 
+   {
+      "term": "suspended floor", 
+      "description": "A floor that is raised and supported above the ground. Can be made of reinforced concrete (suspended slab); timber (suspended timber ground floor); concrete joists &amp; infill blocks (beam and block / beam fill floor); bamboo (other suspended floor); etc."
+   }, 
+   {
+      "term": "suspended slab", 
+      "description": "Reinforced concrete slab that is raised above the ground, and supported by beams and walls."
+   }, 
+   {
+      "term": "suspended timber ground floor", 
+      "description": "A floor constructed from timber joists at ground level, where the joists span across external and intermediate walls (can be honeycomb walls), raising the floor above the ground. The gap below the floor (crawl space) should be ventilated to prevent moisture forming on the timber and causing mould growth."
+   }, 
+   {
+      "term": "tanker truck", 
+      "description": "The water is trucked into a community and sold/distributed from the water truck."
+   }, 
+   {
+      "term": "tap/ standpipe", 
+      "description": "A public water point from which people can collect water. A standpipe is also known as a public fountain or public tap. Public standpipes can have one or more taps and are typically made of brickwork, masonry or concrete."
+   }, 
+   {
+      "term": "tensioner", 
+      "description": "An instrument for adding tension to a rope, cable, etc."
+   }, 
+   {
+      "term": "tie", 
+      "description": "A piece, placed between ridge beam and king post, serves to brace the roof."
+   }, 
+   {
+      "term": "tie beam", 
+      "description": "A horizontal structural member used at the foot of two opposite rafters or between two walls to prevent them spreading under load."
+   }, 
+   {
+      "term": "tie beam", 
+      "description": "A horizontal structural member used at the foot of two opposite rafters or between two walls to prevent them spreading under load."
+   }, 
+   {
+      "term": "tie plate/ anchor plate", 
+      "description": "A plate used to hold down/secure a tie-bar or a tie rod."
+   }, 
+   {
+      "term": "tie/ tie-bar/ tie rod", 
+      "description": "A beam, rod, rope or strap that fastens a material or components together. Designed to operate in tension."
+   }, 
+   {
+      "term": "timber pile", 
+      "description": "A large, de-barked, pressure-treated straight log that is driven into the ground as foundation support."
+   }, 
+   {
+      "term": "transitional shelter", 
+      "description": "Rapid, post-disaster household shelter made from materials that can be upgraded or re-used in a more permanent structure, or that can be relocated from temporary sites to permanent locations. It is designed to facilitate the transition by affected populations to more durable shelters. Transitional shelter can be: (1) upgraded into part of a permanent house, (2) re-used for another purpose, (3) relocated from a temporary site to a permanent location, (4) re-sold, to generate income to aid with recovery, (5) recycled for reconstruction."
+   }, 
+   {
+      "term": "trickle vent", 
+      "description": "Small opening placed on top of a window or at the bottom of a door to control moisture in the room. Especially used in cold and moderate climate."
+   }, 
+   {
+      "term": "truss", 
+      "description": "A structural framework of beams, posts and struts that is designed to support a structure, such as a roof."
+   }, 
+   {
+      "term": "tubewell/ borehole", 
+      "description": "A deep hole that has been driven, bored or drilled, with the purpose of reaching groundwater supplies. Boreholes/tubewells are constructed with casing, or pipes, which prevent the small diameter hole from caving in and protects the water source from infiltration by run-off water. Water is delivered from a tubewell or borehole through a pump, which may be powered by human, animal, wind, electric, diesel or solar means. Boreholes/tubewells are usually protected by a platform around the well, which leads spilled water away from the borehole and prevents infiltration of run-off water at the well head."
+   }, 
+   {
+      "term": "unprotected dug well", 
+      "description": "A dug well for which one of the following conditions is true: 1) the well is not protected from run-off water; or 2) the well is not protected from bird droppings and animals. If at least one of these conditions is true, the well is unprotected."
+   }, 
+   {
+      "term": "unprotected spring", 
+      "description": "A spring (natural source of groundwater) that is subject to run-off, bird droppings, or the entry of animals. Unprotected springs typically do not have a \"spring box\"."
+   }, 
+   {
+      "term": "V brace/ inverted V-brace", 
+      "description": "Brace shaped as a V or inverted V."
+   }, 
+   {
+      "term": "vent", 
+      "description": "Any opening serving as an outlet or inlet for air."
+   }, 
+   {
+      "term": "vent pipe in roof", 
+      "description": "A pipe to discharge gases to the outside."
+   }, 
+   {
+      "term": "ventilated improved pit latrine (VIP)", 
+      "description": "A dry pit latrine ventilated by a pipe that extends above the latrine roof. The open end of the vent pipe is covered with gauze mesh or fly-proof netting and the inside of the superstructure is kept dark."
+   }, 
+   {
+      "term": "ventilation", 
+      "description": "A natural or mechanical process by which air is introduced to or removed from a space. Controls the renewal and circulation of air in the premises."
+   }, 
+   {
+      "term": "vertical wall reinforcement", 
+      "description": "A vertical reinforced concrete beam cast in each corner, including interior corners and corners created by changes in wall direction or offsetting of walls."
+   }, 
+   {
+      "term": "wall base", 
+      "description": "The lowest visible part of the wall of a masonry building."
+   }, 
+   {
+      "term": "wall plate (bottom)/ sill plate", 
+      "description": "A horizontal framing element installed on a structure's foundation. The bottom framing member of a wall frame."
+   }, 
+   {
+      "term": "wall plate (top) ", 
+      "description": "A horizontal wood element attached to the top of a frame wall and supporting trusses, I-joists, rafters, ceiling joists, or other members. "
+   }, 
+   {
+      "term": "water supply", 
+      "description": "The distribution of drinking water to consumers by a water utility."
+   }, 
+   {
+      "term": "wattle", 
+      "description": "Material for making fences or walls, consisting of rods or stakes interlaced with twigs or branches."
+   }, 
+   {
+      "term": "wattle &amp; daub", 
+      "description": "A type of wall construction comprising interwoven twigs, sticks, and branches (wattle) that are covered with clay, cow dung, or mud (daub). Traditionally used as an infill in post-and-beam timber-frame buildings."
+   }, 
+   {
+      "term": "welded-wire mesh/ welded wire fabric ", 
+      "description": "A square grid of uniformly placed wires, welded at all intersections. Used in concrete slabs or reinforced concrete walls."
+   }, 
+   {
+      "term": "wood shingle", 
+      "description": "A roof covering unit made of wood cut into stock sizes and applied on sloping roofs in an overlapping pattern."
+   }
+]
