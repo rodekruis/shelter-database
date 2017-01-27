@@ -550,6 +550,9 @@
 	var glossarize = function glossarize(){
 		$('#section-specifications').glossarizer({
 		  sourceURL: '/static/data/glossary.json',
+		  lookupTagName : 'th, td, a',
+		  exactMatch: true,
+		  caseSensitive: false,
 		  callback: function(){
 			new tooltip();
 		  }

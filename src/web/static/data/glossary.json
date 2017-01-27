@@ -20,9 +20,17 @@
       "description": "Heavy block cast buried in the ground, used to hold something, such as a the rope of a tent/ tarpaulin, a guy, etc."
    }, 
    {
-      "term": "anchor bolt/ holding-down bolt/ foundation bolt", 
+      "term": "anchor bolt", 
       "description": "Anchor bolt: A threaded bolt (J-shape), usually embedded in a foundation, for securing a sill plate (bottom wall plate), or embedded in a bond beam for securing a top wall plate or a truss. Holding-down bolt: long steel bolt that is set in concrete foundations to hold fast the base plate of columns (steel columns)."
    }, 
+      {
+      "term": "holding-down bolt", 
+      "description": "Anchor bolt: A threaded bolt (J-shape), usually embedded in a foundation, for securing a sill plate (bottom wall plate), or embedded in a bond beam for securing a top wall plate or a truss. Holding-down bolt: long steel bolt that is set in concrete foundations to hold fast the base plate of columns (steel columns)."
+   },
+      {
+      "term": "foundation bolt", 
+      "description": "Anchor bolt: A threaded bolt (J-shape), usually embedded in a foundation, for securing a sill plate (bottom wall plate), or embedded in a bond beam for securing a top wall plate or a truss. Holding-down bolt: long steel bolt that is set in concrete foundations to hold fast the base plate of columns (steel columns)."
+   },
    {
       "term": "angle brace/ angle tie", 
       "description": "A brace fixed across an interior angle of a frame to improve the frame's rigidity."

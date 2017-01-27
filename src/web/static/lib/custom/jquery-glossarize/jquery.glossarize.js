@@ -114,12 +114,19 @@
        */
 
       for (var i = 0; i < this.glossary.length; i++) {
+		var glossary_term = this.glossary[i].term;
+		var clean_term = this.clean(term);
+		if(this.options.caseSensitive == false){
+			glossary_term = this.glossary[i].term.toLowerCase();
+			clean_term = clean_term.toLowerCase();
+		}
+		
         if (this.options.exactMatch) {
-          if (this.glossary[i].term == this.clean(term)) {
+          if (glossary_term == clean_term) {
             return this.glossary[i].description.replace(/\"/gi, '&quot;')
           }
         } else {
-          if (this.glossary[i].term.match(regex)) {
+          if (glossary_term.match(regex)) {
             return this.glossary[i].description.replace(/\"/gi, '&quot;')
           }
         }
