@@ -24,7 +24,7 @@ build
 
 # bower
 
-src/web/static/lib/bower
+src/web/static/lib/bower/
 
 # node files
 node_modules
