@@ -215,6 +215,52 @@
       "css": "doc",
       "code": 59411,
       "src": "fontawesome"
+    },
+    {
+      "uid": "531bc468eecbb8867d822f1c11f1e039",
+      "css": "calendar",
+      "code": 59412,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "aa991e8e66ac54b33f0a4b0555597b08",
+      "css": "barcode",
+      "code": 59413,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "5840fe162df3bcc8e390c58ef4e2acf9",
+      "css": "sun-filled",
+      "code": 59414,
+      "src": "typicons"
+    },
+    {
+      "uid": "68a1b5d463ecbf27fc847a1947e02753",
+      "css": "landscape-with-mountains",
+      "code": 59415,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M590.9 227.3L418.2 454.5 550 627.3 477.3 681.8C400 581.8 272.7 409.1 272.7 409.1L0 772.7H1000L590.9 227.3Z",
+        "width": 1000
+      },
+      "search": [
+        "landscape-with-mountains"
+      ]
+    },
+    {
+      "uid": "96d5f42b7996927e0637c8b4328c3fe4",
+      "css": "landscape-with-mountains",
+      "code": 59392,
+      "src": "custom_icons",
+      "selected": false,
+      "svg": {
+        "path": "M590.9 227.3L418.2 454.5 550 627.3 477.3 681.8C400 581.8 272.7 409.1 272.7 409.1L0 772.7H1000L590.9 227.3Z",
+        "width": 1000
+      },
+      "search": [
+        "landscape-with-mountains"
+      ]
     }
   ]
 }
