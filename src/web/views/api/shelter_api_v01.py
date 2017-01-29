@@ -68,7 +68,11 @@ blueprint_attribute_picture = manager.create_api_blueprint(models.AttributePictu
 
 # 'Value' Web service
 blueprint_value = manager.create_api_blueprint(models.Value,
-                    methods=['GET', 'POST', 'PUT', 'DELETE'])
+                    methods=['GET', 'POST', 'PUT', 'DELETE'],
+                    preprocessors=dict(
+                            PUT_SINGLE=[processors.value_edit_preprocessor],
+                            PUT_MANY=[processors.value_edit_preprocessor]
+                    ))
 
 
 # 'Property' Web service
