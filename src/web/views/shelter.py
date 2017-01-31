@@ -33,7 +33,7 @@ from web.lib.utils import redirect_url, allowed_file
 from web.lib.misc_utils import create_pdf
 from web.forms import LoginForm
 from web.models import Shelter, Property, \
-                        ShelterPicture, ShelterDocument, Section
+                        ShelterPicture, ShelterDocument, Section, Association, Value
 
 shelter_bp = Blueprint('shelter_bp', __name__, url_prefix='/shelter')
 shelters_bp = Blueprint('shelters', __name__, url_prefix='/shelters')
@@ -138,8 +138,13 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
     imgwidth = 1280
 	
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+    shelter_id_query = db.session.query(Value.name)\
+        .join(Association,Property,Shelter)\
+        .filter(Shelter.id==shelter_id, Property.attribute_id==1)\
+        .first()
     
-    db.session.query()
+    shelter_id_attribute = shelter_id_query[0]
+    
     if not shelter:
         flash("No such shelter", "warning")
         return redirect(redirect_url())
@@ -157,7 +162,7 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
                 os.makedirs(path)
 
             file_extension = os.path.splitext(request.files[f].filename)[1]
-            filename = str(shelter_id) + '_' + section + "_" + str(time.time()) + file_extension
+            filename = str(shelter_id_attribute) + '_' + section + "_" + str(time.time()) + file_extension
             
             im = Image.open(request.files[f])
             if im.size[0] > imgwidth:
@@ -172,7 +177,7 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
             print("Category id '{}' ...".format(category_id))
             
             # save backup image:
-            backup_dir = 'data/pictures_backup/' + str(shelter_id)
+            backup_dir = 'data/pictures_backup/' + str(shelter_id_attribute)
             
             if not os.path.exists(backup_dir):
                 os.makedirs(backup_dir)
