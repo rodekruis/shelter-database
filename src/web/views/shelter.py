@@ -138,6 +138,8 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
     imgwidth = 1280
 	
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+    
+    db.session.query()
     if not shelter:
         flash("No such shelter", "warning")
         return redirect(redirect_url())
@@ -174,8 +176,8 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
             
             if not os.path.exists(backup_dir):
                 os.makedirs(backup_dir)
-            #shutil.copy(,os.path.join(backup_dir , filename))
-            imagefile.save(os.path.join(backup_dir , filename), "JPEG",quality=95)
+                
+            im.save(os.path.join(backup_dir , filename), "JPEG",quality=95)
             
         if category_id:
             new_media = ShelterPicture(file_name=filename,  is_main_picture=False,
