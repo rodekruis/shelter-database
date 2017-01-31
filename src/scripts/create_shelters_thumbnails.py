@@ -5,8 +5,7 @@ import os
 
 import conf
 from web.models import Shelter, ShelterPicture
-from bootstrap import db
-from PIL import image
+from bootstrap import db, thumb
 
 def create_shelters_thumbnails():
     shelters = Shelter.query.all()
@@ -23,7 +22,7 @@ def create_shelters_thumbnails():
             if os.path.exists(new_thumbpath):
                 if db.session.query(ShelterPicture).filter_by(file_name=thumbname).first():
                     continue
-            thumbpath = thumb.thumbnail(filepath, '300x200', quality=85)
+            thumbpath = thumb.thumbnail(filepath, '300x200', quality=70)
             os.rename(thumbpath, new_thumbpath)
             
             new_picture = ShelterPicture(file_name=thumbname,
