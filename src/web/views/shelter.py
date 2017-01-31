@@ -162,11 +162,20 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
                 ratio = (imgwidth/float(im.size[0]))
                 hsize = int((float(im.size[1])*float(ratio)))
                 print((imgwidth, hsize))
-                resized_im = im.resize((imgwidth,hsize), Image.BILINEAR)
-                resized_im.save(os.path.join(path , filename), "JPEG",quality=95)
+                imagefile = im.resize((imgwidth,hsize), Image.BILINEAR)
             else:
-                im.save(os.path.join(path , filename), "JPEG", quality=95)
+                imagefile = im
+            
+            imagefile.save(os.path.join(path , filename), "JPEG",quality=95)
             print("Category id '{}' ...".format(category_id))
+            
+            # save backup image:
+            backup_dir = 'data/pictures_backup/' + str(shelter_id)
+            
+            if not os.path.exists(backup_dir):
+                os.makedirs(backup_dir)
+            #shutil.copy(,os.path.join(backup_dir , filename))
+            imagefile.save(os.path.join(backup_dir , filename), "JPEG",quality=95)
             
         if category_id:
             new_media = ShelterPicture(file_name=filename,  is_main_picture=False,
