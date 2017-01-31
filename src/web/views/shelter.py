@@ -135,7 +135,7 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
     request.
     """
     first = False;
-    imgwidth = 800
+    imgwidth = 1280
 	
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
     if not shelter:
@@ -163,9 +163,9 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
                 hsize = int((float(im.size[1])*float(ratio)))
                 print((imgwidth, hsize))
                 resized_im = im.resize((imgwidth,hsize), Image.BILINEAR)
-                resized_im.save(os.path.join(path , filename), "JPEG",quality=90)
+                resized_im.save(os.path.join(path , filename), "JPEG",quality=95)
             else:
-                im.save(os.path.join(path , filename), "JPEG", quality=90)
+                im.save(os.path.join(path , filename), "JPEG", quality=95)
             print("Category id '{}' ...".format(category_id))
             
         if category_id:
