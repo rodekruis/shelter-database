@@ -71,6 +71,15 @@ def details(shelter_id=0, section_name="", to_pdf=None):
 @shelter_bp.route('/edit/<int:shelter_id>/<section_name>', methods=['GET'])
 @login_required
 def edit(shelter_id=0, section_name=""):
+    
+    query = Shelter.query.filter(Shelter.id==shelter_id)
+    if current_user.is_admin:
+        pass
+    elif current_user.id == query[0].user_id:
+        pass
+    else:
+        return redirect(url_for('join')) #render_template('errors/403.html'), 403
+        
     sections = Section.query.filter()
     try:
         shelter, section, categories, pictures, documents = \
@@ -173,7 +182,7 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
             else:
                 imagefile = im
             
-            imagefile.save(os.path.join(path , filename), "JPEG",quality=95)
+            imagefile.save(os.path.join(path , filename), "JPEG",quality=70, optimize=True, progressive=True)
             print("Category id '{}' ...".format(category_id))
             
             # save backup image:
@@ -182,7 +191,7 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
             if not os.path.exists(backup_dir):
                 os.makedirs(backup_dir)
                 
-            im.save(os.path.join(backup_dir , filename), "JPEG",quality=95)
+            im.save(os.path.join(backup_dir , filename), "JPEG",quality=70, optimize=True, progressive=True)
             
         if category_id:
             new_media = ShelterPicture(file_name=filename,  is_main_picture=False,
