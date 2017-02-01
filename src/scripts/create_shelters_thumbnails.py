@@ -22,7 +22,7 @@ def create_shelters_thumbnails():
             if os.path.exists(new_thumbpath):
                 if db.session.query(ShelterPicture).filter_by(file_name=thumbname).first():
                     continue
-            thumbpath = thumb.thumbnail(filepath, '300x200', quality=75)
+            thumbpath = thumb.thumbnail(filepath, '300x200', quality=70)
             os.rename(thumbpath, new_thumbpath)
             
             new_picture = ShelterPicture(file_name=thumbname,

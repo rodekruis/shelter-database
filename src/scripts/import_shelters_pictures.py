@@ -19,8 +19,12 @@ import shutil
 import conf
 from web.models import Shelter, Category, ShelterPicture
 from bootstrap import db
+from PIL import Image
 
 def import_shelters_pictures(folder):
+    
+    imgwidth = 1280
+    
     shelters = Shelter.query.all()
 
     for shelter in shelters:
@@ -62,6 +66,16 @@ def import_shelters_pictures(folder):
                 if not os.path.exists(path):
                     os.makedirs(path)
 
-                shutil.copy(picture, path)
+                #shutil.copy(picture, path)
+                im = Image.open(picture)
+                if im.size[0] > imgwidth:
+                    ratio = (imgwidth/float(im.size[0]))
+                    hsize = int((float(im.size[1])*float(ratio)))
+                    print((imgwidth, hsize))
+                    resized_im = im.resize((imgwidth,hsize), Image.BILINEAR)
+                    resized_im.save(os.path.join(path , picture_name), "JPEG", quality=70, optimize=True, progressive=True)
+                else:
+                    im.save(os.path.join(path, picture_name), "JPEG", quality=70, optimize=True, progressive=True)
                 print("Copy from '{}' ...".format(picture))
                 print("Copy to '{}' ...".format(path))
+

@@ -19,6 +19,10 @@
 .icon-print:before { content: '\e811'; } /* '' */
 .icon-edit:before { content: '\e812'; } /* '' */
 .icon-doc:before { content: '\e813'; } /* '' */
+.icon-calendar:before { content: '\e814'; } /* '' */
+.icon-barcode:before { content: '\e815'; } /* '' */
+.icon-sun-filled:before { content: '\e816'; } /* '' */
+.icon-landscape-with-mountains:before { content: '\e817'; } /* '' */
 .icon-warehouse:before { content: '\e840'; } /* '' */
 .icon-list-bullet:before { content: '\f0ca'; } /* '' */
 .icon-doc-text:before { content: '\f0f6'; } /* '' */
