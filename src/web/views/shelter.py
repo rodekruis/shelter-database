@@ -78,7 +78,7 @@ def edit(shelter_id=0, section_name=""):
     elif current_user.id == query[0].user_id:
         pass
     else:
-        return render_template('errors/403.html'), 403
+        return redirect(url_for('join')) #render_template('errors/403.html'), 403
         
     sections = Section.query.filter()
     try:
