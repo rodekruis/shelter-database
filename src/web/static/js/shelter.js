@@ -283,15 +283,11 @@
 		var d = $.merge(section.Cover, section.Pictures);
 		
 		if(d.length > 0){
-			
-			// remove the thumbnail if there is one
-			for (var i=d.length-1; i>=0; i--) {
-				if (d[i].indexOf("_thumbnail") > -1) {
-					d.splice(i, 1);
-					break;
-				}
-			}
-			
+			// remove the thumbnails
+			d = d.filter(function(s){
+				return s.indexOf("_thumbnail");
+			});
+
 			//if there are no pictures, return
 			if(d.length === 0){
 				return;
