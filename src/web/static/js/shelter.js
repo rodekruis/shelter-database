@@ -284,9 +284,7 @@
 		
 		if(d.length > 0){
 			// remove the thumbnails
-			d = d.filter(function(s){
-				return s.indexOf("_thumbnail");
-			});
+			d = filterArray(d, "_thumbnail");
 
 			//if there are no pictures, return
 			if(d.length === 0){
@@ -297,6 +295,19 @@
 			createPicturesModal(d, category);
 		}
 	}
+	
+	var filterArray = function filterArray ( arr, filterBy ) {
+		var i = arr.length;
+		//-- Loop through the array in reverse order since we are modifying the array.
+		while (i--) {
+			if (arr[i].indexOf(filterBy) > -1) {
+				//-- splice will remove the non-matching element
+				arr.splice(i, 1);
+			}
+		}
+		
+		return arr;
+}
 	
 	var createPicturesModal = function createPicturesModal(pictures, name){
 		var modal = d3.select("#wrapper")
