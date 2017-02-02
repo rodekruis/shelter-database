@@ -68,12 +68,17 @@ def import_shelters_pictures(folder):
 
                 #shutil.copy(picture, path)
                 im = Image.open(picture)
+                im.LOAD_TRUNCATED_IMAGES = True
                 if im.size[0] > imgwidth:
                     ratio = (imgwidth/float(im.size[0]))
                     hsize = int((float(im.size[1])*float(ratio)))
                     print((imgwidth, hsize))
+					
+                try:
                     resized_im = im.resize((imgwidth,hsize), Image.BILINEAR)
                     resized_im.save(os.path.join(path , picture_name), "JPEG", quality=70, optimize=True, progressive=True)
+                except IOError:
+                    pass
                 else:
                     im.save(os.path.join(path, picture_name), "JPEG", quality=70, optimize=True, progressive=True)
                 print("Copy from '{}' ...".format(picture))

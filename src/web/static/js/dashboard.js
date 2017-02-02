@@ -314,20 +314,6 @@
 				}
 			}
 			
-			// set map to marker bounds
-			var g = mapChart.markerGroup();
-			var bounds = g.getBounds();
-			
-			map.fitBounds(bounds);
-		}
-
-		var onMapFiltered = function onMapFiltered(chart) {
-						
-			var g = mapChart.markerGroup();
-			var bounds = g.getBounds();
-			
-			map.fitBounds(bounds);
-			/**
 			// fit filtered markers within map bounds if any of the non-map filters where applied
 			bounds = [];
 			allDimensions.top(Infinity).forEach(function (d) {
@@ -339,7 +325,26 @@
 			if(bounds.length > 0){
 				map.fitBounds(bounds, {pan: {animate: true, duration: 1.5, easeLinearity: 0.25}});
 			}
-			**/
+		}
+
+		var onMapFiltered = function onMapFiltered(chart) {
+						
+			//var g = mapChart.markerGroup();
+			//var bounds = g.getBounds();
+			
+			//map.fitBounds(bounds);
+
+			// fit filtered markers within map bounds if any of the non-map filters where applied
+			bounds = [];
+			allDimensions.top(Infinity).forEach(function (d) {
+				bounds.push(new L.latLng(d.gpslatitude, d.gpslongitude));
+			}); 
+			
+			// For Debugging:
+			//print_filter(filters['positionFilter']['dimension']);
+			if(bounds.length > 0){
+				map.fitBounds(bounds, {pan: {animate: true, duration: 1.5, easeLinearity: 0.25}});
+			}
 		}
 
 		mapChart
