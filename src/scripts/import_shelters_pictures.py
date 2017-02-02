@@ -77,7 +77,7 @@ def import_shelters_pictures(folder):
                 try:
                     resized_im = im.resize((imgwidth,hsize), Image.BILINEAR)
                     resized_im.save(os.path.join(path , picture_name), "JPEG", quality=70, optimize=True, progressive=True)
-                except IOError:
+                except OSError:
                     pass
                 else:
                     im.save(os.path.join(path, picture_name), "JPEG", quality=70, optimize=True, progressive=True)
