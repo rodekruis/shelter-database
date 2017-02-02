@@ -37,4 +37,3 @@ def create_shelters_thumbnails():
         except:
             print("Failed to create thumbnail for shelter {}, file {}".format(picture.shelter_id, picture.file_name))
             continue
-

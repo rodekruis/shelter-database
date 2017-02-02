@@ -253,16 +253,15 @@
 									.insert("div", '#section-table-' + index)
 										.attr('class', 'shelterimg')
 										.attr('id', 'mainimage-' + category)
-										.attr('style' , "background-image: url('/" + section[source][0] + "')");	
-										
+										.attr('style' , "background-image: url('/" + section[source][0] + "')")	
+											.on({
+												  "click":  function() { 
+														modalOpen('mymodal-' + category);
+												  }, 
+												});
 				var  btn = divsection.append('button')
 								.attr('type', 'button')
-								.attr('class','btn')
-								.on({
-									  "click":  function() { 
-											modalOpen('mymodal-' + category);
-									  }, 
-									});
+								.attr('class','btn');
 								
 				btn.append('span')
 						.text('See more photos');
@@ -284,15 +283,9 @@
 		var d = $.merge(section.Cover, section.Pictures);
 		
 		if(d.length > 0){
-			
-			// remove the thumbnail if there is one
-			for (var i=d.length-1; i>=0; i--) {
-				if (d[i].indexOf("_thumbnail") > -1) {
-					d.splice(i, 1);
-					break;
-				}
-			}
-			
+			// remove the thumbnails
+			d = filterArray(d, "_thumbnail");
+
 			//if there are no pictures, return
 			if(d.length === 0){
 				return;
@@ -302,6 +295,19 @@
 			createPicturesModal(d, category);
 		}
 	}
+	
+	var filterArray = function filterArray ( arr, filterBy ) {
+		var i = arr.length;
+		//-- Loop through the array in reverse order since we are modifying the array.
+		while (i--) {
+			if (arr[i].indexOf(filterBy) > -1) {
+				//-- splice will remove the non-matching element
+				arr.splice(i, 1);
+			}
+		}
+		
+		return arr;
+}
 	
 	var createPicturesModal = function createPicturesModal(pictures, name){
 		var modal = d3.select("#wrapper")
@@ -379,17 +385,32 @@
 					.attr('id', 'location-image')
 					.attr('class', 'location-image');
 					
-		details.append('div')
+		var lmap = details.append('div')
 					.attr('id', 'location-map')
 					.attr('class', 'location-map');
+					
+		var  btn = lmap.append('button')
+								.attr('type', 'button')
+								.attr('class','btn');
+								
+		btn.append('span')
+						.text('See more photos');
 		
 		// Get coordinates for this shelter
 		var lat = data['Attributes']['GPS Latitude'];
 		var lon = data['Attributes']['GPS Longitude'];
 		
 		// Initiate leaflet map
-		var map = L.map('location-map', {tap:false, dragging:false}).setView([lat, lon], 13);
+		var map = L.map('location-map', {tap:false, dragging:false, fullscreenControl: true}).setView([lat, lon], 13);
 		
+		map.on('enterFullscreen', function(){
+		  map.dragging.enable();
+		});
+
+		map.on('exitFullscreen', function(){
+		  map.dragging.disable();
+		});
+
 		// Add OSM base layer
 		L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
 		
@@ -399,9 +420,10 @@
 		
 		// add location of shelter to map
 		var marker = L.marker([lat, lon]);
-
+		marker.addTo(map);
 		
 		// convert map to image for better printing
+		
 		leafletImage(map, function(err, canvas) {
 			// now you have canvas
 			// example thing to do with that canvas:
@@ -412,7 +434,7 @@
 
 			// add the marker popup after the image was made
 			marker.bindPopup("GPS location: " + lat + "," + lon).openPopup();
-			marker.addTo(map);
+			//marker.addTo(map);
 		});
 			
 
