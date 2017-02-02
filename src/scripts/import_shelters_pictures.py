@@ -68,6 +68,7 @@ def import_shelters_pictures(folder):
 
                 #shutil.copy(picture, path)
                 im = Image.open(picture)
+                im.LOAD_TRUNCATED_IMAGES = True
                 if im.size[0] > imgwidth:
                     ratio = (imgwidth/float(im.size[0]))
                     hsize = int((float(im.size[1])*float(ratio)))
