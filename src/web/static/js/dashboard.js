@@ -1,6 +1,26 @@
 /**
  * DASHBOARD : dashboard.js
  */
+	var map = L.map('chart-map',{tap:false, dragging:true, fullscreenControl: true});
+
+	map.on('enterFullscreen', function(){
+	  map.dragging.enable();
+	});
+
+	map.on('exitFullscreen', function(){
+	  map.dragging.disable();
+	});
+	
+	map.on('popupopen', function(e) {
+		var px = map.project(e.popup._latlng); // find the pixel location on the map where the popup anchor is
+		px.y -= e.popup._container.clientHeight/2 // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
+		map.panTo(map.unproject(px),{animate: true}); // pan to new center
+		var marker = e.popup.update();
+	});
+	
+	var baseLayer = L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 				  
 	var setTab = function (tab) {
         document.getElementById("tabs").className = "tab" + tab
@@ -135,7 +155,11 @@
                         }
                     });
                     if (shelterFlat['thumbnailUrl']) {
-                        shelterFlat['tooltipContent']= '<div>' + shelterFlat['tooltipContent'] + '<br><br><img src=\''+ shelterFlat['thumbnailUrl']+'\'/>' + ' </div>'
+                        shelterFlat['tooltipContent']= '<div>' +
+															'<a href="/shelter/' + shelterFlat.db_id +'">' +
+															'<img src=\''+ shelterFlat['thumbnailUrl']+'\'/>' + 
+																shelterFlat.id + ', ' + shelterFlat.nameofshelter + 
+														'</div>';
                     }
                 }
 
@@ -255,33 +279,71 @@
                     }
 				}
 		}
-
+		
+		$.urlParam = function(name){
+			var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+			return results[1] || 0;
+		}
+		
 		var onFiltered = function onFiltered(chart) {
 			// Serialize selected options in url
 			// Synchronize dropdowns with changes made on charts
 			// Adjust shelter list
 
-//            console.log('onFiltered called')
+			// set the url parameters to match the filters
 			getFiltersValues();
+			
+			// filter the table for the shelters selected by the filters
 			generateShelterList(allDimensions.top(Infinity));
-
+				
 			var value = ''
 			if (chart.filters().length>0) {
 				value = chart.filters()[chart.filters().length-1]
 			}
 
-
 			// Find menu filter corresponding to chart and adjust displayed selected option as selected using dc chart
-
 			for (var filter in filters) {
-				var chartx = filters[filter]['chart']
-				if (chartx && chartx.filters() == chart.filters()) {
-					$('#' + filter).val(value);
+				var chartx = filters[filter]['chart'];
+				
+				if(chartx){
+					var chartx_filters = chartx.filters();
+					var chart_filters = chart.filters();
+					if (chartx_filters == chart_filters) {
+						$('#' + filter).val(value);
+					}
 				}
 			}
+			
+			// set map to marker bounds
+			var g = mapChart.markerGroup();
+			var bounds = g.getBounds();
+			
+			map.fitBounds(bounds);
 		}
 
-		mapChart.dimension(filters['positionFilter']['dimension'])
+		var onMapFiltered = function onMapFiltered(chart) {
+						
+			var g = mapChart.markerGroup();
+			var bounds = g.getBounds();
+			
+			map.fitBounds(bounds);
+			/**
+			// fit filtered markers within map bounds if any of the non-map filters where applied
+			bounds = [];
+			allDimensions.top(Infinity).forEach(function (d) {
+				bounds.push(new L.latLng(d.gpslatitude, d.gpslongitude));
+			}); 
+			
+			// For Debugging:
+			//print_filter(filters['positionFilter']['dimension']);
+			if(bounds.length > 0){
+				map.fitBounds(bounds, {pan: {animate: true, duration: 1.5, easeLinearity: 0.25}});
+			}
+			**/
+		}
+
+		mapChart
+			.dimension(filters['positionFilter']['dimension'])
 			.group(filters['positionFilter']['count'] )
 			.center(mapCenter)
 			.zoom(1)
@@ -294,7 +356,9 @@
 			        return d.key[0] + ', ' + d.key[1]; // lat, lng
 			    }
 			})
-			.on("filtered", onFiltered)
+			.createLeaflet(function(){
+                return map;
+			})
 			.renderTitle(false);
 
 		addLayersToChart(mapChart);
@@ -323,7 +387,6 @@
 			.group(filters['climateFilter']['count'])
 			.innerRadius(20)
 			.on("filtered", onFiltered);
-		;
 
         timeChartWidth = getChartWidth('timeChart');
 
@@ -361,6 +424,7 @@
 			function (v) {
 				return d3.format('f')(v);
 			});
+			
 
 		countryChart.xAxis().ticks(10)
 
@@ -405,7 +469,7 @@
 			.on('renderlet', function (table) {
 				// each time table is rendered remove nasty extra row dc.js insists on adding
 				table.select('tr.dc-table-group').remove();
-			})
+			});
 
 
         $(window).resize(function() {
@@ -695,7 +759,8 @@
 			transparant: true,
 			opacity: 0.5,
 			maxZoom: 20,
-			subdomains:['mt0','mt1','mt2','mt3']
+			subdomains:['mt0','mt1','mt2','mt3'],
+			attribution: 'Map data &copy;2016 Google'
 		});
 		
 		var countryStyle = {
@@ -708,6 +773,7 @@
 		var countryLayer = new L.GeoJSON.AJAX("/static/data/countries_merge.geojson", {style: countryStyle});
 
 		var overlayMaps = {
+			"OpenStreetMap" : baseLayer,
 			"Climate simplified classification": redCrossLayer,
 			"Koeppen-Geiger": koeppenGeigerLayer,
 			"Google Satellite": googleSat,
@@ -717,9 +783,12 @@
 		mapChart._doRender()
 		var map = mapChart.map()
 
+		map.addLayer(redCrossLayer)
+		L.control.layers(null, overlayMaps).addTo(map);
+		
 		// add legend control
 		var Legend =  new L.Control.Legend({
-				position: 'topleft',
+				position: 'topright',
 				collapsed: true,
 				controlButton: {
 					title: "Legend"
@@ -729,10 +798,9 @@
 		map.addControl( Legend );
 
 		$(".legend-container").append( $("#legend") );
-		$(".legend-toggle").append( "<i class='legend-icon icon-info' style='color: #000'></i>" );
+		$(".legend-toggle").append( "<i class='icon legend-icon icon-info icon-size-2' style='color: #000'></i>" );
 
-		map.addLayer(redCrossLayer)
-		L.control.layers(null, overlayMaps).addTo(map);
+
 
 	};
 
@@ -780,5 +848,13 @@
 		});
 
 	}
+	
+	function print_filter(filter){
+		var f=eval(filter);
+		if (typeof(f.length) != "undefined") {}else{}
+		if (typeof(f.top) != "undefined") {f=f.top(Infinity);}else{}
+		if (typeof(f.dimension) != "undefined") {f=f.dimension(function(d) { return "";}).top(Infinity);}else{}
+		console.log(filter+"("+f.length+") = "+JSON.stringify(f).replace("[","[\n\t").replace(/}\,/g,"},\n\t").replace("]","\n]"));
+	} 
 
 

@@ -157,9 +157,9 @@ def shelter(shelter_id):
 def stats():
     return render_template('stats.html')
 
-@current_app.route('/knowledgebase', methods=['GET'])
-def knowledgebase():
-    return render_template('knowledgebase.html')
+@current_app.route('/help', methods=['GET'])
+def help():
+    return render_template('help.html')
 
 @current_app.route('/contribute', methods=['GET'])
 def contribute():

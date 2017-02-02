@@ -1365,10 +1365,10 @@ section.map {
   display: none; }
 
 #tabs.tab1 .tabcontent1 {
-  display: initial; }
+  display: inline; }
 
 #tabs.tab2 .tabcontent2 {
-  display: initial; }
+  display: inline; }
 
 .stats {
   display: inline-block; }
@@ -1581,11 +1581,14 @@ section.map {
     margin: 0px !important;
     background-color: transparent !important;
     border-width: 0px !important;
-    border-bottom: 2px solid #008489 !important;
     bottom: -1px !important;
     cursor: pointer !important;
     margin-right: 10px !important;
     padding: 12px !important;
+}
+
+.text_tab:hover {
+	border-bottom: 2px solid #008489 !important;
 }
 
 .tab_selectedLabel {
@@ -1620,4 +1623,16 @@ section.map {
 .section-data {
 	table-layout: fixed;
 	max-width: 700px;
+}
+
+.book-it-panel .row-condensed {
+	height: 50px;
+	line-height: 50px;
+	vertical-align: middle;
+}
+
+.legend-container {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+	border-radius: 4px;
+	background-size: 26px 26px;
 }

@@ -253,16 +253,15 @@
 									.insert("div", '#section-table-' + index)
 										.attr('class', 'shelterimg')
 										.attr('id', 'mainimage-' + category)
-										.attr('style' , "background-image: url('/" + section[source][0] + "')");	
-										
+										.attr('style' , "background-image: url('/" + section[source][0] + "')")	
+											.on({
+												  "click":  function() { 
+														modalOpen('mymodal-' + category);
+												  }, 
+												});
 				var  btn = divsection.append('button')
 								.attr('type', 'button')
-								.attr('class','btn')
-								.on({
-									  "click":  function() { 
-											modalOpen('mymodal-' + category);
-									  }, 
-									});
+								.attr('class','btn');
 								
 				btn.append('span')
 						.text('See more photos');
@@ -379,17 +378,32 @@
 					.attr('id', 'location-image')
 					.attr('class', 'location-image');
 					
-		details.append('div')
+		var lmap = details.append('div')
 					.attr('id', 'location-map')
 					.attr('class', 'location-map');
+					
+		var  btn = lmap.append('button')
+								.attr('type', 'button')
+								.attr('class','btn');
+								
+		btn.append('span')
+						.text('See more photos');
 		
 		// Get coordinates for this shelter
 		var lat = data['Attributes']['GPS Latitude'];
 		var lon = data['Attributes']['GPS Longitude'];
 		
 		// Initiate leaflet map
-		var map = L.map('location-map', {tap:false, dragging:false}).setView([lat, lon], 13);
+		var map = L.map('location-map', {tap:false, dragging:false, fullscreenControl: true}).setView([lat, lon], 13);
 		
+		map.on('enterFullscreen', function(){
+		  map.dragging.enable();
+		});
+
+		map.on('exitFullscreen', function(){
+		  map.dragging.disable();
+		});
+
 		// Add OSM base layer
 		L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
 		
@@ -399,9 +413,10 @@
 		
 		// add location of shelter to map
 		var marker = L.marker([lat, lon]);
-
+		marker.addTo(map);
 		
 		// convert map to image for better printing
+		
 		leafletImage(map, function(err, canvas) {
 			// now you have canvas
 			// example thing to do with that canvas:
@@ -412,7 +427,7 @@
 
 			// add the marker popup after the image was made
 			marker.bindPopup("GPS location: " + lat + "," + lon).openPopup();
-			marker.addTo(map);
+			//marker.addTo(map);
 		});
 			
 

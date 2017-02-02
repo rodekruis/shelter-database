@@ -12,7 +12,7 @@ var selectMenuItem = function selectMenuItem(id){
 if("" === loc || "/" === loc) {		
 	selectMenuItem('#home');
 } else if (loc.indexOf('page') > -1) {
-	selectMenuItem('#knowledgebase');
+	selectMenuItem('#help');
 } else {
 	var m = loc.substring(1);
 	var dash = m.indexOf('/');
