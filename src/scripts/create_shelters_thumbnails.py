@@ -10,7 +10,7 @@ from PIL import Image
 
 def create_shelters_thumbnails():
     shelters = Shelter.query.all()
-    pictures = ShelterPicture.query.filter(ShelterPicture.is_main_picture==True).all()
+    pictures = ShelterPicture.query.all()
     
     for picture in pictures:
         filepath = os.path.join(conf.SHELTERS_PICTURES_SERVER_PATH, str(picture.shelter_id), picture.file_name)
