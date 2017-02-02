@@ -30,7 +30,7 @@ def create_shelters_thumbnails():
             new_picture = ShelterPicture(file_name=thumbname,
                                     shelter_id=picture.shelter_id,
                                     category_id=picture.category_id,
-                                    is_main_picture=True)
+                                    is_main_picture=picture.is_main_picture)
             db.session.add(new_picture)
             db.session.commit()
             
