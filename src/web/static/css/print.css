@@ -1,6 +1,4 @@
 @media print {
-
-
 	img.shelter-main-image { display: none; }
 	section.shelterheader { text-align: center; }
 	section.shelterheader h1 { color: rgb(51, 51, 51); font-size: 2em; margin: 0px; }
@@ -142,4 +140,25 @@
 	footer a.browserstack {
 		color: #FFFFFF;
 	}
+		
+	.tabs, .btn, .book-it-panel, .glossarizer_replaced, #tx-live-lang-container, .see-drawing-link, #section-documents, #section-comments {
+		display:none;
+	}
+	
+	.section-data {
+		table-layout: fixed;
+		max-width: 700px;
+	}
+	
+	main h3 {
+		color: #CC0000 !important;
+		padding-top: 20px;
+		text-align: center;
+		font-size: 1.8em;
+		margin-bottom: 30px;
+		font-weight: 700;
+		line-height: 1.2;
+	}
+		
+	
 }

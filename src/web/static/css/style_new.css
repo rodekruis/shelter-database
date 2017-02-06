@@ -657,7 +657,8 @@ header {
     margin-top: 50px; } }
 
 .content {
-  margin: 0 auto; }
+  margin: 0 auto; 
+  }
 
 .search-wrapper {
   position: relative;
@@ -821,10 +822,11 @@ table {
   margin: 0 auto 0 auto;
   text-align: left; }
   table tr th {
-    padding: 5px 10px 5px 0; }
+    padding: 5px 10px 5px 0; 
+	font-weight: bold; }
   table tr td {
     padding: 5px 0px 5px 10px;
-    font-weight: bold; }
+    }
     table tr td span.info {
       display: inline-block;
       margin-left: 100px; }
@@ -1202,7 +1204,9 @@ section.knowledge {
       color: #EEE; }
 
 div.shelterimg {
-  height: 250px;
+  position: relative;
+  display:block;
+  height: 446px;
   cursor: pointer; 
   margin-bottom: 15px;}
   div.shelterimg:after {
@@ -1220,7 +1224,7 @@ div.shelter-main-image {
   display: none; }
 
 section.shelterheader {
-  text-align: center; }
+  text-align: left; }
   section.shelterheader h1 {
     color: #333;
     font-size: 2em;
@@ -1361,10 +1365,10 @@ section.map {
   display: none; }
 
 #tabs.tab1 .tabcontent1 {
-  display: initial; }
+  display: inline; }
 
 #tabs.tab2 .tabcontent2 {
-  display: initial; }
+  display: inline; }
 
 .stats {
   display: inline-block; }
@@ -1480,4 +1484,155 @@ section.map {
     bottom: 0px; /* height of thumbs (if not required set to 0) */
     height: auto; /* optionally add !important for WP version */
     width: auto;
+}
+
+.btn {
+	position: absolute;
+	left: 20px;
+	bottom: 15px;
+    border-color: #c4c4c4;
+    background: white;
+    color: #484848;
+	padding: 7px 21px;
+    font-size: 14px;
+	display: inline-block;
+	margin-bottom: 0;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	border: 1px solid;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+	line-height: 1.43;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	white-space: nowrap;
+	cursor: pointer;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-transform: none;
+}
+
+.rowVisible_false {
+	display:none;
+}
+
+.btn-link {
+    background: transparent;
+    border: 0;
+    color: #008489;
+    display: inline;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    vertical-align: bottom;
+}
+
+.see-drawing-link {
+	margin-left:20px;
+}
+
+.btn-link:hover, .btn-link:focus, .btn-link:active {
+	margin-top: 20px;
+    background: transparent;
+    color: #008489;
+    text-decoration: underline;
+	font-weight: bold;
+}
+
+#section-documents .hidden {
+	display:none;
+}
+
+.glossary-link, .glossary-link:visited, .glossary-link:active {
+  text-decoration: none;
+  border-bottom: 1px blue dotted;
+}
+
+.glossary-link:hover {
+  text-decoration: underline;
+  border: none;
+}
+
+.tabs {
+    border-bottom: 1px solid #DBDBDB !important;
+    position: relative !important;
+}
+
+.wrapper_tabs {
+    display: block !important;
+    position: relative !important;
+}
+
+.text_tab {
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+    font-size: 19px !important;
+    line-height: 24px !important;
+    letter-spacing: undefined !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    color: #484848 !important;
+    margin: 0px !important;
+    background-color: transparent !important;
+    border-width: 0px !important;
+    bottom: -1px !important;
+    cursor: pointer !important;
+    margin-right: 10px !important;
+    padding: 12px !important;
+}
+
+.text_tab:hover {
+	border-bottom: 2px solid #008489 !important;
+}
+
+.tab_selectedLabel {
+    color: #008489 !important;
+    left: 0px !important;
+    opacity: 1 !important;
+    position: absolute !important;
+    top: 0px !important;
+    transition-property: visibility, opacity !important;
+    transition-duration: 300ms !important;
+    transition-timing-function: ease-out !important;
+    visibility: visible !important;
+    -webkit-transition-property: visibility, opacity !important;
+    -webkit-transition-duration: 300ms !important;
+    -webkit-transition-timing-function: ease-out !important;
+}
+
+.affix {
+  top: 0;
+  width: 100%;
+}
+
+.affix-top {
+  width: 100%;
+}
+
+.affix-bottom {
+  position: absolute;
+  width: 100%;  
+}
+
+.section-data {
+	table-layout: fixed;
+	max-width: 700px;
+}
+
+.book-it-panel .row-condensed {
+	height: 50px;
+	line-height: 50px;
+	vertical-align: middle;
+}
+
+.legend-container {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+	border-radius: 4px;
+	background-size: 26px 26px;
 }

@@ -5,11 +5,12 @@ import os
 
 import conf
 from web.models import Shelter, ShelterPicture
-from bootstrap import db, thumb
+from bootstrap import db
+from PIL import Image
 
 def create_shelters_thumbnails():
     shelters = Shelter.query.all()
-    pictures = ShelterPicture.query.filter(ShelterPicture.is_main_picture==True).all()
+    pictures = ShelterPicture.query.all()
     
     for picture in pictures:
         filepath = os.path.join(conf.SHELTERS_PICTURES_SERVER_PATH, str(picture.shelter_id), picture.file_name)
@@ -22,17 +23,17 @@ def create_shelters_thumbnails():
             if os.path.exists(new_thumbpath):
                 if db.session.query(ShelterPicture).filter_by(file_name=thumbname).first():
                     continue
-            thumbpath = thumb.thumbnail(filepath, '300x200', quality=75)
-            os.rename(thumbpath, new_thumbpath)
+            im = Image.open(filepath)
+            im.thumbnail((300,200), Image.ANTIALIAS)
+            im.save(new_thumbpath, 'JPEG', quality=70, optimize=True, progressive=True)
             
             new_picture = ShelterPicture(file_name=thumbname,
                                     shelter_id=picture.shelter_id,
                                     category_id=picture.category_id,
-                                    is_main_picture=True)
+                                    is_main_picture=picture.is_main_picture)
             db.session.add(new_picture)
             db.session.commit()
             
         except:
             print("Failed to create thumbnail for shelter {}, file {}".format(picture.shelter_id, picture.file_name))
             continue
-

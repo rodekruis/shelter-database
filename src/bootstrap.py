@@ -28,7 +28,6 @@ import conf
 import flask_restless
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_thumbnails import Thumbnail
 from flask_assets import Environment, Bundle
 
 # Create Flask app
@@ -63,7 +62,6 @@ db = SQLAlchemy(app)
 app.config['MEDIA_FOLDER'] = conf.SHELTERS_PICTURES_SERVER_PATH
 app.config['MEDIA_URL'] = conf.SHELTERS_PICTURES_SITE_PATH
 
-thumb = Thumbnail(app)
 
 # Create the Flask-Restless API manager.
 manager = flask_restless.APIManager(app, flask_sqlalchemy_db=db)

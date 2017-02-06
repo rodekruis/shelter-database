@@ -10,6 +10,8 @@
 	<!-- skin stylesheet (change it if you use another) -->
 	<link rel="stylesheet" href='{{ url_for("static", filename="lib/custom/slider/rs-universal.css") }}' media="screen"> 
 
+	<link rel="stylesheet" type="text/css" href='{{ url_for("static", filename="css/bootstrap_custom.css") }}' media="screen, print">
+	<link rel="stylesheet" type="text/css" href='{{ url_for("static", filename="icons/css/fontello-embedded.css") }}' media="print">
 	<link rel="stylesheet" type="text/css" href='{{ url_for("static", filename="css/print.css") }}' media="print">
 	
 	<script type="text/javascript">
@@ -26,35 +28,158 @@
 {% endblock %}
 {% block content %}
 		
-
-        <section class="shelterheader">
-            <div class="content section-data">
-                <h1 id="shelter-name">[UNKNOWN NAME]</h1>
-				<i class="fa icon-print print-image" aria-hidden="true" onClick="window.print()"></i>
-				<a title="Edit" href="{{ url_for('shelter_bp.edit', shelter_id=shelter_id, section_name='General-Information' | replace(' ', '-')) }}">
-					<i class="fa icon-edit print-image" aria-hidden="true"></i>
-				</a>
-            </div>
-        </section>
-
-		<div id="sections">
+		<!--<div id="sections">-->
 			<!-- for main image -->
-			<section id="section-0">
-				<div class="content"></div>
-			</section>
-		</div>
+			
+			<div id="photos">
+				<div class="col-lg-12" id="section-0">
+					<div class="content"></div>
+				</div>
+			</div>
+			<div class="page-container-responsive">
+				
+				
+				<div class="row">
+					<div class="col-lg-9">
+						<div class="row hide-md">
+							<div class="tabs">
+								<button class="text_tab" onclick="goToAnchor('#section-specifications');">
+									<span class="wrapper_tabs">
+										<span>SPECIFICATIONS</span>
+									</span>
+								</button>
+								<button class="text_tab" onclick="goToAnchor('#section-location');">
+									<span class="wrapper_tabs">
+										<span>LOCATION</span>
+									</span>
+								</button>
+								<button id="documentslink" class="text_tab hidden" onclick="goToAnchor('#section-documents');">
+									<span class="wrapper_tabs">
+										<span>DOCUMENTS</span>
+									</span>
+								</button>
+								<button class="text_tab" onclick="goToAnchor('#section-comments');">
+									<span class="wrapper_tabs">
+										<span>COMMENTS</span>
+									</span>
+								</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">	
+								<div class="summary-component">
+									<div class="space-4 space-top-4">
+									  <div class="row">
+										<div class="col-md-3 space-sm-4 text-center space-sm-2">
+										<div class="media-photo-badge">
+											<a href="#host-profile" rel="nofollow" class="media-photo media-round">
+											<img alt="Profile picture owner" class="host-profile-image" src="{{ url_for("static", filename="img/blankavatar.png") }}" title="User" width="115" height="115"></a>
+										</div>
+									  </div>
+
+										<div class="col-md-9">
+										  <h1 class="overflow h3 space-1 text-center-sm" id="listing_name"><span id="shelter-name"></span>
+										 </h1>
+
+										  <div id="display-address" class="space-2 text-muted text-center-sm">
+											<span id="geography"></span>
+										  </div>
+										  
+										  <div id="display-address" class="space-2 text-muted text-center-sm">
+											<span id="organization"></span>
+										  </div>
+										  
+										  <div class="row row-condensed text-muted text-center">
+											<div class="col-sm-3">
+												<i class="icon icon-hashtag icon-size-2"></i>
+											</div>
+											<div class="col-sm-3">
+												<i class="icon icon-calendar icon-size-2"></i>
+											</div>
+											<div class="col-sm-3">
+												<i class="icon icon-terrain icon-size-2"></i>
+											</div>
+											<div class="col-sm-3">
+												<i class="icon icon-temperatire icon-size-2"></i>
+											</div>
+										  </div>
+										</div>
+									  </div>
+
+									  <div class="row">
+										<div class="col-md-3 text-muted text-center hide-sm">
+										  <a href="#host-profile" class="link-reset text-wrap">{{user_name}}</a>
+										</div>
+
+										<div class="col-md-9">
+										  <div class="row row-condensed text-muted text-center">
+											<div class="col-sm-3">
+											  <span id="id"></span>
+											</div>
+
+											<div class="col-sm-3">
+											  <span id="surveydate"></span>
+											</div>
+
+											<div class="col-sm-3">
+											  <span id="landform"></span>
+											</div>
+
+											<div class="col-sm-3">
+											  <span id="climatezone"></span>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="panel book-it-panel" >
+							<div class="panel-body panel-light">
+							  <div class="row row-condensed space-3">
+								<div class="col-md-12">
+								  <div class="row row-condensed">
+									 <a onClick="window.print()">
+										PRINT THIS PAGE
+										<i class="icon icon-print icon-size-2 print-image" aria-hidden="true"></i>
+									 </a>
+								  </div>
+								  {% if g.user.is_authenticated %}
+								  <div class="row row-condensed">
+									<a title="Edit" href="{{ url_for('shelter_bp.edit', shelter_id=shelter_id, section_name='General-Information' | replace(' ', '-')) }}">
+										EDIT THIS SHELTER
+										<i class="icon icon-edit print-image icon-size-2" aria-hidden="true"></i>
+									</a>
+								  </div>
+								  {% endif %}
+								</div>
+							  </div>
+							</div>
+						  </div>
+					</div>
+				</div>
+			</div>
+
+		<section id="section-specifications">
 		
-		<div id="more">
-			<a id="collapseButton" class="btn btn-default" data-toggle="collapse">Click here to show / hide more information</a>
-		</div>
+		</section>
 		
-		<section id="section-documents" class="info">
+		<section id="section-location" class="info">
+			<div class="content" id="location">
+				<h3>Location</h3>
+			</div>			
+		</section>
+		
+		<section id="section-documents" class="info hidden">
 			<div class="content" id="documents">
 				<h3>Documents / Attachments</h3>
 			</div>			
 		</section>
 		
-		<section id="comments">
+		<section id="section-comments">
 			<div>
 				<h3>Comments & Discussion</h3>
 			</div>
@@ -98,12 +223,16 @@
 	<!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>-->
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3-queue/3.0.3/d3-queue.min.js"></script>
-
-	<!--<script type="text/javascript" src='https://api.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js'></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	
+	<script>L_PREFER_CANVAS = true;</script>
 	{% assets filters="jsmin", output="assets/packaged-shelter.js",
 			  "lib/bower/leaflet/dist/leaflet.js",
 			  "lib/bower/leaflet-image/leaflet-image.js",
+			  "lib/custom/leaflet.fullscreen/Control.FullScreen.js",
 			  "lib/custom/slider/slider.min.js",
+			  "lib/custom/tooltip/tooltip.js",
+			  "lib/custom/jquery-glossarize/jquery.glossarize.js",
 			  "js/shelter.js"		  
 		%}
 			<script type="text/javascript" src="{{ASSET_URL}}" defer></script>

@@ -12,6 +12,7 @@
 	var attributes;
 	var shelter;
 	var index = 1;
+	var visibleRows = 3;
 	
 	/**
 	 * FUNCTIONS
@@ -95,7 +96,6 @@
 		
 		// Sorted array of categories
 		var categories = [
-					'Identification',
 					'General',
 					'Disaster & Response', 
 					'Site',
@@ -108,14 +108,9 @@
 					'Services', 
 					'Skin', 
 					'Spaceplan', 
-					'Walls & frame',
-					'Documents'
+					'Walls & frame'
 				  ];
-				  
-		// set main image
-		addCoverPictures(shelter[shelter_id]['Identification'], '#section-0', 'Identification');
-		addSwipePictures(shelter[shelter_id]['Identification'], 'Identification');
-					  
+				  		  
 		// create sections for different categories
 		var data = shelter[shelter_id];
 		$.each(categories, function(j, category) {
@@ -135,43 +130,32 @@
 			$('#collapseButton').attr('data-target', targets);
 		}
 		
-		if(typeof shelter[shelter_id]['Identification'] !== 'undefined') {
-			// Set shelter name
-			$('#shelter-name').text(shelter[shelter_id]['Identification']['Attributes']['Name of shelter']);
-			
-			// Get coordinates for this shelter
-			var lat = shelter[shelter_id]['Identification']['Attributes']['GPS Latitude'];
-			var lon = shelter[shelter_id]['Identification']['Attributes']['GPS Longitude'];
-			
-			// Initiate leaflet map
-			var map = L.map('location-map', {tap:false, dragging:false}).setView([lat, lon], 13);
-			
-			// Add OSM base layer
-			L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
-			
-			// disable dragging and scrolling for mobile view
-			map.scrollWheelZoom.disable();
-			map.dragging.disable();
-			
-			// add location of shelter to map
-			L.marker([lat, lon]).addTo(map);
-			
-			// convert map to image for better printing
-			leafletImage(map, function(err, canvas) {
-				// now you have canvas
-				// example thing to do with that canvas:
-				$('#location-image').prepend('<img id="location-image-picture" src="'+ canvas.toDataURL() + '" />')		
-			});
+		// set identification attributes
+		if(typeof data['Identification'] !== 'undefined'){
+			createIdentification(data['Identification']);
 		}
 		
-		if(typeof shelter[shelter_id]['Documents'] !== 'undefined' && shelter[shelter_id]['Documents']['Documents'].length > 0) {
-				var documentsdiv = d3.select('#documents')
+		// set organization
+		if(typeof data['Disaster & Response'] !== 'undefined' && 
+		   typeof data['Disaster & Response']['Attributes']['Implementing Agency'] !== 'undefined'){
+			$('#organization').text(data['Disaster & Response']['Attributes']['Implementing Agency']);
+		}
+		
+		if(typeof data['Documents'] !== 'undefined' && 
+		   typeof data['Documents']['Documents'] !== 'undefined' &&
+		   data['Documents']['Documents'].length > 0) {
+			   
+			    $("#section-documents").removeClass('hidden');
+				$("#documentslink").removeClass('hidden');
+				
+				
+				var documentsdiv = d3.select('#section-documents"')
 								.append("div")
 										   .attr("class","flexbox");
 										   
 				var box = documentsdiv
 							   .selectAll("div")
-							   .data(shelter[shelter_id]['Documents']['Documents'])
+							   .data(data['Documents']['Documents'])
 							   .enter()
 							   .append("div")
 								   .attr("class","box");
@@ -229,6 +213,7 @@
 			imageScaleMode: 'fit-if-smaller',
 			autoScaleSlider:false,
 			autoHeight: false,
+			numImagesToPreload: 0,
 			controlNavigation: 'thumbnails',
 			thumbs: {
 					  appendSpan: true,
@@ -236,6 +221,9 @@
 					  paddingBottom: 4
 					},
 		  }); 		 
+		  
+		// glossarize attributes
+		glossarize();
 
 		// stop spinner if all has loaded
 		$('#wrapper').spin(false);
@@ -265,12 +253,19 @@
 									.insert("div", '#section-table-' + index)
 										.attr('class', 'shelterimg')
 										.attr('id', 'mainimage-' + category)
-										.attr('style' , "background-image: url('/" + section[source][0] + "')")
-										.on({
-										  "click":  function() { 
-												modalOpen('mymodal-' + category);
-										  }, 
-										});	
+										.attr('style' , "background-image: url('/" + section[source][0] + "')")	
+											.on({
+												  "click":  function() { 
+														modalOpen('mymodal-' + category);
+												  }, 
+												});
+				var  btn = divsection.append('button')
+								.attr('type', 'button')
+								.attr('class','btn');
+								
+				btn.append('span')
+						.text('See more photos');
+						
 		}
 	}
 
@@ -288,25 +283,37 @@
 		var d = $.merge(section.Cover, section.Pictures);
 		
 		if(d.length > 0){
-			
-			// remove the thumbnail if there is one
-			for (var i=d.length-1; i>=0; i--) {
-				if (d[i].indexOf("_thumbnail") > -1) {
-					d.splice(i, 1);
-					break;
-				}
-			}
-			
+			// remove the thumbnails
+			d = filterArray(d, "_thumbnail");
+
 			//if there are no pictures, return
 			if(d.length === 0){
 				return;
 			}
 			
 			// create modal
-			var modal = d3.select("#wrapper")
+			createPicturesModal(d, category);
+		}
+	}
+	
+	var filterArray = function filterArray ( arr, filterBy ) {
+		var i = arr.length;
+		//-- Loop through the array in reverse order since we are modifying the array.
+		while (i--) {
+			if (arr[i].indexOf(filterBy) > -1) {
+				//-- splice will remove the non-matching element
+				arr.splice(i, 1);
+			}
+		}
+		
+		return arr;
+}
+	
+	var createPicturesModal = function createPicturesModal(pictures, name){
+		var modal = d3.select("#wrapper")
 							.append('div')
 								.attr('class', 'mymodal mymodal-dark mymodal-no-scroll')
-								.attr('id', 'mymodal-' + category);
+								.attr('id', 'mymodal-' + name);
 								
 			modal.append('div')
 					.attr('class', 'mymodal-close')
@@ -320,15 +327,117 @@
 					.attr('class', 'royalSlider rsUni');
 								
 			// add panes
-			slider.selectAll("img")
-				   .data(d)
+			slider.selectAll("a")
+				   .data(pictures)
 				   .enter()
-				   .append("img")
+				   .append("a")
 					   .attr("class","rsImg")
-					   .attr("src", function (di){ return "/" + di; })
-					   .attr("data-rsTmb", function (di){ return "/" + di; });
-					   //.attr("style",function (d){ return "background-image:  url('/" + d + "')";});			
-		}
+					   .attr("href", function (di){ return "/" + di; })
+					   .text("image description")
+				   .append("img")
+					   .attr("class", "rsTmb")
+					   .attr("src", function (di){ 
+										var url = di.substring(0, di.length - 4);
+										var ext = di.substring(di.length - 4, di.length);
+										return "/" + url + "_thumbnail" + ext; 
+									});	
+					   
+			//<a class="rsImg" href="image.jpg">image description<img src="small-image.jpg" class="rsTmb" /></a>
+	}
+	
+	var createIdentification = function createIdentification(data){
+			
+		// set main image
+		addCoverPictures(data, '#section-0', 'Identification');
+		addSwipePictures(data, 'Identification');
+
+		// Set shelter name
+		$('#shelter-name').text(data['Attributes']['Name of shelter']);
+		
+		// set geography
+		var geographyAttributes = ['Country', 'Province / District / Region', 'City / Village'];
+		var geography = '';
+		$.each(geographyAttributes, function( index, value ) {
+		  if(typeof data['Attributes'][value] !== 'undefined') {
+			  geography += data['Attributes'][value] + ', ';
+		  }
+		});
+		// remove last ,
+		geography = geography.substring(0,geography.length - 2);
+		
+		// set element value
+		$('#geography').text(geography);
+		
+		// set other values
+		var otherAttributes = ['ID', 'Survey date', 'Landform', 'Climate zone'];
+		$.each(otherAttributes, function( index, value ) {
+		  if(typeof data['Attributes'][value] !== 'undefined') {
+			  $('#' + value.replace(/\s+/g, '').toLowerCase()).text(data['Attributes'][value]);
+		  }
+		});
+
+		// create divs
+		var content = d3.select('#location');
+		var details = content.append('div')
+					.attr('class', 'details');
+					
+		details.append('div')
+					.attr('id', 'location-image')
+					.attr('class', 'location-image');
+					
+		var lmap = details.append('div')
+					.attr('id', 'location-map')
+					.attr('class', 'location-map');
+					
+		var  btn = lmap.append('button')
+								.attr('type', 'button')
+								.attr('class','btn');
+								
+		btn.append('span')
+						.text('See more photos');
+		
+		// Get coordinates for this shelter
+		var lat = data['Attributes']['GPS Latitude'];
+		var lon = data['Attributes']['GPS Longitude'];
+		
+		// Initiate leaflet map
+		var map = L.map('location-map', {tap:false, dragging:false, fullscreenControl: true}).setView([lat, lon], 13);
+		
+		map.on('enterFullscreen', function(){
+		  map.dragging.enable();
+		});
+
+		map.on('exitFullscreen', function(){
+		  map.dragging.disable();
+		});
+
+		// Add OSM base layer
+		L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
+		
+		// disable dragging and scrolling for mobile view
+		map.scrollWheelZoom.disable();
+		map.dragging.disable();
+		
+		// add location of shelter to map
+		var marker = L.marker([lat, lon]);
+		marker.addTo(map);
+		
+		// convert map to image for better printing
+		
+		leafletImage(map, function(err, canvas) {
+			// now you have canvas
+			// example thing to do with that canvas:
+			d3.select('#location-image')
+				.append('img')
+					.attr('id', 'location-image-picture')
+					.attr('src', canvas.toDataURL());	
+
+			// add the marker popup after the image was made
+			marker.bindPopup("GPS location: " + lat + "," + lon).openPopup();
+			//marker.addTo(map);
+		});
+			
+
 	}
 
 	var createCategory = function createCategory(index, category, d) {
@@ -341,15 +450,23 @@
 		}		
 		
 		// convert object keys to an attribute value pair
-		var data = Object.keys(d).map(function(k) { return {attribute:k, value:d[k]} })
+		var i = 0;
+		var data = Object.keys(d).map(function(k) { 
+			v = true;
+			if(i > visibleRows){
+				v = false;
+			}
+			i++;
+			return {attribute:k, value:d[k], visible:v} 
+		});
 		
 		// set collapse class
 		var collapse = '';
-		if(index > maxSections) {
-			collapse = 'collapse ';
-		}
+		//if(index > maxSections) {
+		//	collapse = 'collapse ';
+		//}
 		
-		var sections = d3.select('#sections');
+		var sections = d3.select('#section-specifications');
 		var section = sections.append('section')
 						.attr('id', 'section-' + index)
 						.attr('class', 'details ' + collapse + 'details-' + ((index %2) + 1) );
@@ -361,28 +478,12 @@
 			.text(category);
 			
 		// if there are images, show them
-		// skip identification section because this is the main image already
-		if(category !== 'Identification'){
-			addCoverPictures(shelter[shelter_id][category], '#section-' + index, category);
-			addSwipePictures(shelter[shelter_id][category], category);
-		} 
-		// in the identification section, add the map
-		else {
-			var details = content.append('div')
-						.attr('class', 'details');
-						
-			details.append('div')
-						.attr('id', 'location-image')
-						.attr('class', 'location-image');
-						
-			details.append('div')
-						.attr('id', 'location-map')
-						.attr('class', 'location-map');
-		}
-				
+		addCoverPictures(shelter[shelter_id][category], '#section-' + index, category);
+		addSwipePictures(shelter[shelter_id][category], category);
+										
 		var table = content.append('table')
-								.attr('id', 'section-table-' + index)
-								.attr('class', 'section-data');
+						.attr('id', 'section-table-' + index)
+						.attr('class', 'section-data');	
 								
 		var	tbody = table.append('tbody');
 
@@ -390,35 +491,53 @@
 		var rows = tbody.selectAll('tr')
 		  .data(data)
 		  .enter()
-		  .append('tr');
+		  .append('tr')
+			.attr("class", function(d) { return 'rowVisible_' + d.visible; });
 
 		// Add column with attribute names
-		rows.append('th').append('b')
-			.text(function (d) { 
-				if(language == 'en' || jQuery.isEmptyObject(translation) || typeof(translation[d.attribute]) == 'undefined'){
-					return d.attribute;
-				}
-				else {
-					// return translated attribute name
-					return translation[d.attribute]; 
-				}				
-			});
+		var th = rows.append('th');
+			
+				th.append('a')
+					//.attr('rel', 'tooltip')
+					//.attr('title', 'Enter your tip here')
+					//.attr('class', 'glossary-link')
+					.text(function (d) { 
+						if(language == 'en' || jQuery.isEmptyObject(translation) || typeof(translation[d.attribute]) == 'undefined'){
+							return d.attribute;
+						}
+						else {
+							// return translated attribute name
+							return translation[d.attribute]; 
+						}				
+					});
+				
+			th.append('a')
+					.filter(function(d){ 
+						if(hasOwnProperty.call(attributes, category) && hasOwnProperty.call(attributes[category], d.attribute)){
+							return true;
+						}
+						else {
+							return false;
+						}
+					})
+					.attr("class", 'btn-link see-drawing-link')
+					.attr("attribute-name", function (d) { return d.attribute;})
+					.attr("section-name", function (d) { return category;})
+					.text('+ See drawing');	
 		 
 		// Add column with values
 		rows.append('td')
-				.text(function (d) { return d.value.replace(new RegExp(';', 'g'), ', '); })
-			.append('span')
-				.attr("class", function (d) { 
-					// TODO test if attribute has drawing
-					if(hasOwnProperty.call(attributes, category) && hasOwnProperty.call(attributes[category], d.attribute)){
-						return "info attribute-multimedia-asset";
-					}
-					else {
-						return '';
-					}
-				})
-				.attr("attribute-name", function (d) { return d.attribute;})
-				.attr("section-name", function (d) { return category;});
+				.text(function (d) { return d.value.replace(new RegExp(';', 'g'), ', '); });
+				
+		tbody.append('tr')
+				.attr("class", 'rowVisible_true')
+			 .append('a')
+				.attr('class', 'more btn-link')
+				.attr('data-table-id', 'section-table-' + index)
+				.text('+ More');	
+	
+		// init tooltip
+		tooltip();
 	}
 
 	var show_multimedia_assets = function show_multimedia_assets(e) {
@@ -446,11 +565,34 @@
 		}
 	}
 	
+	var goToAnchor = function(anchor){
+		window.location = (''+window.location).replace(/#[A-Za-z0-9_-]*$/,'')+anchor;
+	}
+	
+	var glossarize = function glossarize(){
+		$('#section-specifications').glossarizer({
+		  sourceURL: '/static/data/glossary.json',
+		  lookupTagName : 'th, td, a',
+		  exactMatch: true,
+		  caseSensitive: false,
+		  callback: function(){
+			new tooltip();
+		  }
+		});
+	}
+	
 	/**
 	 * EVENTS
 	 */
-	$(document).on('click', '.attribute-multimedia-asset' , show_multimedia_assets);
+	$(document).on('click', '.see-drawing-link' , show_multimedia_assets);
 	
+	// If the more link is clicked, the depending div will be expanded
+	$(document).on('click', '.more', function() {
+		// set height to auto
+		$('tr.rowVisible_false', "#" + $(this).attr('data-table-id')).removeClass('rowVisible_false');
+		// remove the mode button
+	    $(this).remove();
+	});
 	/**
 	 * LOGIC
 	 */

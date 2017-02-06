@@ -37,11 +37,13 @@
 			  "lib/bower/Leaflet.label/dist/leaflet.label.css", 
 			  "lib/bower/select2/dist/css/select2.min.css",
 			  "lib/bower/jquery-form-validator/form-validator/theme-default.min.css",
+			  "lib/custom/leaflet.fullscreen/Control.FullScreen.css",
+			  "lib/custom/tooltip/tooltip.css",
 			  "css/style-dashboard.css",
 			  "css/climate.css",
 			  "css/googlefont.css",
 			  "css/style_new.css",
-			  "icons/css/fontello-embedded.css"		  
+			  "icons/css/fontello-embedded.css"	  
 		%}
 		<link rel="stylesheet" type="text/css" href='{{ ASSET_URL }}' media="screen">
 		{% endassets %}
@@ -59,8 +61,8 @@
 				<a id="home" class="home select-menu" href="/"><i class="fa icon-plus-squared"></i><span class="text">Open Shelter Database</span></a>
 				<ul>
 					<li><a id="dashboard" class="select-menu" href="{{ url_for('dashboard') }}">Shelters</a></li>
-					 <li><a id="contribute" class="select-menu" href="{{ url_for('contribute') }}">Contribute</a></li>
-					<li><a id="knowledgebase" class="select-menu" href="{{ url_for('knowledgebase') }}">Knowledge Base</a></li>
+					 <li><a id="contribute" class="select-menu" href="{{ url_for('contribute') }}">Add shelter</a></li>
+					<li><a id="help" class="select-menu" href="{{ url_for('help') }}">Help</a></li>
 					{% if g.user.is_authenticated %}
 						<li class="dropdown">
 							<a id="user" href="#" class="dropdown-toggle select-menu" data-toggle="dropdown">
@@ -83,7 +85,7 @@
 							</ul>
 						</li>
 					{% else %}
-						<li><a href="{{ url_for('join') }}">Join</a></li>
+						<li><a href="{{ url_for('join') }}">Login</a></li>
 					{% endif %}
 				</ul>
 			</nav>

@@ -25,7 +25,7 @@ from flask_babel import get_locale
 
 import conf
 from bootstrap import db
-from web.models import Shelter, Attribute, Property
+from web.models import Shelter, Attribute, Property, User
 
 def tree():
     return defaultdict(tree)
@@ -148,16 +148,18 @@ def shelters():
 @current_app.route('/shelter/<int:shelter_id>', methods=['GET'])
 def shelter(shelter_id):
     language_code = get_locale().language
-    return render_template('shelter.html', shelter_id=shelter_id, language=language_code)
+    shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+    user = User.query.filter(User.id==shelter.user_id).first()
+    return render_template('shelter.html', shelter_id=shelter_id, language=language_code, user_email = user.email, user_name = user.name, user_id = user.id)
 
 
 @current_app.route('/stats', methods=['GET'])
 def stats():
     return render_template('stats.html')
 
-@current_app.route('/knowledgebase', methods=['GET'])
-def knowledgebase():
-    return render_template('knowledgebase.html')
+@current_app.route('/help', methods=['GET'])
+def help():
+    return render_template('help.html')
 
 @current_app.route('/contribute', methods=['GET'])
 def contribute():

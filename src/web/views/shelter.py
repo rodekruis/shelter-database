@@ -33,7 +33,7 @@ from web.lib.utils import redirect_url, allowed_file
 from web.lib.misc_utils import create_pdf
 from web.forms import LoginForm
 from web.models import Shelter, Property, \
-                        ShelterPicture, ShelterDocument, Section
+                        ShelterPicture, ShelterDocument, Section, Association, Value
 
 shelter_bp = Blueprint('shelter_bp', __name__, url_prefix='/shelter')
 shelters_bp = Blueprint('shelters', __name__, url_prefix='/shelters')
@@ -71,6 +71,15 @@ def details(shelter_id=0, section_name="", to_pdf=None):
 @shelter_bp.route('/edit/<int:shelter_id>/<section_name>', methods=['GET'])
 @login_required
 def edit(shelter_id=0, section_name=""):
+    
+    query = Shelter.query.filter(Shelter.id==shelter_id)
+    if current_user.is_admin:
+        pass
+    elif current_user.id == query[0].user_id:
+        pass
+    else:
+        return redirect(url_for('join')) #render_template('errors/403.html'), 403
+        
     sections = Section.query.filter()
     try:
         shelter, section, categories, pictures, documents = \
@@ -135,9 +144,16 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
     request.
     """
     first = False;
-    imgwidth = 800
+    imgwidth = 1280
 	
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+    shelter_id_query = db.session.query(Value.name)\
+        .join(Association,Property,Shelter)\
+        .filter(Shelter.id==shelter_id, Property.attribute_id==1)\
+        .first()
+    
+    shelter_id_attribute = shelter_id_query[0]
+    
     if not shelter:
         flash("No such shelter", "warning")
         return redirect(redirect_url())
@@ -155,18 +171,27 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
                 os.makedirs(path)
 
             file_extension = os.path.splitext(request.files[f].filename)[1]
-            filename = str(shelter_id) + '_' + section + "_" + str(time.time()) + file_extension
+            filename = str(shelter_id_attribute) + '_' + section + "_" + str(time.time()) + file_extension
             
             im = Image.open(request.files[f])
             if im.size[0] > imgwidth:
                 ratio = (imgwidth/float(im.size[0]))
                 hsize = int((float(im.size[1])*float(ratio)))
                 print((imgwidth, hsize))
-                resized_im = im.resize((imgwidth,hsize), Image.BILINEAR)
-                resized_im.save(os.path.join(path , filename), "JPEG",quality=90)
+                imagefile = im.resize((imgwidth,hsize), Image.BILINEAR)
             else:
-                im.save(os.path.join(path , filename), "JPEG", quality=90)
+                imagefile = im
+            
+            imagefile.save(os.path.join(path , filename), "JPEG",quality=70, optimize=True, progressive=True)
             print("Category id '{}' ...".format(category_id))
+            
+            # save backup image:
+            backup_dir = 'data/pictures_backup/' + str(shelter_id_attribute)
+            
+            if not os.path.exists(backup_dir):
+                os.makedirs(backup_dir)
+                
+            im.save(os.path.join(backup_dir , filename), "JPEG",quality=70, optimize=True, progressive=True)
             
         if category_id:
             new_media = ShelterPicture(file_name=filename,  is_main_picture=False,

@@ -23,7 +23,7 @@ from flask_login import current_user
 from flask_restless import ProcessingException
 
 from web.views.common import login_user_bundle
-from web.models import User, Shelter
+from web.models import User, Shelter, Property, Association
 
 def auth_func(*args, **kw):
     if request.authorization:
@@ -58,6 +58,23 @@ def shelter_POST_preprocessor(data=None, **kw):
 	#		  "technical documentation and drawings, and different attributes. You can edit your " +
 	#		  "shelter when you log in to the website and go to 'your shelters'.", 'success');
 
+def value_edit_preprocessor(data=None, **kw):
+    """value PUT preprocessor, to disallow unauthorized editing of shelters"""
+   
+    query = Shelter.query.join(Property)\
+        .join(Association)\
+        .filter(Association.value_id==kw['instance_id'])\
+        .first()
+    
+    if current_user.is_admin:
+        Shelter.query.filter(Shelter.id==query.id). \
+                        update({"updated_at": datetime.datetime.now()})
+    elif current_user.id == query.user_id:
+        Shelter.query.filter(Shelter.id==query.id). \
+                        update({"updated_at": datetime.datetime.now()})
+    else:
+        raise ProcessingException(description='Unauthorized to edit!', code=401)
+    
 
 def property_preprocessor(data=None, **kw):
     """
