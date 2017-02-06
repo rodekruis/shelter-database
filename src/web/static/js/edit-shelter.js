@@ -1,6 +1,29 @@
+var attributes;
+
 /**
  * EDIT-SHELTER : edit-shelter.js
  */
+ 
+var modalOpen = function modalOpen(modalid){
+	modalName = modalid
+	$("#wrapper").addClass("modal-open")
+	$("#" + modalid).css("visibility", "visible")
+}
+
+var modalClose = function modalClose(){
+	$("#wrapper").removeClass("modal-open")
+	$("#" + modalName).css("visibility", "hidden")
+	modalName = ""
+}
+ 
+var getAttributes = function getAttributes(callback){
+	d3.json('/api/v0.2/attributes/pictures/en', function (error, data) {
+		attributes = data;
+		
+		callback(null);
+	});
+};
+	
 function update_free_text_value(value_id, value) {
 	new_value = {name: value}
 
@@ -120,6 +143,31 @@ var createDropzone = function(id, shelter_id, section, category_id){
 	$('#' + id).addClass('dropzone');
 }
 
+var show_multimedia_assets = function show_multimedia_assets(e) {
+	var attribute = $(this).attr("attribute-name");
+	var section = $(this).attr("section-name")
+	
+	if(hasOwnProperty.call(attributes, section) && hasOwnProperty.call(attributes[section], attribute)){
+		var drawings = attributes[section][attribute];
+	
+		// empty modal list of pictures
+		$('#listOfPictures').empty();
+		drawings.map(function(picture) {
+			var oImg = $('<img />')
+						.attr('src', '/' + picture)
+						.attr('alt', attribute)
+						.attr('title', attribute)
+						.attr('class', 'attribute-drawing');
+				
+			$('#listOfPictures').append(oImg);
+			$('#listOfPictures').append($('<hr>'));
+		});
+		
+		$('#listOfPictures hr:last-child').remove();
+		modalOpen('infoDialog')
+	}
+}
+
 /**
  * EVENTS
  */
@@ -195,9 +243,14 @@ $('#add-new-value').click(function(evt) {
 	});
 })
 
+$(document).on('click', '.see-drawing-link' , show_multimedia_assets);
+
 /**
  * LOGIC
  */
+ 
+getAttributes();
+ 
 $('select.expandable').each(function() { $(this).attr('size', $(this).find('option').length) })	
 
 Dropzone.autoDiscover = false;
