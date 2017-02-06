@@ -376,11 +376,31 @@
 			}
 		});
 	}
+	
+	var glossarize = function glossarize(){
+		$('#create').glossarizer({
+		  sourceURL: '/static/data/glossary.json',
+		  lookupTagName : 'div, p, option',
+		  exactMatch: true,
+		  caseSensitive: false,
+		  callback: function(){
+			new tooltip();
+		  }
+		});
+	}
 
 
 	/**
 	 * EVENT LISTENERS
 	 */
+	$("#shelterTypeSelect").mouseover(function(){
+		var n = $("#shelterTypeSelect option").length;
+		$(this).attr("size", n);
+	});
+	$("shelterTypeSelect").mouseout(function(){
+		$(this).attr("size", 1);
+	});
+
 	$("#newShelter").click(function(evt) {
 		
 		// fetch shelters
@@ -391,6 +411,9 @@
 		
 		//fetch shelter types
 		fetchShelterTypes();
+		
+		// glossarize attributes
+		glossarize();
 	});
 
 	$(".organizations").select2({
@@ -462,7 +485,7 @@
 		$('#createShelterForm').attr('submitted', 'yes');
 		
 		// start spinner
-		$('#wrapper').spin();		
+		$('#wrapper').spin();	
 
 		// Send the data using post
 		name_of_shelter = $('#titleofproject').val();
