@@ -89,9 +89,14 @@
 				dataType: "json",
 				data: {"q": JSON.stringify({"filters": filters})},
 				success: function(result) {
+					
+					var options = [];
 					result.objects[0].associated_values.map(function(disaster) {
-						$("#associatedDisasterSelect").append(new Option(disaster.name, disaster.id));
-					})
+						options.push({id: disaster.id, title:disaster.name});
+					});
+					
+					//convert selectors
+					prepareSelect('associatedDisasterSelect', options);
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown){
 					//alert(errorThrown);
@@ -107,10 +112,14 @@
 				contentType: "application/json",
 				dataType: "json",
 				data: {"q": JSON.stringify({"filters": filters})},
-				success: function(result) {
+				success: function(result) {				
+					var options = [];
 					result.objects[0].associated_values.map(function(shelter) {
-						$("#shelterTypeSelect").append(new Option(shelter.name, shelter.id));
-					})
+						options.push({id: shelter.id, title:shelter.name});
+					});
+					
+					//convert selectors
+					prepareSelect('shelterTypeSelect', options);
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown){
 					//alert(errorThrown);
@@ -168,7 +177,7 @@
 		  maxFilesize: 4, // MB
 		  acceptedFiles: "image/*",
 		};
-		
+					
 		// add class
 		$('div#uploader').addClass('dropzone');
 	}
@@ -377,16 +386,33 @@
 		});
 	}
 	
-	var glossarize = function glossarize(){
-		$('#create').glossarizer({
-		  sourceURL: '/static/data/glossary.json',
-		  lookupTagName : 'div, p, option',
-		  exactMatch: true,
-		  caseSensitive: false,
-		  callback: function(){
-			new tooltip();
-		  }
-		});
+	// create dropdown and add glossary items upon open
+	var prepareSelect = function prepareSelect(id, options){
+		$('#' + id).selectize({
+					options: options,
+					valueField: 'id',
+					labelField: 'title',
+					create: false,
+					sortField: {
+						field: 'title',
+						direction: 'asc'
+					},
+					dropdownParent: 'body',
+					onDropdownOpen: function onDropdownOpen(dropdown){
+						dropdown.glossarizer({
+						  sourceURL: '/static/data/glossary.json',
+						  lookupTagName : 'div',
+						  exactMatch: true,
+						  caseSensitive: false,
+						  callback: function(){
+							new tooltip();
+						  }
+						});
+					},
+					onDropdownClose: function onDropdownClose(dropdown){
+						$('#tooltip').remove();
+					}
+				});
 	}
 
 
@@ -411,9 +437,6 @@
 		
 		//fetch shelter types
 		fetchShelterTypes();
-		
-		// glossarize attributes
-		glossarize();
 	});
 
 	$(".organizations").select2({
@@ -598,6 +621,6 @@
 	 */
 	 
 	// initiate form validator
-	$.validate();
+	$.validate({modules : 'file'});
 	
 	initiateLocationPicker();

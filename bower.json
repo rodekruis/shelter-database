@@ -18,7 +18,7 @@
     "datatables.net-bs": "~1.10.10",
     "tinymce": "^4.3.12",
     "bootstrap-datepicker": "^1.6.4",
-	"leaflet-geosearch": "*",
+	"leaflet-geosearch": "1.1.0",
 	"leaflet-geocoder-mapzen": "1.7.*",
 	"Leaflet.label": "0.2.*",
 	"leaflet": "0.7.7",

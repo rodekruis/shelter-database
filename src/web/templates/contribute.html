@@ -121,27 +121,7 @@
 						<div onclick="modalNext('#disasters')" class="button button-light button-right"><i class="fa icon-right-big"></i><span class="text">Next</span></div>
 					</div>
 				</form>
-            </div>
-			<!--
-            <div class="page page3">
-                <div class="mylabel">Location of the Site:</div>
-                <div class="options">
-                    <div class="option" onclick="optClick(0)" style="background-image: url('{{ url_for('static', filename='img/site/1.png') }}')"></div>
-                    <div class="option" onclick="optClick(1)" style="background-image: url('{{ url_for('static', filename='img/site/2.png') }}')"></div>
-                    <div class="option" onclick="optClick(2)" style="background-image: url('{{ url_for('static', filename='img/site/3.png') }}')"></div>
-                    <div class="option" onclick="optClick(3)" style="background-image: url('{{ url_for('static', filename='img/site/4.png') }}')"></div>
-                    <div class="option" onclick="optClick(4)" style="background-image: url('{{ url_for('static', filename='img/site/5.png') }}')"></div>
-                    <div class="option" onclick="optClick(5)" style="background-image: url('{{ url_for('static', filename='img/site/6.png') }}')"></div>
-                    <div class="option" onclick="optClick(6)" style="background-image: url('{{ url_for('static', filename='img/site/7.png') }}')"></div>
-                    <div class="option" onclick="optClick(7)" style="background-image: url('{{ url_for('static', filename='img/site/8.png') }}')"></div>
-                </div>
-
-                <div class="buttons">
-                    <div onclick="modalClose()" class="button button-light"><i class="fa icon-cancel"></i><span class="text">Cancel</span></div>
-                    <div onclick="modalNext()" class="button button-light right"><i class="fa icon-right-big"></i><span class="text">Next</span></div>
-                </div>
-            </div>
-			-->            
+            </div>         
 			<div class="page page5">
 				<form class="myform" id="photos">
 					<div class="mygroup">
@@ -150,13 +130,14 @@
 						   <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 						   <div class="fallback">
 							   <input id="files" multiple="true" name="files" type="file"
-									  data-validation="length mime size"
+									  data-validation="length mime size required"
 									  data-validation-length="min1"
 									  data-validation-allowing="jpg, png, gif"
 									  data-validation-max-size="4000kb"
 									  data-validation-error-msg-size="You can not upload images larger than 4000kb"
 									  data-validation-error-msg-mime="You can only upload images"
-									  data-validation-error-msg-length="You have to upload at least one images">
+									  data-validation-error-msg-length="You have to upload at least one images"
+									  data-validation-error-msg-required="You have to upload at least one images">
 							</div>
 						</div>
 					</div>
@@ -217,13 +198,13 @@
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.min.js"></script>
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.44/jquery.form-validator.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.54/jquery.form-validator.min.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.7.1/leaflet-geocoder-mapzen.min.js"></script>	
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.min.js"></script>
 	
 	{% assets filters="jsmin", output="assets/packaged-contribute.js",
-
 		  "lib/bower/leaflet-geosearch/src/js/l.control.geosearch.js", 
 		  "lib/bower/leaflet-geosearch/src/js/l.geosearch.provider.google.js",
 		  "lib/bower/Leaflet.label/dist/leaflet.label.js",
