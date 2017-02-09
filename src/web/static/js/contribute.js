@@ -388,11 +388,30 @@
 		  }
 		});
 	}
-
-
+	
 	/**
 	 * EVENT LISTENERS
 	 */
+	 
+	$('#field8507618').change(function(){
+        if (this.checked) {
+        	//$('#acceptbutton').attr('onclick', modalNext('#specs')).on('click');
+            //$(#'acceptbutton').css('background-color','');
+            //alert('checked');
+            $('#acceptbutton').removeClass('button-disabled');
+            $('#acceptbutton').addClass('button');
+            $('#acceptbutton').attr('onclick', "modalNext('#specs')");
+        }
+        else
+        {
+        	//alert('unchecked');
+        	//$(this).off('hover');
+        	$('#acceptbutton').addClass('button-disabled');
+        	$('#acceptbutton').attr('onclick', '');
+        	
+        }
+    });
+	
 	$("#shelterTypeSelect").mouseover(function(){
 		var n = $("#shelterTypeSelect option").length;
 		$(this).attr("size", n);
