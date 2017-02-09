@@ -23,7 +23,7 @@ from flask import Blueprint, request, flash, render_template, current_app, \
                     url_for, redirect, make_response
 from flask_login import login_required, current_user
 
-from PIL import Image
+from PIL import Image, ImageFile
 
 import conf
 import time
@@ -144,6 +144,7 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
     request.
     """
     first = False;
+    ImageFile.LOAD_TRUNCATED_IMAGES = True
     imgwidth = 1280
 	
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
