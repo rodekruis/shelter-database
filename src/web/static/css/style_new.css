@@ -259,7 +259,11 @@ strong {
     font-size: 1.1em;
     margin-left: 10px;
     pointer-events: none; }
-
+  .button.button-disabled {
+    background-color: #DDD;
+    border: 1px solid #999;
+    cursor: default;
+    color: #999;}
 .button + .button {
   margin-left: 5px; }
 
