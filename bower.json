@@ -38,6 +38,7 @@
 	"spin.js": "2.3.*",
 	"d3-queue": "3.0.*",
 	"jquery_lazyload": "1.9.*",
-	"tinymce": "4.4.*"
+	"tinymce": "4.4.*",
+	"selectize": "*"
   }
 }
