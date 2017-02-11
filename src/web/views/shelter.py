@@ -155,13 +155,11 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
     shelter_id_attribute = shelter_id_query[0]
     
     if not shelter:
-        flash("No such shelter", "warning")
-        return redirect(redirect_url())
+        return 'o such shelter', 400 
 
     for f in request.files:
         if request.files[f] and request.files[f].filename == '':
-            flash('No selected file', 'warning')
-            return redirect(request.url)
+            return 'No selected file', 400 
         if request.files[f] and allowed_file(request.files[f].filename,
                                 conf.ALLOWED_EXTENSIONS_PICTURE.union(
                                             conf.ALLOWED_EXTENSIONS_DOCUMENT)):								
@@ -177,13 +175,11 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
             if im.size[0] > imgwidth:
                 ratio = (imgwidth/float(im.size[0]))
                 hsize = int((float(im.size[1])*float(ratio)))
-                print((imgwidth, hsize))
                 imagefile = im.resize((imgwidth,hsize), Image.BILINEAR)
             else:
                 imagefile = im
             
             imagefile.save(os.path.join(path , filename), "JPEG",quality=70, optimize=True, progressive=True)
-            print("Category id '{}' ...".format(category_id))
             
             # save backup image:
             backup_dir = 'data/pictures_backup/' + str(shelter_id_attribute)
@@ -201,10 +197,10 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
 			
         first = True
 
-    return redirect(request.url)
+    return str(new_media.id), 200
 
 
-@shelter_bp.route('/delete_picture/<int:picture_id>', methods=['GET'])
+@shelter_bp.route('/delete_picture/<int:picture_id>', methods=['GET','POST'])
 @login_required
 def delete_picture(picture_id=None):
     picture = ShelterPicture.query.filter(ShelterPicture.id==picture_id).first()

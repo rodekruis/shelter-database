@@ -54,12 +54,12 @@
 							<select id="countrySelect" data-validation="required" name="country" data-live-search="true" ></select>
 						</label>
 					</div>
-                
-					<!-- <a href="" class="button button-light button-drop button-stretch">Select</a> -->
+                                                
 					<div class="buttons">
 						<div onclick="modalClose()" class="button button-light"><i class="fa fa-times"></i><span class="text">Cancel</span></div>
 						<!--<button type="submit" id="createShelter" class="btn btn-default form-control" value="Create">Create</button>	-->			                   
-					   <div id="createShelter" class="button button-light button-right"><i class="fa icon-right-big"></i><span class="text">Next</span></div>
+					        <input id="createShelter" value="Next" type="submit" class="button button-light button-right">
+                                                <!--<div id="createShelter" class="button button-light button-right"><i class="fa icon-right-big"></i><span class="text">Next</span></div>-->
 					</div>
 				</form>
             </div>
@@ -72,7 +72,7 @@
 					</div>
 					<div class="buttons">
 						<div onclick="modalClose()" class="button button-light"><i class="fa icon-cancel"></i><span class="text">Cancel</span></div>
-						<div onclick="modalNext('#organizationsForm')" class="button button-light button-right"><i class="fa icon-right-big"></i><span class="text">Next</span></div>
+						<input value="Next" type="submit" class="button button-light button-right">
 					</div>
 				</form>
             </div>
@@ -80,7 +80,7 @@
 				<form class="myform" id="yearLocationForm">
 					<div class="mygroup">
 						<div class="mylabel">What is the year of construction of the first shelters?</div>
-						<div class="myinput"><input type="number" name="yearofconstructionfirstshelters" data-validation="number" data-validation-allowing="range[1970;2030]" id="yearofconstructionfirstshelters" class="free-text-attribute" property-id="" attribute-id="36" category-id="8" value-id="None" value="" placeholder="2016"></div>
+						<div class="myinput"><input type="number" name="yearofconstructionfirstshelters" data-validation="number" data-validation-error-msg="This field is required. Please enter the year, numbers only." data-validation-allowing="range[1970;2030]" id="yearofconstructionfirstshelters" class="free-text-attribute" property-id="" attribute-id="36" category-id="8" value-id="None" value="" placeholder="2016"></div>
 					</div>
 					<div class="mylabel">Where is the shelter located?</div>
 					<div id="locationpicker" style="width:100%; height:250px;">
@@ -91,8 +91,8 @@
 					<div class="buttons">
 						<div onclick="modalClose()" class="button button-light"><i class="fa icon-cancel"></i><span class="text">Cancel</span></div>
 						<div onclick="modalPrev()" class="button button-light button-left"><i class="fa icon-left-big"></i><span class="text">Previous</span></div>
-						<div onclick="modalNext('#yearLocationForm')" class="button button-light button-right"><i class="fa icon-right-big"></i><span class="text">Next</span></div>
-					</div>
+						<input value="Next" type="submit" class="button button-light button-right">	
+                                        </div>
 				</form>
             </div>
 			<div class="page page4">
@@ -108,9 +108,8 @@
 					
 					<div class="mygroup">
 						<div class="mylabel">What type of humanitarian response is it?</div>
-						<label for="shelterTypeSelect" class="button button-drop">
+						<label for="shelterTypeSelect" class="button button-drop button-no-border">
 							<select id="shelterTypeSelect" data-validation="required" class="select-attribute" property-id="" attribute-id="21" category-id="4">
-								  <option value=""></option>
 							</select>
 						</label>
 					</div>
@@ -118,8 +117,8 @@
 					<div class="buttons">
 						<div onclick="modalClose()" class="button button-light"><i class="fa icon-cancel"></i><span class="text">Cancel</span></div>
 						<div onclick="modalPrev()" class="button button-light button-left"><i class="fa icon-left-big"></i><span class="text">Previous</span></div>
-						<div onclick="modalNext('#disasters')" class="button button-light button-right"><i class="fa icon-right-big"></i><span class="text">Next</span></div>
-					</div>
+						<input value="Next" type="submit" class="button button-light button-right">
+                                        </div>
 				</form>
             </div>         
 			<div class="page page5">
@@ -140,49 +139,52 @@
 									  data-validation-error-msg-required="You have to upload at least one images">
 							</div>
 						</div>
+                                                <span class="help-block form-error">You have to upload at least one image. Maximum size is 4 Mb, only of type jpg, png or gif.</span>
 					</div>
 				
 					<div class="buttons">
 						<div onclick="modalClose()" class="button button-light"><i class="fa icon-cancel"></i><span class="text">Cancel</span></div>
 						<div onclick="modalPrev()" class="button button-light button-left"><i class="fa icon-left-big"></i><span class="text">Previous</span></div>
-						<div onclick="modalNext('#photos')" class="button button-light button-right"><i class="fa icon-right-big"></i><span class="text">Next</span></div>
-					</div>
+						<input id="photosForm" value="Next" type="submit" disabled class="button buddon-disabled button-light button-right">
+                                        </div>
                 </form>
             </div>
 			<div class="page page6">
 				<form class="myform" id="specs">
 					<div class="mygroup">
 						<div class="mylabel">What is the unit cost of the shelter (USD)?</div>
-						<div class="myinput"><input type="number" data-validation="required"  class="free-text-attribute" id="unitCost" property-id="" attribute-id="49" category-id="8" value-id="None" value=""></div>
+						<div class="myinput"><input type="number" data-validation="required"  data-validation-error-msg="This field is required. Numbers only." class="free-text-attribute" id="unitCost" property-id="" attribute-id="49" category-id="8" value-id="None" value=""></div>
 					</div>
 					
 					<div class="mygroup">
 						<div class="mylabel">What is the number of inhabitants of the shelter?</div>
-						<div class="myinput"><input type="number" data-validation="required" min="1" max="200" class="free-text-attribute" id="inhabitants" property-id="" attribute-id="37" category-id="8" value-id="None" value=""></div>
+						<div class="myinput"><input type="number" data-validation="required" data-validation-error-msg="This field is required. Numbers only, maximum 200." min="1" max="200" class="free-text-attribute" id="inhabitants" property-id="" attribute-id="37" category-id="8" value-id="None" value=""></div>
 					</div>
 					
 					<div class="mygroup">
 						<div class="mylabel">What is the total surface area in square meters (m2)?</div>					
-						<div class="myinput"><input type="number" data-validation="required" class="free-text-attribute" id="surface" property-id="" attribute-id="45" category-id="8" value-id="None" value=""></div>
+						<div class="myinput"><input type="number" data-validation="required" data-validation-error-msg="This field is required. Numbers only." class="free-text-attribute" id="surface" property-id="" attribute-id="45" category-id="8" value-id="None" value=""></div>
 					</div>
 					
 					<div class="mygroup">
-                            <div class="mylabel">Terms</div>
-                            <div class="mycheckbox"><input type="checkbox" id="field8507618" data-validation="required"><label class="checkbox" for="field8507618"><i class="fa icon-cancel"></i> Accept the <a href="/termsofservice" target="_blank">terms of service</a></label></div>
-                    </div>
+                                            <div class="mylabel">Terms</div>
+                                            <div><input type="checkbox" data-validation="required" data-validation-error-msg="You have to agree to our terms" /><labe for="terms"> Accept the <a href="/termsofservice" target="_blank">terms of service</a></label></div>
+                                         </div>
 					<div class="buttons">
 						<div onclick="modalPrev()" class="button button-light button-left"><i class="fa icon-left-big"></i><span class="text">Previous</span></div>
-						<div class="button button-light button-disabled" id="acceptbutton"><i class="fa icon-cancel"></i><span class="text">Finish</span></div>
-					</div>
+						<input value="Next" type="submit" class="button button-light button-right">
+                                        </div>
 				</form>
             </div>
 			
-			<div class="page page7">
-				<p id="thankyou">Thank you for entering your shelter in the shelter database. Your shelter will be visible in the database after a short review by the administrator.
-				We kindly request you to add additional data about your shelter, such as technical documentation and drawings, and different attributes. You can start <span id="editlink"></span> to add more details about your shelter.
-				</p>
-				<div class="buttons">
-                    <div onclick="modalClose()" class="button button-light"><i class="fa icon-cancel"></i><span class="text">Close</span></div>
+            <div class="page page7">
+                <p id="thankyou">Thank you for entering your shelter in the shelter database. Your shelter will be visible in the database after a short review by the administrator.
+                We kindly request you to add additional data about your shelter, such as technical documentation and drawings, and different attributes. You can start to add more details about your shelter by clicking the button below, or by clicking on your name on the top right and choose 'your shelters'.
+                </p>
+                <div class="buttons">
+                        <div onclick="modalClose()" class="button button-light"><i class="fa icon-cancel"></i><span class="text">Close</span></div>
+                        <input id="editlink" value="Add more details" class="button button-light button-right">
+
                 </div>
             </div>
         </div>

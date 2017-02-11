@@ -12,9 +12,7 @@ function create_shelter (name_of_shelter, country_value_id, country_name, callba
         data: JSON.stringify(new_shelter_dict),
         success: function (new_shelter) {
             // creation of the shelter OK
-            //console.log(new_shelter);
-
-
+ 
             // Creation of the property: Name of shelter
             var filters = [{"name":"name","op":"eq","val":"Name of shelter"}];
             $.ajax({
@@ -42,13 +40,6 @@ function create_shelter (name_of_shelter, country_value_id, country_name, callba
                         dataType: "json",
                         data: JSON.stringify(_new_property),
                         success: function (result) {
-                            console.log(result);
-
-
-
-
-
-
                             // Creation of the property: Country
                             var filters = [{"name":"name","op":"eq","val":"Country"}];
                             $.ajax({
@@ -75,9 +66,6 @@ function create_shelter (name_of_shelter, country_value_id, country_name, callba
                                         dataType: "json",
                                         data: JSON.stringify(_new_property),
                                         success: function (result) {
-                                            console.log(result);
-
-
                                             // Creation of the property: ID
                                             var filters = [{"name":"name","op":"eq","val":"ID"}];
                                             $.ajax({
