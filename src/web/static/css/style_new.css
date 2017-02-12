@@ -1403,6 +1403,15 @@ section.map {
 
   @media only screen and (max-width: 767px) {
     section.first .arrow .arrow-down { display: none; }
+	main h1 {
+	  font-size: 1.4em;}
+	  
+	main h2 {
+	  font-size: 1.0em;}
+	  
+    .search-wrapper input {
+		width: 230px;
+	}
   }
 
   .flexbox .box .image {

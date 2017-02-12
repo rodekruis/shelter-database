@@ -27,6 +27,8 @@ from PIL import Image, ImageFile
 
 import conf
 import time
+import logging
+import logging.handlers
 from bootstrap import db
 from web.views.common import load_shelter_info
 from web.lib.utils import redirect_url, allowed_file
@@ -165,7 +167,8 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
                                 conf.ALLOWED_EXTENSIONS_PICTURE.union(
                                             conf.ALLOWED_EXTENSIONS_DOCUMENT)):								
             path = os.path.join(conf.SHELTERS_PICTURES_SERVER_PATH, str(shelter.id))
-            
+            logging.debug('path:' + path)
+			
             if not os.path.exists(path):
                 os.makedirs(path)
 
@@ -183,7 +186,7 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
             imagefile.save(os.path.join(path , filename), "JPEG",quality=70, optimize=True, progressive=True)
             
             # save backup image:
-            backup_dir = 'data/pictures_backup/' + str(shelter_id_attribute)
+            backup_dir = os.path.join(conf.SHELTERS_PICTURES_BACKUP_PATH, str(shelter_id_attribute))
             
             if not os.path.exists(backup_dir):
                 os.makedirs(backup_dir)

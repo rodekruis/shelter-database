@@ -24,6 +24,7 @@ Required imports and code execution for basic functionning.
 
 import os
 import logging
+import logging.handlers
 import conf
 import flask_restless
 from flask import Flask
@@ -35,6 +36,18 @@ from flask_assets import Environment, Bundle
 app = Flask('web')
 
 assets = Environment(app)
+
+logger = logging.getLogger("")
+logger.setLevel(logging.DEBUG)
+handler = logging.handlers.RotatingFileHandler(conf.LOG_PATH,
+    maxBytes=3000000, backupCount=2)
+formatter = logging.Formatter(
+    '[%(asctime)s] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logging.getLogger().addHandler(logging.StreamHandler())
+
+logging.debug("started app")
 
 
 # Create a random secrey key so we can use sessions

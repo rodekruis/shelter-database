@@ -107,6 +107,8 @@ PUBLIC_PATH = os.path.join(PATH,
                             config.get('misc', 'public_path'))
 SHELTERS_PICTURES_SERVER_PATH = os.path.join(PATH,
                             config.get('misc', 'shelters_pictures_server_path'))
+SHELTERS_PICTURES_BACKUP_PATH = os.path.join(PATH,
+                            config.get('misc', 'shelters_pictures_backup_path'))
 SHELTERS_PICTURES_SITE_PATH = config.get('misc', 'shelters_pictures_site_path')
 SHELTERS_DOCUMENTS_SERVER_PATH = os.path.join(PATH,
                             config.get('misc', 'shelters_documents_server_path'))
