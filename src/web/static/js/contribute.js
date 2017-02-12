@@ -10,7 +10,8 @@
 	var dropzone;
 	var shelter_id;
 	var countries = {};
-	var layerGroup, marker, locationpicker, bounds;
+	var layerGroup, marker, locationpicker, bounds;	
+	var pictureUploaded = false;
 	
 	/**
 	 * FUNCTIONS
@@ -34,17 +35,13 @@
 	var modalPrev = function modalPrev(){
 		setPage(modalPage - 1)
 	}
-	var modalNext = function modalNext(formId){
-		if(! $(formId).isValid({}, {}, true) ) {
-			return;
-		}
+	var modalNext = function modalNext(){
 		setPage(modalPage + 1)
 	}
 	var setPage = function setPage(page){
 		modalPage = page
 		modalResetPages()
-		console.log(page)
-		console.log($(".mymodal .page" + page))
+
 		$(".mymodal .page" + page).css("display", "block")
 		
 		// trigger event that class changed
@@ -89,9 +86,20 @@
 				dataType: "json",
 				data: {"q": JSON.stringify({"filters": filters})},
 				success: function(result) {
+					
 					result.objects[0].associated_values.map(function(disaster) {
 						$("#associatedDisasterSelect").append(new Option(disaster.name, disaster.id));
-					})
+					});
+					
+					$("#associatedDisasterSelect").glossarizer({
+						  sourceURL: '/static/data/glossary.json',
+						  lookupTagName : 'option',
+						  exactMatch: true,
+						  caseSensitive: false,
+						  callback: function(){
+							new tooltip();
+						  }
+						});
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown){
 					//alert(errorThrown);
@@ -107,10 +115,14 @@
 				contentType: "application/json",
 				dataType: "json",
 				data: {"q": JSON.stringify({"filters": filters})},
-				success: function(result) {
+				success: function(result) {				
+					var options = [];
 					result.objects[0].associated_values.map(function(shelter) {
-						$("#shelterTypeSelect").append(new Option(shelter.name, shelter.id));
-					})
+						options.push({id: shelter.id, title:shelter.name});
+					});
+					
+					//convert selectors
+					prepareSelect('shelterTypeSelect', options);
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown){
 					//alert(errorThrown);
@@ -160,15 +172,23 @@
 	
 	var createDropzone = function createDropzone(){
 
-		dropzone = $("div#uploader").dropzone({ url: "/shelter/edit/multi/" + shelter_id + '/' + category_id + '/General information'});
-		Dropzone.options.uploader = {
-		  paramName: "file", // The name that will be used to transfer the file
-		  uploadMultiple: true,
-		  parallelUploads: 1,
-		  maxFilesize: 4, // MB
-		  acceptedFiles: "image/*",
-		};
-		
+		dropzone = $("div#uploader").dropzone({
+			  url: "/shelter/edit/multi/" + shelter_id + '/' + category_id + '/General information',
+		  	  paramName: "file", // The name that will be used to transfer the file
+			  uploadMultiple: true,
+			  parallelUploads: 1,
+			  maxFilesize: 4, // MB
+			  acceptedFiles: "image/*",
+			  hiddenInputContainer: "#photos",
+			  init: function () {
+    			this.on("success", function(file) { 
+					$("#photosForm").prop("disabled",false);
+					$('#photosSubmitButton').removeClass('button-disabled');
+					$('#photosSubmitButton').addClass('button:hover');
+				});
+			   }
+			 });
+			
 		// add class
 		$('div#uploader').addClass('dropzone');
 	}
@@ -268,7 +288,10 @@
 		
 		// fit map to bounds of country
 		bounds = countryLayer.getBounds();
-		//locationpicker.fitBounds(bounds);				
+		//locationpicker.fitBounds(bounds);		
+		
+		// remove all layers
+		layerGroup.clearLayers();
 	}
 
 	var setLocation = function setLocation(latlng){
@@ -377,21 +400,38 @@
 		});
 	}
 	
-	var glossarize = function glossarize(){
-		$('#create').glossarizer({
-		  sourceURL: '/static/data/glossary.json',
-		  lookupTagName : 'div, p, option',
-		  exactMatch: true,
-		  caseSensitive: false,
-		  callback: function(){
-			new tooltip();
-		  }
-		});
+	// create dropdown and add glossary items upon open
+	var prepareSelect = function prepareSelect(id, options){
+		$('#' + id).selectize({
+					options: options,
+					valueField: 'id',
+					labelField: 'title',
+					create: false,
+					sortField: {
+						field: 'title',
+						direction: 'asc'
+					},
+					dropdownParent: 'body',
+					onDropdownOpen: function onDropdownOpen(dropdown){
+						dropdown.glossarizer({
+						  sourceURL: '/static/data/glossary.json',
+						  lookupTagName : 'div',
+						  exactMatch: true,
+						  caseSensitive: false,
+						  callback: function(){
+							new tooltip();
+						  }
+						});
+					},
+					onDropdownClose: function onDropdownClose(dropdown){
+						$('#tooltip').remove();
+					}
+				});
 	}
 	
 	/**
 	 * EVENT LISTENERS
-	 */
+	 
 	 
 	$('#field8507618').change(function(){
         if (this.checked) {
@@ -411,14 +451,7 @@
         	
         }
     });
-	
-	$("#shelterTypeSelect").mouseover(function(){
-		var n = $("#shelterTypeSelect option").length;
-		$(this).attr("size", n);
-	});
-	$("shelterTypeSelect").mouseout(function(){
-		$(this).attr("size", 1);
-	});
+   */
 
 	$("#newShelter").click(function(evt) {
 		
@@ -430,9 +463,6 @@
 		
 		//fetch shelter types
 		fetchShelterTypes();
-		
-		// glossarize attributes
-		glossarize();
 	});
 
 	$(".organizations").select2({
@@ -489,16 +519,15 @@
 	}); 
 
 	//Attach a submit handler to the form (only allow to click once)
-	$('#createShelter').on( "click", function() {
-		if(! $('#createShelterForm').isValid({},{}, true) ) {
-			return;
-		}
+	var createShelter = function createShelter(){
 		
 		// check if form was already submitted
+		/**
 		var submitted = $('#createShelterForm').attr('submitted');
 		if (typeof submitted !== typeof undefined && submitted !== false) {
 			return;
 		}
+		**/
 		
 		// set form to submitted
 		$('#createShelterForm').attr('submitted', 'yes');
@@ -524,9 +553,7 @@
 				
 				// Set edit url
 				d3.select('#editlink')
-					.append('a')
-						.attr('href', '/shelter/edit/' + shelter_id + '/General-Information')
-						.text('editing your shelter');
+						.attr('onclick', "document.location.href='/shelter/edit/" + shelter_id + "/General-Information'");
 				
 				// add spinner
 				$('#wrapper').spin(false);
@@ -540,7 +567,7 @@
 				
 			}
 		});
-	});
+	};
 
 	// listen when page3 with leaflet map is opened
 	$('#modalcontent').on('page3', function(){ 
@@ -615,8 +642,29 @@
 	/**
 	 * LOGIC
 	 */
+    // add validation to selectize element
+    $('#shelterTypeSelect')
+		.on('beforeValidation', function (evt) {
+		// prevent validator from skipping this input becaus its hidden
+		evt.stopImmediatePropagation();
+	});
+	$('#photos .dz-hidden-input')
+		.on('beforeValidation', function (evt) {
+		// prevent validator from skipping this input becaus its hidden
+		evt.stopImmediatePropagation();
+	});
+	
 	 
 	// initiate form validator
-	$.validate();
+	$.validate({modules : 'file', validateHiddenInputs: true,
+	 	onSuccess : function($form) {
+		  if($form.attr('id') === 'createShelterForm'){
+			  createShelter();
+		  } else {
+			  modalNext();
+		  }
+		  return false; // Will stop the submission of the form
+		}
+	});
 	
 	initiateLocationPicker();

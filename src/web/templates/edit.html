@@ -29,7 +29,7 @@
 						<h3>{{ sub_category.name | translate }}</h3>
 						{% for attribute in sub_category.attributes %}
 									<div class="mygroup">
-										<div class="mylabel">{{ attribute.name | translate }} {% if not attribute.has_drawing %}<a href="" class="btn-link see-drawing-link" attribute-name="{attribute.name}" section-name="{sub_category.name}">See drawing</a>{% endif %}</div>
+										<div class="mylabel">{{ attribute.name | translate }} {% if not attribute.has_drawing %}<a class="btn-link see-drawing-link" attribute-name="{{attribute.name}}" section-name="{{sub_category.name}}">See drawing</a>{% endif %}</div>
 
 										<div class="myinput">
 											{% if not attribute.is_editable %}
@@ -183,8 +183,13 @@
 {% block defer %}
 	{{ super() }}
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3-queue/3.0.3/d3-queue.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.min.js"></script>
 		
 		{% assets filters="jsmin", output="assets/packaged-edit.js",
+          "lib/custom/tooltip/tooltip.js",
+		  "lib/custom/jquery-glossarize/jquery.glossarize.js",	
 		  "js/edit-shelter.js"
 		%}
 			<script type="text/javascript" src="{{ASSET_URL}}" defer></script>

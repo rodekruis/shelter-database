@@ -54,12 +54,12 @@
 							<select id="countrySelect" data-validation="required" name="country" data-live-search="true" ></select>
 						</label>
 					</div>
-                
-					<!-- <a href="" class="button button-light button-drop button-stretch">Select</a> -->
+                                                
 					<div class="buttons">
 						<div onclick="modalClose()" class="button button-light"><i class="fa fa-times"></i><span class="text">Cancel</span></div>
 						<!--<button type="submit" id="createShelter" class="btn btn-default form-control" value="Create">Create</button>	-->			                   
-					   <div id="createShelter" class="button button-light button-right"><i class="fa icon-right-big"></i><span class="text">Next</span></div>
+					        <input id="createShelter" value="Next" type="submit" class="button button-light button-right">
+                                                <!--<div id="createShelter" class="button button-light button-right"><i class="fa icon-right-big"></i><span class="text">Next</span></div>-->
 					</div>
 				</form>
             </div>
@@ -72,7 +72,7 @@
 					</div>
 					<div class="buttons">
 						<div onclick="modalClose()" class="button button-light"><i class="fa icon-cancel"></i><span class="text">Cancel</span></div>
-						<div onclick="modalNext('#organizationsForm')" class="button button-light button-right"><i class="fa icon-right-big"></i><span class="text">Next</span></div>
+						<input value="Next" type="submit" class="button button-light button-right">
 					</div>
 				</form>
             </div>
@@ -80,7 +80,7 @@
 				<form class="myform" id="yearLocationForm">
 					<div class="mygroup">
 						<div class="mylabel">What is the year of construction of the first shelters?</div>
-						<div class="myinput"><input type="number" name="yearofconstructionfirstshelters" data-validation="number" data-validation-allowing="range[1970;2030]" id="yearofconstructionfirstshelters" class="free-text-attribute" property-id="" attribute-id="36" category-id="8" value-id="None" value="" placeholder="2016"></div>
+						<div class="myinput"><input type="number" name="yearofconstructionfirstshelters" data-validation="number" data-validation-error-msg="This field is required. Please enter the year, numbers only." data-validation-allowing="range[1970;2030]" id="yearofconstructionfirstshelters" class="free-text-attribute" property-id="" attribute-id="36" category-id="8" value-id="None" value="" placeholder="2016"></div>
 					</div>
 					<div class="mylabel">Where is the shelter located?</div>
 					<div id="locationpicker" style="width:100%; height:250px;">
@@ -91,8 +91,8 @@
 					<div class="buttons">
 						<div onclick="modalClose()" class="button button-light"><i class="fa icon-cancel"></i><span class="text">Cancel</span></div>
 						<div onclick="modalPrev()" class="button button-light button-left"><i class="fa icon-left-big"></i><span class="text">Previous</span></div>
-						<div onclick="modalNext('#yearLocationForm')" class="button button-light button-right"><i class="fa icon-right-big"></i><span class="text">Next</span></div>
-					</div>
+						<input value="Next" type="submit" class="button button-light button-right">	
+                                        </div>
 				</form>
             </div>
 			<div class="page page4">
@@ -108,9 +108,8 @@
 					
 					<div class="mygroup">
 						<div class="mylabel">What type of humanitarian response is it?</div>
-						<label for="shelterTypeSelect" class="button button-drop">
+						<label for="shelterTypeSelect" class="button button-drop button-no-border">
 							<select id="shelterTypeSelect" data-validation="required" class="select-attribute" property-id="" attribute-id="21" category-id="4">
-								  <option value=""></option>
 							</select>
 						</label>
 					</div>
@@ -118,30 +117,10 @@
 					<div class="buttons">
 						<div onclick="modalClose()" class="button button-light"><i class="fa icon-cancel"></i><span class="text">Cancel</span></div>
 						<div onclick="modalPrev()" class="button button-light button-left"><i class="fa icon-left-big"></i><span class="text">Previous</span></div>
-						<div onclick="modalNext('#disasters')" class="button button-light button-right"><i class="fa icon-right-big"></i><span class="text">Next</span></div>
-					</div>
+						<input value="Next" type="submit" class="button button-light button-right">
+                                        </div>
 				</form>
-            </div>
-			<!--
-            <div class="page page3">
-                <div class="mylabel">Location of the Site:</div>
-                <div class="options">
-                    <div class="option" onclick="optClick(0)" style="background-image: url('{{ url_for('static', filename='img/site/1.png') }}')"></div>
-                    <div class="option" onclick="optClick(1)" style="background-image: url('{{ url_for('static', filename='img/site/2.png') }}')"></div>
-                    <div class="option" onclick="optClick(2)" style="background-image: url('{{ url_for('static', filename='img/site/3.png') }}')"></div>
-                    <div class="option" onclick="optClick(3)" style="background-image: url('{{ url_for('static', filename='img/site/4.png') }}')"></div>
-                    <div class="option" onclick="optClick(4)" style="background-image: url('{{ url_for('static', filename='img/site/5.png') }}')"></div>
-                    <div class="option" onclick="optClick(5)" style="background-image: url('{{ url_for('static', filename='img/site/6.png') }}')"></div>
-                    <div class="option" onclick="optClick(6)" style="background-image: url('{{ url_for('static', filename='img/site/7.png') }}')"></div>
-                    <div class="option" onclick="optClick(7)" style="background-image: url('{{ url_for('static', filename='img/site/8.png') }}')"></div>
-                </div>
-
-                <div class="buttons">
-                    <div onclick="modalClose()" class="button button-light"><i class="fa icon-cancel"></i><span class="text">Cancel</span></div>
-                    <div onclick="modalNext()" class="button button-light right"><i class="fa icon-right-big"></i><span class="text">Next</span></div>
-                </div>
-            </div>
-			-->            
+            </div>         
 			<div class="page page5">
 				<form class="myform" id="photos">
 					<div class="mygroup">
@@ -150,58 +129,62 @@
 						   <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 						   <div class="fallback">
 							   <input id="files" multiple="true" name="files" type="file"
-									  data-validation="length mime size"
+									  data-validation="length mime size required"
 									  data-validation-length="min1"
 									  data-validation-allowing="jpg, png, gif"
 									  data-validation-max-size="4000kb"
 									  data-validation-error-msg-size="You can not upload images larger than 4000kb"
 									  data-validation-error-msg-mime="You can only upload images"
-									  data-validation-error-msg-length="You have to upload at least one images">
+									  data-validation-error-msg-length="You have to upload at least one images"
+									  data-validation-error-msg-required="You have to upload at least one images">
 							</div>
 						</div>
+                                                <span class="help-block form-error">You have to upload at least one image. Maximum size is 4 Mb, only of type jpg, png or gif.</span>
 					</div>
 				
 					<div class="buttons">
 						<div onclick="modalClose()" class="button button-light"><i class="fa icon-cancel"></i><span class="text">Cancel</span></div>
 						<div onclick="modalPrev()" class="button button-light button-left"><i class="fa icon-left-big"></i><span class="text">Previous</span></div>
-						<div onclick="modalNext('#photos')" class="button button-light button-right"><i class="fa icon-right-big"></i><span class="text">Next</span></div>
-					</div>
+						<input id="photosForm" value="Next" type="submit" disabled class="button buddon-disabled button-light button-right">
+                                        </div>
                 </form>
             </div>
 			<div class="page page6">
 				<form class="myform" id="specs">
 					<div class="mygroup">
 						<div class="mylabel">What is the unit cost of the shelter (USD)?</div>
-						<div class="myinput"><input type="number" data-validation="required"  class="free-text-attribute" id="unitCost" property-id="" attribute-id="49" category-id="8" value-id="None" value=""></div>
+						<div class="myinput"><input type="number" data-validation="required"  data-validation-error-msg="This field is required. Numbers only." class="free-text-attribute" id="unitCost" property-id="" attribute-id="49" category-id="8" value-id="None" value=""></div>
 					</div>
 					
 					<div class="mygroup">
 						<div class="mylabel">What is the number of inhabitants of the shelter?</div>
-						<div class="myinput"><input type="number" data-validation="required" min="1" max="200" class="free-text-attribute" id="inhabitants" property-id="" attribute-id="37" category-id="8" value-id="None" value=""></div>
+						<div class="myinput"><input type="number" data-validation="required" data-validation-error-msg="This field is required. Numbers only, maximum 200." min="1" max="200" class="free-text-attribute" id="inhabitants" property-id="" attribute-id="37" category-id="8" value-id="None" value=""></div>
 					</div>
 					
 					<div class="mygroup">
 						<div class="mylabel">What is the total surface area in square meters (m2)?</div>					
-						<div class="myinput"><input type="number" data-validation="required" class="free-text-attribute" id="surface" property-id="" attribute-id="45" category-id="8" value-id="None" value=""></div>
+						<div class="myinput"><input type="number" data-validation="required" data-validation-error-msg="This field is required. Numbers only." class="free-text-attribute" id="surface" property-id="" attribute-id="45" category-id="8" value-id="None" value=""></div>
 					</div>
 					
 					<div class="mygroup">
-                            <div class="mylabel">Terms</div>
-                            <div class="mycheckbox"><input type="checkbox" id="field8507618" data-validation="required"><label class="checkbox" for="field8507618"><i class="fa icon-cancel"></i> Accept the <a href="/termsofservice" target="_blank">terms of service</a></label></div>
-                    </div>
+                                            <div class="mylabel">Terms</div>
+                                            <div><input type="checkbox" data-validation="required" data-validation-error-msg="You have to agree to our terms" /><labe for="terms"> Accept the <a href="/termsofservice" target="_blank">terms of service</a></label></div>
+                                         </div>
 					<div class="buttons">
 						<div onclick="modalPrev()" class="button button-light button-left"><i class="fa icon-left-big"></i><span class="text">Previous</span></div>
-						<div class="button button-light button-disabled" id="acceptbutton"><i class="fa icon-cancel"></i><span class="text">Finish</span></div>
-					</div>
+						<input value="Next" type="submit" class="button button-light button-right">
+                                        </div>
 				</form>
             </div>
 			
-			<div class="page page7">
-				<p id="thankyou">Thank you for entering your shelter in the shelter database. Your shelter will be visible in the database after a short review by the administrator.
-				We kindly request you to add additional data about your shelter, such as technical documentation and drawings, and different attributes. You can start <span id="editlink"></span> to add more details about your shelter.
-				</p>
-				<div class="buttons">
-                    <div onclick="modalClose()" class="button button-light"><i class="fa icon-cancel"></i><span class="text">Close</span></div>
+            <div class="page page7">
+                <p id="thankyou">Thank you for entering your shelter in the shelter database. Your shelter will be visible in the database after a short review by the administrator.
+                We kindly request you to add additional data about your shelter, such as technical documentation and drawings, and different attributes. You can start to add more details about your shelter by clicking the button below, or by clicking on your name on the top right and choose 'your shelters'.
+                </p>
+                <div class="buttons">
+                        <div onclick="modalClose()" class="button button-light"><i class="fa icon-cancel"></i><span class="text">Close</span></div>
+                        <input id="editlink" value="Add more details" class="button button-light button-right">
+
                 </div>
             </div>
         </div>
@@ -217,13 +200,13 @@
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.min.js"></script>
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.44/jquery.form-validator.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.54/jquery.form-validator.min.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.7.1/leaflet-geocoder-mapzen.min.js"></script>	
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.min.js"></script>
 	
 	{% assets filters="jsmin", output="assets/packaged-contribute.js",
-
 		  "lib/bower/leaflet-geosearch/src/js/l.control.geosearch.js", 
 		  "lib/bower/leaflet-geosearch/src/js/l.geosearch.provider.google.js",
 		  "lib/bower/Leaflet.label/dist/leaflet.label.js",

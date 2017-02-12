@@ -18,7 +18,7 @@
     "datatables.net-bs": "~1.10.10",
     "tinymce": "^4.3.12",
     "bootstrap-datepicker": "^1.6.4",
-	"leaflet-geosearch": "*",
+	"leaflet-geosearch": "1.1.0",
 	"leaflet-geocoder-mapzen": "1.7.*",
 	"Leaflet.label": "0.2.*",
 	"leaflet": "0.7.7",
@@ -38,6 +38,7 @@
 	"spin.js": "2.3.*",
 	"d3-queue": "3.0.*",
 	"jquery_lazyload": "1.9.*",
-	"tinymce": "4.4.*"
+	"tinymce": "4.4.*",
+	"selectize": "*"
   }
 }

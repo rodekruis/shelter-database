@@ -127,22 +127,69 @@ function update_property(property_id, id_of_values) {
 
 
 // create outside of dom ready, so that it is available when section uploads are created
-var createDropzone = function(id, shelter_id, section, category_id){
+	var createDropzone = function createDropzone(id, shelter_id, section, category_id){
+        var fileId;
+		var dropzone = $('#' + id).dropzone({
+			  url: "/shelter/edit/multi/" + shelter_id + '/' + category_id + '/' + section,
+		  	  paramName: "file", // The name that will be used to transfer the file
+			  uploadMultiple: true,
+			  parallelUploads: 1,
+			  maxFilesize: 4, // MB
+			  acceptedFiles: "image/*",
+			  addRemoveLinks: true,
+			  init: function() {
+				this.on("success", function(file, responseText) {
+					file.id = responseText; // or however you would point to your assigned file ID here;
+				});
+			  },
+			  removedfile: function(file) {
+				x = confirm('Do you want to delete this file?');
+				if(!x)  return false;
 
-	var dropzone = $('#' + id).dropzone({ url: "/shelter/edit/multi/" + shelter_id + '/' + category_id + '/' + section});
-	  
-	Dropzone.options[id] = {
-	  paramName: "file", // The name that will be used to transfer the file
-	  uploadMultiple: true,
-	  parallelUploads: 1,
-	  maxFilesize: 4, // MB
-	  acceptedFiles: "image/*",
-	};
-	
-	// add class
-	$('#' + id).addClass('dropzone');
+				$.post( "/shelter/delete_picture/" + file.id, function() {
+					$(document).find(file.previewElement).remove();
+				})
+				  .fail(function() {
+					alert( "file was not correctly deleted" );
+				  });
+			  }
+			 });
+			
+		// add class
+		$('#' + id).addClass('dropzone');
+	}
+
+// create dropdown and add glossary items upon open
+var prepareSelect = function prepareSelect(id){
+	$('#' + id).selectize({
+				valueField: 'id',
+				labelField: 'title',
+				create: false,
+				sortField: {
+					field: 'title',
+					direction: 'asc'
+				},
+				dropdownParent: 'body',
+				onDropdownOpen: function onDropdownOpen(dropdown){
+					dropdown.glossarizer({
+					  sourceURL: '/static/data/glossary.json',
+					  lookupTagName : 'div',
+					  exactMatch: true,
+					  caseSensitive: false,
+					  callback: function(){
+						new tooltip();
+					  }
+					});
+				},
+				onItemAdd: function onItemAdd(value, $item){
+					$('#tooltip').remove();
+				},
+				onDropdownClose: function onDropdownClose(dropdown){
+					$('#tooltip').remove();
+				}
+			});
 }
-
+	
 var show_multimedia_assets = function show_multimedia_assets(e) {
 	var attribute = $(this).attr("attribute-name");
 	var section = $(this).attr("section-name")
@@ -249,12 +296,20 @@ $(document).on('click', '.see-drawing-link' , show_multimedia_assets);
  * LOGIC
  */
  
-getAttributes();
- 
-$('select.expandable').each(function() { $(this).attr('size', $(this).find('option').length) })	
+var q = d3.queue();
+	q.defer(getAttributes);
+	q.await(function(error) {
+	  if (error) throw error;
+	  
+	  
+	});
 
 Dropzone.autoDiscover = false;
 
 $('.dropzonediv').each(function() { 
 	createDropzone($(this).attr('id'), $(this).data("shelter-id"), $(this).data("sub-category"), $(this).data("sub-category-id"))
+});
+
+$("select").each(function() {
+    prepareSelect($(this).attr('id'));
 });

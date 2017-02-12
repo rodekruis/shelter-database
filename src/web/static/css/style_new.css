@@ -259,11 +259,9 @@ strong {
     font-size: 1.1em;
     margin-left: 10px;
     pointer-events: none; }
-  .button.button-disabled {
-    background-color: #DDD;
-    border: 1px solid #999;
-    cursor: default;
-    color: #999;}
+  
+  .button.button-no-border {
+	  border: 0px;}
 .button + .button {
   margin-left: 5px; }
 
@@ -1640,3 +1638,12 @@ section.map {
 	border-radius: 4px;
 	background-size: 26px 26px;
 }
+
+.button-disabled {
+    background-color: #DDD;
+    border: 1px solid #999;
+    cursor: default;
+	  color: #999;}
+    .button-disabled:hover {
+    	background-color: #DDD;
+    	color: #999; }
