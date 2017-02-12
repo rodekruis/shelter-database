@@ -13,7 +13,7 @@
             <div class="overlay"></div>
             <div class="toplayer">
                 <h1>Open Shelter Database</h1>
-                <h2>An overview of <strong class="notranslate">{{num_shelters}}</strong> shelters which have been built<br />throughout the world in response to disasters</h2>
+                <h2>An overview of <strong class="notranslate">{{num_shelters}}</strong> shelters which have been built throughout the world in response to disasters</h2>
                 <div class="search">
                     <div class="search-wrapper">
                         <input type="text" name="" placeholder="Search Shelters" id="searchinput" /> 
@@ -90,6 +90,10 @@
             </p>
         </section>
 		<section class="supported">
+			<h3>created by</h3>
+			<div class="supporters">
+                <div class="supporter large" style="background-image:url('{{ url_for('static', filename = 'img/contributors_logo/SRU.png') }}');"></div>
+            </div>
             <h3>supported by</h3>
 			<div class="supporters">
                 <div class="supporter" style="background-image:url('{{ url_for('static', filename = 'img/contributors_logo/LRC.svg') }}');"></div>
