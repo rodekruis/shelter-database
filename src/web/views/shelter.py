@@ -186,7 +186,7 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
             imagefile.save(os.path.join(path , filename), "JPEG",quality=70, optimize=True, progressive=True)
             
             # save backup image:
-            backup_dir = 'data/pictures_backup/' + str(shelter_id_attribute)
+            backup_dir = os.path.join(conf.SHELTERS_PICTURES_BACKUP_PATH, str(shelter_id_attribute))
             
             if not os.path.exists(backup_dir):
                 os.makedirs(backup_dir)

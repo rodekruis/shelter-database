@@ -1,8 +1,9 @@
 [misc]
 platform_url = https://shelter-database.org
-log_path = src/web/var/shelter.log
+log_path = shelter.log
 log_level = info
 shelters_pictures_site_path = static/pictures/shelters
+shelters_pictures_backup_path = data/pictures_backup
 shelters_pictures_server_path = src/web/static/pictures/shelters
 shelters_documents_site_path = static/documents/shelters
 shelters_documents_server_path = src/web/static/documents/shelters
