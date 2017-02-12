@@ -39,7 +39,7 @@ assets = Environment(app)
 
 logger = logging.getLogger("")
 logger.setLevel(logging.DEBUG)
-handler = logging.handlers.RotatingFileHandler("flask.log",
+handler = logging.handlers.RotatingFileHandler(conf.LOG_PATH,
     maxBytes=3000000, backupCount=2)
 formatter = logging.Formatter(
     '[%(asctime)s] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s')
