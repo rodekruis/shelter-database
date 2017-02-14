@@ -158,7 +158,7 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
     shelter_id_attribute = shelter_id_query[0]
     
     if not shelter:
-        return 'o such shelter', 400 
+        return 'no such shelter', 400 
 
     for f in request.files:
         if request.files[f] and request.files[f].filename == '':
@@ -179,7 +179,10 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
             if im.size[0] > imgwidth:
                 ratio = (imgwidth/float(im.size[0]))
                 hsize = int((float(im.size[1])*float(ratio)))
-                imagefile = im.resize((imgwidth,hsize), Image.BILINEAR)
+                try:
+                	imagefile = im.resize((imgwidth,hsize), Image.BILINEAR)
+                except OSError:
+                   return 'Failed to resize picture, please resize to ' + imgwidth + ' pixels width', 400               
             else:
                 imagefile = im
             

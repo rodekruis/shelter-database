@@ -25,6 +25,10 @@
 .icon-landscape-with-mountains:before { content: '\e817'; } /* '' */
 .icon-temperatire:before { content: '\e818'; } /* '' */
 .icon-terrain:before { content: '\e819'; } /* '' */
+.icon-users:before { content: '\e81a'; } /* '' */
+.icon-user-1:before { content: '\e81b'; } /* '' */
+.icon-github-circled:before { content: '\e81c'; } /* '' */
+.icon-shelter:before { content: '\e81d'; } /* '' */
 .icon-warehouse:before { content: '\e840'; } /* '' */
 .icon-resize-full-alt:before { content: '\f0b2'; } /* '' */
 .icon-list-bullet:before { content: '\f0ca'; } /* '' */

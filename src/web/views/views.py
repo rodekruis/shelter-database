@@ -160,6 +160,10 @@ def stats():
 @current_app.route('/help', methods=['GET'])
 def help():
     return render_template('help.html')
+	
+@current_app.route('/termsofservice', methods=['GET'])
+def termsofservice():
+    return render_template('termsofservice.html')
 
 @current_app.route('/contribute', methods=['GET'])
 def contribute():

@@ -38,7 +38,7 @@ app = Flask('web')
 assets = Environment(app)
 
 logger = logging.getLogger("")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(conf.LOG_LEVEL)
 handler = logging.handlers.RotatingFileHandler(conf.LOG_PATH,
     maxBytes=3000000, backupCount=2)
 formatter = logging.Formatter(
