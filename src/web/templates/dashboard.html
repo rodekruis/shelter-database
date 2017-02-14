@@ -4,6 +4,7 @@
         <div class="content">
             <div class="search-wrapper">
                 <input type="" name="" id="query" placeholder="Search Shelters.."/>
+				<a id="searchinfo" onclick="modalOpen('infomodal')"><i class="fa icon-help"></i></a>
             </div>
         </div>
     </section>
@@ -122,9 +123,9 @@
                         </div>
                          <div class="col-md-4 col-sm-12 col-xs-12">
                              <div class="menu-btn">
-                                    <a id="download" class="menu-href">Download <i class="fa icon-download"></i></a>
+                                    <a id="download" class="menu-href">Download data as csv<i class="fa icon-download"></i></a>
                                     |
-                                    <a id="share" class="menu-href">Share <i class="fa icon-share"></i></a>
+                                    <a id="share" class="menu-href">Share link <i class="fa icon-share"></i></a>
                              <div>
                          </div>
 
@@ -260,6 +261,20 @@
             
         </div>
     </section>
+{% endblock %}
+			
+{% block footer %}
+{{ super() }}
+<div class="mymodal" id="infomodal">
+        <div class="content" id="modalcontent">
+			<div class="page page1">
+				<p>Just enter a keyword in this search and press Enter (or Next on mobile). If you search by keyword, all other filters are reset. You can search on any of the shelter attributes, such as country name, building materials, and many more. Small spelling mistakes are possible. Search is English only. </p>
+				<div class="buttons">
+                    <div onclick="modalClose()" class="button button-light"><i class="fa fa-check"></i><span class="text">Close</span></div>
+                </div>
+            </div>
+		</div>
+</div>
 {% endblock %}
 
 {% block defer %}

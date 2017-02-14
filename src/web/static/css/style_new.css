@@ -129,7 +129,10 @@ table {
   background-position: center center;
   background-repeat: no-repeat; }
 
-.contain, .swipe .panes .pane, section.supported .supporters .supporter, section.organisation .orgimage {
+.contain, .swipe .panes .pane, section.supported .supporters .supporter, section.organisation .org
+
+
+{
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat; }
@@ -716,7 +719,7 @@ header {
   background-color: #FFF;
   background-color: rgba(255, 255, 255, 0.95);
   overflow: scroll;
-  z-index: 200; }
+  z-index: 1000; }
   .mymodal.mymodal-dark {
     background-color: rgba(0, 0, 0, 0.9); }
     .mymodal.mymodal-dark .mymodal-close:after {
@@ -1096,7 +1099,7 @@ section.first {
       animation: bounce 1.5s infinite; }
       section.first .arrow .arrow-down:after {
         content: "\e804";
-        font-size: 28px; }
+        font-size: 31px; }
   @media only screen and (min-width: 768px) {
     section.first {
       min-height: 570px;
@@ -1288,8 +1291,17 @@ section.map {
       position: relative;
       top: 0;
       left: 0;
-      height: 150px;
-      background-color: #CCC; }
+      height: 150px;}
+	.shelters .shelter .image:before {
+        background-color: #CCC; 
+		font-family: "fontello";
+		content: "\e81d";
+		width: 100%;
+		height: 100%;
+		font-size: 2.0em;
+		text-align: center;
+		display: block;
+		line-height: 150px;}
     .shelters .shelter h4.title {
       font-size: 1.3em;
       font-weight: bold;
@@ -1656,3 +1668,14 @@ section.map {
     .button-disabled:hover {
     	background-color: #DDD;
     	color: #999; }
+
+.showmorelink {
+  text-decoration: none !important;
+  color: #FFF; }
+  a:active {
+    text-decoration: none !important;
+    color: #FFF; }
+  a:hover {
+    text-decoration: none !important;
+    color: #CC0000; }
+	
