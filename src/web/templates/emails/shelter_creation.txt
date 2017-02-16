@@ -1,6 +1,10 @@
 Hi,
 
-The user {{ shelter.responsible.name }} just created a new shelter:
-{{ platform_url }}/shelter/{{ shelter.id }}/General-Information
+The user {{ user.name }} just created a new shelter:
+{{ platform_url }}/shelter/{{ shelter.id }}
 
-Cordially,
+Please review and publish it when you have time.
+
+Best regards,
+Notifier robot
+
