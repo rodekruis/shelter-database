@@ -68,7 +68,7 @@ def create_admin_user():
     from werkzeug import generate_password_hash
     print("Creation of the admin user...")
     with app.app_context():
-        user = web.models.User(email="cedric.bonhomme@list.lu",
+        user = web.models.User(email="agergely@rodekruis.nl",
                             name="admin",
                             pwdhash=generate_password_hash("password"),
                             is_admin=True,

@@ -86,6 +86,6 @@ def after_insert(mapper, connection, target):
     user = User.query.filter(User.id==target.user_id).first()
     if not user.is_admin:
         try:
-            notifications.new_shelter_creation(target)
+            notifications.new_shelter_creation(target, user)
         except Exception as e:
             print(e)

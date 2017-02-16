@@ -33,7 +33,7 @@ def new_account_creation(user):
                 subject="[Shelter Database] Account creation",
                 plaintext=plaintext)
 
-def new_shelter_creation(shelter):
+def new_shelter_creation(shelter, user):
     """
     Shelter creation notification.
     """
@@ -41,7 +41,7 @@ def new_shelter_creation(shelter):
     admins = User.query.filter(User.is_admin==True).all()
     recipients = ", ".join([user.email for user in admins])
     plaintext = render_template('emails/shelter_creation.txt',
-                                shelter=shelter, platform_url=conf.PLATFORM_URL)
+                                shelter=shelter, user=user, platform_url=conf.PLATFORM_URL)
     emails.send(to=recipients,
                 bcc=conf.NOTIFICATION_EMAIL,
                 subject="[Shelter Database] Shelter creation",
