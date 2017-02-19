@@ -262,6 +262,9 @@ strong {
     font-size: 1.1em;
     margin-left: 10px;
     pointer-events: none; }
+  .button.button-large {
+	  font-size: 20px;
+  }
   
   .button.button-no-border {
 	  border: 0px;}
@@ -685,7 +688,7 @@ header {
   .search-wrapper:before {
     position: absolute;
     top: 15px;
-    left: 16px;
+    left: 25px;
     content: "\e806";
     color: #333;
     font-size: 1.3em;
@@ -1196,6 +1199,10 @@ section.contribute {
   section.contribute .bt {
     margin: 30px 0; }
 
+section.contribute-image {
+	height: 300px;
+}
+
 section.knowledge {
   text-align: center;
   min-height: 400px; }
@@ -1266,7 +1273,7 @@ section.search {
   section.search .search-wrapper input {
     color: #333;
     background-color: #FAFAFA;
-    width: 100%;
+    width: 85%;
     padding-left: 50px;
     border: 1px solid #CCC; }
     @media only screen and (min-width: 768px) {
@@ -1291,9 +1298,9 @@ section.map {
       position: relative;
       top: 0;
       left: 0;
-      height: 150px;}
+      height: 150px;
+      background-color: #CCC; }
 	.shelters .shelter .image:before {
-        background-color: #CCC; 
 		font-family: "fontello";
 		content: "\e81d";
 		width: 100%;
