@@ -29,3 +29,7 @@ notification_email =
 notification_username =
 notification_password =
 notification_starttls = false
+[humanitarian_id]
+humanitarian_id_auth_uri=
+humanitarian_id_client_id=
+humanitarian_id_redirect_uri=

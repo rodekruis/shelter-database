@@ -2,6 +2,7 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row">
+        {#
         <div class="col-md-4 pull-right">
             <div class="well">
                 <form class="form-horizontal" action="{{ url_for('signup') }}" method="POST" role="form">
@@ -28,11 +29,13 @@
                         <p class="help-block">Minimum 6 characters.</p>
                     </div>
                     <div class="form-group">
-                        {{ signupForm.submit(class_="btn btn-default form-control") }}
+                        {{ signupForm.submit(class_="btn btn-default form-control", style="position: relative!important;left:0px;") }}
                     </div>
                 </form>
             </div>
         </div>
+        #}
+        {#
         <div class="col-md-4 pull-right">
             <div class="well">
                 <form class="form-horizontal" action="{{ url_for('login') }}" method="POST" role="form">
@@ -51,12 +54,31 @@
                         {% endfor %}
                     </div>
                     <div class="form-group">
-                        {{ loginForm.submit(class_="btn btn-default form-control") }}
+                        {{ loginForm.submit(class_="btn btn-default form-control", style="position: relative!important;left:0px;") }}
+                        <a class="btn btn-default form-control" href="#" id="login-hid" style="position: relative!important;left:0px;">
+                            <img class="img-round" width="20px" height="20px" style="padding-top:3px;"
+                            src="{{ url_for('static', filename='img/logo_hid.png') }}">
+                            SignUp/Login With H-ID
+                        </a>
                     </div>
                 </form>
             </div>
         </div>
+        #}
         <div class="col-md-4 pull-right">
+            <div class="well">
+                <h3>Auth With Humanitarian ID</h3>
+                <div class="from-group">
+                        <a class="btn btn-default form-control" href="#" id="login-hid" style="position: relative!important;left:0px;">
+                            <img class="img-round" width="20px" height="20px" style=""
+                            src="{{ url_for('static', filename='img/logo_hid.png') }}">
+                            SignUp/Login With H-ID
+                        </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8 pull-left">
             <div class="well">
                 <h3>Welcome to the Shelter Database!</h3>
                 <p>Please create your account to enter your shelter into the
@@ -93,3 +115,16 @@
     </div>
 </div>
 {% endblock %}
+{% block defer_extra %}
+<script>
+    $(document).ready(function() {
+        $('#login-hid').click(function(event) {
+            event.preventDefault();
+            window.location.href = '{{humanitarian_id_auth_uri}}/oauth/authorize?response_type=token&client_id={{client_id}}&scope=profile&state=12345&redirect_uri={{redirect_uri}}';
+        });
+    });
+</script>
+{% endblock %}
+
+
+

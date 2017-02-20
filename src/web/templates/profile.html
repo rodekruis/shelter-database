@@ -15,11 +15,24 @@
             {{ form.preferred_language.label }}
             {{ form.preferred_language(class_="form-control") }} {% for error in form.preferred_language.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
 
+            <div class="form-group">
+                <a class="btn btn-primary" href="https://auth.dev.humanitarian.id/#forgotPass" id="login-hid" target="_blank"
+                   style="position: relative!important;left:0px;">
+                   Change Password
+                </a>
+                <a class="btn btn-primary pull-right" href="https://humanitarian.id/#/profile/" id="login-hid" target="_blank"
+                   style="position: relative!important;left:0px;">
+                   Change Global Profile
+                </a>
+            </div>
+
+            {#
             {{ form.password.label }}
             {{ form.password(class_="form-control") }} {% for error in form.password.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
 
             {{ form.password_conf.label }}
             {{ form.password_conf(class_="form-control") }} {% for error in form.password_conf.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
+            #}
 
             <br />
             {{ form.submit(class_="btn") }}

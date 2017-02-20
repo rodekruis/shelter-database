@@ -33,6 +33,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(), unique=True, nullable=False)
     name = db.Column(db.String(), default='')
     pwdhash = db.Column(db.String(), nullable=False)
+    h_id = db.Column(db.String(), nullable=True)
     created_at = db.Column(db.DateTime(), default=datetime.now)
     last_seen = db.Column(db.DateTime(), default=datetime.now)
     is_admin = db.Column(db.Boolean(), default=False)

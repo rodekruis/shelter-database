@@ -38,9 +38,11 @@ def profile():
             # update user
             form.populate_obj(user)
 
+            """
             if form.password.data and \
                 form.password.data == form.password_conf.data:
                 user.set_password(form.password.data)
+            """
 
             db.session.commit()
 

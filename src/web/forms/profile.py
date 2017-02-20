@@ -37,8 +37,10 @@ class ProfileForm(Form):
                [validators.Length(min=6, max=35),
                 validators.Required("Please enter your email.")])
     preferred_language = SelectField("Preferred language")
+    """
     password = PasswordField("Password")
     password_conf = PasswordField("Password Confirmation")
+    """
     submit = SubmitField("Save")
 
     def set_languages_choice(self):
@@ -49,11 +51,13 @@ class ProfileForm(Form):
 
     def validate(self):
         validated = super(ProfileForm, self).validate()
+        """
         if self.password.data != self.password_conf.data:
             message = "Passwords aren't the same."
             self.password.errors.append(message)
             self.password_conf.errors.append(message)
             validated = False
+        """
         if self.name.data != User.make_valid_name(self.name.data):
             self.name.errors.append('This nickname has '
                     'invalid characters. Please use letters, numbers, dots and'

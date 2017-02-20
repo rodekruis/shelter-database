@@ -63,7 +63,7 @@ class EditUserForm(Form):
                 [validators.Length(min=6, max=35),
                 validators.Required("Please enter an email.")])
     is_admin = BooleanField("Admin")
-    password = PasswordField("Password")
+    # password = PasswordField("Password")
     submit = SubmitField("Save")
 
     def validate(self):

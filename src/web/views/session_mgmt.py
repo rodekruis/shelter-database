@@ -33,6 +33,7 @@ from bootstrap import db
 from web.views.common import admin_role, login_user_bundle
 from web.models import User
 from web.forms import LoginForm, SignupForm
+from web.lib.utils import HumanitarianId
 #from notifications import notifications
 
 Principal(current_app)
@@ -68,33 +69,64 @@ def before_request():
         g.user.last_seen = datetime.datetime.now()
         db.session.commit()
 
+
 @current_app.route('/join', methods=['GET'])
 def join():
-    if current_user.is_authenticated:
+    if current_user.is_authenticated or HumanitarianId().login():
         return redirect(url_for('index'))
+    """
     form = LoginForm()
     signup = SignupForm()
-    return render_template('join.html', loginForm=form, signupForm=signup)
+    """
+    return render_template(
+            'join.html',
+            humanitarian_id_auth_uri=conf.HUMANITARIAN_ID_AUTH_URI,
+            client_id=conf.HUMANITARIAN_ID_CLIENT_ID,
+            redirect_uri=conf.HUMANITARIAN_ID_REDIRECT_URI,
+            # loginForm=form, signupForm=signup
+            )
+
 
 @current_app.route('/login', methods=['POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
+    """
     form = LoginForm()
     if form.validate_on_submit():
         login_user_bundle(form.user)
         return form.redirect('index')
     signup = SignupForm()
-    return render_template('join.html', loginForm=form, signupForm=signup)
+    """
+    return render_template(
+            'join.html',
+            humanitarian_id_auth_uri=conf.HUMANITARIAN_ID_AUTH_URI,
+            client_id=conf.HUMANITARIAN_ID_CLIENT_ID,
+            redirect_uri=conf.HUMANITARIAN_ID_REDIRECT_URI,
+            # loginForm=form, signupForm=signup
+            )
+
+
+@current_app.route('/callback/humanitarianid', methods=['GET'])
+def login_humanitarianid():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    access_token = request.values.get('access_token', None)
+    if access_token:
+        session['hid_access_token'] = access_token
+        return redirect(url_for('join'))
+    return render_template('humanitarianid_login.html')
+
 
 @current_app.route('/logout')
 @login_required
 def logout():
     # Remove the user information from the session
     logout_user()
+    flash('You are logged out', 'warning')
 
     # Remove session keys set by Flask-Principal
-    for key in ('identity.name', 'identity.auth_type'):
+    for key in ('identity.name', 'identity.auth_type', 'hid_access_token'):
         session.pop(key, None)
 
     # Tell Flask-Principal the user is anonymous
@@ -102,6 +134,7 @@ def logout():
     session_identity_loader()
 
     return redirect(url_for('index'))
+
 
 @current_app.route('/signup', methods=['POST'])
 def signup():
@@ -111,6 +144,7 @@ def signup():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
 
+    """
     form = SignupForm()
     if form.validate_on_submit():
         user = User(name=form.name.data,
@@ -125,4 +159,8 @@ def signup():
         return form.redirect('index')
 
     loginForm = LoginForm()
-    return render_template('join.html', loginForm=loginForm, signupForm=form)
+    """
+    return render_template(
+            'join.html',
+            # loginForm=loginForm, signupForm=form
+            )

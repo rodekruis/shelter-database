@@ -124,6 +124,17 @@ NOTIFICATION_PORT = config.get('notification', 'notification_port')
 NOTIFICATION_EMAIL = config.get('notification', 'notification_email')
 NOTIFICATION_USERNAME = config.get('notification', 'notification_username')
 NOTIFICATION_PASSWORD = config.get('notification', 'notification_password')
-NOTIFICATION_STARTTLS = config.getboolean('notification', 'notification_starttls')
+NOTIFICATION_STARTTLS = config.getboolean('notification',
+                                          'notification_starttls')
+
+HUMANITARIAN_ID_AUTH_URI = config.get(
+        'humanitarian_id',
+        'humanitarian_id_auth_uri')
+HUMANITARIAN_ID_CLIENT_ID = config.get('humanitarian_id',
+                                       'humanitarian_id_client_id')
+HUMANITARIAN_ID_REDIRECT_URI = config.get(
+        'humanitarian_id',
+        'humanitarian_id_redirect_uri')
+
 
 POSTMARK = False
