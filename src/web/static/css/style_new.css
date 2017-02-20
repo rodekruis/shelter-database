@@ -1292,7 +1292,7 @@ section.map {
   position: relative; }
   .shelters .shelter {
     position: relative;
-    min-height: 150px;
+    min-height: 150px;:befo
     margin-bottom: 40px; }
     .shelters .shelter .image {
       position: relative;
@@ -1301,8 +1301,6 @@ section.map {
       height: 150px;
       background-color: #CCC; }
 	.shelters .shelter .image:before {
-		font-family: "fontello";
-		content: "\e81d";
 		width: 100%;
 		height: 100%;
 		font-size: 2.0em;

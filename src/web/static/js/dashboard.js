@@ -874,7 +874,7 @@ var generateShelterList  = function generateShelterList(data) {
 	$('#shelterList').empty();
 	for (var i = 0; i <data.length; i ++)
 	{
-		var thumbnailUrl = '';
+		var thumbnailUrl = '/static/img/no-thumbnail.png';
 		if(data[i].hasOwnProperty("thumbnailUrl")){
 		 thumbnailUrl = '/' + data[i].thumbnailUrl;
 		}
