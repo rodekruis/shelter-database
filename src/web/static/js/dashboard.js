@@ -874,12 +874,12 @@ var generateShelterList  = function generateShelterList(data) {
 	$('#shelterList').empty();
 	for (var i = 0; i <data.length; i ++)
 	{
-		var thumbnailUrl = '';
+		var thumbnailUrl = '/static/img/no-thumbnail.png';
 		if(data[i].hasOwnProperty("thumbnailUrl")){
 		 thumbnailUrl = '/' + data[i].thumbnailUrl;
 		}
 		var shelter = $('<div class="shelter"/>').appendTo('#shelterList');
-		shelter.append('<div class="lazy image image-not-found" data-original="'  + thumbnailUrl  + '"></div> ' +
+		shelter.append('<div class="lazy image" data-original="'  + thumbnailUrl  + '"></div> ' +
 			'<h4 class="title"><a href="/shelter/' + data[i].db_id + '">' +data[i].nameofshelter+ '</a></h4>'  +
 			'<div class="country">'+data[i].country+'</div> ' +
 			'<div class="id">'+data[i].id+'</div> ' +

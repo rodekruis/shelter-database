@@ -313,6 +313,12 @@
       ]
     },
     {
+      "uid": "44e04715aecbca7f266a17d5a7863c68",
+      "css": "plus",
+      "code": 59422,
+      "src": "fontawesome"
+    },
+    {
       "uid": "96d5f42b7996927e0637c8b4328c3fe4",
       "css": "landscape-with-mountains",
       "code": 59392,
