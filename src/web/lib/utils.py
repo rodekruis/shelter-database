@@ -80,7 +80,14 @@ class HumanitarianId:
                          params={'access_token': access_token})
         if r.status_code == 200:
             self.data = r.json()
+            print(self.data)
+            print(access_token)
             if self.data['active'] == 1 and self.data['email_verified']:
+                r_profile = requests.get(
+                        'http://profiles.dev.humanitarian.id/v0/profile/view',
+                        params={'access_token': access_token,
+                                'userid': self.data['user_id']})
+                self.user_profile = r_profile.json()
                 self.status = True
             else:
                 self.status = False
@@ -106,9 +113,7 @@ class HumanitarianId:
                 user = User.query.filter_by(email=self.data['email']).first()
                 if user:
                     # Integrate user with obtain email with obtain hd_id
-                    user.h_id = self.data['id']
-                    db.session.add(user)
-                    db.session.commit()
+                    self.create_user(user)
                     flash('You are logged in with email: '+user.email,
                           'warning')
                 else:
@@ -119,14 +124,27 @@ class HumanitarianId:
             return True
         return False
 
-    def create_user(self):
-        user = User(name=slugify(self.data.get('name')),
-                    email=self.data.get('email'),
-                    pwdhash=generate_password_hash(
-                        generate_random_password(8)),
-                    h_id=self.data.get('id'),
-                    is_active=True)
+    def create_user(self, user=None):
+        """
+        Create or Update User
+        """
+        if user:
+            user.h_id = self.data['id']
+        else:
+            user = User(name=slugify(self.data.get('name')),
+                        email=self.data.get('email'),
+                        pwdhash=generate_password_hash(
+                            generate_random_password(8)),
+                        h_id=self.data.get('id'),
+                        is_active=True)
+            flash('Your account has been created. ', 'success')
+
+        if self.user_profile.get('contacts'):
+            for contact in self.user_profile.get('contacts'):
+                if contact.get('type') == 'global':
+                    user.image = contact.get('image')
+                    break
+
         db.session.add(user)
         db.session.commit()
-        flash('Your account has been created. ', 'success')
         return user
