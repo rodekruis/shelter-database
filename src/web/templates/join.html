@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container-fluid" style="min-height:calc(100vh - 130px);">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-4">
             <div class="well">
                 <h3>Welcome to the Shelter Database!</h3>
                 <p>Please create your account to enter your shelter into the
@@ -36,87 +36,74 @@
                         You can see the list of all contributors <a href="{{ url_for('contributors') }}">here</a>.</p>
             </div>
         </div>
-        {#
-        <div class="col-md-3">
-            <div class="well">
-                <form class="form-horizontal" action="{{ url_for('signup') }}" method="POST" role="form">
-                    <h3 class="form-group"><span>Sign up</span> <span class="glyphicon glyphicon-pencil"></span></h3>
-                    {{ signupForm.hidden_tag() }}
-                    <div class="form-group">
-                        {{ signupForm.name(class_="form-control", placeholder="Your name") }}
-                        {% for message in signupForm.name.errors %}
-                            <div><b>{{ message }}</b></div>
-                        {% endfor %}
-                        <p class="help-block">Letters, numbers, dots and underscores only.</p>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="well">
+                        <form class="form-horizontal" action="{{ url_for('signup') }}" method="POST" role="form">
+                            <h3 class="form-group"><span>Sign up</span> <span class="glyphicon glyphicon-pencil"></span></h3>
+                            {{ signupForm.hidden_tag() }}
+                            <div class="form-group">
+                                {{ signupForm.name(class_="form-control", placeholder="Your name") }}
+                                {% for message in signupForm.name.errors %}
+                                    <div><b>{{ message }}</b></div>
+                                {% endfor %}
+                                <p class="help-block">Letters, numbers, dots and underscores only.</p>
+                            </div>
+                            <div class="form-group">
+                                {{ signupForm.email(class_="form-control", placeholder="Your email address") }}
+                                {% for message in signupForm.email.errors %}
+                                    <div><b>{{ message }}</b></div>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                {{ signupForm.password(class_="form-control", placeholder="Your password") }}
+                                {% for message in signupForm.password.errors %}
+                                    <div><b>{{ message }}</b></div>
+                                {% endfor %}
+                                <p class="help-block">Minimum 6 characters.</p>
+                            </div>
+                            <div class="form-group">
+                                {{ signupForm.submit(class_="btn btn-default form-control", style="position: relative!important;left:0px;") }}
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        {{ signupForm.email(class_="form-control", placeholder="Your email address") }}
-                        {% for message in signupForm.email.errors %}
-                            <div><b>{{ message }}</b></div>
-                        {% endfor %}
+                </div>
+                <div class="col-md-6">
+                    <div class="well">
+                        <form class="form-horizontal" action="{{ url_for('login') }}" method="POST" role="form">
+                            <h3 class="form-group"><span>Log In</span> <span class="glyphicon glyphicon-log-in"></span></h3>
+                            {{ loginForm.hidden_tag() }}
+                            <div class="form-group">
+                                {{ loginForm.email(class_="form-control", placeholder="Your email address") }}
+                                {% for message in loginForm.email.errors %}
+                                    <div><b>{{ message }}</b></div>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                {{ loginForm.password(class_="form-control", placeholder="Your password") }}
+                                {% for message in loginForm.password.errors %}
+                                    <div><b>{{ message }}</b></div>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                {{ loginForm.submit(class_="btn btn-default form-control", style="position: relative!important;left:0px;") }}
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        {{ signupForm.password(class_="form-control", placeholder="Your password") }}
-                        {% for message in signupForm.password.errors %}
-                            <div><b>{{ message }}</b></div>
-                        {% endfor %}
-                        <p class="help-block">Minimum 6 characters.</p>
+                </div>
+                <div class="col-md-12">
+                    <div class="well">
+                        <h3>Auth With Humanitarian ID</h3>
+                        <div style="text-align: center;">
+                            <a class="btn btn-default" href="#" id="login-hid" style="display: inline-block; position: initial;">
+                                <img width="22px" height="20px" style="margin-right: 5px; vertical-align: sub;" src="{{ url_for('static', filename='img/logo_hid.png') }}"> SignUp/Login With H-ID
+                            </a>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        {{ signupForm.submit(class_="btn btn-default form-control", style="position: relative!important;left:0px;") }}
-                    </div>
-                </form>
-            </div>
-        </div>
-        #}
-
-        <div class="col-md-3">
-            <div class="well">
-                <form class="form-horizontal" action="{{ url_for('login') }}" method="POST" role="form">
-                    <h3 class="form-group"><span>Log In</span> <span class="glyphicon glyphicon-log-in"></span></h3>
-                    {# {{ loginForm.hidden_tag() }} #}
-                    <div class="form-group">
-                        {#
-                        {{ loginForm.email(class_="form-control", placeholder="Your email address") }}
-                        {% for message in loginForm.email.errors %}
-                            <div><b>{{ message }}</b></div>
-                        {% endfor %}
-                        #}
-                    </div>
-                    <div class="form-group">
-                        {#
-                        {{ loginForm.password(class_="form-control", placeholder="Your password") }}
-                        {% for message in loginForm.password.errors %}
-                            <div><b>{{ message }}</b></div>
-                        {% endfor %}
-                        #}
-                    </div>
-                    <div class="form-group">
-                        {# {{ loginForm.submit(class_="btn btn-default form-control", style="position: relative!important;left:0px;") }} #}
-                        <!-- <a class="btn btn-default form-control" href="#" id="login-hid" style="position: relative!important;left:0px;">
-                            <img class="img-round" width="20px" height="20px" style="padding-top:3px;"
-                            src="{{ url_for('static', filename='img/logo_hid.png') }}">
-                            SignUp/Login With H-ID
-                        </a> -->
-                    </div>
-                </form>
-            </div>
-        </div>
-
-
-
-        <div class="col-md-3">
-            <div class="well">
-                <h3>Auth With Humanitarian ID</h3>
-                <div style="text-align: center;">
-                    <a class="btn btn-default" href="#" id="login-hid" style="display: inline-block; position: initial;">
-                        <img width="22px" height="20px" style="margin-right: 5px; vertical-align: sub;" src="{{ url_for('static', filename='img/logo_hid.png') }}"> SignUp/Login With H-ID
-                    </a>
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
 {% endblock %}
