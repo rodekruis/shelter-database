@@ -1,42 +1,49 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container">
-    <div class="well">
-        <h2>Edit your profile</h2>
-        <form action="" method="post" name="save">
-            {{ form.hidden_tag() }}
+    <div class="col-md-8">
+        <div class="well">
+            <h2>Edit your profile</h2>
+            <form action="" method="post" name="save">
+                {{ form.hidden_tag() }}
 
-            {{ form.name.label }}
-            {{ form.name(class_="form-control") }} {% for error in form.name.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
+                {{ form.name.label }}
+                {{ form.name(class_="form-control") }} {% for error in form.name.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
 
-            {{ form.email.label }}
-            {{ form.email(class_="form-control") }} {% for error in form.email.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
+                {{ form.email.label }}
+                {{ form.email(class_="form-control") }} {% for error in form.email.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
 
-            {{ form.preferred_language.label }}
-            {{ form.preferred_language(class_="form-control") }} {% for error in form.preferred_language.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
+                {{ form.preferred_language.label }}
+                {{ form.preferred_language(class_="form-control") }} {% for error in form.preferred_language.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
 
+                {{ form.password.label }}
+                {{ form.password(class_="form-control") }} {% for error in form.password.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
+
+                {{ form.password_conf.label }}
+                {{ form.password_conf(class_="form-control") }} {% for error in form.password_conf.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
+
+                <div class="form-group">
+                {{ form.submit(class_="btn btn-primary form-control", style="position: relative!important; left:0px;") }}
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="well">
+            <h3>H.ID Shortcut</h3>
             <div class="form-group">
-                <a class="btn btn-primary" href="https://auth.dev.humanitarian.id/#forgotPass" id="login-hid" target="_blank"
-                   style="position: relative!important;left:0px;">
+                <a class="btn btn-primary form-control" href="{{humanitarian_id_auth_uri}}/#forgotPass" id="login-hid" target="_blank"
+                   style="position: relative!important;">
                    Change Password
                 </a>
-                <a class="btn btn-primary pull-right" href="https://humanitarian.id/#/profile/" id="login-hid" target="_blank"
-                   style="position: relative!important;left:0px;">
+            </div>
+            <div class="form-group">
+                <a class="btn btn-primary pull-right form-control" href="https://humanitarian.id/#/profile/" id="login-hid" target="_blank"
+                   style="position: relative!important;">
                    Change Global Profile
                 </a>
             </div>
-
-            {#
-            {{ form.password.label }}
-            {{ form.password(class_="form-control") }} {% for error in form.password.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
-
-            {{ form.password_conf.label }}
-            {{ form.password_conf(class_="form-control") }} {% for error in form.password_conf.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
-            #}
-
-            <br />
-            {{ form.submit(class_="btn") }}
-        </form>
+        </div>
     </div>
 </div>
 {% endblock %}

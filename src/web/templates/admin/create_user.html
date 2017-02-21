@@ -15,10 +15,8 @@
             {{ form.is_admin.label }}
             {{ form.is_admin(class_="form-control") }} {% for error in form.is_admin.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
 
-            {#
             {{ form.password.label }}
             {{ form.password(class_="form-control") }} {% for error in form.password.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
-            #}
 
             <br />
             {{ form.submit(class_="btn btn-default") }}

@@ -180,7 +180,7 @@ def user_form(user_id=None):
     if user_id is not None:
         user = User.query.filter(User.id==user_id).first()
         form = EditUserForm(obj=user)
-        # form.password.data = "***"
+        form.password.data = "***"
         message = 'Edit the user <i>{}</i>'.format(user.name)
     else:
         form = CreateUserForm()

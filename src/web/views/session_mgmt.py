@@ -74,16 +74,14 @@ def before_request():
 def join():
     if current_user.is_authenticated or HumanitarianId().login():
         return redirect(url_for('index'))
-    """
     form = LoginForm()
     signup = SignupForm()
-    """
     return render_template(
             'join.html',
             humanitarian_id_auth_uri=conf.HUMANITARIAN_ID_AUTH_URI,
             client_id=conf.HUMANITARIAN_ID_CLIENT_ID,
             redirect_uri=conf.HUMANITARIAN_ID_REDIRECT_URI,
-            # loginForm=form, signupForm=signup
+            loginForm=form, signupForm=signup
             )
 
 
@@ -91,19 +89,18 @@ def join():
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
-    """
     form = LoginForm()
     if form.validate_on_submit():
+        flash('You are logged in', 'info')
         login_user_bundle(form.user)
         return form.redirect('index')
     signup = SignupForm()
-    """
     return render_template(
             'join.html',
             humanitarian_id_auth_uri=conf.HUMANITARIAN_ID_AUTH_URI,
             client_id=conf.HUMANITARIAN_ID_CLIENT_ID,
             redirect_uri=conf.HUMANITARIAN_ID_REDIRECT_URI,
-            # loginForm=form, signupForm=signup
+            loginForm=form, signupForm=signup
             )
 
 
@@ -144,7 +141,6 @@ def signup():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
 
-    """
     form = SignupForm()
     if form.validate_on_submit():
         user = User(name=form.name.data,
@@ -154,13 +150,12 @@ def signup():
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created. ', 'success')
-        login_user_bundle(user) # automatically log the user
+        login_user_bundle(user)  # automatically log the user
 
         return form.redirect('index')
 
     loginForm = LoginForm()
-    """
     return render_template(
             'join.html',
-            # loginForm=loginForm, signupForm=form
+            loginForm=loginForm, signupForm=form
             )

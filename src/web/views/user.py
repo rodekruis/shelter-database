@@ -23,6 +23,7 @@ from flask_login import login_required, current_user
 from bootstrap import db
 from web.models import User
 from web.forms import ProfileForm
+import conf
 
 user_bp = Blueprint('user_bp', __name__, url_prefix='/user')
 
@@ -38,23 +39,25 @@ def profile():
             # update user
             form.populate_obj(user)
 
-            """
             if form.password.data and \
                 form.password.data == form.password_conf.data:
                 user.set_password(form.password.data)
-            """
 
             db.session.commit()
 
             flash('User successfully updated', 'success')
             return redirect(url_for('user_bp.profile'))
         else:
-            return render_template('profile.html', user=user, form=form)
+            return render_template(
+                    'profile.html', user=user, form=form,
+                    humanitarian_id_auth_uri=conf.HUMANITARIAN_ID_AUTH_URI)
 
     if request.method == 'GET':
         form = ProfileForm(obj=user)
         form.set_languages_choice()
-        return render_template('profile.html', user=user, form=form)
+        return render_template(
+                'profile.html', user=user, form=form,
+                humanitarian_id_auth_uri=conf.HUMANITARIAN_ID_AUTH_URI)
 
 @user_bp.route('/shelters', methods=['GET'])
 @login_required
