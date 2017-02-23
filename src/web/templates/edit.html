@@ -29,7 +29,7 @@
 						<h3>{{ sub_category.name | translate }}</h3>
 						{% for attribute in sub_category.attributes %}
 									<div class="mygroup">
-										<div class="mylabel">{{ attribute.name | translate }} {% if not attribute.has_drawing %}<a class="btn-link see-drawing-link" attribute-name="{{attribute.name}}" section-name="{{sub_category.name}}">See drawing</a>{% endif %}</div>
+										<div class="mylabel">{{ attribute.name | translate }} {% if attribute.pictures[0] %}<a class="btn-link see-drawing-link" attribute-name="{{attribute.name}}" section-name="{{sub_category.name}}">See drawing</a>{% endif %}</div>
 
 										<div class="myinput">
 											{% if not attribute.is_editable %}
