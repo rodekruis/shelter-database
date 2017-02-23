@@ -22,8 +22,10 @@ from datetime import datetime
 from werkzeug import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy import desc
+from sqlalchemy.dialects.postgresql import JSON
 
 from bootstrap import db
+
 
 class User(db.Model, UserMixin):
     """
@@ -33,6 +35,9 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(), unique=True, nullable=False)
     name = db.Column(db.String(), default='')
     pwdhash = db.Column(db.String(), nullable=False)
+    h_id = db.Column(db.String(), nullable=True)
+    image = db.Column(JSON, nullable=True)
+    organization = db.Column(db.String(), nullable=True)
     created_at = db.Column(db.DateTime(), default=datetime.now)
     last_seen = db.Column(db.DateTime(), default=datetime.now)
     is_admin = db.Column(db.Boolean(), default=False)
@@ -65,6 +70,24 @@ class User(db.Model, UserMixin):
         Check the password of the user.
         """
         return check_password_hash(self.pwdhash, password)
+
+    def get_image_url(self):
+        """
+        Get Image from json data saved in user column `image`
+        where the image format is of :
+            [{
+              "type": "URL",
+              "url": "https://media.licdn.com/mpr/mpr/shrin.jpg",
+              "_id": "58ac0b0a3a474c7b005b0542"
+            },....]
+        This is stored using libs/utils.py Class: HumanitarianId
+        """
+        if self.image and isinstance(self.image, list):
+            for image in self.image:
+                # Return url of type url among images
+                if image.get('type', None) == 'URL':
+                    return image.get('url')
+            return None
 
     # def __eq__(self, other):
     #     return self.id == other.id

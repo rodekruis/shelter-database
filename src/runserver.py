@@ -18,6 +18,7 @@ __copyright__ = "Copyright (c) "
 __license__ = ""
 
 from bootstrap import conf, app, populate_g
+import os
 
 with app.app_context():
     populate_g()
@@ -49,8 +50,22 @@ with app.app_context():
     app.register_blueprint(views.api.apiv02_bp)
 
 
+# Watch Templates files for change, In DEBUG MODE
+if conf.WEBSERVER_DEBUG:
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    extra_dirs = ['src/web/templates/', ]
+    extra_files = []
+    for extra_dir in extra_dirs:
+        for dirname, dirs, files in os.walk(os.path.join(BASE_DIR, extra_dir)):
+            for dir in dirs:
+                extra_dirs.append(os.path.join(dirname, dir))
+            for filename in files:
+                filename = os.path.join(dirname, filename)
+                if os.path.isfile(filename):
+                    extra_files.append(filename)
 
 if __name__ == "__main__":
     app.run(host=conf.WEBSERVER_HOST,
-                    port=conf.WEBSERVER_PORT,
-                    debug=conf.WEBSERVER_DEBUG)
+            port=conf.WEBSERVER_PORT,
+            debug=conf.WEBSERVER_DEBUG,
+            extra_files=extra_files)

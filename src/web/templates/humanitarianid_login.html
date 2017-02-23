@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h3>Please Wait.....</h3>
+{% endblock %}
+{% block defer_extra %}
+<script>
+    $(document).ready(function() {
+        if (window.location.hash.indexOf('access_token=') >= 0) {
+            window.location.href = '' + '?' + window.location.hash.substr(1);
+        }
+    });
+</script>
+{% endblock %}
