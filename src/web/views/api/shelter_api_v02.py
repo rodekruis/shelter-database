@@ -21,12 +21,16 @@ from collections import defaultdict
 from web.models import Shelter, Attribute, AttributePicture, Property, Value, Association, ShelterPicture, ShelterDocument, Category, Tsvector, Translation
 
 import conf, os.path
-
+from web.notifications import notifications
 apiv02_bp = Blueprint('development api v0.2', __name__, url_prefix='/api/v0.2')
 
 def tree():
     return defaultdict(tree)
 
+@apiv02_bp.route('/email', methods=['GET'])
+def mail():
+    query = Shelter.query.first()
+    notifications.new_shelter_creation(query)
 @apiv02_bp.route('/', methods=['GET'])
 def apimessage():
     message = tree()
@@ -92,6 +96,28 @@ def attribute_pictures(language_code='en'):
     	result[a.category_name][a.name] = a.file_names
     
     return jsonify(result)
+
+@apiv02_bp.route('/attributes/pictures/has/<uniqueid>', methods=['GET'])
+def has_picture(uniqueid):
+    """
+    Retrieve attribute picture for specific attribute
+    
+    :param uniqueid: uniqueid of the attribute
+    :type uniqueid: string
+    """
+    result = tree()
+    
+    picpath = conf.ATTRIBUTES_PICTURES_SITE_PATH
+    query = db.session.query(AttributePicture.file_name).join(Attribute).filter(Attribute.uniqueid==uniqueid).first()
+    
+    if query:
+        result = {uniqueid:[picpath + '/' + query[0]]}
+        #result = {uniqueid:[False]}
+    else:
+        result = {uniqueid:[False]}
+    print(query)
+    return(jsonify(result))
+    
 	
 @apiv02_bp.route('/attributes/<attribute_name>', methods=['GET'])
 def getattributes(attribute_name, safetext=False):
