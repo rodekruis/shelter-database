@@ -135,6 +135,11 @@ HUMANITARIAN_ID_CLIENT_ID = config.get('humanitarian_id',
 HUMANITARIAN_ID_REDIRECT_URI = config.get(
         'humanitarian_id',
         'humanitarian_id_redirect_uri')
-
+HUMANITARIAN_ID_PROFILE_URI = config.get(
+        'humanitarian_id',
+        'humanitarian_id_profile_uri')
+HUMANITARIAN_ID_APP_URI = config.get(
+        'humanitarian_id',
+        'humanitarian_id_app_uri')
 
 POSTMARK = False

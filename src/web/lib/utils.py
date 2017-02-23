@@ -27,6 +27,7 @@ import string
 import random
 from bootstrap import db
 from .text import slugify
+import conf
 
 try:
     from urlparse import urlparse, urljoin
@@ -76,13 +77,13 @@ class HumanitarianId:
             return
 
         access_token = session['hid_access_token']
-        r = requests.get('https://auth.dev.humanitarian.id/account.json',
+        r = requests.get(conf.HUMANITARIAN_ID_AUTH_URI+'/account.json',
                          params={'access_token': access_token})
         if r.status_code == 200:
             self.data = r.json()
             if self.data['active'] == 1 and self.data['email_verified']:
                 r_profile = requests.get(
-                        'http://profiles.dev.humanitarian.id/v0/profile/view',
+                        conf.HUMANITARIAN_ID_PROFILE_URI+'/v0/profile/view',
                         params={'access_token': access_token,
                                 'userid': self.data['user_id']})
                 self.user_profile = r_profile.json()
