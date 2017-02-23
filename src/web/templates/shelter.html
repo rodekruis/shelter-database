@@ -73,7 +73,8 @@
 										<div class="col-md-3 space-sm-4 text-center space-sm-2">
 										<div class="media-photo-badge">
 											<a href="#host-profile" rel="nofollow" class="media-photo media-round">
-											<img alt="Profile picture owner" class="host-profile-image" src="{{ url_for("static", filename="img/blankavatar.png") }}" title="User" width="115" height="115"></a>
+                                                <img alt="Profile picture owner" class="host-profile-image"
+                                                                                 src="{% if user_image %}{{user_image}}{% else %}{{ url_for("static", filename="img/blankavatar.png") }}{%endif%}" title="User" width="115" height="115"></a>
 										</div>
 									  </div>
 

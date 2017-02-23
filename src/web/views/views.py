@@ -145,12 +145,16 @@ def shelters():
     shelters = Shelter.query.filter(Shelter.is_published==True).all()
     return render_template('shelters.html', shelters=shelters)
 
+
 @current_app.route('/shelter/<int:shelter_id>', methods=['GET'])
 def shelter(shelter_id):
     language_code = get_locale().language
-    shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
-    user = User.query.filter(User.id==shelter.user_id).first()
-    return render_template('shelter.html', shelter_id=shelter_id, language=language_code, user_email = user.email, user_name = user.name, user_id = user.id)
+    shelter = Shelter.query.filter(Shelter.id == shelter_id).first()
+    user = User.query.filter(User.id == shelter.user_id).first()
+    return render_template('shelter.html', shelter_id=shelter_id,
+                           language=language_code, user_email=user.email,
+                           user_name=user.name, user_id=user.id,
+                           user_image=user.get_image_url())
 
 
 @current_app.route('/stats', methods=['GET'])
