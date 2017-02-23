@@ -4,14 +4,16 @@
 {% endblock %}
 
 {% block content %}
+        <section class="contribute-image" style="background-image: url('{{ url_for('static', filename='img/contribute.jpg') }}')">
+        </section>
         <section class="contribute">
             <div class="content">
-                <h1>Add your project</h1>
-                <p>The Shelter Database exists because of people like you!<br />We need you to help us build the content</p>
+                <h1>Share your shelter design openly</h1>
+                <p>Contribute to the Open Shelter Database by sharing your shelter design as open data.<br />Other people will be able to find your shelter and use it for humanitarian sheltering.</p>
 				{% if g.user.is_authenticated %}
-                <a id="newShelter" onclick="modalOpen('create')" class="bt button button-red"><i class="fa fa-plus"></i><span class="text">Add Project</span></a>
+                <a id="newShelter" onclick="modalOpen('create')" class="bt button button-red button-large"><i class="icon icon-plus"></i><span class="text">add your shelter now</span></a>
 				{% else %}
-				    <a href="{{ url_for('join') }}" class="bt button button-red"><i class="fa fa-user"></i><span class="text">Please login to add your project</span></a>
+				    <a href="{{ url_for('join') }}" class="bt button button-red"><i class="fa fa-user"></i><span class="text">Please login to add your shelter</span></a>
 				{% endif %}
             </div>
         </section>
