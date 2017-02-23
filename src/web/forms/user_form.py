@@ -38,6 +38,7 @@ class CreateUserForm(Form):
     password = PasswordField("Password",
                 [validators.Length(min=6, max=100),
                 validators.Required("Please enter a password.")])
+    organization = TextField("Organization")
     submit = SubmitField("Save")
 
     def validate(self):
@@ -63,6 +64,7 @@ class EditUserForm(Form):
                 [validators.Length(min=6, max=35),
                 validators.Required("Please enter an email.")])
     is_admin = BooleanField("Admin")
+    organization = TextField("Organization")
     password = PasswordField("Password")
     submit = SubmitField("Save")
 

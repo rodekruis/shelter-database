@@ -36,6 +36,7 @@ class ProfileForm(Form):
     email = EmailField("Email",
                [validators.Length(min=6, max=35),
                 validators.Required("Please enter your email.")])
+    organization = TextField("Organization")
     preferred_language = SelectField("Preferred language")
     password = PasswordField("Password")
     password_conf = PasswordField("Password Confirmation")

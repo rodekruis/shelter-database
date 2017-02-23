@@ -80,8 +80,6 @@ class HumanitarianId:
                          params={'access_token': access_token})
         if r.status_code == 200:
             self.data = r.json()
-            print(self.data)
-            print(access_token)
             if self.data['active'] == 1 and self.data['email_verified']:
                 r_profile = requests.get(
                         'http://profiles.dev.humanitarian.id/v0/profile/view',
@@ -143,6 +141,11 @@ class HumanitarianId:
             for contact in self.user_profile.get('contacts'):
                 if contact.get('type') == 'global':
                     user.image = contact.get('image')
+                    try:
+                        user.organization = contact.get('organization')[0].\
+                                get('name')
+                    except AttributeError:
+                        pass
                     break
 
         db.session.add(user)

@@ -37,6 +37,7 @@ class User(db.Model, UserMixin):
     pwdhash = db.Column(db.String(), nullable=False)
     h_id = db.Column(db.String(), nullable=True)
     image = db.Column(JSON, nullable=True)
+    organization = db.Column(db.String(), nullable=True)
     created_at = db.Column(db.DateTime(), default=datetime.now)
     last_seen = db.Column(db.DateTime(), default=datetime.now)
     is_admin = db.Column(db.Boolean(), default=False)
