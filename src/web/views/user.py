@@ -50,14 +50,16 @@ def profile():
         else:
             return render_template(
                     'profile.html', user=user, form=form,
-                    humanitarian_id_auth_uri=conf.HUMANITARIAN_ID_AUTH_URI)
+                    humanitarian_id_auth_uri=conf.HUMANITARIAN_ID_AUTH_URI,
+                    humanitarian_id_app_uri=conf.HUMANITARIAN_ID_APP_URI)
 
     if request.method == 'GET':
         form = ProfileForm(obj=user)
         form.set_languages_choice()
         return render_template(
                 'profile.html', user=user, form=form,
-                humanitarian_id_auth_uri=conf.HUMANITARIAN_ID_AUTH_URI)
+                humanitarian_id_auth_uri=conf.HUMANITARIAN_ID_AUTH_URI,
+                humanitarian_id_app_uri=conf.HUMANITARIAN_ID_APP_URI)
 
 @user_bp.route('/shelters', methods=['GET'])
 @login_required
