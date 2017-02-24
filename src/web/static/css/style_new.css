@@ -399,6 +399,23 @@ footer a.browserstack {
 		}
 }
 
+footer a.humanitarianid {
+		background: url('../img/hid.png');
+		background-color: #333;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 120px;
+		color: rgba(0, 0, 0, 0);
+		display: inline-block;
+		border-radius: 3px;
+		height: 20px;
+		width: 130px;
+
+		&:hover {
+			background-color: @gray-lighter;
+		}
+}
+
 .flexbox {
   display: -webkit-box;
   display: -webkit-flex;
@@ -1691,11 +1708,6 @@ section.map {
 	
 .well p {
 	padding-bottom: 10px;
-}
-
-.humanitarianid {
-	text-align: center;
-	margin-bottom: 20px;
 }
 
 .icon-hide {
