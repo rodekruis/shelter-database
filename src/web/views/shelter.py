@@ -43,6 +43,7 @@ shelters_bp = Blueprint('shelters', __name__, url_prefix='/shelters')
 @shelter_bp.route('/<int:shelter_id>/<section_name>', methods=['GET'])
 @shelter_bp.route('/<int:shelter_id>/<section_name>/<to_pdf>', methods=['GET'])
 def details(shelter_id=0, section_name="", to_pdf=None):
+    print("called!")
     sections = Section.query.filter()
     try:
         shelter, section, categories, pictures, documents = \
@@ -145,7 +146,7 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
     Get pictures for the shelter sent by Dropzone via a POST
     request.
     """
-    first = False;
+    first = True
     ImageFile.LOAD_TRUNCATED_IMAGES = True
     imgwidth = 1280
 	
@@ -173,7 +174,14 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
                 os.makedirs(path)
 
             file_extension = os.path.splitext(request.files[f].filename)[1]
-            filename = str(shelter_id_attribute) + '_' + section + "_" + str(time.time()) + file_extension
+            
+            exist_main = db.session.query(ShelterPicture.is_main_picture).filter(ShelterPicture.is_main_picture==True,ShelterPicture.shelter_id==shelter.id).first()
+            if not exist_main: 
+            	filename = str(shelter_id_attribute) + '_' + section + "_" + "Facade" + file_extension
+            else:
+            	filename = str(shelter_id_attribute) + '_' + section + "_" + str(time.time()) + file_extension
+            	first = False
+            
             
             im = Image.open(request.files[f])
             if im.size[0] > imgwidth:
@@ -197,12 +205,10 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
             im.save(os.path.join(backup_dir , filename), "JPEG",quality=70, optimize=True, progressive=True)
             
         if category_id:
-            new_media = ShelterPicture(file_name=filename,  is_main_picture=False,
+            new_media = ShelterPicture(file_name=filename,  is_main_picture=first,
                 shelter_id=shelter.id, category_id=category_id)
             db.session.add(new_media)
             db.session.commit()
-			
-        first = True
 
     return str(new_media.id), 200
 
