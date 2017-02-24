@@ -7,21 +7,13 @@
                 <a href="{{ url_for('shelter_bp.edit', shelter_id=shelter.id, section_name=current_section.name | replace(' ', '-')) }}">{{ current_section.name }}</a>
             </li>
         {% endfor %}
-
-        <li id="tab-edit" class="pull-right" >
-            <a id="btn-edit" class="btn" style="font-weight: bold;"
-            title="Details"
-            href="{{ url_for('shelter_bp.details', shelter_id=shelter.id, section_name=section.name | replace(' ', '-')) }}">
-                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-            </a>
-        </li>
     </ul>
 	
 	<div class="content page1 editpage" id="modalcontent">
         <div class="page page1">
 			<h3>Instructions</h3>
 			<p class="instructions">On this page you can edit your shelter. Click the tabs on the top to edit the different sections. Pictures can be uploaded
-			   to each of the sections, to that they appear under this section on your shelter page.</p>
+			   to each of the sections</p>
 			
 			<div class="myform" role="form" action="" data-shelter-id="{{shelter.id}}" id="shelterForm">
 				{% for category in section.categories %}
