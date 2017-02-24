@@ -4,36 +4,28 @@
     <ul id="myTab" class="nav nav-tabs" role="tablist">
         {% for current_section in sections %}
             <li id="tab-{{ current_section.id }}" {% if current_section.id == section.id  %}class="active"{% endif %}>
-                <a href="{{ url_for('shelter_bp.edit', shelter_id=shelter.id, section_name=current_section.name | replace(' ', '-')) }}">{{ current_section.name | translate }}</a>
+                <a href="{{ url_for('shelter_bp.edit', shelter_id=shelter.id, section_name=current_section.name | replace(' ', '-')) }}">{{ current_section.name }}</a>
             </li>
         {% endfor %}
-
-        <li id="tab-edit" class="pull-right" >
-            <a id="btn-edit" class="btn" style="font-weight: bold;"
-            title="Details"
-            href="{{ url_for('shelter_bp.details', shelter_id=shelter.id, section_name=section.name | replace(' ', '-')) }}">
-                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-            </a>
-        </li>
     </ul>
 	
 	<div class="content page1 editpage" id="modalcontent">
         <div class="page page1">
 			<h3>Instructions</h3>
 			<p class="instructions">On this page you can edit your shelter. Click the tabs on the top to edit the different sections. Pictures can be uploaded
-			   to each of the sections, to that they appear under this section on your shelter page.</p>
+			   to each of the sections</p>
 			
 			<div class="myform" role="form" action="" data-shelter-id="{{shelter.id}}" id="shelterForm">
 				{% for category in section.categories %}
 					{% for sub_category in category.sub_categories %}
-						<h3>{{ sub_category.name | translate }}</h3>
+						<h3>{{ sub_category.name }}</h3>
 						{% for attribute in sub_category.attributes %}
 									<div class="mygroup">
-										<div class="mylabel">{{ attribute.name | translate }} {% if attribute.pictures[0] %}<a class="btn-link see-drawing-link" attribute-name="{{attribute.name}}" section-name="{{sub_category.name}}">See drawing</a>{% endif %}</div>
+										<div class="mylabel">{{ attribute.name }} {% if attribute.pictures[0] %}<a class="btn-link see-drawing-link" attribute-name="{{attribute.name}}" section-name="{{sub_category.name}}">See drawing</a>{% endif %}</div>
 
 										<div class="myinput">
 											{% if not attribute.is_editable %}
-												{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name  | translate }}
+												{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name }}
 
 											{% elif not attribute.free_text %}
 												<label for="select{{ attribute.id }}" class="button button-stretch{% if attribute.multiple %} {% else %} button-stretch-drop{% endif %}">
@@ -48,7 +40,7 @@
 														{% for value in attribute.associated_values %}
 															{{ shelter.get_idvalues_of_attribute(attribute.id) }}
 															<option value="{{value.id}}"
-																{% if value.id in shelter.get_idvalues_of_attribute(attribute.id) %}selected="selected"{% endif %}>{{ value.name | translate }}
+																{% if value.id in shelter.get_idvalues_of_attribute(attribute.id) %}selected="selected"{% endif %}>{{ value.name }}
 															</option>
 														{% endfor %}
 													</select>
@@ -69,7 +61,7 @@
 													property-id="{{ shelter.get_property_of_attribute(attribute.id).id }}"
 													attribute-id="{{ attribute.id }}"
 													category-id="{{ attribute.category_id }}"
-													value-id="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].id }}">{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name | translate }}</textarea>
+													value-id="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].id }}">{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name }}</textarea>
 												{% elif attribute.type == "Date" %}
 													<input type="date"
 													id="{{ attribute.associated_values.first().id }}"
@@ -96,14 +88,14 @@
 													attribute-id="{{ attribute.id }}"
 													category-id="{{ attribute.category_id }}"
 													value-id="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].id }}"
-													value="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name | translate }}" />
+													value="{{ shelter.get_values_of_attribute(attribute_id=attribute.id)[0].name }}" />
 												{% endif %}
 											{% endif %}
 										</div>
 								</div>
 							{% endfor %}
 							
-							<h4>Pictures for {{ sub_category.name | translate }}</h4>
+							<h4>Pictures for {{ sub_category.name }}</h4>
 							<div class="mygroup">
 								<ul>
 								{% for picture in pictures[sub_category.name] %}

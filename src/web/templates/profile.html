@@ -20,9 +20,7 @@
                 {{ form.organization.label }}
                 {{ form.organization(class_="form-control") }} {% for error in form.organization.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
 
-                {{ form.preferred_language.label }}
-                {{ form.preferred_language(class_="form-control") }} {% for error in form.preferred_language.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
-
+                <p>You can add a password to your shelter-database account, so that you can login without the need for humanitarian.id authentication</p>
                 {{ form.password.label }}
                 {{ form.password(class_="form-control") }} {% for error in form.password.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
 
@@ -38,17 +36,17 @@
     {% if g.user.h_id %}
     <div class="col-md-4">
         <div class="well">
-            <h3>H.ID Shortcut</h3>
+            <h3>Change settigs on Humanitarian.id</h3>
             <div class="form-group">
                 <a class="btn btn-primary form-control" href="{{humanitarian_id_auth_uri}}/#forgotPass" id="login-hid" target="_blank"
                    style="position: relative!important;">
-                   Change Password
+                   Change humanitarian.id password
                 </a>
             </div>
             <div class="form-group">
                 <a class="btn btn-primary pull-right form-control" href="{{humanitarian_id_app_uri}}/#/profile/" id="login-hid" target="_blank"
                    style="position: relative!important;">
-                   Change Global Profile
+                   Change your humanitarian.id profile
                 </a>
             </div>
         </div>

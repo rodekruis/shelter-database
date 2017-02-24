@@ -132,6 +132,7 @@
 		
 		// set identification attributes
 		if(typeof data['Identification'] !== 'undefined'){
+			data['Identification']['Attributes']['Year'] = data['General']['Attributes']['Year of construction (first completed shelters)'];
 			createIdentification(data['Identification']);
 		}
 		
@@ -369,10 +370,13 @@
 		$('#geography').text(geography);
 		
 		// set other values
-		var otherAttributes = ['ID', 'Survey date', 'Landform', 'Climate zone'];
+		var otherAttributes = ['ID', 'Year', 'Landform', 'Climate zone'];
 		$.each(otherAttributes, function( index, value ) {
+		  var attributeValue = data['Attributes'][value];
+		  var attributeId = '#'+value.replace(/[\W_]+/g, '').toLowerCase();
 		  if(typeof data['Attributes'][value] !== 'undefined') {
-			  $('#' + value.replace(/\s+/g, '').toLowerCase()).text(data['Attributes'][value]);
+			  $(attributeId).text(attributeValue);
+			  $(attributeId+'icon').show();
 		  }
 		});
 

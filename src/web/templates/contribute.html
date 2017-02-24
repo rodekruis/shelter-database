@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+
 {% block wrapper_start %}
 <div id="wrapper">
 {% endblock %}
@@ -70,6 +71,7 @@
 					<div class="mygroup">
 						<div class="mylabel">Who is the implementing organization?</div>
 						<select class="organizations" id="organizations" data-validation="required" property-id="" attribute-id="16" category-id="4" value-id="None" value="">
+							<option value="{{g.user.organization}}" selected="selected">{{g.user.organization}}</option>
 						</select>
 					</div>
 					<div class="buttons">
@@ -127,6 +129,7 @@
 				<form class="myform" id="photos">
 					<div class="mygroup">
 						<div class="mylabel">Upload photos of the shelter</div>
+						<p>The first photo you upload will be the main picture displayed in all overviews. Please pick a high quality overview photo.</p>
 						<div id="uploader">
 						   <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 						   <div class="fallback">
@@ -185,8 +188,7 @@
                 </p>
                 <div class="buttons">
                         <div onclick="modalClose()" class="button button-light"><i class="fa icon-cancel"></i><span class="text">Close</span></div>
-                        <input id="editlink" value="Add more details" class="button button-light button-right">
-
+					   <div id="editlink" class="button button-light button-right"><i class=""></i><span class="text">Add more details</span></div>
                 </div>
             </div>
         </div>

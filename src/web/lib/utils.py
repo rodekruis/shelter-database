@@ -146,6 +146,8 @@ class HumanitarianId:
                         user.organization = contact.get('organization')[0].\
                                 get('name')
                     except AttributeError:
+                        pass 
+                    except IndexError:
                         pass
                     break
 
