@@ -1188,6 +1188,10 @@ section.supported .supporters {
       -o-opacity: 1;
       opacity: 1; }
 
+	.supporter-large {
+		width:350px !important;
+	}
+
 section.contribute {
   text-align: center; }
   section.contribute h1 {
@@ -1420,6 +1424,7 @@ section.map {
 
   @media only screen and (max-width: 767px) {
     section.first .arrow .arrow-down { display: none; }
+	section.first .arrow .showmorelink {display:none;}
 	main h1 {
 	  font-size: 1.4em;}
 	  
@@ -1684,3 +1689,15 @@ section.map {
     text-decoration: none !important;
     color: #CC0000; }
 	
+.well p {
+	padding-bottom: 10px;
+}
+
+.humanitarianid {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.icon-hide {
+	display:none;
+}

@@ -4,75 +4,37 @@
     <div class="row">
         <div class="col-md-4">
             <div class="well">
-                <h3>Welcome to the Shelter Database!</h3>
-                <p>Please create your account to enter your shelter into the
-                    database.
-                    Once you have entered your details and chosen a password
-                    you can start entering the data of your shelter immediately
-                    into the format. The format contains drop down menus with
-                    single or multiple choice, to facilitate your data-entry.
-                    Most technical terms are explained in the
-                    <a href="{{ url_for('recommendations', page_name='Glossary') }}">glossary</a> or illustrated
-                    with little technical drawings.
-                    Each section also gives the possibility to upload photos.
-                    Please try to give as complete information as possible.</p>
+                <h3>Welcome to the Open Shelter Database</h3>
+				<p>The shelter database is an open database. The data you contribute will be shared with the general public. By creating an account and uploading shelter data, you are accepting our <a href="/termsofservice" target="_blank">terms of service</a><p>
+				<p> The open shelter databases uses Humanitarian.id to authenticate users. Humanitarian.id is a secure way of authenticating humanitarians into multiple online platforms. It serves many more purposes. Read more about it <a href="http://about.humanitarian.id/" target="_blank">here</a>, or watch the below video.</p>
+				<p>After you have registered with humanitarian.id, you can set a password in your profile page. You will always be able to log in to the shelter database with your email and password, even if you decide to delete your humanitarian.id account.<p>
 
-                    <p>Thank you for taking the time to enter new shelters into
-                        the database! You are contributing to make the shelter
-                        database a valuable tool for other shelter practitioners!</p>
-
-                    <p>We want to make this a multi-language tool. French and
-                        Spanish translation will be provided soon, but we are
-                        still looking for volunteers who could translate it into
-                        other languages, for example Arabic, Bangla, Hindi, Russian, Urdu, and the major African languages.</p>
-
-                    <p>If you are interested, or have any questions or
+			    <p>If you are interested, or have any questions or
                         recommendations, please don't hesitate to write to
-                        <a href="mailto:ifr-sru@croix-rouge.lu">ifr-sru@croix-rouge.lu</a>.</p>
-
-                    <p>The Shelter Database is an initiative of the
-                        <a href="http://ifrc-sru.org">Benelux Red Cross Societies</a>
-                        in collaboration with the IFRC Shelter and Settlements Department.
-                        You can see the list of all contributors <a href="{{ url_for('contributors') }}">here</a>.</p>
+                        <a href="mailto:info@shelter-database.org">info@shelter-database.org</a>.
+				</p>
             </div>
         </div>
         <div class="col-md-8">
             <div class="row">
-                <div class="col-md-6">
+				<div class="col-md-6">
                     <div class="well">
-                        <form class="form-horizontal" action="{{ url_for('signup') }}" method="POST" role="form">
-                            <h3 class="form-group"><span>Sign up</span> <span class="glyphicon glyphicon-pencil"></span></h3>
-                            {{ signupForm.hidden_tag() }}
-                            <div class="form-group">
-                                {{ signupForm.name(class_="form-control", placeholder="Your name") }}
-                                {% for message in signupForm.name.errors %}
-                                    <div><b>{{ message }}</b></div>
-                                {% endfor %}
-                                <p class="help-block">Letters, numbers, dots and underscores only.</p>
-                            </div>
-                            <div class="form-group">
-                                {{ signupForm.email(class_="form-control", placeholder="Your email address") }}
-                                {% for message in signupForm.email.errors %}
-                                    <div><b>{{ message }}</b></div>
-                                {% endfor %}
-                            </div>
-                            <div class="form-group">
-                                {{ signupForm.password(class_="form-control", placeholder="Your password") }}
-                                {% for message in signupForm.password.errors %}
-                                    <div><b>{{ message }}</b></div>
-                                {% endfor %}
-                                <p class="help-block">Minimum 6 characters.</p>
-                            </div>
-                            <div class="form-group">
-                                {{ signupForm.submit(class_="btn btn-default form-control", style="position: relative!important;left:0px;") }}
-                            </div>
-                        </form>
+                        <h3>Log in / register with Humanitarian ID</h3>
+											
+						<div class="humanitarianid">
+                            <a class="btn btn-default" href="#" id="login-hid" style="display: inline-block; position: initial;">
+                                <img width="22px" height="20px" style="margin-right: 5px; vertical-align: sub;" src="{{ url_for('static', filename='img/logo_hid.png') }}"> SignUp/Login With H-ID
+                            </a>
+                        </div>
+						<h3>What is Humanitarian ID?</h3>
+						<p>Learn more about humanitarian.id by watching the below video, or read <a href="http://about.humanitarian.id/" target="_blank">this</a>.</p>
+						<div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://www.youtube.com/embed/tqBwJld2Sz8?ecver=2" width="640" height="360" frameborder="0" style="position:absolute;width:100%;height:100%;left:0" allowfullscreen></iframe></div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="well">
                         <form class="form-horizontal" action="{{ url_for('login') }}" method="POST" role="form">
-                            <h3 class="form-group"><span>Log In</span> <span class="glyphicon glyphicon-log-in"></span></h3>
+                            <h3 class="form-group"><span>Log in with your email</span></h3>
                             {{ loginForm.hidden_tag() }}
                             <div class="form-group">
                                 {{ loginForm.email(class_="form-control", placeholder="Your email address") }}
@@ -92,16 +54,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="well">
-                        <h3>Auth With Humanitarian ID</h3>
-                        <div style="text-align: center;">
-                            <a class="btn btn-default" href="#" id="login-hid" style="display: inline-block; position: initial;">
-                                <img width="22px" height="20px" style="margin-right: 5px; vertical-align: sub;" src="{{ url_for('static', filename='img/logo_hid.png') }}"> SignUp/Login With H-ID
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
