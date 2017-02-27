@@ -142,4 +142,7 @@ HUMANITARIAN_ID_APP_URI = config.get(
         'humanitarian_id',
         'humanitarian_id_app_uri')
 
+ADMIN_EMAIL = config.get('admin','admin_email')
+ADMIN_NAME = config.get('admin','admin_name')
+ADMIN_PASSWORD = config.get('admin','admin_password')
 POSTMARK = False
