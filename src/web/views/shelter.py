@@ -43,7 +43,6 @@ shelters_bp = Blueprint('shelters', __name__, url_prefix='/shelters')
 @shelter_bp.route('/<int:shelter_id>/<section_name>', methods=['GET'])
 @shelter_bp.route('/<int:shelter_id>/<section_name>/<to_pdf>', methods=['GET'])
 def details(shelter_id=0, section_name="", to_pdf=None):
-    print("called!")
     sections = Section.query.filter()
     try:
         shelter, section, categories, pictures, documents = \
