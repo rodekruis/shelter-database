@@ -21,6 +21,7 @@ from bootstrap import app, db, populate_g
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
+import conf
 import scripts
 import web.models
 
@@ -68,9 +69,9 @@ def create_admin_user():
     from werkzeug import generate_password_hash
     print("Creation of the admin user...")
     with app.app_context():
-        user = web.models.User(email="agergely@rodekruis.nl",
-                            name="admin",
-                            pwdhash=generate_password_hash("password"),
+        user = web.models.User(email=conf.ADMIN_EMAIL,
+                            name=conf.ADMIN_NAME,
+                            pwdhash=generate_password_hash(conf.ADMIN_PASSWORD),
                             is_admin=True,
                             is_active=True)
         db.session.add(user)
