@@ -39,3 +39,5 @@ humanitarian_id_redirect_uri=http://localhost:5000/callback/humanitarianid
 admin_email = 
 admin_name = 
 admin_password = 
+[piwik]
+piwik_url=
