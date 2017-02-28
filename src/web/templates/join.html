@@ -17,13 +17,13 @@
         </div>
         <div class="col-md-8">
             <div class="row">
-				<div class="col-md-6">
-                    <div class="well">
-                        <h3>Log in / register with Humanitarian ID</h3>
+				<div class="col-md-8">
+                    <div class="well well-highlight">
+                        <h3>Humanitarian.id</h3>
 											
 						<div class="humanitarianid">
-                            <a class="btn btn-default" href="#" id="login-hid" style="display: inline-block; position: relative;">
-                                <img width="22px" height="20px" style="margin-right: 5px; vertical-align: sub;" src="{{ url_for('static', filename='img/logo_hid.png') }}"> SignUp/Login With H-ID
+                            <a class="btn btn-default btn-hid" href="#" id="login-hid">
+                                <img width="22px" height="20px" style="margin-right: 5px; vertical-align: sub;" src="{{ url_for('static', filename='img/logo_hid.png') }}"> Log in / register with humanitarian.id
                             </a>
                         </div>
 						<h3>What is Humanitarian ID?</h3>
@@ -31,19 +31,20 @@
 						<div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://www.youtube.com/embed/tqBwJld2Sz8?ecver=2" width="640" height="360" frameborder="0" style="position:absolute;width:100%;height:100%;left:0" allowfullscreen></iframe></div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="well">
                         <form class="form-horizontal" action="{{ url_for('login') }}" method="POST" role="form">
-                            <h3 class="form-group"><span>Log in with your email</span></h3>
+                            <h4 class="form-group"><span>Log in with your email</span></h4>
+							<p>After registration with humanitarian.id you can also log in with your email.</p>
                             {{ loginForm.hidden_tag() }}
                             <div class="form-group">
-                                {{ loginForm.email(class_="form-control", placeholder="Your email address") }}
+                                {{ loginForm.email(class_="form-control", placeholder="Email address") }}
                                 {% for message in loginForm.email.errors %}
                                     <div><b>{{ message }}</b></div>
                                 {% endfor %}
                             </div>
                             <div class="form-group">
-                                {{ loginForm.password(class_="form-control", placeholder="Your password") }}
+                                {{ loginForm.password(class_="form-control", placeholder="Password") }}
                                 {% for message in loginForm.password.errors %}
                                     <div><b>{{ message }}</b></div>
                                 {% endfor %}
