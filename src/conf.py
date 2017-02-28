@@ -145,4 +145,7 @@ HUMANITARIAN_ID_APP_URI = config.get(
 ADMIN_EMAIL = config.get('admin','admin_email')
 ADMIN_NAME = config.get('admin','admin_name')
 ADMIN_PASSWORD = config.get('admin','admin_password')
+
+PIWIK_URL = config.get('piwik','piwik_url')
+
 POSTMARK = False

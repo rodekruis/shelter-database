@@ -10,10 +10,15 @@
     </ul>
 	
 	<div class="content page1 editpage" id="modalcontent">
-        <div class="page page1">
-			<h3>Instructions</h3>
+        <div class="page page1">			
+            {% if section.id == 1  %}
+            <h3>Instructions</h3>
 			<p class="instructions">On this page you can edit your shelter. Click the tabs on the top to edit the different sections. Pictures can be uploaded
 			   to each of the sections</p>
+            
+			<h3>Contributor</h3>
+            <p class="instructions"><a href="mailto: {{user_email}}" target="_blank">{{user_name}}, {{user_email}}</a></p>
+            {% endif %}
 			
 			<div class="myform" role="form" action="" data-shelter-id="{{shelter.id}}" id="shelterForm">
 				{% for category in section.categories %}
