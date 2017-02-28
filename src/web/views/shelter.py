@@ -31,7 +31,7 @@ import logging
 import logging.handlers
 from bootstrap import db
 from web.views.common import load_shelter_info
-from web.lib.utils import redirect_url, allowed_file
+from web.lib.utils import redirect_url, allowed_file, create_thumbnail
 from web.lib.misc_utils import create_pdf
 from web.forms import LoginForm
 from web.models import Shelter, Property, \
@@ -182,8 +182,10 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
             exist_main = db.session.query(ShelterPicture.is_main_picture).filter(ShelterPicture.is_main_picture==True,ShelterPicture.shelter_id==shelter.id).first()
             if not exist_main: 
             	filename = str(shelter_id_attribute) + '_' + section + "_" + "Facade" + file_extension
+            	thumbname = str(shelter_id_attribute) + '_' + section + "_" + "Facade_thumbnail" + file_extension
             else:
             	filename = str(shelter_id_attribute) + '_' + section + "_" + str(time.time()) + file_extension
+            	thumbname = str(shelter_id_attribute) + '_' + section + "_" + "thumbnail" + file_extension
             	first = False
             
             
@@ -192,13 +194,15 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
                 ratio = (imgwidth/float(im.size[0]))
                 hsize = int((float(im.size[1])*float(ratio)))
                 try:
-                	imagefile = im.resize((imgwidth,hsize), Image.BILINEAR)
+                	imagefile = im.resize((imgwidth,hsize), Image.BICUBIC)
                 except OSError:
                    return 'Failed to resize picture, please resize to ' + imgwidth + ' pixels width', 400               
             else:
                 imagefile = im
             
             imagefile.save(os.path.join(path , filename), "JPEG",quality=70, optimize=True, progressive=True)
+            
+            create_thumbnail(filename, thumbname, path)
             
             # save backup image:
             backup_dir = os.path.join(conf.SHELTERS_PICTURES_BACKUP_PATH, str(shelter_id_attribute))
@@ -211,7 +215,10 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
         if category_id:
             new_media = ShelterPicture(file_name=filename,  is_main_picture=first,
                 shelter_id=shelter.id, category_id=category_id)
-            db.session.add(new_media)
+            
+            new_thumbnail = ShelterPicture(file_name=thumbname,  is_main_picture=first,
+                shelter_id=shelter.id, category_id=category_id)
+            db.session.add_all([new_media, new_thumbnail])
             db.session.commit()
 
     return str(new_media.id), 200
