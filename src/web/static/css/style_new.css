@@ -1705,11 +1705,34 @@ section.map {
   a:hover {
     text-decoration: none !important;
     color: #CC0000; }
-	
+.well {	
+	text-align:center;}	
+
 .well p {
 	padding-bottom: 10px;
 }
 
+.well-highlight {
+	background-color: #dbe4e4;
+}
+
+.well h4 {
+	margin: 0px 0px 20px 0px}
+
 .icon-hide {
 	display:none;
+}
+
+.btn-hid {
+	position: relative;
+	display: inline-block;
+	margin-left: -30px;}
+
+.step {
+	text-align: right; 
+	margin-bottom: 20px;
+}
+
+.humanitarianid {
+	margin-bottom: 20px;
 }
