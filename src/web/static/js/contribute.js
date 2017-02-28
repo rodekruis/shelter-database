@@ -227,7 +227,7 @@
 			locationpicker = L.map('locationpicker').setView([51.505, -0.09], 13);
 			
 			// Add OSM base layer
-			L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(locationpicker);		
+			L.tileLayer('https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(locationpicker);		
 			
 			// Add Mapzen geocoder 
 			L.control.geocoder('search-Us5vhhe', {panToPoint: true, markers: false, attribution: null}).addTo(locationpicker);
