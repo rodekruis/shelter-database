@@ -35,7 +35,7 @@ from web.lib.utils import redirect_url, allowed_file
 from web.lib.misc_utils import create_pdf
 from web.forms import LoginForm
 from web.models import Shelter, Property, \
-                        ShelterPicture, ShelterDocument, Section, Association, Value
+                        ShelterPicture, ShelterDocument, Section, Association, Value, User
 
 shelter_bp = Blueprint('shelter_bp', __name__, url_prefix='/shelter')
 shelters_bp = Blueprint('shelters', __name__, url_prefix='/shelters')
@@ -75,13 +75,16 @@ def details(shelter_id=0, section_name="", to_pdf=None):
 @login_required
 def edit(shelter_id=0, section_name=""):
     
-    query = Shelter.query.filter(Shelter.id==shelter_id)
+    shelter = Shelter.query.filter(Shelter.id == shelter_id).first()
     if current_user.is_admin:
         pass
-    elif current_user.id == query[0].user_id:
+    elif current_user.id == shelter.user_id:
         pass
     else:
         return redirect(url_for('join')) #render_template('errors/403.html'), 403
+	
+	
+    user = User.query.filter(User.id == shelter.user_id).first()
         
     sections = Section.query.filter()
     try:
@@ -93,7 +96,9 @@ def edit(shelter_id=0, section_name=""):
 
     return render_template('edit.html', shelter=shelter, categories=categories,
                         pictures=pictures, sections=sections, section=section,
-                        documents=documents)
+                        documents=documents, user_email=user.email,
+                           user_name=user.name, user_id=user.id,
+                           user_image=user.get_image_url())
 
 
 @shelter_bp.route('/edit/<int:shelter_id>/<section_name>', methods=['POST'])
