@@ -21,13 +21,15 @@ from flask import request, url_for, session, flash
 import requests
 from flask_login import current_user
 from web.views.common import admin_role, login_user_bundle
-from web.models import User
+from web.models import User, Shelter, ShelterPicture
 from werkzeug import generate_password_hash
 import string
 import random
 from bootstrap import db
 from .text import slugify
 import conf
+import os
+from PIL import Image
 
 try:
     from urlparse import urlparse, urljoin
@@ -154,3 +156,16 @@ class HumanitarianId:
         db.session.add(user)
         db.session.commit()
         return user
+
+def create_thumbnail(filename, thumbname, path):
+    """
+    Create thumbnails for a picture
+    """
+    try:
+        im = Image.open(os.path.join(path, filename))
+        im.thumbnail((375,250), Image.BICUBIC)
+        im.save(os.path.join(path, thumbname), 'JPEG', quality=70, optimize=True, progressive=True)
+    except:
+        print("Failed to create thumbnail for {}".format(filename))
+        
+             
