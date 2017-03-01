@@ -23,7 +23,7 @@
 											
 						<div class="humanitarianid">
                             <a class="btn btn-default btn-hid" href="#" id="login-hid">
-                                <img width="22px" height="20px" style="margin-right: 5px; vertical-align: sub;" src="{{ url_for('static', filename='img/logo_hid.png') }}"> Log in / register with humanitarian.id
+                                <img width="22px" height="20px" style="margin-right: 5px; vertical-align: sub;" src="{{ url_for('static', filename='img/logo_hid.png') }}"> Click here to log in / register with humanitarian.id
                             </a>
                         </div>
 						<h3>What is Humanitarian ID?</h3>
@@ -33,26 +33,28 @@
                 </div>
                 <div class="col-md-4">
                     <div class="well">
-                        <form class="form-horizontal" action="{{ url_for('login') }}" method="POST" role="form">
+						<form class="form-horizontal" action="{{ url_for('join') }}" method="POST" role="form">
                             <h4 class="form-group"><span>Log in with your email</span></h4>
 							<p>After registration with humanitarian.id you can also log in with your email.</p>
+							
                             {{ loginForm.hidden_tag() }}
                             <div class="form-group">
-                                {{ loginForm.email(class_="form-control", placeholder="Email address") }}
+                                {{ loginForm.email(class_="form-control", placeholder="Your email address") }}
                                 {% for message in loginForm.email.errors %}
-                                    <div><b>{{ message }}</b></div>
+                                    <div class="myerror"><b>{{ message }}</b></div>
                                 {% endfor %}
                             </div>
                             <div class="form-group">
-                                {{ loginForm.password(class_="form-control", placeholder="Password") }}
+                                {{ loginForm.password(class_="form-control", placeholder="Your password") }}
                                 {% for message in loginForm.password.errors %}
-                                    <div><b>{{ message }}</b></div>
+                                    <div class="myerror"><b>{{ message }}</b></div>
                                 {% endfor %}
                             </div>
                             <div class="form-group">
-                                {{ loginForm.submit(class_="btn btn-default form-control", style="position: relative!important;left:0px;") }}
+                                {{ loginForm.submit(class_="button button-light button-right", style="") }}
                             </div>
-                        </form>
+						</form>
+
                     </div>
                 </div>
                 
