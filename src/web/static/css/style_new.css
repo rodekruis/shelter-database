@@ -1710,6 +1710,7 @@ section.map {
 
 .well p {
 	padding-bottom: 10px;
+	font-size: 0.9em;
 }
 
 .well-highlight {
@@ -1736,3 +1737,6 @@ section.map {
 .humanitarianid {
 	margin-bottom: 20px;
 }
+
+.well .myerror {
+    color: #CC0000; }
