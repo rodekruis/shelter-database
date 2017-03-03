@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href='{{ url_for("static", filename="lib/custom/slider/slider.css") }}' media="screen">
 
 	<!-- skin stylesheet (change it if you use another) -->
-	<link rel="stylesheet" href='{{ url_for("static", filename="lib/custom/slider/rs-universal.css") }}' media="screen"> 
+	<link rel="stylesheet" href='{{ url_for("static", filename="lib/custom/slider/rs-universal.css") }}' media="screen">
 
 	<link rel="stylesheet" type="text/css" href='{{ url_for("static", filename="css/bootstrap_custom.css") }}' media="screen, print">
 	<link rel="stylesheet" type="text/css" href='{{ url_for("static", filename="icons/css/fontello-embedded.css") }}' media="print">
@@ -74,7 +74,7 @@
 										<div class="media-photo-badge">
 											<a href="#host-profile" rel="nofollow" class="media-photo media-round">
                                                 <img alt="Profile picture owner" class="host-profile-image"
-                                                                                 src="{% if user_image %}{{user_image}}{% else %}{{ url_for("static", filename="img/blankavatar.png") }}{%endif%}" title="User" width="115" height="115"></a>
+                                                 src="{% if user_image %}{{user_image}}{% else %}{{ url_for("static", filename="img/blankavatar.png") }}{%endif%}" title="User" width="115" height="115"></a>
 										</div>
 									  </div>
 
@@ -156,6 +156,7 @@
 									</a>
 								  </div>
 								  {% endif %}
+                                  {% include 'media_share_button.html' %}
 								</div>
 							  </div>
 							</div>
