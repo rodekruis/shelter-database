@@ -30,8 +30,7 @@
 				<td><a href="{{ url_for('shelter_bp.edit', shelter_id=shelter.id, section_name='General-Information' | replace(' ', '-')) }}">
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>
-<!--{{ url_for('shelter_bp.delete', shelter_id=shelter.id, next='/user/shelters') }}-->
-                    <a class="delete-shelter-btn" href="#hello">
+                    <a class="delete-shelter-btn" href="{{ url_for('shelter_bp.delete', shelter_id=shelter.id, next='/user/shelters') }}">
                         <i class="glyphicon glyphicon-remove" title="Delete this shelter"></i>
                     </a>
                 </td>
