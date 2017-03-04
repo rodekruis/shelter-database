@@ -148,7 +148,7 @@ class HumanitarianId:
                         user.organization = contact.get('organization')[0].\
                                 get('name')
                     except AttributeError:
-                        pass 
+                        pass
                     except IndexError:
                         pass
                     break
@@ -157,15 +157,15 @@ class HumanitarianId:
         db.session.commit()
         return user
 
+
 def create_thumbnail(filename, thumbname, path):
     """
     Create thumbnails for a picture
     """
     try:
         im = Image.open(os.path.join(path, filename))
-        im.thumbnail((375,250), Image.BICUBIC)
-        im.save(os.path.join(path, thumbname), 'JPEG', quality=70, optimize=True, progressive=True)
+        im.thumbnail((375, 250), Image.BICUBIC)
+        im.save(os.path.join(path, thumbname), 'JPEG', quality=70,
+                optimize=True, progressive=True)
     except:
         print("Failed to create thumbnail for {}".format(filename))
-        
-             
