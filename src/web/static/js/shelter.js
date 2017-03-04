@@ -266,6 +266,13 @@
 								
 				btn.append('span')
 						.text('See more photos');
+			
+			if(section_id === '#section-0' ){
+				let currentDomain = window.location.href.split('/');
+		        currentDomain = currentDomain[0]+'//'+currentDomain[2];
+				
+				$("meta[property='og:image']").attr('content', currentDomain+'/'+section[source][0]);
+			}
 						
 		}
 	}
@@ -362,13 +369,15 @@
         let ggShare = $('#google-share-shelter');
         let llShare = $('#linkedin-share-shelter');
 
-        let shareText = encodeURIComponent('See the shelter '+ data['Attributes']['Name of shelter']+
-                        ' in '+data['Attributes']['Country']+' on the Open Shelter Database')
-		twShare.attr('href', twShare.attr('href')+'&text='+shareText);
-		ggShare.attr('href', ggShare.attr('href')+'&text='+shareText);
-		llShare.attr('href', llShare.attr('href')+'&summary='+shareText);
-
-        $("meta[property='og:image']").attr('content', currentDomain+'/'+data['Cover'][0]);
+        let shareText = 'See the shelter '+ data['Attributes']['Name of shelter']+
+                        ' in '+data['Attributes']['Country']+' on the Open Shelter Database';
+		let shareTextEncoded = encodeURIComponent(shareText);
+		
+		twShare.attr('href', twShare.attr('href')+'&text='+shareTextEncoded);
+		ggShare.attr('href', ggShare.attr('href')+'&text='+shareTextEncoded);
+		llShare.attr('href', llShare.attr('href')+'&summary='+shareTextEncoded);
+		
+		$("meta[property='og:description']").attr('content', shareText);
 
 		// set geography
 		var geographyAttributes = ['Country', 'Province / District / Region', 'City / Village'];
