@@ -349,12 +349,27 @@
 	var createIdentification = function createIdentification(data){
 			
 		// set main image
+        let currentDomain = window.location.href.split('/');
+        currentDomain = currentDomain[0]+'//'+currentDomain[2];
 		addCoverPictures(data, '#section-0', 'Identification');
 		addSwipePictures(data, 'Identification');
 
 		// Set shelter name
 		$('#shelter-name').text(data['Attributes']['Name of shelter']);
-		
+
+        let fbShare = $('#facebook-share-shelter');
+        let twShare = $('#twitter-share-shelter');
+        let ggShare = $('#google-share-shelter');
+        let llShare = $('#linkedin-share-shelter');
+
+        let shareText = encodeURIComponent('See the shelter '+ data['Attributes']['Name of shelter']+
+                        ' in '+data['Attributes']['Country']+' on the Open Shelter Database')
+		twShare.attr('href', twShare.attr('href')+'&text='+shareText);
+		ggShare.attr('href', ggShare.attr('href')+'&text='+shareText);
+		llShare.attr('href', llShare.attr('href')+'&summary='+shareText);
+
+        $("meta[property='og:image']").attr('content', currentDomain+'/'+data['Cover'][0]);
+
 		// set geography
 		var geographyAttributes = ['Country', 'Province / District / Region', 'City / Village'];
 		var geography = '';
