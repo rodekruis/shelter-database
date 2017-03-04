@@ -73,18 +73,17 @@ def details(shelter_id=0, section_name="", to_pdf=None):
 @shelter_bp.route('/edit/<int:shelter_id>/<section_name>', methods=['GET'])
 @login_required
 def edit(shelter_id=0, section_name=""):
-    
     shelter = Shelter.query.filter(Shelter.id == shelter_id).first()
+
     if current_user.is_admin:
         pass
-    elif current_user.id == shelter.user_id:
+    elif shelter is not None and current_user.id == shelter.user_id:
         pass
     else:
         return redirect(url_for('join')) #render_template('errors/403.html'), 403
-	
-	
+
     user = User.query.filter(User.id == shelter.user_id).first()
-        
+
     sections = Section.query.filter()
     try:
         shelter, section, categories, pictures, documents = \
@@ -94,10 +93,30 @@ def edit(shelter_id=0, section_name=""):
         return redirect(redirect_url())
 
     return render_template('edit.html', shelter=shelter, categories=categories,
-                        pictures=pictures, sections=sections, section=section,
-                        documents=documents, user_email=user.email,
-                           user_name=user.name, user_id=user.id,
-                           user_image=user.get_image_url())
+                           pictures=pictures, sections=sections, section=section,
+                           documents=documents, user=user)
+
+
+@shelter_bp.route('/delete/<int:shelter_id>', methods=['GET'])
+@login_required
+def delete(shelter_id=0, section_name=""):
+    """
+    Delete a shelter. if created by requesting user
+    """
+    shelter = Shelter.query.filter(Shelter.id==shelter_id,
+                                   Shelter.user_id==current_user.id)
+    if shelter is not None:
+        ShelterPicture.query.filter(ShelterPicture.shelter_id==shelter_id).delete()
+
+        properties = Property.query.filter(Property.shelter_id==shelter_id)
+        for property in properties:
+            Association.query.filter(Association.property_id==property.id).delete()
+            db.session.delete(property)
+
+        shelter.delete()
+        db.session.commit()
+
+    return redirect(redirect_url())
 
 
 @shelter_bp.route('/edit/<int:shelter_id>/<section_name>', methods=['POST'])

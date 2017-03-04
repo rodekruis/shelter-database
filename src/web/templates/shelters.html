@@ -1,4 +1,10 @@
 {% extends "layout.html" %}
+
+{% block assets_start %}
+    {{ super() }}
+	<link rel="stylesheet" type="text/css" href='{{ url_for("static", filename="css/bootstrap_custom.css") }}' media="screen, print">
+{% endblock %}
+
 {% block content %}
 <div class="container">
     <h1>Shelters</h1>
@@ -10,7 +16,7 @@
                 <th>Name</th>
                 <th>Zone</th>
                 <th>Created at</th>
-				<th>Edit</th>
+				<th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -21,13 +27,21 @@
                 <td><a href="{{ url_for('shelter', shelter_id=shelter.id) }}">{{ shelter.get_values_of_attribute(attribute_name='Name of shelter')[0].name }}</a></td>
                 <td>{{ shelter.get_values_of_attribute(attribute_name='Zone')[0].name }}</td>
                 <td>{{ shelter.created_at }}</td>
-				<td><a href="{{ url_for('shelter_bp.edit', shelter_id=shelter.id, section_name='General-Information' | replace(' ', '-')) }}">edit</a></td>
+				<td><a href="{{ url_for('shelter_bp.edit', shelter_id=shelter.id, section_name='General-Information' | replace(' ', '-')) }}">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+<!--{{ url_for('shelter_bp.delete', shelter_id=shelter.id, next='/user/shelters') }}-->
+                    <a class="delete-shelter-btn" href="#hello">
+                        <i class="glyphicon glyphicon-remove" title="Delete this shelter"></i>
+                    </a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 </div>
 {% endblock %}
+
 {% block defer %}
 
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -37,6 +51,11 @@
 		
 		<script>
 			$(document).ready(function() {
+                $('.delete-shelter-btn').click(function(event){
+                    if(!confirm('You are going to delete this shelter.')){
+                        event.preventDefault();
+                    }
+                });
 
 				$('#allshelters').DataTable({
 						"bStateSave": true, // on sauvegarde l'état dans un cookie
@@ -56,6 +75,6 @@
 									{ "sSortDataType": "dom-checkbox" }
 									]
 					});
-			});
+            });
 			</script>
 {% endblock %}

@@ -37,12 +37,12 @@ def profile():
     if request.method == 'POST':
         if form.validate():
             # update user
-            form.populate_obj(user)
 
             if form.password.data and \
                 form.password.data == form.password_conf.data:
                 user.set_password(form.password.data)
 
+            form.populate_obj(user)
             db.session.commit()
 
             flash('User successfully updated', 'success')
