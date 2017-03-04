@@ -203,6 +203,10 @@ def process_user_form(user_id=None):
             return render_template('/admin/create_user.html', form=form,
                                    message='Some errors were found')
         user = User.query.filter(User.id==user_id).first()
+
+        if form.password.data:
+            user.set_password(form.password.data)
+
         form.populate_obj(user)
         db.session.commit()
         flash('User successfully updated', 'success')
