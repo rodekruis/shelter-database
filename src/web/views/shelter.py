@@ -31,11 +31,11 @@ import logging
 import logging.handlers
 from bootstrap import db
 from web.views.common import load_shelter_info
-from web.lib.utils import redirect_url, allowed_file
+from web.lib.utils import redirect_url, allowed_file, create_thumbnail
 from web.lib.misc_utils import create_pdf
 from web.forms import LoginForm
-from web.models import Shelter, Property, User,\
-                        ShelterPicture, ShelterDocument, Section, Association, Value
+from web.models import Shelter, Property, \
+                        ShelterPicture, ShelterDocument, Section, Association, Value, User
 
 shelter_bp = Blueprint('shelter_bp', __name__, url_prefix='/shelter')
 shelters_bp = Blueprint('shelters', __name__, url_prefix='/shelters')
@@ -73,15 +73,16 @@ def details(shelter_id=0, section_name="", to_pdf=None):
 @shelter_bp.route('/edit/<int:shelter_id>/<section_name>', methods=['GET'])
 @login_required
 def edit(shelter_id=0, section_name=""):
+    shelter = Shelter.query.filter(Shelter.id == shelter_id).first()
 
-    query = Shelter.query.filter(Shelter.id == shelter_id)
-    user_image = None
     if current_user.is_admin:
         pass
-    elif current_user.id == query[0].user_id:
+    elif shelter is not None and current_user.id == shelter.user_id:
         pass
     else:
-        return redirect(url_for('join'))  # render_template('errors/403.html'), 403
+        return redirect(url_for('join')) #render_template('errors/403.html'), 403
+
+    user = User.query.filter(User.id == shelter.user_id).first()
 
     sections = Section.query.filter()
     try:
@@ -91,12 +92,9 @@ def edit(shelter_id=0, section_name=""):
         flash(str(e), "warning")
         return redirect(redirect_url())
 
-    if query:
-        user = User.query.filter(User.id==query.first().user_id).first()
-
     return render_template('edit.html', shelter=shelter, categories=categories,
-                        pictures=pictures, sections=sections, section=section,
-                        documents=documents, user=user)
+                           pictures=pictures, sections=sections, section=section,
+                           documents=documents, user=user)
 
 
 @shelter_bp.route('/delete/<int:shelter_id>', methods=['GET'])
@@ -171,7 +169,7 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
     Get pictures for the shelter sent by Dropzone via a POST
     request.
     """
-    first = False;
+    first = True
     ImageFile.LOAD_TRUNCATED_IMAGES = True
     imgwidth = 1280
 	
@@ -199,20 +197,31 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
                 os.makedirs(path)
 
             file_extension = os.path.splitext(request.files[f].filename)[1]
-            filename = str(shelter_id_attribute) + '_' + section + "_" + str(time.time()) + file_extension
+            
+            exist_main = db.session.query(ShelterPicture.is_main_picture).filter(ShelterPicture.is_main_picture==True,ShelterPicture.shelter_id==shelter.id).first()
+            if not exist_main: 
+            	filename = str(shelter_id_attribute) + '_' + section + "_" + "Facade" + file_extension
+            	thumbname = str(shelter_id_attribute) + '_' + section + "_" + "Facade_thumbnail" + file_extension
+            else:
+            	filename = str(shelter_id_attribute) + '_' + section + "_" + str(time.time()) + file_extension
+            	thumbname = str(shelter_id_attribute) + '_' + section + "_" + "thumbnail" + file_extension
+            	first = False
+            
             
             im = Image.open(request.files[f])
             if im.size[0] > imgwidth:
                 ratio = (imgwidth/float(im.size[0]))
                 hsize = int((float(im.size[1])*float(ratio)))
                 try:
-                	imagefile = im.resize((imgwidth,hsize), Image.BILINEAR)
+                	imagefile = im.resize((imgwidth,hsize), Image.BICUBIC)
                 except OSError:
                    return 'Failed to resize picture, please resize to ' + imgwidth + ' pixels width', 400               
             else:
                 imagefile = im
             
             imagefile.save(os.path.join(path , filename), "JPEG",quality=70, optimize=True, progressive=True)
+            
+            create_thumbnail(filename, thumbname, path)
             
             # save backup image:
             backup_dir = os.path.join(conf.SHELTERS_PICTURES_BACKUP_PATH, str(shelter_id_attribute))
@@ -223,12 +232,13 @@ def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
             im.save(os.path.join(backup_dir , filename), "JPEG",quality=70, optimize=True, progressive=True)
             
         if category_id:
-            new_media = ShelterPicture(file_name=filename,  is_main_picture=False,
+            new_media = ShelterPicture(file_name=filename,  is_main_picture=first,
                 shelter_id=shelter.id, category_id=category_id)
-            db.session.add(new_media)
+            
+            new_thumbnail = ShelterPicture(file_name=thumbname,  is_main_picture=first,
+                shelter_id=shelter.id, category_id=category_id)
+            db.session.add_all([new_media, new_thumbnail])
             db.session.commit()
-			
-        first = True
 
     return str(new_media.id), 200
 

@@ -1,9 +1,15 @@
-var attributes;
-
 /**
  * EDIT-SHELTER : edit-shelter.js
  */
+
+/**
+ * VARIABLES
+ */
+var attributes;
  
+/**
+ * FUNCTIONS
+ */
 var modalOpen = function modalOpen(modalid){
 	modalName = modalid
 	$("#wrapper").addClass("modal-open")

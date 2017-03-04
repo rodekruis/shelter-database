@@ -32,7 +32,7 @@ import conf
 from bootstrap import db
 from web.views.common import admin_role, login_user_bundle
 from web.models import User
-from web.forms import LoginForm, SignupForm
+from web.forms import LoginForm #, SignupForm
 from web.lib.utils import HumanitarianId
 #from notifications import notifications
 
@@ -75,17 +75,17 @@ def join():
     if current_user.is_authenticated or HumanitarianId().login():
         return redirect(url_for('index'))
     form = LoginForm()
-    signup = SignupForm()
+    #signup = SignupForm()
     return render_template(
             'join.html',
             humanitarian_id_auth_uri=conf.HUMANITARIAN_ID_AUTH_URI,
             client_id=conf.HUMANITARIAN_ID_CLIENT_ID,
             redirect_uri=conf.HUMANITARIAN_ID_REDIRECT_URI,
-            loginForm=form, signupForm=signup
+            loginForm=form #, signupForm=signup
             )
 
 
-@current_app.route('/login', methods=['POST'])
+@current_app.route('/join', methods=['POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -94,13 +94,13 @@ def login():
         flash('You are logged in', 'info')
         login_user_bundle(form.user)
         return form.redirect('index')
-    signup = SignupForm()
+    #signup = SignupForm()
     return render_template(
             'join.html',
             humanitarian_id_auth_uri=conf.HUMANITARIAN_ID_AUTH_URI,
             client_id=conf.HUMANITARIAN_ID_CLIENT_ID,
             redirect_uri=conf.HUMANITARIAN_ID_REDIRECT_URI,
-            loginForm=form, signupForm=signup
+            loginForm=form #, signupForm=signup
             )
 
 
@@ -133,29 +133,29 @@ def logout():
     return redirect(url_for('index'))
 
 
-@current_app.route('/signup', methods=['POST'])
-def signup():
-    """if not conf.SELF_REGISTRATION:
-        flash("Self-registration is disabled.", 'warning')
-        return redirect(url_for('index'))"""
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
-
-    form = SignupForm()
-    if form.validate_on_submit():
-        user = User(name=form.name.data,
-                    email=form.email.data,
-                    pwdhash=generate_password_hash(form.password.data),
-                    is_active=True)
-        db.session.add(user)
-        db.session.commit()
-        flash('Your account has been created. ', 'success')
-        login_user_bundle(user)  # automatically log the user
-
-        return form.redirect('index')
-
-    loginForm = LoginForm()
-    return render_template(
-            'join.html',
-            loginForm=loginForm, signupForm=form
-            )
+#@current_app.route('/signup', methods=['POST'])
+#def signup():
+#    """if not conf.SELF_REGISTRATION:
+#        flash("Self-registration is disabled.", 'warning')
+#        return redirect(url_for('index'))"""
+#    if current_user.is_authenticated:
+#        return redirect(url_for('index'))#
+#
+#    form = SignupForm()
+#    if form.validate_on_submit():
+#        user = User(name=form.name.data,
+#                    email=form.email.data,
+#                    pwdhash=generate_password_hash(form.password.data),
+#                    is_active=True)
+#        db.session.add(user)
+#        db.session.commit()
+#        flash('Your account has been created. ', 'success')
+#        login_user_bundle(user)  # automatically log the user
+#
+#        return form.redirect('index')
+#
+#    loginForm = LoginForm()
+#    return render_template(
+#            'join.html',
+#            loginForm=loginForm, signupForm=form
+#           )

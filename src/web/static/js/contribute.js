@@ -227,7 +227,7 @@
 			locationpicker = L.map('locationpicker').setView([51.505, -0.09], 13);
 			
 			// Add OSM base layer
-			L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(locationpicker);		
+			L.tileLayer('https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(locationpicker);		
 			
 			// Add Mapzen geocoder 
 			L.control.geocoder('search-Us5vhhe', {panToPoint: true, markers: false, attribution: null}).addTo(locationpicker);
@@ -516,19 +516,17 @@
 		  escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
 		  minimumInputLength: 1
 			
-	}); 
+	}); 	
 
 	//Attach a submit handler to the form (only allow to click once)
 	var createShelter = function createShelter(){
 		
 		// check if form was already submitted
-		/**
 		var submitted = $('#createShelterForm').attr('submitted');
 		if (typeof submitted !== typeof undefined && submitted !== false) {
 			return;
 		}
-		**/
-		
+				
 		// set form to submitted
 		$('#createShelterForm').attr('submitted', 'yes');
 		
@@ -557,7 +555,16 @@
 				
 				// add spinner
 				$('#wrapper').spin(false);
-
+				
+				// Set default organization
+				var organization = $( "#organizations" ).val();
+				if(organization != "None" || organization != ""){				
+					// Set the initial organization
+					var category_id = $('.organizations').attr("category-id");
+					var attribute_id = $('.organizations').attr("attribute-id");
+					new_free_text_property(shelter_id, category_id, attribute_id, organization, $('.organizations'));
+				}
+				
 				// go to next page
 				modalNext();
 				
@@ -568,6 +575,10 @@
 			}
 		});
 	};
+
+	/**
+	 * EVENTS
+	 */
 
 	// listen when page3 with leaflet map is opened
 	$('#modalcontent').on('page3', function(){ 
@@ -666,5 +677,10 @@
 		  return false; // Will stop the submission of the form
 		}
 	});
+
+	/**
+	 * LOGIC
+	 */
+	Dropzone.autoDiscover = false;
 	
 	initiateLocationPicker();

@@ -183,7 +183,7 @@ var restructureData = function(dataObject) {
 				if (shelterFlat['thumbnailUrl']) {
 					shelterFlat['tooltipContent']= '<div>' +
 														'<a href="/shelter/' + shelterFlat.db_id +'">' +
-														'<img src=\''+ shelterFlat['thumbnailUrl']+'\'/>' + 
+														'<img src=\'/'+ shelterFlat['thumbnailUrl']+'\'/>' + 
 															shelterFlat.id + ', ' + shelterFlat.nameofshelter + 
 													'</div>';
 				}
@@ -339,18 +339,6 @@ var restructureData = function(dataObject) {
 				}
 			}
 		}
-
-		// fit filtered markers within map bounds if any of the non-map filters where applied
-		bounds = [];
-		allDimensions.top(Infinity).forEach(function (d) {
-			bounds.push(new L.latLng(d.gpslatitude, d.gpslongitude));
-		}); 
-
-		// For Debugging:
-		//print_filter(filters['positionFilter']['dimension']);
-		if(bounds.length > 0){
-			map.fitBounds(bounds, {pan: {animate: true, duration: 1.5, easeLinearity: 0.25}});
-		}
 	}
 
 	var onMapFiltered = function onMapFiltered(chart) {
@@ -451,6 +439,7 @@ var restructureData = function(dataObject) {
 		.dimension(filters['countryFilter']['dimension'])
 		.group(filters['countryFilter']['count'])
 		.on("filtered", onFiltered)
+	    .on('postRedraw', onMapFiltered)
 		.xAxis().tickFormat(
 		function (v) {
 			return d3.format('f')(v);

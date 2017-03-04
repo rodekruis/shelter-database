@@ -14,7 +14,18 @@
 
     <meta name="description" content="The Open Shelter Database is a resource for the wider shelter sector, that can help to deliver humanitarian shelter." />
 	<meta property="og:title" content="Open Shelter Database" />
-	<meta property="og:description" content="The Open Shelter Database is a resource for the wider shelter sector, that can help to deliver humanitarian shelter." />
+	<meta property="og:description" content="Open Shelter Database collects and disseminates shelter designs." />
+	<meta property="og:image" content="{{ url_for("static", filename="img/ogimage.png") }}">
+	
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" href="{{ url_for("static", filename="img/favicon/favicon-32x32.png") }}" sizes="32x32">
+	<link rel="icon" type="image/png" href="{{ url_for("static", filename="img/favicon/favicon-16x16.png") }}" sizes="16x16">
+	<link rel="manifest" href="{{ url_for("static", filename="img/favicon/manifest.json") }}">
+	<link rel="mask-icon" href="{{ url_for("static", filename="img/favicon/safari-pinned-tab.svg") }}" color="#5bbad5">
+	<meta name="theme-color" content="#ffffff">
+
+
 	
 	{% endblock %}
 	{% block assets_start %}
@@ -50,7 +61,21 @@
 		<link rel="stylesheet" type="text/css" href='{{ ASSET_URL }}' media="screen">
 		{% endassets %}
 	{% endblock %}
-	
+	<!-- Piwik -->
+	<script type="text/javascript">
+	  var _paq = _paq || [];
+	  // tracker methods like "setCustomDimension" should be called before "trackPageView"
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+		var u="https://www.data4humanity.org/";
+		_paq.push(['setTrackerUrl', u+'piwik.php']);
+		_paq.push(['setSiteId', '1']);
+		var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+		g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+	<!-- End Piwik Code -->
 </head>
 <body>
 {% block wrapper_start %}
@@ -119,7 +144,7 @@
 			{% block content %}{% endblock %}
 			
 			<footer>
-				&copy; Copyright 2016. Build version 0.91. Tested with <a class="browserstack" href="https://browserstack.com">BrowserStack</a>
+				&copy; Copyright 2016. Build version 0.96. Tested with <a class="browserstack" href="https://browserstack.com">BrowserStack</a>, powered by <a class="humanitarianid" href="https://www.humanitarian.id">Humanitarian.id</a>
 			</footer>
 		</main>
 		{% block footer %}

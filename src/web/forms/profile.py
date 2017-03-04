@@ -38,8 +38,8 @@ class ProfileForm(Form):
                 validators.Required("Please enter your email.")])
     organization = TextField("Organization")
     preferred_language = SelectField("Preferred language")
-    password = PasswordField("Password")
-    password_conf = PasswordField("Password Confirmation")
+    password = PasswordField("Shelter-database password")
+    password_conf = PasswordField("Shelter-database password confirmation")
     submit = SubmitField("Save")
 
     def set_languages_choice(self):
