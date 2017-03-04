@@ -18,6 +18,7 @@
         </li>
         {% endif %}
         {% endfor %}
+        <br>
         <li id="tab-edit" class="pull-right" >
             <div class="btn-group">
                 <a class="btn delete-shelter-btn" href="{{ url_for('shelter_bp.delete', shelter_id=shelter.id, next='/user/shelters') }}">
