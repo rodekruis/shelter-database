@@ -12,10 +12,17 @@
 	<link rel="shortcut icon" type="image/png" href="{{ url_for("static", filename="img/favicon.png") }}" />
     <title>Open Shelter Database</title>
 
+    {% if shelter %}
+    <meta name="description" content="The Open Shelter Database is a resource for the wider shelter sector, that can help to deliver humanitarian shelter." />
+    <meta property="og:title" content="{{shelter.get_values_of_attribute(attribute_name='Name of shelter')[0].name}}" />
+    <meta property="og:description" content="See the shelter {{shelter.get_values_of_attribute(attribute_name='Name of shelter')[0].name}} in {{shelter.get_values_of_attribute(attribute_name='Country')[0].name}} on the Open Shelter Database'" />
+    <meta property="og:image" content="{{og_img}}">
+    {% else %}
     <meta name="description" content="The Open Shelter Database is a resource for the wider shelter sector, that can help to deliver humanitarian shelter." />
 	<meta property="og:title" content="Open Shelter Database" />
 	<meta property="og:description" content="Open Shelter Database collects and disseminates shelter designs." />
 	<meta property="og:image" content="{{ url_for("static", filename="img/ogimage.png") }}">
+    {% endif %}
 	
 
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
