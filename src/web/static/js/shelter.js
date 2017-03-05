@@ -356,8 +356,6 @@
 	var createIdentification = function createIdentification(data){
 			
 		// set main image
-        let currentDomain = window.location.href.split('/');
-        currentDomain = currentDomain[0]+'//'+currentDomain[2];
 		addCoverPictures(data, '#section-0', 'Identification');
 		addSwipePictures(data, 'Identification');
 
@@ -377,7 +375,7 @@
 		ggShare.attr('href', ggShare.attr('href')+'&text='+shareTextEncoded);
 		llShare.attr('href', llShare.attr('href')+'&summary='+shareTextEncoded);
 		
-		$("meta[property='og:description']").attr('content', shareText);
+		//$("meta[property='og:description']").attr('content', shareText);
 
 		// set geography
 		var geographyAttributes = ['Country', 'Province / District / Region', 'City / Village'];
