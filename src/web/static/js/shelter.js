@@ -265,15 +265,7 @@
 								.attr('class','btn');
 								
 				btn.append('span')
-						.text('See more photos');
-			
-			if(section_id === '#section-0' ){
-				let currentDomain = window.location.href.split('/');
-		        currentDomain = currentDomain[0]+'//'+currentDomain[2];
-				
-				$("meta[property='og:image']").attr('content', currentDomain+'/'+section[source][0]);
-			}
-						
+						.text('See more photos');					
 		}
 	}
 
@@ -356,8 +348,6 @@
 	var createIdentification = function createIdentification(data){
 			
 		// set main image
-        let currentDomain = window.location.href.split('/');
-        currentDomain = currentDomain[0]+'//'+currentDomain[2];
 		addCoverPictures(data, '#section-0', 'Identification');
 		addSwipePictures(data, 'Identification');
 
@@ -377,7 +367,7 @@
 		ggShare.attr('href', ggShare.attr('href')+'&text='+shareTextEncoded);
 		llShare.attr('href', llShare.attr('href')+'&summary='+shareTextEncoded);
 		
-		$("meta[property='og:description']").attr('content', shareText);
+		//$("meta[property='og:description']").attr('content', shareText);
 
 		// set geography
 		var geographyAttributes = ['Country', 'Province / District / Region', 'City / Village'];
@@ -440,7 +430,7 @@
 		});
 
 		// Add OSM base layer
-		L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
+		L.tileLayer('https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
 		
 		// disable dragging and scrolling for mobile view
 		map.scrollWheelZoom.disable();
