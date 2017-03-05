@@ -430,7 +430,7 @@
 		});
 
 		// Add OSM base layer
-		L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
+		L.tileLayer('https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
 		
 		// disable dragging and scrolling for mobile view
 		map.scrollWheelZoom.disable();
