@@ -151,12 +151,14 @@ def shelter(shelter_id):
     language_code = get_locale().language
     shelter = Shelter.query.filter(Shelter.id == shelter_id).first()
     user = User.query.filter(User.id == shelter.user_id).first()
-    image = ShelterPicture.query.filter(
-            ShelterPicture.shelter_id == shelter_id).first()
+    images = ShelterPicture.query.filter(
+            ShelterPicture.shelter_id == shelter_id)
     og_img = None
-    if image and image.is_main_picture:
-        og_img = request.url_root+'static/pictures/shelters/' +\
-                 str(shelter_id)+'/'+image.file_name
+    for image in images:
+        if image.is_main_picture:
+            og_img = request.url_root+'static/pictures/shelters/' +\
+                     str(shelter_id)+'/'+image.file_name
+            break
     return render_template('shelter.html', shelter_id=shelter_id,
                            shelter=shelter, og_img=og_img,
                            language=language_code, user_email=user.email,
