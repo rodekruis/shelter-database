@@ -30,3 +30,14 @@ def async(f):
         thr = Thread(target=f, args=args, kwargs=kwargs)
         thr.start()
     return wrapper
+    
+def docstring_formatter(*sub):
+    """
+    This decorator inserts variables into the docstring of a python function.
+    It works via string formatting e.g str.format(). Therefore the docstrings 
+    should contain the "{}" placeholders where the variables will be inserted.
+    """
+    def dec(obj):
+        obj.__doc__ = obj.__doc__.format(*sub)
+    return(dec)
+    
