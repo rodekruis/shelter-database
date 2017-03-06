@@ -16,7 +16,7 @@ __license__ = ""
 
 from bootstrap import db, app
 from sqlalchemy.sql import func, select, desc
-from flask import Blueprint, jsonify, request, json, Response
+from flask import Blueprint, jsonify, request, json, Response, send_from_directory
 from collections import defaultdict
 from web.models import Shelter, Attribute, AttributePicture, Property, Value, Association, ShelterPicture, ShelterDocument, Category, Tsvector, Translation
 
@@ -45,7 +45,7 @@ def documentation():
     """
     Serves this documentation page
     """
-    return ""
+    return send_from_directory('static/documentation','apidoc.html')
 
 @apiv02_bp.route('/glossary', methods=['GET'])
 def glossary():
