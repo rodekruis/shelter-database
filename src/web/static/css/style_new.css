@@ -416,6 +416,16 @@ footer a.humanitarianid {
 		}
 }
 
+footer a.api {
+		color: #ffffff;
+		margin-left: 0px;
+}
+
+footer a.api:hover {
+			text-decoration: none !important;
+    		color: #CC0000
+}
+
 .flexbox {
   display: -webkit-box;
   display: -webkit-flex;
@@ -1206,7 +1216,7 @@ section.supported .supporters {
       opacity: 1; }
 
 	.supporter-large {
-		width:350px !important;
+		width:300px !important;
 	}
 
 section.contribute {
