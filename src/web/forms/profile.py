@@ -37,16 +37,18 @@ class ProfileForm(Form):
                [validators.Length(min=6, max=35),
                 validators.Required("Please enter your email.")])
     organization = TextField("Organization")
-    preferred_language = SelectField("Preferred language")
+    # preferred_language = SelectField("Preferred language")
     password = PasswordField("Shelter-database password")
     password_conf = PasswordField("Shelter-database password confirmation")
     submit = SubmitField("Save")
 
+    """
     def set_languages_choice(self):
         self.preferred_language.choices = [('en', 'en')]
         languages = [(language[0], language[0]) for language in \
                         db.session.query(distinct(Translation.language_code))]
         self.preferred_language.choices.extend(languages)
+    """
 
     def validate(self):
         validated = super(ProfileForm, self).validate()
