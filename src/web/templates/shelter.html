@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html lang="nl">
 {% extends "layout.html" %}
-{% block assets_start %}
+	
+	{% block og %}
+    <meta property="og:title" content="{{shelter.get_values_of_attribute(attribute_name='Name of shelter')[0].name}}" />
+    <meta property="og:description" content="See the shelter {{shelter.get_values_of_attribute(attribute_name='Name of shelter')[0].name}} in {{shelter.get_values_of_attribute(attribute_name='Country')[0].name}} on the Open Shelter Database'" />
+    <meta property="og:image" content="{{og_img}}">
+	{% endblock %}
+	
+	{% block assets_start %}
     {{ super() }}
 
 	<!-- basic stylesheet -->

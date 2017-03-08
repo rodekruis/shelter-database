@@ -265,15 +265,7 @@
 								.attr('class','btn');
 								
 				btn.append('span')
-						.text('See more photos');
-			
-			if(section_id === '#section-0' ){
-				let currentDomain = window.location.href.split('/');
-		        currentDomain = currentDomain[0]+'//'+currentDomain[2];
-				
-				$("meta[property='og:image']").attr('content', currentDomain+'/'+section[source][0]);
-			}
-						
+						.text('See more photos');					
 		}
 	}
 
@@ -438,7 +430,7 @@
 		});
 
 		// Add OSM base layer
-		L.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
+		L.tileLayer('https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
 		
 		// disable dragging and scrolling for mobile view
 		map.scrollWheelZoom.disable();
