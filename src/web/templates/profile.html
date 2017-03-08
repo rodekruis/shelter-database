@@ -20,7 +20,7 @@
                 {{ form.organization.label }}
                 {{ form.organization(class_="form-control") }} {% for error in form.organization.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
 
-                <p>You can add a password to your shelter-database account, so that you can login without the need for humanitarian.id authentication</p>
+                <p>You can set a password to your shelter-database account, so that you can login without the need for humanitarian.id authentication</p>
                 {{ form.password.label }}
                 {{ form.password(class_="form-control") }} {% for error in form.password.errors %} <span style="color: red;">{{ error }}<br /></span>{% endfor %}
 
