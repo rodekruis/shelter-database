@@ -721,6 +721,14 @@ header {
     font-size: 1.3em;
     z-index: 100; }
 
+#searchinfo {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    color: #333;
+    font-size: 1.3em;
+    z-index: 100; }
+
 .map2 {
   height: 200px; }
 
@@ -1095,7 +1103,7 @@ section.first {
     display: inline-block; }
     section.first .search .search-wrapper input {
       font-size: 1em;
-      padding: 12px 20px 12px 50px;
+      padding: 12px 40px 12px 50px;
       filter: alpha(opacity=90);
       -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
       -webkit-opacity: 0.9;
