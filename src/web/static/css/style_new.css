@@ -1239,12 +1239,24 @@ section.contribute {
     margin: 30px 0; }
 
 section.contribute-image {
+	background-size: 100%;
+	background-repeat: no-repeat;
 	height: 300px;
+}
+
+@media only screen and (max-width: 767px) {
+	section.contribute-image {
+		background-size: 100%;
+		background-repeat: no-repeat;
+		height:200px;
+	}
 }
 
 section.knowledge {
   text-align: center;
-  min-height: 400px; }
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 400px; }
   section.knowledge h3 {
     color: #FFF; }
   section.knowledge .flexbox .box h4 {
@@ -1253,6 +1265,14 @@ section.knowledge {
     color: #FFF; }
     section.knowledge a:hover {
       color: #EEE; }
+
+@media only screen and (max-width: 767px) {
+	section.knowledge {
+		background-size: 100%;
+		background-repeat: no-repeat;
+		height:200px;
+	}
+}
 
 div.shelterimg {
   position: relative;
