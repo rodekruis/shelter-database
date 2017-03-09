@@ -156,6 +156,16 @@ html_title = 'Shelter-database Development API Documentation'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+# Append CSS & JS files to the HTML, relative to the '/static' directory of Flask, so the CSS and JS
+# files are served as well with Flask. NOTE: This is a hack!
+html_context = {} 
+html_context['css_files'] = ['/static/documentation/_static/{}.css'.format(html_theme),
+                            '/static/documentation/_static/pygments.css']
+
+html_context['script_files'] = ['/static/documentation/_static/jquery.js',
+                            '/static/documentation/_static/underscore.js',
+                            '/static/documentation/_static/doctools.js' ]
+
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
 # directly to the root of the documentation.
@@ -166,7 +176,7 @@ html_static_path = ['_static']
 # bottom, using the given strftime format.
 # The empty string is equivalent to '%b %d, %Y'.
 #
-# html_last_updated_fmt = None
+html_last_updated_fmt = ''
 
 # If true, SmartyPants will be used to convert quotes and dashes to
 # typographically correct entities.
