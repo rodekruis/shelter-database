@@ -61,10 +61,10 @@ def glossary():
 
 @apiv02_bp.route('/worldmap', methods=['GET'])
 def worldmap():
-	"""
-	Retrieve a world map in GeoJSON format, 
-	with polygons and a centroid point representing each country
-	"""
+	#"""
+	#Retrieve a world map in GeoJSON format, 
+	#with polygons and a centroid point representing each country
+	#"""
 	
 	with app.open_resource('static/data/countries.geojson') as f:
 		data = json.load(f, encoding='utf-8')
