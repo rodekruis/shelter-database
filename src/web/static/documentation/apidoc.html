@@ -6,8 +6,10 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>v0.2 &#8212; Shelter-database Development API Documentation</title>
+    <title>Shelter-database Development API Documentation</title>
     
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="/static/documentation/_static/haiku.css" type="text/css" />
     <link rel="stylesheet" href="/static/documentation/_static/pygments.css" type="text/css" />
     
@@ -23,12 +25,19 @@
     <script type="text/javascript" src="/static/documentation/_static/jquery.js"></script>
     <script type="text/javascript" src="/static/documentation/_static/underscore.js"></script>
     <script type="text/javascript" src="/static/documentation/_static/doctools.js"></script>
-    <link rel="top" title="Shelter-database Development API Documentation" href="#" /> 
+    <link rel="top" title="None" href="apidoc.html#document-apidoc" /> 
   </head>
   <body role="document">
       <div class="header" role="banner"><h1 class="heading"><a href="index.html">
           <span>Shelter-database Development API Documentation</span></a></h1>
-        <h2 class="heading"><span>v0.2</span></h2>
+        <h2 class="heading"><span>Shelter-database Development API Documentation</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="apidoc.html#document-apidoc">Contents</a>
+        </p>
+
       </div>
       <div class="content">
         
@@ -51,6 +60,13 @@ separated by semicolons</p>
 </tr>
 </tbody>
 </table>
+<p><strong>Example requests</strong>:</p>
+<blockquote>
+<div><div class="highlight-html"><div class="highlight"><pre><span></span># get all values for attribute &quot;Foor finish material&quot; (uniqueid: floorfinishmaterial)
+GET https://shelter-database.org/api/v0.2/attributes/floorfinishmaterial
+</pre></div>
+</div>
+</div></blockquote>
 </dd></dl>
 
 <dl class="get">
@@ -61,18 +77,28 @@ separated by semicolons</p>
 <dl class="get">
 <dt id="get--api-v0.2-attributes-pictures">
 <code class="descname">GET </code><code class="descname">/api/v0.2/attributes/pictures</code><a class="headerlink" href="#get--api-v0.2-attributes-pictures" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve attribute pictures</p>
+<dd><p>Retrieve attribute pictures in a given language. If no language code prameter supplied, the default language is English.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>language_code</strong> (<em>string</em>) &#8211; language code</li>
+<li><strong>language_code</strong> (<em>string</em>) &#8211; language code, in lower case two letter format. Example: &#8216;fr&#8217; for French</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<p><strong>Example requests</strong>:</p>
+<blockquote>
+<div><div class="highlight-html"><div class="highlight"><pre><span></span># get attribute pictures in default language (English)
+GET https://shelter-database.org/api/v0.2/attributes/pictures
+
+# get attribute pictures in French
+GET https://shelter-database.org/api/v0.2/attributes/pictures/fr  
+</pre></div>
+</div>
+</div></blockquote>
 </dd></dl>
 
 <dl class="get">
@@ -90,6 +116,13 @@ separated by semicolons</p>
 </tr>
 </tbody>
 </table>
+<p><strong>Example requests</strong>:</p>
+<blockquote>
+<div><div class="highlight-html"><div class="highlight"><pre><span></span># get pictures for Foundation Type (uniqueid: foundationtype)
+GET https://shelter-database.org/api/v0.2/attributes/pictures/has/foundationtype
+</pre></div>
+</div>
+</div></blockquote>
 </dd></dl>
 
 <dl class="get">
@@ -113,23 +146,7 @@ separated by semicolons</p>
 <dl class="get">
 <dt id="get--api-v0.2-shelters">
 <code class="descname">GET </code><code class="descname">/api/v0.2/shelters</code><a class="headerlink" href="#get--api-v0.2-shelters" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieves shelters with all their attributes and pictures.</p>
-<blockquote>
-<div><p><strong>Example requests</strong>:</p>
-<div class="highlight-html"><div class="highlight"><pre><span></span># get all shelters
-GET https://shelter-database.org/api/v0.2/shelters
-
-# get shelter whith shelter ID 11
-GET https://shelter-database.org/api/v0.2/shelters/11
-
-# get all shelters which have attribute &#39;storeys&#39; 
-GET https://shelter-database.org/api/v0.2/shelters?attribute=storeys
-
-# get all shelters which have 2 storeys
-GET https://shelter-database.org/api/v0.2/shelters?attribute=storeys&amp;value=2
-</pre></div>
-</div>
-</div></blockquote>
+<dd><p>Retrieves shelters with all of their attributes and pictures.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -152,6 +169,22 @@ attribute names are retrieved as nicely formatted text
 </tr>
 </tbody>
 </table>
+<p><strong>Example requests</strong>:</p>
+<blockquote>
+<div><div class="highlight-html"><div class="highlight"><pre><span></span># get all shelters
+GET https://shelter-database.org/api/v0.2/shelters
+
+# get shelter whith shelter ID 11
+GET https://shelter-database.org/api/v0.2/shelters/11
+
+# get all shelters which have attribute &#39;storeys&#39; 
+GET https://shelter-database.org/api/v0.2/shelters?attribute=storeys
+
+# get all shelters which have 2 storeys
+GET https://shelter-database.org/api/v0.2/shelters?attribute=storeys&amp;value=2
+</pre></div>
+</div>
+</div></blockquote>
 </dd></dl>
 
 <dl class="get">
@@ -163,7 +196,8 @@ attribute names are retrieved as nicely formatted text
 <dt id="get--api-v0.2-shelters-latest">
 <code class="descname">GET </code><code class="descname">/api/v0.2/shelters/latest</code><a class="headerlink" href="#get--api-v0.2-shelters-latest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves latest shelters (updates to existing shelters also count).
-Only retrieves shelters that have pictures.</p>
+Only retrieves shelters that have pictures. If no count parameter is supplied, the API
+retrieves the latest shelter.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -175,36 +209,16 @@ Only retrieves shelters that have pictures.</p>
 </tr>
 </tbody>
 </table>
-</dd></dl>
+<p><strong>Example requests</strong>:</p>
+<blockquote>
+<div><div class="highlight-html"><div class="highlight"><pre><span></span># get latest shelter
+GET https://shelter-database.org/api/v0.2/shelters/latest
 
-<dl class="get">
-<dt id="get--api-v0.2-translation">
-<code class="descname">GET </code><code class="descname">/api/v0.2/translation</code><a class="headerlink" href="#get--api-v0.2-translation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve language codes of available translations</p>
-</dd></dl>
-
-<dl class="get">
-<dt id="get--api-v0.2-translation-(language_code)">
-<code class="descname">GET </code><code class="descname">/api/v0.2/translation/</code><span class="sig-paren">(</span><em>language_code</em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-v0.2-translation-(language_code)" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve translations for a given <cite>language_code</cite></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>language_code</strong> (<em>string</em>) &#8211; language code</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="get">
-<dt id="get--api-v0.2-worldmap">
-<code class="descname">GET </code><code class="descname">/api/v0.2/worldmap</code><a class="headerlink" href="#get--api-v0.2-worldmap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve a world map in GeoJSON format, 
-with polygons and a centroid point representing each country</p>
+# get the 3 latest shelters
+GET https://shelter-database.org/api/v0.2/shelters/latest/3
+</pre></div>
+</div>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -214,13 +228,14 @@ with polygons and a centroid point representing each country</p>
       <div class="bottomnav" role="navigation" aria-label="bottom navigation">
       
         <p>
-        <a class="uplink" href="#">Contents</a>
+        <a class="uplink" href="apidoc.html#document-apidoc">Contents</a>
         </p>
 
       </div>
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Netherlands Red Cross.
+      Last updated on Mar 09, 2017.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
     </div>
   </body>
