@@ -43,9 +43,6 @@ with app.app_context():
     app.register_blueprint(views.api.blueprint_page)
     app.register_blueprint(views.api.blueprint_translation)
 
-    # API v0.1.1
-    app.register_blueprint(views.api.api_bp)
-
     # API v0.2
     app.register_blueprint(views.api.apiv02_bp)
 
