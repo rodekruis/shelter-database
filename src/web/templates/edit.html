@@ -149,6 +149,7 @@
                                     </div>
                                 {% endfor %}
 
+                                {% if sub_category.name != "Documents"  %}
                                 <h4>Pictures for {{ sub_category.name }}</h4>
                                 <div class="mygroup">
                                     <ul>
@@ -176,9 +177,23 @@
                                        </div>
                                     </div>
                                 </div>
-                                
+                                {% endif %}
                                 {% if sub_category.name == "Documents"  %}
                                 <h4>Documents</h4>
+                                <div id="dropzone_{{ sub_category.id }}" class="dropzonediv" data-sub-category="{{ sub_category.name }}" data-sub-category-id="{{ sub_category.id }}" data-shelter-id="{{shelter.id}}">
+                                   <div class="dz-default dz-message"><span>Drop documents here to upload</span></div>
+                                   <div class="fallback">
+                                       <input id="files" multiple="true" name="mediafile" type="file"
+                                              data-validation="length mime size"
+                                              data-validation-length="min1"
+                                              data-validation-allowing="pdf, doc"
+                                              data-validation-max-size="4000kb"
+                                              data-validation-error-msg-size="You can not upload images larger than 4000kb"
+                                              data-validation-error-msg-mime="You can only upload images"
+                                              data-validation-error-msg-length="You have to upload at least one images">
+                                   </div>
+                                </div>
+                    
                                 {% for document in documents[sub_category.name] %}
                                     <div>
                                         <a href="/static/documents/shelters/{{ shelter.id }}/{{ document.file_name }}" download>
@@ -189,6 +204,7 @@
 
                                     </div>
                                 {% endfor %}
+                                <br/>
                             {% endif %}
                         {% endfor %}
                     {% endfor %}

@@ -363,7 +363,7 @@ section {
     right: 0;
     bottom: 0;
     z-index: 1;
-    background-color: rgba(0, 0, 0, 0.5); }
+    background-color: rgba(0, 0, 0, 0.4); }
   section.background .toplayer {
     position: relative;
     z-index: 2;
@@ -1448,8 +1448,6 @@ section.map {
 #tabs.tab2 .tabcontent2 {
   display: inline; }
 
-.stats {
-  display: inline-block; }
   .stats .table {
     font-size: smaller !important; }
   .stats .table tr td {
@@ -1753,6 +1751,7 @@ section.map {
 .well p {
 	padding-bottom: 10px;
 	font-size: 0.9em;
+	text-align: justify;
 }
 
 .well-highlight {
