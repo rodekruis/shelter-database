@@ -673,7 +673,7 @@ header {
         header.landingpage nav > ul > li > a:hover {
           background-color: rgba(255, 255, 255, 0.1); }
       header.landingpage nav > ul > li ul.dropdown-menu {
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgba(255, 255, 255, 0.4);
         box-shadow: none;
         border: none;
         margin-top: 1px; }
