@@ -380,6 +380,8 @@ footer {
   color: #EEE;
   text-align: center;
   padding: 30px 0; 
+  font-size: 0.8em;
+  line-height: 1.5;
 }
 
 footer a.browserstack {
@@ -682,6 +684,13 @@ header {
     @media only screen and (min-width: 768px) {
       header.landingpage nav ul {
         border-bottom: none; } }
+    @media only screen and (max-width: 768px) {
+	  header.landingpage nav > ul > li ul.dropdown-menu {
+        background-color: rgba(255, 255, 255, 1);
+	  }
+	  header.landingpage nav > ul > li ul.dropdown-menu a {
+          color: #000; }
+    }
 
 @media print {
   header {
@@ -1352,7 +1361,11 @@ section.map {
   .shelters .shelter {
     position: relative;
     min-height: 150px;:befo
-    margin-bottom: 40px; }
+    margin-bottom: 40px; 
+    cursor: pointer; cursor: hand;}
+  .shelters .shelter:hover {
+	  background-color: rgba(203, 203, 203, 0.27);
+   }
     .shelters .shelter .image {
       position: relative;
       top: 0;
@@ -1772,10 +1785,6 @@ section.map {
 
 .step {
 	text-align: right; 
-	margin-bottom: 20px;
-}
-
-.humanitarianid {
 	margin-bottom: 20px;
 }
 

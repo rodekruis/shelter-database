@@ -6,13 +6,12 @@
 	 * VARIABLES
 	 */
 	var modalPage = 0;
-	var maxSections = 3;
 	var modalName = "";
 	var translation = {};
 	var attributes;
 	var shelter;
 	var index = 1;
-	var visibleRows = 3;
+	var visibleRows = 4;
 	
 	/**
 	 * FUNCTIONS
@@ -119,16 +118,6 @@
 				index = index + 1;
 			}
 		});
-		
-		// set more link for uncollapse sections
-		if(index > maxSections){
-			var targets = '';
-			for(i = maxSections; i < index; i++){
-				targets += ',#section-' + i;
-			}
-			targets = targets.substring(1);
-			$('#collapseButton').attr('data-target', targets);
-		}
 		
 		// set identification attributes
 		if(typeof data['Identification'] !== 'undefined'){
@@ -471,23 +460,17 @@
 		var i = 0;
 		var data = Object.keys(d).map(function(k) { 
 			v = true;
-			if(i > visibleRows){
+			if(i >= visibleRows){
 				v = false;
 			}
 			i++;
 			return {attribute:k, value:d[k], visible:v} 
 		});
 		
-		// set collapse class
-		var collapse = '';
-		//if(index > maxSections) {
-		//	collapse = 'collapse ';
-		//}
-		
 		var sections = d3.select('#section-specifications');
 		var section = sections.append('section')
 						.attr('id', 'section-' + index)
-						.attr('class', 'details ' + collapse + 'details-' + ((index %2) + 1) );
+						.attr('class', 'details ' + 'details-' + ((index %2) + 1) );
 						
 		var content = section.append('div')
 						.attr('class', 'content');
@@ -503,7 +486,8 @@
 						.attr('id', 'section-table-' + index)
 						.attr('class', 'section-data');	
 								
-		var	tbody = table.append('tbody');
+		var	tbody = table.append('tbody')
+						.attr('data-count', data.length);
 
 		// create a row for each object in the data
 		var rows = tbody.selectAll('tr')
@@ -515,20 +499,13 @@
 		// Add column with attribute names
 		var th = rows.append('th');
 			
-				th.append('a')
-					//.attr('rel', 'tooltip')
-					//.attr('title', 'Enter your tip here')
-					//.attr('class', 'glossary-link')
-					.text(function (d) { 
-						if(language == 'en' || jQuery.isEmptyObject(translation) || typeof(translation[d.attribute]) == 'undefined'){
-							return d.attribute;
-						}
-						else {
-							// return translated attribute name
-							return translation[d.attribute]; 
-						}				
-					});
-				
+			// Add attribute names
+			th.append('a')
+				.text(function (d) { 
+						return d.attribute; 
+				});
+			
+			// Add attribute drawing link
 			th.append('a')
 					.filter(function(d){ 
 						if(hasOwnProperty.call(attributes, category) && hasOwnProperty.call(attributes[category], d.attribute)){
@@ -546,9 +523,13 @@
 		// Add column with values
 		rows.append('td')
 				.text(function (d) { return d.value.replace(new RegExp(';', 'g'), ', '); });
-				
+		
+		// Add row with More link
 		tbody.append('tr')
 				.attr("class", 'rowVisible_true')
+					.filter(function(d){ 
+						return ($(this).parent().data('count') > visibleRows) ? true : false;
+					})
 			 .append('a')
 				.attr('class', 'more btn-link')
 				.attr('data-table-id', 'section-table-' + index)
@@ -557,7 +538,7 @@
 		// init tooltip
 		tooltip();
 	}
-
+ 
 	var show_multimedia_assets = function show_multimedia_assets(e) {
 		var attribute = $(this).attr("attribute-name");
 		var section = $(this).attr("section-name")
