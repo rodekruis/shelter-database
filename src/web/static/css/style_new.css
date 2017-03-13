@@ -380,6 +380,8 @@ footer {
   color: #EEE;
   text-align: center;
   padding: 30px 0; 
+  font-size: 0.8em;
+  line-height: 1.5;
 }
 
 footer a.browserstack {
@@ -1776,10 +1778,6 @@ section.map {
 
 .step {
 	text-align: right; 
-	margin-bottom: 20px;
-}
-
-.humanitarianid {
 	margin-bottom: 20px;
 }
 
