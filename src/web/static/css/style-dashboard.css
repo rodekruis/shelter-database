@@ -1,7 +1,3 @@
-.stats {
-  display: inline-block;
-}
-
 .stats [class*="col-"]{
     text-align: center;
 }
