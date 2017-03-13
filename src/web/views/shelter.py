@@ -169,6 +169,8 @@ def get_multimedia_documents(shelter_id=0, category_id=2, section="Documents"):
     request.
     """
     shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+    if not current_user.is_authenticated:
+        return 'unauthorized', 403
 	
     if not shelter:
         return 'no such shelter', 400 
