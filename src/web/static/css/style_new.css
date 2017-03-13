@@ -1352,7 +1352,11 @@ section.map {
   .shelters .shelter {
     position: relative;
     min-height: 150px;:befo
-    margin-bottom: 40px; }
+    margin-bottom: 40px; 
+    cursor: pointer; cursor: hand;}
+  .shelters .shelter:hover {
+	  background-color: rgba(203, 203, 203, 0.27);
+   }
     .shelters .shelter .image {
       position: relative;
       top: 0;

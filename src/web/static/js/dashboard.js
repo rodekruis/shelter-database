@@ -867,12 +867,55 @@ var generateShelterList  = function generateShelterList(data) {
 		if(data[i].hasOwnProperty("thumbnailUrl")){
 		 thumbnailUrl = '/' + data[i].thumbnailUrl;
 		}
+		
+		var shelterList = d3.select('#shelterList');
+		var shelter = shelterList.append('div')
+									.attr('class', 'shelter')
+									.attr('data-location', "/shelter/" + data[i].db_id)
+										.on("click", function() { 
+													window.location = $(this).data('location');
+											  });
+		
+		shelter.append('div')
+				.attr('class', 'lazy image')
+				.attr('data-original', thumbnailUrl);
+					
+		
+		var title = shelter.append('h4')
+							.attr('class', 'title');
+		
+		var titleLink = title
+						 .append('a')
+							.attr('href', '/shelter/' + data[i].db_id)
+						 .text(data[i].nameofshelter);
+		
+		shelter.append('div')
+				.attr('class', 'country')
+				.text(data[i].country);
+		
+		shelter.append('div')
+				.attr('class', 'country')
+				.text(function(d) { 
+									var year = data[i].yearofconstructionfirstcompletedshelters;
+								    if (typeof year !== 'undefined') {
+										return year.getFullYear();
+									}
+			
+									return '';
+								}
+					);
+		
+		shelter.append('div')
+				.attr('class', 'country')
+				.text(data[i].climatezone);
+							
+		/**
 		var shelter = $('<div class="shelter"/>').appendTo('#shelterList');
 		shelter.append('<div class="lazy image" data-original="'  + thumbnailUrl  + '"></div> ' +
 			'<h4 class="title"><a href="/shelter/' + data[i].db_id + '">' +data[i].nameofshelter+ '</a></h4>'  +
 			'<div class="country">'+data[i].country+'</div> ' +
-			'<div class="id">'+data[i].id+'</div> ' +
-			'<div class="description"><p>' +'' + '</p></div>');
+			'<div class="country">Year: '+data[i].yearofconstructionfirstcompletedshelters.getFullYear() +'</div> ' +
+			'<div class="country">Climate zone: ' + data[i].climatezone + '</div>');**/
 	}
 
 	$("div.lazy").lazyload({

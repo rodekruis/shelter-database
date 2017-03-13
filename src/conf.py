@@ -99,7 +99,7 @@ FLASK_ASSETS_MERGE = config.getboolean('misc', 'flask_assets_merge')
 
 ALLOWED_EXTENSIONS_PICTURE = set(['png', 'jpg', 'jpeg', 'gif'])
 ALLOWED_EXTENSIONS_DOCUMENT = set(['doc', 'docx', 'pdf', 'odt', 'xls', 'xlsx',
-                                    'csv'])
+                                    'csv','txt','md'])
 ALLOWED_EXTENSIONS_CSV = set(['csv'])
 ALLOWED_EXTENSIONS_ARCHIVE = set(['zip'])
 
