@@ -139,7 +139,7 @@
 				$("#documentslink").removeClass('hidden');
 				
 				
-				var documentsdiv = d3.select('#section-documents"')
+				var documentsdiv = d3.select('#section-documents')
 								.append("div")
 										   .attr("class","flexbox");
 										   
