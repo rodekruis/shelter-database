@@ -1236,6 +1236,10 @@ section.supported .supporters {
 		width:300px !important;
 	}
 
+section.videos {
+  text-align: center;
+}
+
 section.contribute {
   text-align: center; }
   section.contribute h1 {
