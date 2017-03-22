@@ -102,16 +102,14 @@
 									<li><a href="{{ url_for('administration.dashboard') }}">Dashboard</a></li>
 									<li><a href="{{ url_for('administration.shelters') }}">Shelters</a></li>
 									<li><a href="{{ url_for('administration.users') }}">Users</a></li>
-									<li><a href="{{ url_for('administration.pages') }}">Edit pages</a></li>
 									<li><a href="{{ url_for('administration.attributes') }}">Attributes</a></li>
-									<li><a href="{{ url_for('admin.index') }}">Data management</a></li>
 									<li role="presentation" class="divider"></li>
 								{% endif %}
 								<li><a href="{{ url_for("logout") }}"><span class="fa icon-logout"></span>&nbsp;Logout</a></li>
 							</ul>
 						</li>
 					{% else %}
-						<li><a href="{{ url_for('join') }}">Login</a></li>
+						<li><a href="{{ url_for('login') }}">Login</a></li>
 					{% endif %}
 				</ul>
 			</nav>
