@@ -43,7 +43,7 @@ login_manager = LoginManager()
 login_manager.init_app(current_app)
 login_manager.login_message = u"Please log in to access this page."
 login_manager.login_message_category = "warning"
-login_manager.login_view = 'join'
+login_manager.login_view = 'login'
 
 logger = logging.getLogger(__name__)
 
@@ -70,14 +70,14 @@ def before_request():
         db.session.commit()
 
 
-@current_app.route('/join', methods=['GET'])
+@current_app.route('/login', methods=['GET'])
 def join():
     if current_user.is_authenticated or HumanitarianId().login():
         return redirect(url_for('index'))
     form = LoginForm()
     #signup = SignupForm()
     return render_template(
-            'join.html',
+            'login.html',
             humanitarian_id_auth_uri=conf.HUMANITARIAN_ID_AUTH_URI,
             client_id=conf.HUMANITARIAN_ID_CLIENT_ID,
             redirect_uri=conf.HUMANITARIAN_ID_REDIRECT_URI,
@@ -85,7 +85,7 @@ def join():
             )
 
 
-@current_app.route('/join', methods=['POST'])
+@current_app.route('/login', methods=['POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -96,7 +96,7 @@ def login():
         return form.redirect('index')
     #signup = SignupForm()
     return render_template(
-            'join.html',
+            'login.html',
             humanitarian_id_auth_uri=conf.HUMANITARIAN_ID_AUTH_URI,
             client_id=conf.HUMANITARIAN_ID_CLIENT_ID,
             redirect_uri=conf.HUMANITARIAN_ID_REDIRECT_URI,

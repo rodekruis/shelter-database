@@ -18,17 +18,20 @@
 
     <div class="well">
         <h2>Import shelters</h2>
+		<p>Upload a csv file, by using this <a href='{{ url_for("static", filename="data/structure.csv") }}' target="_blank">Structure</a>. Please see an example import file <a href='{{ url_for("static", filename="data/example.csv") }}' target="_blank">here</a>.</p>
+		<p>NOTE: each row should have a unique ID in the first column. The first two letters are for the country, then add a 3 digit code from 001 counting up (e.g. HT0001)<p>
+		<p>The shelter photos will need to be uploaded in a batch by the administrator. You will need to create subfolders with the ID of each shelter (e.g. HT001) and add all the photos in there</p>
         <form action="" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <input type="file" name="shelterfile" accept="text/*" />
             </div>
             <div class="form-group">
-                <input type="submit" name="shelters" value="Submit" />
+                <input class="button button-light button-right" type="submit" name="shelters" value="Upload" />
             </div>
         </form>
     </div>
 
-
+	<!--
     <div class="well">
         <h2>Import translations</h2>
         <form action="" method="post" enctype="multipart/form-data">
@@ -49,6 +52,7 @@
             {% endfor %}
         </ul>
     </div>
+	
 
     <div class="well">
         <h2>Import pictures</h2>
@@ -61,6 +65,7 @@
             </div>
         </form>
     </div>
+    -->
 </div>
 {% endblock %}
 {% block defer %}
