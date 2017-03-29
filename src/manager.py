@@ -136,9 +136,16 @@ def create_shelters_thumbnails():
 @manager.command
 def export_shelters(dump_file, truncate):
     "Exports shelters as a CSV dump file"
-    print("Exporting dump file ...")
+    print("Exporting shelter data ...")
     with app.app_context():
         scripts.export_shelters(dump_file, truncate)
+
+@manager.command
+def export_shelters_pictures(dump_dir, foldername):
+    "Exports shelters pictures into a directory tree"
+    print("Exporting shelter picture directories ...")
+    with app.app_context():
+        scripts.export_shelters_pictures(dump_dir, foldername)
 
 if __name__ == '__main__':
     manager.run()
