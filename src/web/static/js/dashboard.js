@@ -190,7 +190,7 @@ var restructureData = function(dataObject) {
 			}
 
 		}
-
+		 
 		if (shelter["Disaster & Response"] && shelter["Disaster & Response"]["Attributes"] ) {
 			if (shelter["Disaster & Response"]["Attributes"]["associateddisasterimmediatecause"]) {
 				shelterFlat["associateddisasterimmediatecause"] = shelter["Disaster & Response"]["Attributes"]["associateddisasterimmediatecause"]

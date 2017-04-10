@@ -16,7 +16,7 @@ python3.5 src/manager.py init_shelters_structure data/shelters/Shelters_Structur
 python3.5 src/manager.py create_admin_user
 
 # Import of the shelters from the CSV files
-python3.5 src/manager.py import_shelters admin data/shelters/concatenated_shelters.csv
+python3.5 src/manager.py import_shelters admin data/shelters/shelterdump_published.csv
 
 # Import pictures of the shelters
 python3.5 src/manager.py import_shelters_pictures data/shelters/pictures/
