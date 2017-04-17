@@ -79,7 +79,7 @@ config.read(os.path.join(BASE_DIR, "conf/conf.cfg"))
 
 PLATFORM_URL = config.get('misc', 'platform_url')
 
-SQLALCHEMY_DATABASE_URI = config.get('database', 'database_url')
+SQLALCHEMY_DATABASE_URI = config.get('database', 'database_url') + config.get('database', 'database_name')
 
 WEBSERVER_DEBUG = config.getboolean('webserver', 'debug')
 WEBSERVER_HOST = config.get('webserver', 'host')

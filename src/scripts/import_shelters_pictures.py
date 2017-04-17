@@ -20,19 +20,30 @@ import conf
 from web.models import Shelter, Category, ShelterPicture
 from bootstrap import db
 from PIL import Image, ImageFile
+from os.path import join
+
+def insensitive_glob(pattern):
+    def either(c):
+        return '[%s%s]'%(c.lower(),c.upper()) if c.isalpha() else c
+    return glob.glob(''.join(map(either,pattern)))
 
 def import_shelters_pictures(folder):
     
     ImageFile.LOAD_TRUNCATED_IMAGES = True
     imgwidth = 1280
+    types = ('*.jpg', '*.jpeg', '*.png', '*.gif')
     
     shelters = Shelter.query.all()
 
     for shelter in shelters:
         shelter_rid = shelter.get_values_of_attribute(attribute_name='ID')[0].name
         print("Shelter_rid '{}' ...".format(shelter_rid))
-			
-        for picture in glob.glob(folder + shelter_rid + '/**.jpg'):
+
+        files = []
+        for ext in types:
+              files.extend(insensitive_glob(join(folder + shelter_rid + '/', ext)))
+				
+        for picture in files:
             picture_name = os.path.basename(picture)
             print("Picture name '{}' ...".format(picture_name))
             
