@@ -79,7 +79,7 @@ config.read(os.path.join(BASE_DIR, "conf/conf.cfg"))
 
 PLATFORM_URL = config.get('misc', 'platform_url')
 
-SQLALCHEMY_DATABASE_URI = config.get('database', 'database_url')
+SQLALCHEMY_DATABASE_URI = config.get('database', 'database_url') + config.get('database', 'database_name')
 
 WEBSERVER_DEBUG = config.getboolean('webserver', 'debug')
 WEBSERVER_HOST = config.get('webserver', 'host')
@@ -99,7 +99,7 @@ FLASK_ASSETS_MERGE = config.getboolean('misc', 'flask_assets_merge')
 
 ALLOWED_EXTENSIONS_PICTURE = set(['png', 'jpg', 'jpeg', 'gif'])
 ALLOWED_EXTENSIONS_DOCUMENT = set(['doc', 'docx', 'pdf', 'odt', 'xls', 'xlsx',
-                                    'csv'])
+                                    'csv','txt','md'])
 ALLOWED_EXTENSIONS_CSV = set(['csv'])
 ALLOWED_EXTENSIONS_ARCHIVE = set(['zip'])
 

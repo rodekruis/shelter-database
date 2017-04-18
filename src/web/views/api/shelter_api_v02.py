@@ -50,7 +50,7 @@ def populate_dictree(query, catquery, dictree, prettytext=False):
     				dictree[s.shelter_id][c.name]["Cover"]
     			dictree[s.shelter_id][c.name]["Attributes"]
     			dictree[s.shelter_id][c.name]["Pictures"]
-    			#dictree[s.shelter_id][c.name]["Documents"]
+    			dictree[s.shelter_id][c.name]["Documents"]
     			
     	if prettytext:
     		if s.type == "yes / no":
@@ -66,6 +66,20 @@ def populate_dictree(query, catquery, dictree, prettytext=False):
     return dictree
 
 
+def populate_documents(query, dictree, docpath):
+    """
+    populates documents in an existing dictree for the shelters it contains
+    """
+    
+    for d in query:
+    	if d.shelter_id in dictree:
+    		if not dictree[d.shelter_id][d.name]["Documents"]:
+    			dictree[d.shelter_id][d.name]["Documents"] = ["{}/{}/{}".format(docpath, d.shelter_id, d.filename)]
+    		else:
+    			dictree[d.shelter_id][d.name]["Documents"].append("{}/{}/{}".format(docpath, d.shelter_id, d.filename))
+    
+    return dictree
+    
 def populate_pictures(query, dictree, picpath):
     """
     populates pictures in an existing dictree for the shelters it contains
@@ -80,8 +94,7 @@ def populate_pictures(query, dictree, picpath):
     				dictree[p.shelter_id]["Identification"]["Cover"].append("{}/{}/{}".format(picpath, p.shelter_id, p.filename))
     		elif not dictree[p.shelter_id][p.name]["Pictures"]:
     			dictree[p.shelter_id][p.name]["Pictures"] = ["{}/{}/{}".format(picpath, p.shelter_id, p.filename)]
-    		else:
-    			dictree[p.shelter_id][p.name]["Pictures"].append("{}/{}/{}".format(picpath, p.shelter_id, p.filename))
+    		
     
     return dictree
 
@@ -375,6 +388,7 @@ def allshelters(shelter_id=None):
     
     result = populate_dictree(shelter_properties, catquery, result, prettytext=pretty)
     populate_pictures(shelter_pictures, result, picpath)
+    populate_documents(shelter_documents, result, docpath)
     
     return jsonify(result)
 

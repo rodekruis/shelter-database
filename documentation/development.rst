@@ -64,6 +64,19 @@ Install and configure the database
     echo "GRANT ALL PRIVILEGES ON DATABASE shelter TO pgsqluser;" | psql
 	exit
 
+Set Rights to database
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Edit your pg_hba.conf and add the name of the database, in this case 'shelter'
+
+.. code-bock:: shell
+   
+   local   shelter     pgsqluser                               trust
+   host    shelter     all             127.0.0.1/32            trust
+   host    shelter     all             ::1/128                 trust
+   
+.. code-bock:: shell
+   
+   sudo service postgresql restart
 
 Retrieve the application *Shelter Database*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -68,15 +68,22 @@ def export_shelters(dump_file, truncate=''):
         
         for index, cursor in enumerate(pubdataquery):
             
+            #remove any newline and carriage return if string
+            if isinstance(cursor.value, str):
+                value = cursor.value.replace('\n',' ').replace('\r',' ')
+            else:
+                value = cursor.value
+            
+            
             if index != 0:
                 if cursor.shelter_id == prev_row.shelter_id:
-                    r[cursor.att_id-1] = cursor.value
+                    r[cursor.att_id-1] = value
                 else:
                     shelters.writerow(r)
                     r = [''] * columns_length
-                    r[cursor.att_id-1] = cursor.value
+                    r[cursor.att_id-1] = value
             else:
-                r[cursor.att_id-1] = cursor.value
+                r[cursor.att_id-1] = value
     
             prev_row = cursor
         shelters.writerow(r)
@@ -98,6 +105,13 @@ def export_shelters(dump_file, truncate=''):
         r = [''] * columns_length
         
         for index, cursor in enumerate(unpubdataquery):
+            
+            #remove any newline and carriage return if string
+            if isinstance(cursor.value, str):
+                value = cursor.value.replace('\n',' ').replace('\r',' ')
+            else:
+                value = cursor.value
+            
             
             if index != 0:
                 if cursor.shelter_id == prev_row.shelter_id:

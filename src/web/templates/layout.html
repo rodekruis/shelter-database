@@ -102,16 +102,14 @@
 									<li><a href="{{ url_for('administration.dashboard') }}">Dashboard</a></li>
 									<li><a href="{{ url_for('administration.shelters') }}">Shelters</a></li>
 									<li><a href="{{ url_for('administration.users') }}">Users</a></li>
-									<li><a href="{{ url_for('administration.pages') }}">Edit pages</a></li>
 									<li><a href="{{ url_for('administration.attributes') }}">Attributes</a></li>
-									<li><a href="{{ url_for('admin.index') }}">Data management</a></li>
 									<li role="presentation" class="divider"></li>
 								{% endif %}
 								<li><a href="{{ url_for("logout") }}"><span class="fa icon-logout"></span>&nbsp;Logout</a></li>
 							</ul>
 						</li>
 					{% else %}
-						<li><a href="{{ url_for('join') }}">Login</a></li>
+						<li><a href="{{ url_for('login') }}">Login</a></li>
 					{% endif %}
 				</ul>
 			</nav>
@@ -143,7 +141,7 @@
 			{% block content %}{% endblock %}
 			
 			<footer>
-				&copy; Copyright 2016. Build version 0.96. Tested with <a class="browserstack" href="https://browserstack.com">BrowserStack</a>, powered by <a class="humanitarianid" href="https://www.humanitarian.id">Humanitarian.id</a>. Developer API available <a class="api" href="{{ url_for('static', filename='documentation/apidoc.html') }}" target="_blank">here</a>
+				&copy; Copyright 2017. Build version 0.98. Developer API available <a class="api" href="{{ url_for('static', filename='documentation/apidoc.html') }}" target="_blank">here</a>.<a class="browserstack" href="https://browserstack.com" target="_blank">BrowserStack</a><a target="_blank" class="humanitarianid" href="https://www.humanitarian.id">Humanitarian.id</a>.
 			</footer>
 		</main>
 		{% block footer %}

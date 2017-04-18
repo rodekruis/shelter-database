@@ -363,7 +363,7 @@ section {
     right: 0;
     bottom: 0;
     z-index: 1;
-    background-color: rgba(0, 0, 0, 0.5); }
+    background-color: rgba(0, 0, 0, 0.4); }
   section.background .toplayer {
     position: relative;
     z-index: 2;
@@ -380,6 +380,8 @@ footer {
   color: #EEE;
   text-align: center;
   padding: 30px 0; 
+  font-size: 0.8em;
+  line-height: 1.5;
 }
 
 footer a.browserstack {
@@ -682,6 +684,13 @@ header {
     @media only screen and (min-width: 768px) {
       header.landingpage nav ul {
         border-bottom: none; } }
+    @media only screen and (max-width: 768px) {
+	  header.landingpage nav > ul > li ul.dropdown-menu {
+        background-color: rgba(255, 255, 255, 1);
+	  }
+	  header.landingpage nav > ul > li ul.dropdown-menu a {
+          color: #000; }
+    }
 
 @media print {
   header {
@@ -1227,6 +1236,10 @@ section.supported .supporters {
 		width:300px !important;
 	}
 
+section.videos {
+  text-align: center;
+}
+
 section.contribute {
   text-align: center; }
   section.contribute h1 {
@@ -1352,7 +1365,11 @@ section.map {
   .shelters .shelter {
     position: relative;
     min-height: 150px;:befo
-    margin-bottom: 40px; }
+    margin-bottom: 40px; 
+    cursor: pointer; cursor: hand;}
+  .shelters .shelter:hover {
+	  background-color: rgba(203, 203, 203, 0.27);
+   }
     .shelters .shelter .image {
       position: relative;
       top: 0;
@@ -1448,8 +1465,6 @@ section.map {
 #tabs.tab2 .tabcontent2 {
   display: inline; }
 
-.stats {
-  display: inline-block; }
   .stats .table {
     font-size: smaller !important; }
   .stats .table tr td {
@@ -1753,6 +1768,7 @@ section.map {
 .well p {
 	padding-bottom: 10px;
 	font-size: 0.9em;
+	text-align: justify;
 }
 
 .well-highlight {
@@ -1773,10 +1789,6 @@ section.map {
 
 .step {
 	text-align: right; 
-	margin-bottom: 20px;
-}
-
-.humanitarianid {
 	margin-bottom: 20px;
 }
 

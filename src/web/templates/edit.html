@@ -73,6 +73,37 @@
                     {% for category in section.categories %}
                         {% for sub_category in category.sub_categories %}
                             <h3>{{ sub_category.name }}</h3>
+						
+							<h5>Already uploaded documents</h5>
+                                {% for document in documents[sub_category.name] %}
+                                    <div>
+                                        <a href="/static/documents/shelters/{{ shelter.id }}/{{ document.file_name }}" download>
+                                            <span class="glyphicon glyphicon-file" title="{{ document.file_name }}"></span>&nbsp;{{ document.file_name }}
+                                        </a>
+                                        <a href="{{ url_for('shelter_bp.delete_document', document_id=document.id) }}"><span class="glyphicon glyphicon-remove" title="Remove"></span></a>
+                                        <br />
+
+                                    </div>
+                                {% endfor %}
+                             <br/>
+					
+							{% if sub_category.name == "Documents"  %}
+                                <h4>Upload documents</h4>
+                                <div id="dropzone_{{ sub_category.id }}" class="dropzonedocuments" data-sub-category="{{ sub_category.name }}" data-sub-category-id="{{ sub_category.id }}" data-shelter-id="{{shelter.id}}">
+                                   <div class="dz-default dz-message"><span>Drop documents here to upload</span></div>
+                                   <div class="fallback">
+                                       <input id="files" multiple="true" name="mediafile" type="file"
+                                              data-validation="length mime size"
+                                              data-validation-length="min1"
+                                              data-validation-max-size="4000kb"
+                                              data-validation-error-msg-size="You can not upload document larger than 4000kb"
+                                              data-validation-error-msg-mime="You can only upload documents"
+                                              data-validation-error-msg-length="You have to upload at least one document">
+                                   </div>
+                                </div>
+                    			<br/>
+                            	{% endif %}		
+					
                             {% for attribute in sub_category.attributes %}
                                         <div class="mygroup">
                                             <div class="mylabel">{{ attribute.name }} {% if attribute.pictures[0] %}<a class="btn-link see-drawing-link" attribute-name="{{attribute.name}}" section-name="{{sub_category.name}}">See drawing</a>{% endif %}</div>
@@ -149,6 +180,7 @@
                                     </div>
                                 {% endfor %}
 
+                                {% if sub_category.name != "Documents"  %}
                                 <h4>Pictures for {{ sub_category.name }}</h4>
                                 <div class="mygroup">
                                     <ul>
@@ -162,8 +194,8 @@
                                     {% endfor %}
                                     </ul>
                                     <div class="mylabel">Upload photos of the shelter</div>
-                                    <div id="dropzone_{{ sub_category.id }}" class="dropzonediv" data-sub-category="{{ sub_category.name }}" data-sub-category-id="{{ sub_category.id }}" data-shelter-id="{{shelter.id}}">
-                                       <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+                                    <div id="dropzone_{{ sub_category.id }}" class="dropzonepictures" data-sub-category="{{ sub_category.name }}" data-sub-category-id="{{ sub_category.id }}" data-shelter-id="{{shelter.id}}">
+                                       <div class="dz-default dz-message"><span>Drop photos here to upload</span></div>
                                        <div class="fallback">
                                            <input id="files" multiple="true" name="files" type="file"
                                                   data-validation="length mime size"
@@ -176,20 +208,7 @@
                                        </div>
                                     </div>
                                 </div>
-                                
-                                {% if sub_category.name == "Documents"  %}
-                                <h4>Documents</h4>
-                                {% for document in documents[sub_category.name] %}
-                                    <div>
-                                        <a href="/static/documents/shelters/{{ shelter.id }}/{{ document.file_name }}" download>
-                                            <span class="glyphicon glyphicon-file" title="{{ document.file_name }}"></span>&nbsp;{{ document.file_name }}
-                                        </a>
-                                        <a href="{{ url_for('shelter_bp.delete_document', document_id=document.id) }}"><span class="glyphicon glyphicon-remove" title="Remove"></span></a>
-                                        <br />
-
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
+                                {% endif %}
                         {% endfor %}
                     {% endfor %}
                 </div>

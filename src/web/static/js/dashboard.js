@@ -190,7 +190,7 @@ var restructureData = function(dataObject) {
 			}
 
 		}
-
+		 
 		if (shelter["Disaster & Response"] && shelter["Disaster & Response"]["Attributes"] ) {
 			if (shelter["Disaster & Response"]["Attributes"]["associateddisasterimmediatecause"]) {
 				shelterFlat["associateddisasterimmediatecause"] = shelter["Disaster & Response"]["Attributes"]["associateddisasterimmediatecause"]
@@ -322,7 +322,8 @@ var restructureData = function(dataObject) {
 		// filter the table for the shelters selected by the filters
 		generateShelterList(allDimensions.top(Infinity));
 
-		var value = ''
+		/*var value = '';
+		var f = chart.filters();
 		if (chart.filters().length>0) {
 			value = chart.filters()[chart.filters().length-1]
 		}
@@ -338,16 +339,10 @@ var restructureData = function(dataObject) {
 					$('#' + filter).val(value);
 				}
 			}
-		}
+		}*/
 	}
 
 	var onMapFiltered = function onMapFiltered(chart) {
-
-		//var g = mapChart.markerGroup();
-		//var bounds = g.getBounds();
-
-		//map.fitBounds(bounds);
-
 		// fit filtered markers within map bounds if any of the non-map filters where applied
 		bounds = [];
 		allDimensions.top(Infinity).forEach(function (d) {
@@ -359,6 +354,12 @@ var restructureData = function(dataObject) {
 		if(bounds.length > 0){
 			map.fitBounds(bounds, {pan: {animate: true, duration: 1.5, easeLinearity: 0.25}});
 		}
+		
+		// set the url parameters to match the filters
+		getFiltersValues();
+
+		// filter the table for the shelters selected by the filters
+		generateShelterList(allDimensions.top(Infinity));
 	}
 
 	mapChart
@@ -438,8 +439,8 @@ var restructureData = function(dataObject) {
 		.margins({left: 10, right: 10, top: 20, bottom: 30})
 		.dimension(filters['countryFilter']['dimension'])
 		.group(filters['countryFilter']['count'])
-		.on("filtered", onFiltered)
-	    .on('postRedraw', onMapFiltered)
+		.on("postRedraw", onMapFiltered)
+	 
 		.xAxis().tickFormat(
 		function (v) {
 			return d3.format('f')(v);
@@ -572,6 +573,25 @@ var restructureData = function(dataObject) {
 						for (var i = 0; i < filterValues.length; i++) {
 							chart.filter(filterValues[i]);
 						}
+				}
+			}
+			
+			var value = '';
+			var f = chart.filters();
+			if (chart.filters().length>0) {
+				value = chart.filters()[chart.filters().length-1]
+			}
+
+			// Find menu filter corresponding to chart and adjust displayed selected option as selected using dc chart
+			for (var filter in filters) {
+				var chartx = filters[filter]['chart'];
+
+				if(chartx){
+					var chartx_filters = chartx.filters();
+					var chart_filters = chart.filters();
+					if (chartx_filters == chart_filters) {
+						$('#' + filter).val(value);
+					}
 				}
 			}
 		}
@@ -732,7 +752,7 @@ var restructureData = function(dataObject) {
 	 });
 
 	var redrawAll = function redrawAll() {
-//		    console.log('redrawAll called')
+		    console.log('redrawAll called')
 		dc.renderAll();
 		dc.redrawAll();
 		generateShelterList(allDimensions.top(Infinity));
@@ -867,12 +887,55 @@ var generateShelterList  = function generateShelterList(data) {
 		if(data[i].hasOwnProperty("thumbnailUrl")){
 		 thumbnailUrl = '/' + data[i].thumbnailUrl;
 		}
+		
+		var shelterList = d3.select('#shelterList');
+		var shelter = shelterList.append('div')
+									.attr('class', 'shelter')
+									.attr('data-location', "/shelter/" + data[i].db_id)
+										.on("click", function() { 
+													window.location = $(this).data('location');
+											  });
+		
+		shelter.append('div')
+				.attr('class', 'lazy image')
+				.attr('data-original', thumbnailUrl);
+					
+		
+		var title = shelter.append('h4')
+							.attr('class', 'title');
+		
+		var titleLink = title
+						 .append('a')
+							.attr('href', '/shelter/' + data[i].db_id)
+						 .text(data[i].nameofshelter);
+		
+		shelter.append('div')
+				.attr('class', 'country')
+				.text(data[i].country);
+		
+		shelter.append('div')
+				.attr('class', 'country')
+				.text(function(d) { 
+									var year = data[i].yearofconstructionfirstcompletedshelters;
+								    if (typeof year !== 'undefined') {
+										return year.getFullYear();
+									}
+			
+									return '';
+								}
+					);
+		
+		shelter.append('div')
+				.attr('class', 'country')
+				.text(data[i].climatezone);
+							
+		/**
 		var shelter = $('<div class="shelter"/>').appendTo('#shelterList');
 		shelter.append('<div class="lazy image" data-original="'  + thumbnailUrl  + '"></div> ' +
 			'<h4 class="title"><a href="/shelter/' + data[i].db_id + '">' +data[i].nameofshelter+ '</a></h4>'  +
 			'<div class="country">'+data[i].country+'</div> ' +
-			'<div class="id">'+data[i].id+'</div> ' +
-			'<div class="description"><p>' +'' + '</p></div>');
+			'<div class="country">Year: '+data[i].yearofconstructionfirstcompletedshelters.getFullYear() +'</div> ' +
+			'<div class="country">Climate zone: ' + data[i].climatezone + '</div>');**/
 	}
 
 	$("div.lazy").lazyload({
