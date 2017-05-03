@@ -18,6 +18,8 @@ __copyright__ = "Copyright (c) "
 __license__ = ""
 
 import re
+import conf
+import requests
 from datetime import datetime
 from werkzeug import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -82,12 +84,26 @@ class User(db.Model, UserMixin):
             },....]
         This is stored using libs/utils.py Class: HumanitarianId
         """
+        # For old api data
         if self.image and isinstance(self.image, list):
             for image in self.image:
                 # Return url of type url among images
                 if image.get('type', None) == 'URL':
                     return image.get('url')
-            return None
+        # For new api data (just single url)
+        if self.image and len(self.image):
+            return self.image
+        # if h_id is only present, then image url can be
+        if self.h_id:
+            image = conf.HUMANITARIAN_ID_AUTH_URI+"/assets/pictures/"\
+                    + self.h_id + ".jpg"
+            r = requests.get(image)
+            if r.status_code == 200:
+                self.image = image
+                db.session.add(self)
+                db.session.commit()
+                return image
+        return None
 
     # def __eq__(self, other):
     #     return self.id == other.id
