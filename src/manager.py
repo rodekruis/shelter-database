@@ -78,6 +78,20 @@ def create_admin_user():
         db.session.commit()
 
 @manager.command
+def create_admin_user(email, name, password):
+    "Initializes the administrator of the platform"
+    from werkzeug import generate_password_hash
+    print("Creation of the admin user...")
+    with app.app_context():
+        user = web.models.User(email=email,
+                            name=name,
+                            pwdhash=generate_password_hash(password),
+                            is_admin=True,
+                            is_active=True)
+        db.session.add(user)
+        db.session.commit()
+
+@manager.command
 def create_user(email, name, password):
     "Initializes a user"
     print("Creation of the user {} ...".format(name))
