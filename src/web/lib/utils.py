@@ -83,14 +83,17 @@ class HumanitarianId:
                          params={'access_token': access_token})
         if r.status_code == 200:
             self.data = r.json()
-            if self.data['active'] and self.data['email_verified']:
+            if not self.data['deleted'] and self.data['email_verified']:
                 self.user_profile = {
-                        'image': self.data.get('picture'),
-                        'organization': self.data.get('organization')
+                    'image': self.data.get('picture'),
+                    'organization': self.data.get('organization').get('name')
+                    if self.data.get('organization')
+                    else ''
                      }
                 self.status = True
             else:
-                flash('Your HID account is inactive or email is not verified',
+                flash('Your HID account is inactive/deleted or'
+                      ' email is not verified',
                       'warning')
                 self.status = False
         else:
