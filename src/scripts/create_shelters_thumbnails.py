@@ -23,10 +23,9 @@ def create_shelters_thumbnails():
             if os.path.exists(new_thumbpath):
                 if db.session.query(ShelterPicture).filter_by(file_name=thumbname).first():
                     continue
-            im = Image.open(filepath) 
-            im.convert('RGB')
-            im.thumbnail((300,200))
-            im.save(new_thumbpath, 'JPEG')
+            im = Image.open(filepath)
+            im.thumbnail((300,200), Image.ANTIALIAS)
+            im.save(new_thumbpath, 'JPEG', quality=70, optimize=True, progressive=True)
             
             new_picture = ShelterPicture(file_name=thumbname,
                                     shelter_id=picture.shelter_id,
