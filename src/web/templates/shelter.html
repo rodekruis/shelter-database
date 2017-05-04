@@ -116,7 +116,15 @@
 
 									  <div class="row">
 										<div class="col-md-3 text-muted text-center hide-sm">
-										  <a href="#" class="link-reset text-wrap">{{user_name}}</a>
+										  <a href="#" class="link-reset text-wrap">
+                                          {% if user_h_id %}
+                                          <a href="{{humanitarian_id_app_uri}}/users/{{user_h_id}}" class=""
+                                             target="_blank" style="position: relative!important;">
+                                             <img style="margin-right: 5px; vertical-align: sub;" src="/static/img/logo_hid.png"
+                                                  width="22px" height="20px">
+                                          </a>
+                                          {% endif %}{{user_name}}
+                                          </a>
 										</div>
 
 										<div class="col-md-9">
