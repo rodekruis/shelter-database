@@ -85,9 +85,10 @@ class HumanitarianId:
             self.data = r.json()
             if not self.data['deleted'] and self.data['email_verified']:
                 self.user_profile = {
-                        'image': self.data.get('picture'),
-                        'organization': self.data.get('organization')
-                                            .get('name')
+                    'image': self.data.get('picture'),
+                    'organization': self.data.get('organization').get('name')
+                    if self.data.get('organization')
+                    else ''
                      }
                 self.status = True
             else:
