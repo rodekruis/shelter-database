@@ -78,7 +78,7 @@ def create_admin_user():
         db.session.commit()
 
 @manager.command
-def create_admin_user(email, name, password):
+def create_extra_admin_user(email, name, password):
     "Initializes the administrator of the platform"
     from werkzeug import generate_password_hash
     print("Creation of the admin user...")
