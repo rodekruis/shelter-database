@@ -87,6 +87,7 @@ class HumanitarianId:
                 self.user_profile = {
                         'image': self.data.get('picture'),
                         'organization': self.data.get('organization')
+                                            .get('name')
                      }
                 self.status = True
             else:
