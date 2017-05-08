@@ -174,7 +174,7 @@ function update_property(property_id, id_of_values) {
 			  uploadMultiple: true,
 			  parallelUploads: 1,
 			  maxFilesize: 4, // MB
-			  acceptedFiles: "application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/docx, application/pdf, text/plain, application/msword, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/acad,application/x-acad,application/autocad_dwg,image/x-dwg,application/dwg,application/x-dwg,application/x-autocad,image/vnd.dwg,drawing/dwg,application/vnd.sketchup.skp",
+			  acceptedFiles: ".doc, .docx, .pdf, .odt, .xls, .xlsx, .csv, .txt, .md, .skp, .dwg, .dxf, .dwf, application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/docx, application/pdf, text/plain, application/msword, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/acad,application/x-acad,application/autocad_dwg,image/x-dwg,application/dwg,application/x-dwg,application/x-autocad,image/vnd.dwg,drawing/dwg,application/x-koan",
 			  addRemoveLinks: true,
 			  init: function() {
 				this.on("success", function(file, responseText) {

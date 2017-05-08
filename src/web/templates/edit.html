@@ -89,6 +89,7 @@
 					
 							{% if sub_category.name == "Documents"  %}
                                 <h4>Upload documents</h4>
+								<p>Accepted file extensions are: .doc .docx .pdf .odt .xls .xlsx .csv .txt .md .skp .dwg .dxf .dwf</p>
                                 <div id="dropzone_{{ sub_category.id }}" class="dropzonedocuments" data-sub-category="{{ sub_category.name }}" data-sub-category-id="{{ sub_category.id }}" data-shelter-id="{{shelter.id}}">
                                    <div class="dz-default dz-message"><span>Drop documents here to upload</span></div>
                                    <div class="fallback">
