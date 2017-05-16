@@ -865,13 +865,19 @@ var setMapView = function(mapChart) {
 	// sets Max Zoom depending on screen width,
 	// centers map
 
-	var windowWidth = $(window).width();
-	var maxZoom = 0
-	if (windowWidth > 767) {
-		maxZoom = 1;
-	}
-	mapChart.map().setView(mapCenter,maxZoom);
-
+	//var windowWidth = $(window).width();
+	//var maxZoom = 0;
+	//if (windowWidth > 767) {
+		//maxZoom = 1;
+	//}
+	//mapChart.map().setView(mapCenter,maxZoom);
+    let bounds = []
+    mapChart.dimension().top(Infinity).forEach(function (d) {
+        bounds.push(new L.latLng(d.gpslatitude, d.gpslongitude));
+    });
+    if(bounds.length > 0){ //now zoom to the visible markers
+        mapChart.map().fitBounds(bounds, {pan: {animate: true, duration: 1.5, easeLinearity: 0.25}});
+    }
 }
 
 d3.select("#share")
