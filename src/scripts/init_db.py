@@ -67,8 +67,12 @@ def init_shelters_structure(csv_file, drawnings_folder):
                         # because the user will be able to add new values with
                         # a dedicated button
                         continue
-                    value = models.Value(name=value_name,
-                                        attribute_id=attribute.id)
+                    value = models.Value.query.filter(
+                                        models.Value.name == value_name)\
+                                        .first()
+                    if not value:
+                        value = models.Value(name=value_name,
+                                            attribute_id=attribute.id)
                     db.session.add(value)
                     attribute.associated_values.append(value)
 
