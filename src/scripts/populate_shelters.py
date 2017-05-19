@@ -55,8 +55,9 @@ def populate_shelters(shelters_owner, csv_file):
 
                         else:
                             value_obj = models.Value.query.filter(
-                                            models.Value.name == current_value)\
-                                        .first()
+                                    models.Value.name == current_value,
+                                    models.Value.attribute_id == attribute.id)\
+                                    .first()
                             if not value_obj:
                                 value_obj = models.Value(name=current_value,
                                                         attribute_id=attribute.id)
