@@ -68,8 +68,9 @@ def init_shelters_structure(csv_file, drawnings_folder):
                         # a dedicated button
                         continue
                     value = models.Value.query.filter(
-                                        models.Value.name == value_name)\
-                                        .first()
+                                    models.Value.name == value_name,
+                                    models.Value.attribute_id == attribute.id)\
+                                    .first()
                     if not value:
                         value = models.Value(name=value_name,
                                             attribute_id=attribute.id)
