@@ -39,8 +39,9 @@ assets = Environment(app)
 
 logger = logging.getLogger("")
 logger.setLevel(conf.LOG_LEVEL)
-handler = logging.handlers.RotatingFileHandler(conf.LOG_PATH,
-    maxBytes=3000000, backupCount=2)
+handler = logging.handlers.RotatingFileHandler(
+            conf.LOG_PATH,
+            maxBytes=3000000, backupCount=2)
 formatter = logging.Formatter(
     '[%(asctime)s] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s')
 handler.setFormatter(formatter)
@@ -61,7 +62,6 @@ app.debug = conf.LOG_LEVEL <= logging.DEBUG
 app.config['ASSETS_DEBUG'] = "merge"
 
 
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = conf.SQLALCHEMY_DATABASE_URI
 
@@ -74,6 +74,10 @@ db = SQLAlchemy(app)
 # Set up thumbnail handling
 app.config['MEDIA_FOLDER'] = conf.SHELTERS_PICTURES_SERVER_PATH
 app.config['MEDIA_URL'] = conf.SHELTERS_PICTURES_SITE_PATH
+
+# Preferred url scheme i.e http(default) or https
+if conf.WEBSERVER_HTTPS:
+    app.config['PREFERRED_URL_SCHEME'] = 'https'
 
 
 # Create the Flask-Restless API manager.
