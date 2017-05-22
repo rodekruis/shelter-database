@@ -75,11 +75,6 @@ db = SQLAlchemy(app)
 app.config['MEDIA_FOLDER'] = conf.SHELTERS_PICTURES_SERVER_PATH
 app.config['MEDIA_URL'] = conf.SHELTERS_PICTURES_SITE_PATH
 
-# Preferred url scheme i.e http(default) or https
-if conf.WEBSERVER_HTTPS:
-    app.config['PREFERRED_URL_SCHEME'] = 'https'
-
-
 # Create the Flask-Restless API manager.
 manager = flask_restless.APIManager(app, flask_sqlalchemy_db=db)
 
