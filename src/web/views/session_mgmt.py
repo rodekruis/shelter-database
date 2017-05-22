@@ -111,7 +111,7 @@ def login_humanitarianid():
     access_token = request.values.get('access_token', None)
     if access_token:
         session['hid_access_token'] = access_token
-        return redirect(url_for('map'))
+        return redirect(url_for('index'))
     return render_template('humanitarianid_login.html')
 
 
