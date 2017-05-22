@@ -73,7 +73,7 @@ def before_request():
 @current_app.route('/login', methods=['GET'])
 def join():
     if current_user.is_authenticated or HumanitarianId().login():
-        return redirect(url_for('index', _external=True))
+        return redirect(url_for('index'))
     form = LoginForm()
     #signup = SignupForm()
     return render_template(
@@ -107,11 +107,11 @@ def login():
 @current_app.route('/callback/humanitarianid', methods=['GET'])
 def login_humanitarianid():
     if current_user.is_authenticated:
-        return redirect(url_for('index', _external=True))
+        return redirect(url_for('index'))
     access_token = request.values.get('access_token', None)
     if access_token:
         session['hid_access_token'] = access_token
-        return redirect(url_for('index', _external=True))
+        return redirect(url_for('map'))
     return render_template('humanitarianid_login.html')
 
 
