@@ -32,19 +32,17 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_assets import Environment, Bundle
 
 # Create Flask app
-class ReverseProxied(object):
-    def __init__(self, app):
-        self.app = app
+def _force_https(app):
+    def wrapper(environ, start_response):
+        environ['wsgi.url_scheme'] = 'https'
+        return app(environ, start_response)
+    return wrapper
 
-    def __call__(self, environ, start_response):
-        scheme = environ.get('HTTP_X_FORWARDED_PROTO')
-        if scheme:
-            environ['wsgi.url_scheme'] = scheme
-        return self.app(environ, start_response)
-	
 app = Flask('web')
 
-app.wsgi_app = ReverseProxied(app.wsgi_app)
+# Force https
+if conf.WEBSERVER_HTTPS:
+    app.wsgi_app = _force_https(app.wsgi_app)
 
 assets = Environment(app)
 
@@ -66,12 +64,10 @@ if conf.WEBSERVER_SECRET_KEY:
     app.config['SECRET_KEY'] = conf.WEBSERVER_SECRET_KEY
 else:
     app.config['SECRET_KEY'] = os.urandom(12)
-
+	
 app.debug = conf.LOG_LEVEL <= logging.DEBUG
 
 app.config['ASSETS_DEBUG'] = "merge"
-
-
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = conf.SQLALCHEMY_DATABASE_URI
