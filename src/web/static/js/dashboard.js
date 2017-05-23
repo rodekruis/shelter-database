@@ -797,21 +797,21 @@ var getFiltersValues = function getFiltersValues() {
 
 var addLayersToChart = function addLayersToChart(mapChart) {
 
-	var redCrossLayer = L.tileLayer.wms("http://shelter-database.org:8080/geoserver/shelters/wms", {
+	var redCrossLayer = L.tileLayer.wms("https://shelter-database.org:8080/geoserver/shelters/wms", {
 		layers: 'shelters:redcross',
 		transparent: true,
 		opacity: 0.5
 
 	});""
 
-	var koeppenGeigerLayer = L.tileLayer.wms("http://shelter-database.org:8080/geoserver/shelters/wms", {
+	var koeppenGeigerLayer = L.tileLayer.wms("https://shelter-database.org:8080/geoserver/shelters/wms", {
 		layers: 'shelters:koeppen-geiger',
 		transparent: true,
 		opacity: 0.5
 	});
 
 
-	var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+	var googleSat = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
 		layers: 'Satellite',
 		transparant: true,
 		opacity: 0.5,

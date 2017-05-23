@@ -1,3 +1,7 @@
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+
 # Enable GZIP
 <ifmodule mod_deflate.c>
   # Compress HTML File, CSS File, JavaScript File, Text File, XML File and Fonts

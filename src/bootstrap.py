@@ -32,8 +32,17 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_assets import Environment, Bundle
 
 # Create Flask app
+def _force_https(app):
+    def wrapper(environ, start_response):
+        environ['wsgi.url_scheme'] = 'https'
+        return app(environ, start_response)
+    return wrapper
 
 app = Flask('web')
+
+# Force https
+if conf.WEBSERVER_HTTPS:
+    app.wsgi_app = _force_https(app.wsgi_app)
 
 assets = Environment(app)
 
@@ -60,7 +69,6 @@ else:
 app.debug = conf.LOG_LEVEL <= logging.DEBUG
 
 app.config['ASSETS_DEBUG'] = "merge"
-
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = conf.SQLALCHEMY_DATABASE_URI
