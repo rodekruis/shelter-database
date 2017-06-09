@@ -101,8 +101,12 @@ def translate(original, language_code=''):
         return translation.translated
     else:
         return original
+
+
 app.jinja_env.filters['translate'] = translate
 app.jinja_env.filters['datetime'] = format_datetime
+app.jinja_env.globals.update(hid_auth_uri=conf.HUMANITARIAN_ID_AUTH_URI)
+
 
 def populate_g():
     from flask import g
