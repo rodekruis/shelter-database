@@ -130,6 +130,8 @@ def logout():
     identity_changed.send(current_app, identity=AnonymousIdentity())
     session_identity_loader()
 
+    if request.values.get('hid_logout'):
+        return redirect(conf.HUMANITARIAN_ID_AUTH_URI+'/logout')
     return redirect(url_for('index'))
 
 
