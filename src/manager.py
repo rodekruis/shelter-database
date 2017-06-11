@@ -76,6 +76,14 @@ def create_admin_user():
                             is_active=True)
         db.session.add(user)
         db.session.commit()
+		
+@manager.command
+def set_admin(email):
+    "set an admin to existing user by email"
+    print("Making admin for " + email)
+    user = User.query.filter(User.email==email).first()
+    user.is_admin=True
+    db.session.commit()
 
 @manager.command
 def create_extra_admin_user(email, name, password):
