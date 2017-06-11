@@ -24,6 +24,7 @@ from flask_migrate import Migrate, MigrateCommand
 import conf
 import scripts
 import web.models
+from web.models import User
 
 manager = Manager(app)
 
@@ -80,10 +81,13 @@ def create_admin_user():
 @manager.command
 def set_admin(email):
     "set an admin to existing user by email"
-    print("Making admin for " + email)
     user = User.query.filter(User.email==email).first()
-    user.is_admin=True
-    db.session.commit()
+    if not user:
+        print("No such user: " + email)
+    else:
+        print("Making admin for " + email)
+        user.is_admin=True
+        db.session.commit()
 
 @manager.command
 def create_extra_admin_user(email, name, password):
