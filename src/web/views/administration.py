@@ -130,6 +130,23 @@ def users():
     users = User.query.filter().all()
     return render_template('admin/users.html', users=users)
 
+
+@admin_bp.route('/publish_shelter/<int:shelter_id>', methods=['GET'])
+@login_required
+@admin_permission.require(http_exception=403)
+def publish_shelter(shelter_id=None):
+    """
+    Publish/Unpublish a shelter.
+    """
+    shelter = Shelter.query.filter(Shelter.id == shelter_id).first()
+    if shelter and 'publish' in request.args:
+        shelter.is_published = request.args['publish']
+        db.session.add(shelter)
+        db.session.commit()
+
+    return redirect(redirect_url())
+
+
 @admin_bp.route('/delete_shelter/<int:shelter_id>', methods=['GET'])
 @login_required
 @admin_permission.require(http_exception=403)
