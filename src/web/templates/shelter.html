@@ -184,10 +184,10 @@
                                          href="{{ url_for('administration.publish_shelter', shelter_id=shelter.id, publish=not shelter.is_published, next=request.path) }}">
                                           {% if shelter.is_published %}
                                           HIDE THIS SHELTER
-                                          <i class="glyphicon-2x-float glyphicon glyphicon-eye-close" aria-hidden="true"></i>
+                                          <i class="icon icon-eye print-image icon-size-2" aria-hidden="true"></i>
                                           {% else %}
                                           PUBLISH THIS SHELTER
-                                          <i class="glyphicon-2x-float glyphicon glyphicon-eye-open" aria-hidden="true"></i>
+                                          <i class="icon icon-eye-off print-image icon-size-2" aria-hidden="true"></i>
                                           {% endif %}
                                       </a>
                                   </div>

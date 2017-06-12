@@ -139,8 +139,9 @@ def publish_shelter(shelter_id=None):
     Publish/Unpublish a shelter.
     """
     shelter = Shelter.query.filter(Shelter.id == shelter_id).first()
-    if shelter and 'publish' in request.args:
-        shelter.is_published = request.args['publish']
+    if shelter:
+        shelter.is_published = request.args.get('publish',
+                                                not shelter.is_published)
         db.session.add(shelter)
         db.session.commit()
 
