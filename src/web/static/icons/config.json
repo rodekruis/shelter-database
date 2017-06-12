@@ -333,6 +333,24 @@
       ]
     },
     {
+      "uid": "c5fd349cbd3d23e4ade333789c29c729",
+      "css": "eye",
+      "code": 59424,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "7fd683b2c518ceb9e5fa6757f2276faa",
+      "css": "eye-off",
+      "code": 59425,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "f48ae54adfb27d8ada53d0fd9e34ee10",
+      "css": "trash-empty",
+      "code": 59426,
+      "src": "fontawesome"
+    },
+    {
       "uid": "96d5f42b7996927e0637c8b4328c3fe4",
       "css": "landscape-with-mountains",
       "code": 59392,
