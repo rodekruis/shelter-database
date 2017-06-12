@@ -26,7 +26,14 @@
 		var shelter_id = {{shelter_id}};
 		var language = '{{language}}';
 		var path = '{{ url_for('static', filename = '') }}';
-	</script>	
+	</script>
+    <style>
+        .glyphicon-2x-float{
+            font-size:2.4em;
+            float:right;
+            margin-right:8px;
+        }
+    </style>
 
 {% endblock %}
 
@@ -171,6 +178,20 @@
 									</a>
 								  </div>
 								  {% endif %}
+                                  {% if g.user.is_admin %}
+                                  <div class="row row-condensed">
+                                      <a title="Hide/Publish Shelter"
+                                         href="{{ url_for('administration.publish_shelter', shelter_id=shelter.id, publish=not shelter.is_published, next=request.path) }}">
+                                          {% if shelter.is_published %}
+                                          HIDE THIS SHELTER
+                                          <i class="glyphicon-2x-float glyphicon glyphicon-eye-close" aria-hidden="true"></i>
+                                          {% else %}
+                                          PUBLISH THIS SHELTER
+                                          <i class="glyphicon-2x-float glyphicon glyphicon-eye-open" aria-hidden="true"></i>
+                                          {% endif %}
+                                      </a>
+                                  </div>
+                                  {% endif %}
                                   {% include 'media_share_button.html' %}
 								</div>
 							  </div>

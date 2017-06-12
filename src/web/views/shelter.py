@@ -80,7 +80,10 @@ def edit(shelter_id=0, section_name=""):
     elif shelter is not None and current_user.id == shelter.user_id:
         pass
     else:
-        return redirect(url_for('join')) #render_template('errors/403.html'), 403
+        flash('Only Admin or shelter creater have edit permission',
+              'warning')
+        # render_template('errors/403.html'), 403
+        return redirect(url_for('join'))
 
     user = User.query.filter(User.id == shelter.user_id).first()
 
