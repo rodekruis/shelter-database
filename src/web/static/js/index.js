@@ -45,10 +45,10 @@ var generate = function generate(flexbox, data) {
 					.attr('class', 'image')
 					.attr('style', function(d) {
 						if(d.Cover.length == 1){
-							return 'background-image: url(' + d.Cover + ')';
+							return 'background-image: url("' + d.Cover + '")';
 						}
 						else if(d.Cover.length > 1){
-							return 'background-image: url(' + d.Cover[d.Cover.length - 1] + ')';
+							return 'background-image: url("' + d.Cover[d.Cover.length - 1] + '")';
 						}
 						else {
 							return 'background-image: url(/)';

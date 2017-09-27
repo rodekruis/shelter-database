@@ -30,9 +30,8 @@ notification_username=
 notification_password=
 notification_starttls=false
 [humanitarian_id]
-humanitarian_id_auth_uri=https://auth.dev.humanitarian.id
-humanitarian_id_profile_uri=http://profiles.dev.humanitarian.id
-humanitarian_id_app_uri=http://app.dev.humanitarian.id
+humanitarian_id_auth_uri=https://api2.dev.humanitarian.id
+humanitarian_id_app_uri=https://app2.dev.humanitarian.id
 humanitarian_id_client_id=rc-nl-local
 humanitarian_id_redirect_uri=http://localhost:5000/callback/humanitarianid
 [admin]

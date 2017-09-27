@@ -99,7 +99,7 @@ FLASK_ASSETS_MERGE = config.getboolean('misc', 'flask_assets_merge')
 
 ALLOWED_EXTENSIONS_PICTURE = set(['png', 'jpg', 'jpeg', 'gif'])
 ALLOWED_EXTENSIONS_DOCUMENT = set(['doc', 'docx', 'pdf', 'odt', 'xls', 'xlsx',
-                                    'csv','txt','md'])
+                                    'csv','txt','md','skp','dwg','dxf','dwf'])
 ALLOWED_EXTENSIONS_CSV = set(['csv'])
 ALLOWED_EXTENSIONS_ARCHIVE = set(['zip'])
 
@@ -135,9 +135,6 @@ HUMANITARIAN_ID_CLIENT_ID = config.get('humanitarian_id',
 HUMANITARIAN_ID_REDIRECT_URI = config.get(
         'humanitarian_id',
         'humanitarian_id_redirect_uri')
-HUMANITARIAN_ID_PROFILE_URI = config.get(
-        'humanitarian_id',
-        'humanitarian_id_profile_uri')
 HUMANITARIAN_ID_APP_URI = config.get(
         'humanitarian_id',
         'humanitarian_id_app_uri')

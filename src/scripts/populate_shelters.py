@@ -54,8 +54,13 @@ def populate_shelters(shelters_owner, csv_file):
                                 continue #TODO: check
 
                         else:
-                            value_obj = models.Value(name=current_value,
-                                                    attribute_id=attribute.id)
+                            value_obj = models.Value.query.filter(
+                                    models.Value.name == current_value,
+                                    models.Value.attribute_id == attribute.id)\
+                                    .first()
+                            if not value_obj:
+                                value_obj = models.Value(name=current_value,
+                                                        attribute_id=attribute.id)
                             db.session.add(value_obj)
                             attribute.associated_values.append(value_obj)
                             db.session.commit()

@@ -344,6 +344,7 @@ var restructureData = function(dataObject) {
 
 	var onMapFiltered = function onMapFiltered(chart) {
 		// fit filtered markers within map bounds if any of the non-map filters where applied
+        /*
 		bounds = [];
 		allDimensions.top(Infinity).forEach(function (d) {
 			bounds.push(new L.latLng(d.gpslatitude, d.gpslongitude));
@@ -352,8 +353,9 @@ var restructureData = function(dataObject) {
 		// For Debugging:
 		//print_filter(filters['positionFilter']['dimension']);
 		if(bounds.length > 0){
-			map.fitBounds(bounds, {pan: {animate: true, duration: 1.5, easeLinearity: 0.25}});
+            map.fitBounds(bounds, {pan: {animate: true, duration: 1.5, easeLinearity: 0.25}});
 		}
+        */
 		
 		// set the url parameters to match the filters
 		getFiltersValues();
@@ -439,7 +441,7 @@ var restructureData = function(dataObject) {
 		.margins({left: 10, right: 10, top: 20, bottom: 30})
 		.dimension(filters['countryFilter']['dimension'])
 		.group(filters['countryFilter']['count'])
-		.on("postRedraw", onMapFiltered)
+        .on("postRedraw", onMapFiltered)
 	 
 		.xAxis().tickFormat(
 		function (v) {
@@ -565,7 +567,7 @@ var restructureData = function(dataObject) {
 						 if (filterValues.length>0) {
 							var ne = filterValues[0]['_northEast'];
 							var sw = filterValues[0]['_southWest'];
-							mapChart.map().fitBounds(L.latLngBounds(ne,sw))
+                            mapChart.map().fitBounds([L.latLngBounds(ne,sw)])
 						 }
 
 						break;
@@ -650,8 +652,15 @@ var restructureData = function(dataObject) {
 				if (value) {
 					filters[this.id]['chart'].filter(value);      // filter chart with selected value
 				}
+                let bounds = [];
+                filters['positionFilter']['dimension'].filterAll();
+                mapChart.dimension().top(Infinity).forEach(function (d) {
+                    bounds.push(new L.latLng(d.gpslatitude, d.gpslongitude));
+                });
+                if(bounds.length > 0){ //now zoom to the visible markers
+                    mapChart.map().fitBounds(bounds, {pan: {animate: true, duration: 1.5, easeLinearity: 0.25}});
+                }
 				dc.redrawAll();
-
 			} else {                                              // no chart - filter dimension directly
 				if (filters[this.id]['dimension']) {
 					if (value) {
@@ -788,21 +797,21 @@ var getFiltersValues = function getFiltersValues() {
 
 var addLayersToChart = function addLayersToChart(mapChart) {
 
-	var redCrossLayer = L.tileLayer.wms("http://shelter-database.org:8080/geoserver/shelters/wms", {
+	var redCrossLayer = L.tileLayer.wms("https://shelter-database.org:8080/geoserver/shelters/wms", {
 		layers: 'shelters:redcross',
 		transparent: true,
 		opacity: 0.5
 
 	});""
 
-	var koeppenGeigerLayer = L.tileLayer.wms("http://shelter-database.org:8080/geoserver/shelters/wms", {
+	var koeppenGeigerLayer = L.tileLayer.wms("https://shelter-database.org:8080/geoserver/shelters/wms", {
 		layers: 'shelters:koeppen-geiger',
 		transparent: true,
 		opacity: 0.5
 	});
 
 
-	var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+	var googleSat = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
 		layers: 'Satellite',
 		transparant: true,
 		opacity: 0.5,
@@ -856,13 +865,19 @@ var setMapView = function(mapChart) {
 	// sets Max Zoom depending on screen width,
 	// centers map
 
-	var windowWidth = $(window).width();
-	var maxZoom = 0
-	if (windowWidth > 767) {
-		maxZoom = 1;
-	}
-	mapChart.map().setView(mapCenter,maxZoom);
-
+	//var windowWidth = $(window).width();
+	//var maxZoom = 0;
+	//if (windowWidth > 767) {
+		//maxZoom = 1;
+	//}
+	//mapChart.map().setView(mapCenter,maxZoom);
+    let bounds = []
+    mapChart.dimension().top(Infinity).forEach(function (d) {
+        bounds.push(new L.latLng(d.gpslatitude, d.gpslongitude));
+    });
+    if(bounds.length > 0){ //now zoom to the visible markers
+        mapChart.map().fitBounds(bounds, {pan: {animate: true, duration: 1.5, easeLinearity: 0.25}});
+    }
 }
 
 d3.select("#share")
