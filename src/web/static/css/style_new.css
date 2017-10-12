@@ -1795,7 +1795,7 @@ section.map {
 .well .myerror {
     color: #CC0000; }
 
-.termsofreferencelink, .termsofreferencelink:visited, .termsofreferencelink:active {
+.termsofservicelink, .termsofservicelink:visited, .termsofservicelink:active {
   text-decoration: none;
   color: #FFFFFF;
 }
