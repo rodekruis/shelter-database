@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="container">
+<div class="container"  style="min-height:calc(100vh - 130px);">
     <h1>Shelters</h1>
     <table id="allshelters" class="table table-striped">
         <thead>
@@ -9,21 +9,35 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Created at</th>
-                <th>Responsible</th>
+                <th>Contributor</th>
+                <th>Published</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
         {% for shelter in shelters %}
             <tr>
-                <td><a href="{{ url_for('shelter.edit_view', id=shelter.id) }}">{{ loop.index }}</a></td>
+                <td><a href="{{ url_for('shelter.edit_view', id=shelter.id) }}">{{ shelter.id }}</a></td>
                 <td>{{ shelter.get_values_of_attribute(attribute_name='ID')[0].name }}</td>
                 <td><a href="{{ url_for('shelter', shelter_id=shelter.id) }}">{{ shelter.get_values_of_attribute(attribute_name='Name of shelter')[0].name }}</a></td>
-                <td>{{ shelter.created_at }}</td>
-                <td>{{ shelter.responsible }}</td>
+                <td>{{ shelter.created_at.strftime("%b. %-d %Y %-I:%M %p") }}</td>
+                <td><a href="mailto: {{ shelter.responsible.email }}">{{ shelter.responsible }}</a></td>
+                <td class="is_published">{{ shelter.is_published }}</td>
                 <td>
+                    <a href="{{ url_for('administration.publish_shelter', shelter_id=shelter.id) }}">
+                        {% if shelter.is_published %}
+                            <i class="publish-shelter icon icon-eye-off" title="Hide this shelter"
+                                data-msg="You are going to hide this shelter({{ shelter.get_values_of_attribute(attribute_name='ID')[0].name }})."></i>
+                        {% else %}
+                            <i class="publish-shelter icon icon-eye" title="Publish this shelter"
+                                data-msg="You are going to publish this shelter({{ shelter.get_values_of_attribute(attribute_name='ID')[0].name }})."></i>
+                        {% endif %}
+                        </a>
                     <a href="{{ url_for('administration.delete_shelter', shelter_id=shelter.id, next='/admin/shelters') }}">
-                        <i class="glyphicon glyphicon-remove" title="Delete this shelter" onclick="return confirm('You are going to delete this shelter.');"></i>
+                        <i class="icon icon-trash-empty" title="Delete this shelter" onclick="return confirm('You are going to delete this shelter.');"></i>
+                    </a>
+                    <a href="{{ url_for('shelter_bp.edit', shelter_id=shelter.id, section_name="General-Information") }}">
+                        <i class="icon icon-edit" title="Edit this shelter"></i>
                     </a>
                 </td>
             </tr>
@@ -34,39 +48,77 @@
 {% endblock %}
 
 {% block defer %}
-		{% assets filters="jsmin", output="assets/packaged.js",
-			  "lib/bower/jquery/dist/jquery.min.js",
-			  "lib/bower/d3/d3.min.js",
-			  "lib/bower/datatables.net/js/jquery.dataTables.min.js",
-			  "lib/bower/bootstrap/dist/js/bootstrap.min.js"
-		%}
-			<script type="text/javascript" src="{{ASSET_URL}}"></script>
-		{% endassets %}
-		
-		<script>
-			$(document).ready(function() {
+        {% assets filters="jsmin", output="assets/packaged.js",
+              "lib/bower/jquery/dist/jquery.min.js",
+              "lib/bower/d3/d3.min.js",
+              "lib/bower/datatables.net/js/jquery.dataTables.min.js",
+              "lib/bower/bootstrap/dist/js/bootstrap.min.js"
+        %}
+            <script type="text/javascript" src="{{ASSET_URL}}"></script>
+        {% endassets %}
 
-				$('#allshelters').DataTable({
-						"bStateSave": true, // on sauvegarde l'état dans un cookie
-						"aaSorting": [[2, "asc" ]], // on trie par défaut sur la colonne "Name"
-						"bJQueryUI": false,
-						"bInfo": false,
-						"aoColumnDefs": [
-											{
-												"bSortable": false, "aTargets": [ 0 ],
-												"bSortable": false, "aTargets": [ 1 ],
-												"bSortable": false, "aTargets": [ 5 ]
-											}
-										],
-					   "aoColumns": [
-									null,
-									null,
-									{ "sSortDataType": "dom-checkbox" },
-									{ "sSortDataType": "dom-checkbox" },
-									{ "sSortDataType": "dom-checkbox" },
-									null
-									]
-					});
-			});
-			</script>
+        <script>
+            $(document).ready(function() {
+                let publishShelter;
+                $('#allshelters').DataTable({
+                        "bStateSave": true, // on sauvegarde l'état dans un cookie
+                        //"iCookieDuration": 1, // this is the table data cache duration
+                        "aaSorting": [[1, "desc" ]], // on trie par défaut sur la colonne "Name"
+                        "bJQueryUI": false,
+                        "bInfo": false,
+                        "aoColumnDefs": [
+                                            {
+                                                "bSortable": false, "aTargets": [ 0 ],
+                                                "bSortable": false, "aTargets": [ 1 ],
+                                                "bSortable": false, "aTargets": [ 6 ]
+                                            },
+                                            {
+                                                "targets": [ 0 ],
+                                                "visible": false,
+                                                "searchable": false
+                                            }
+                                        ],
+                       "aoColumns": [
+                                    null,
+                                    null,
+                                    { "sSortDataType": "dom-checkbox" },
+                                    { "sSortDataType": "dom-checkbox" },
+                                    { "sSortDataType": "dom-checkbox" },
+                                    { "sSortDataType": "dom-checkbox" },
+                                    null
+                                    ],
+                       "drawCallback": function( settings ) {
+                                $(".publish-shelter").click(publishShelter);
+                            }
+                    });
+
+                publishShelter = function(event){
+                    event.preventDefault();
+                    let link = $(this).parent();
+                    let is_published = link.parent().siblings(".is_published");
+                    let pCondition = is_published.html() == "True";
+                    let icon = $(this);
+                    let alertW = $('#alert_template');
+
+                    $.get(link.attr("href")+"?publish="+(pCondition?"False":"True"), function(){
+                        icon.removeClass(pCondition?"icon-eye-off":"icon-eye")
+                            .addClass(pCondition?"icon-eye":"icon-eye-off");
+                        icon.attr("title", pCondition?"Show This Shelter":"Hide This Shelter");
+
+                        is_published.html(
+                                pCondition?"False":"True"
+                                )
+
+                        alertW.removeClass('alert-warning').addClass('alert-info');
+                        alertW.html('Shelter is successfully '+
+                                   (pCondition?"hidden":"published")).show(1).delay(1000).hide(1);
+                        //window.location = window.location;
+                    }).fail(function(){
+                        alertW.removeClass('alert-info').addClass('alert-warning');
+                        alertW.html('Failed').show(1).delay(1000).hide(1);
+                    });
+                };
+                $(".publish-shelter").click(publishShelter);
+            });
+            </script>
 {% endblock %}

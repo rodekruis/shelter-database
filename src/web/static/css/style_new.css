@@ -363,7 +363,7 @@ section {
     right: 0;
     bottom: 0;
     z-index: 1;
-    background-color: rgba(0, 0, 0, 0.5); }
+    background-color: rgba(0, 0, 0, 0.4); }
   section.background .toplayer {
     position: relative;
     z-index: 2;
@@ -380,6 +380,8 @@ footer {
   color: #EEE;
   text-align: center;
   padding: 30px 0; 
+  font-size: 0.8em;
+  line-height: 1.5;
 }
 
 footer a.browserstack {
@@ -414,6 +416,16 @@ footer a.humanitarianid {
 		&:hover {
 			background-color: @gray-lighter;
 		}
+}
+
+footer a.api {
+		color: #ffffff;
+		margin-left: 0px;
+}
+
+footer a.api:hover {
+			text-decoration: none !important;
+    		color: #CC0000
 }
 
 .flexbox {
@@ -672,6 +684,13 @@ header {
     @media only screen and (min-width: 768px) {
       header.landingpage nav ul {
         border-bottom: none; } }
+    @media only screen and (max-width: 768px) {
+	  header.landingpage nav > ul > li ul.dropdown-menu {
+        background-color: rgba(255, 255, 255, 1);
+	  }
+	  header.landingpage nav > ul > li ul.dropdown-menu a {
+          color: #000; }
+    }
 
 @media print {
   header {
@@ -707,6 +726,14 @@ header {
     top: 15px;
     left: 25px;
     content: "\e806";
+    color: #333;
+    font-size: 1.3em;
+    z-index: 100; }
+
+#searchinfo {
+    position: absolute;
+    top: 12px;
+    right: 15px;
     color: #333;
     font-size: 1.3em;
     z-index: 100; }
@@ -1085,7 +1112,7 @@ section.first {
     display: inline-block; }
     section.first .search .search-wrapper input {
       font-size: 1em;
-      padding: 12px 20px 12px 50px;
+      padding: 12px 40px 12px 50px;
       filter: alpha(opacity=90);
       -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
       -webkit-opacity: 0.9;
@@ -1206,8 +1233,12 @@ section.supported .supporters {
       opacity: 1; }
 
 	.supporter-large {
-		width:350px !important;
+		width:300px !important;
 	}
+
+section.videos {
+  text-align: center;
+}
 
 section.contribute {
   text-align: center; }
@@ -1221,12 +1252,24 @@ section.contribute {
     margin: 30px 0; }
 
 section.contribute-image {
+	background-size: 100%;
+	background-repeat: no-repeat;
 	height: 300px;
+}
+
+@media only screen and (max-width: 767px) {
+	section.contribute-image {
+		background-size: 100%;
+		background-repeat: no-repeat;
+		height:200px;
+	}
 }
 
 section.knowledge {
   text-align: center;
-  min-height: 400px; }
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 400px; }
   section.knowledge h3 {
     color: #FFF; }
   section.knowledge .flexbox .box h4 {
@@ -1235,6 +1278,14 @@ section.knowledge {
     color: #FFF; }
     section.knowledge a:hover {
       color: #EEE; }
+
+@media only screen and (max-width: 767px) {
+	section.knowledge {
+		background-size: 100%;
+		background-repeat: no-repeat;
+		height:200px;
+	}
+}
 
 div.shelterimg {
   position: relative;
@@ -1314,7 +1365,11 @@ section.map {
   .shelters .shelter {
     position: relative;
     min-height: 150px;:befo
-    margin-bottom: 40px; }
+    margin-bottom: 40px; 
+    cursor: pointer; cursor: hand;}
+  .shelters .shelter:hover {
+	  background-color: rgba(203, 203, 203, 0.27);
+   }
     .shelters .shelter .image {
       position: relative;
       top: 0;
@@ -1410,8 +1465,6 @@ section.map {
 #tabs.tab2 .tabcontent2 {
   display: inline; }
 
-.stats {
-  display: inline-block; }
   .stats .table {
     font-size: smaller !important; }
   .stats .table tr td {
@@ -1450,6 +1503,10 @@ section.map {
 	  
     .search-wrapper input {
 		width: 230px;
+	}
+	  
+	section.first {
+		background-size: cover;
 	}
   }
 
@@ -1711,6 +1768,7 @@ section.map {
 .well p {
 	padding-bottom: 10px;
 	font-size: 0.9em;
+	text-align: justify;
 }
 
 .well-highlight {
@@ -1734,9 +1792,10 @@ section.map {
 	margin-bottom: 20px;
 }
 
-.humanitarianid {
-	margin-bottom: 20px;
-}
-
 .well .myerror {
     color: #CC0000; }
+
+.termsofservicelink, .termsofservicelink:visited, .termsofservicelink:active {
+  text-decoration: none;
+  color: #FFFFFF;
+}

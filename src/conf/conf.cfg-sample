@@ -1,43 +1,42 @@
 [misc]
-platform_url = https://shelter-database.org
-log_path = shelter.log
-log_level = info
-shelters_pictures_site_path = static/pictures/shelters
-shelters_pictures_backup_path = data/pictures_backup
-shelters_pictures_server_path = src/web/static/pictures/shelters
-shelters_documents_site_path = static/documents/shelters
-shelters_documents_server_path = src/web/static/documents/shelters
-attributes_pictures_site_path = static/pictures/attributes
-attributes_pictures_server_path = src/web/static/pictures/attributes
-public_path = src/web/static
-flask_assets_minify = True
-flask_assets_merge = True
+platform_url=https://shelter-database.org
+log_path=shelter.log
+log_level=info
+shelters_pictures_site_path=static/pictures/shelters
+shelters_pictures_backup_path=data/pictures_backup
+shelters_pictures_server_path=src/web/static/pictures/shelters
+shelters_documents_site_path=static/documents/shelters
+shelters_documents_server_path=src/web/static/documents/shelters
+attributes_pictures_site_path=static/pictures/attributes
+attributes_pictures_server_path=src/web/static/pictures/attributes
+public_path=src/web/static
+flask_assets_minify=True
+flask_assets_merge=True
 [webserver]
-debug = false
-host = 0.0.0.0
-port = 5000
-https = false
-secret_key = secret_key_of_the_web_application
+debug=false
+host=0.0.0.0
+port=5000
+https=false
+secret_key=secret_key_of_the_web_application
 [database]
-database_url = postgres://pgsqluser:pgsqlpwd@127.0.0.1:5432/shelter
+database_url=postgres://pgsqluser:pgsqlpwd@127.0.0.1:5432/shelter
 [geoserver]
-geoserver_url = https://shelter-database.org:8443
+geoserver_url=https://shelter-database.org:8443
 [notification]
-notification_host =
-notification_port =
-notification_email =
-notification_username =
-notification_password =
-notification_starttls = false
+notification_host=
+notification_port=
+notification_email=
+notification_username=
+notification_password=
+notification_starttls=false
 [humanitarian_id]
-humanitarian_id_auth_uri=https://auth.dev.humanitarian.id
-humanitarian_id_profile_uri=http://profiles.dev.humanitarian.id
-humanitarian_id_app_uri=http://app.dev.humanitarian.id
+humanitarian_id_auth_uri=https://api2.dev.humanitarian.id
+humanitarian_id_app_uri=https://app2.dev.humanitarian.id
 humanitarian_id_client_id=rc-nl-local
 humanitarian_id_redirect_uri=http://localhost:5000/callback/humanitarianid
 [admin]
-admin_email = 
-admin_name = 
-admin_password = 
+admin_email=
+admin_name=
+admin_password=
 [piwik]
 piwik_url=

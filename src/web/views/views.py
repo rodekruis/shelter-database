@@ -159,11 +159,14 @@ def shelter(shelter_id):
             og_img = request.url_root+'static/pictures/shelters/' +\
                      str(shelter_id)+'/'+image.file_name
             break
-    return render_template('shelter.html', shelter_id=shelter_id,
-                           shelter=shelter, og_img=og_img,
-                           language=language_code, user_email=user.email,
-                           user_name=user.name, user_id=user.id,
-                           user_image=user.get_image_url())
+    return render_template(
+       'shelter.html', shelter_id=shelter_id,
+       shelter=shelter, og_img=og_img,
+       language=language_code, user_email=user.email,
+       user_name=user.name, user_id=user.id,
+       user_h_id=user.h_id,
+       humanitarian_id_app_uri=conf.HUMANITARIAN_ID_APP_URI,
+       user_image=user.get_image_url())
 
 
 @current_app.route('/stats', methods=['GET'])

@@ -20,20 +20,39 @@ import conf
 from web.models import Shelter, Category, ShelterPicture
 from bootstrap import db
 from PIL import Image, ImageFile
+from os.path import join
+
+from sqlalchemy import func
+
+def insensitive_glob(pattern):
+    def either(c):
+        return '[%s%s]'%(c.lower(),c.upper()) if c.isalpha() else c
+    return glob.glob(''.join(map(either,pattern)))
+
+def build_replace_func(chars, attr, replace_with=''):
+    for character in chars:
+        attr = func.replace(attr, character, replace_with)
+    return attr
 
 def import_shelters_pictures(folder):
     
     ImageFile.LOAD_TRUNCATED_IMAGES = True
     imgwidth = 1280
+    types = ('*.jpg', '*.jpeg', '*.png', '*.gif')
     
     shelters = Shelter.query.all()
 
     for shelter in shelters:
         shelter_rid = shelter.get_values_of_attribute(attribute_name='ID')[0].name
         print("Shelter_rid '{}' ...".format(shelter_rid))
-			
-        for picture in glob.glob(folder + shelter_rid + '/**.jpg'):
-            picture_name = os.path.basename(picture)
+        print("Shelter id '{}' ...".format(shelter.id))
+
+        files = []
+        for ext in types:
+              files.extend(insensitive_glob(join(folder + shelter_rid + '/', ext)))
+				
+        for picture in files:
+            picture_name = os.path.splitext(os.path.basename(picture))[0]+'.jpg'
             print("Picture name '{}' ...".format(picture_name))
             
             try:
@@ -43,12 +62,15 @@ def import_shelters_pictures(folder):
                 print("failed")
                 continue
 
+            IGNORE_CHARS = [' ']
+            needle = build_replace_func(IGNORE_CHARS, Category.name)
             print("Picture subject '{}' ...".format(picture_subject))
             print("Category name '{}' ...".format(category_name))
-            category = Category.query.filter(Category.name==category_name,
+            category = Category.query.filter(func.lower(needle)==func.lower(category_name.replace(" ", "")),
                                     Category.parent_id!=None).first()
-
+			
             if category:
+                print ("Category ID: '{}' ...".format(category.id))
                 if picture_subject.lower() == 'facade':
                     new_picture = ShelterPicture(file_name=picture_name,
                                     shelter_id=shelter.id,
@@ -70,19 +92,26 @@ def import_shelters_pictures(folder):
                 #shutil.copy(picture, path)
                 
                 im = Image.open(picture)
+				
+                width, height = im.size
+
+                hsize = int(float(im.size[1]))
+                print((imgwidth, hsize, width, height))
                 
-                if im.size[0] > imgwidth:
-                    ratio = (imgwidth/float(im.size[0]))
-                    hsize = int((float(im.size[1])*float(ratio)))
-                    print((imgwidth, hsize))
+				#if width is wider than max width, then scale both height and width
+                if width > imgwidth:
+                    ratio = (imgwidth/width)
+                    height = int(height*ratio)
+                    width = imgwidth
+                    print((ratio))
 					
                 try:
-                	resized_im = im.resize((imgwidth,hsize), Image.BICUBIC)
+                	resized_im = im.resize((width,height), Image.BICUBIC)
                 	resized_im.save(os.path.join(path , picture_name), "JPEG", quality=70, optimize=True, progressive=True)
                 except OSError:
+                   im.save(os.path.join(path, picture_name), "JPEG", quality=70, optimize=True, progressive=True)
                    pass
-                else:
-                	im.save(os.path.join(path, picture_name), "JPEG", quality=70, optimize=True, progressive=True)
+                   
                 print("Copy from '{}' ...".format(picture))
                 print("Copy to '{}' ...".format(path))
 

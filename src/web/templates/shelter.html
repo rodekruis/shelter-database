@@ -26,7 +26,14 @@
 		var shelter_id = {{shelter_id}};
 		var language = '{{language}}';
 		var path = '{{ url_for('static', filename = '') }}';
-	</script>	
+	</script>
+    <style>
+        .glyphicon-2x-float{
+            font-size:2.4em;
+            float:right;
+            margin-right:8px;
+        }
+    </style>
 
 {% endblock %}
 
@@ -116,7 +123,15 @@
 
 									  <div class="row">
 										<div class="col-md-3 text-muted text-center hide-sm">
-										  <a href="#" class="link-reset text-wrap">{{user_name}}</a>
+										  <a href="#" class="link-reset text-wrap">
+                                          {% if user_h_id %}
+                                          <a href="{{humanitarian_id_app_uri}}/users/{{user_h_id}}" class=""
+                                             target="_blank" style="position: relative!important;">
+                                             <img style="margin-right: 5px; vertical-align: sub;" src="/static/img/logo_hid.png"
+                                                  width="22px" height="20px">
+                                          </a>
+                                          {% endif %}{{user_name}}
+                                          </a>
 										</div>
 
 										<div class="col-md-9">
@@ -163,6 +178,20 @@
 									</a>
 								  </div>
 								  {% endif %}
+                                  {% if g.user.is_admin %}
+                                  <div class="row row-condensed">
+                                      <a title="Hide/Publish Shelter"
+                                         href="{{ url_for('administration.publish_shelter', shelter_id=shelter.id, publish=not shelter.is_published, next=request.path) }}">
+                                          {% if shelter.is_published %}
+                                          HIDE THIS SHELTER
+                                          <i class="icon icon-eye print-image icon-size-2" aria-hidden="true"></i>
+                                          {% else %}
+                                          PUBLISH THIS SHELTER
+                                          <i class="icon icon-eye-off print-image icon-size-2" aria-hidden="true"></i>
+                                          {% endif %}
+                                      </a>
+                                  </div>
+                                  {% endif %}
                                   {% include 'media_share_button.html' %}
 								</div>
 							  </div>
@@ -189,8 +218,9 @@
 		</section>
 		
 		<section id="section-comments">
-			<div>
+			<div class="content section-data" id="documents">
 				<h3>Comments & Discussion</h3>
+				<p>For commenting we use Disqus. This service is not linked to your shelter-database account. Please use any of the social media accounts to login and make a comment</p>
 			</div>
 			<div id="disqus_thread" class="content section-data"></div>
 			<script>

@@ -83,14 +83,18 @@ class HumanitarianId:
                          params={'access_token': access_token})
         if r.status_code == 200:
             self.data = r.json()
-            if self.data['active'] == 1 and self.data['email_verified']:
-                r_profile = requests.get(
-                        conf.HUMANITARIAN_ID_PROFILE_URI+'/v0/profile/view',
-                        params={'access_token': access_token,
-                                'userid': self.data['user_id']})
-                self.user_profile = r_profile.json()
+            if not self.data['deleted'] and self.data['email_verified']:
+                self.user_profile = {
+                    'image': self.data.get('picture'),
+                    'organization': self.data.get('organization').get('name')
+                    if self.data.get('organization')
+                    else ''
+                     }
                 self.status = True
             else:
+                flash('Your HID account is inactive/deleted or'
+                      ' email is not verified',
+                      'warning')
                 self.status = False
         else:
             self.status = False
@@ -108,7 +112,7 @@ class HumanitarianId:
             return True
         if self.status:
             # Search for user for obtain h_id
-            user = User.query.filter_by(h_id=self.data['id']).first()
+            user = User.query.filter_by(h_id=self.data['_id']).first()
             if not user:
                 # Search for user for obtain email
                 user = User.query.filter_by(email=self.data['email']).first()
@@ -130,28 +134,19 @@ class HumanitarianId:
         Create or Update User
         """
         if user:
-            user.h_id = self.data['id']
+            user.h_id = self.data['_id']
         else:
             user = User(name=slugify(self.data.get('name')),
                         email=self.data.get('email'),
                         pwdhash=generate_password_hash(
                             generate_random_password(8)),
-                        h_id=self.data.get('id'),
+                        h_id=self.data.get('_id'),
                         is_active=True)
             flash('Your account has been created. ', 'success')
 
-        if self.user_profile.get('contacts'):
-            for contact in self.user_profile.get('contacts'):
-                if contact.get('type') == 'global':
-                    user.image = contact.get('image')
-                    try:
-                        user.organization = contact.get('organization')[0].\
-                                get('name')
-                    except AttributeError:
-                        pass
-                    except IndexError:
-                        pass
-                    break
+        if self.user_profile:
+            user.image = self.user_profile.get('image')
+            user.organization = self.user_profile.get('organization')
 
         db.session.add(user)
         db.session.commit()

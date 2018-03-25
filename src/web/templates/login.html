@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid" style="min-height:calc(100vh - 130px);">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="well">
+                <h3>Join the Open Shelter Database</h3>
+				<p>The shelter database is an open database. The data you contribute will be shared with the general public. By creating an account and uploading shelter data, you are accepting our <a href="/termsofservice" target="_blank">terms of service</a><p>
+				<p> The open shelter databases uses Humanitarian.id to authenticate users. Humanitarian.id is a secure way of authenticating humanitarians into multiple online platforms. It serves many more purposes. Read more about it <a href="http://about.humanitarian.id/" target="_blank">here</a>, or watch the below video.</p>
+				<p>After you have registered with humanitarian.id, you can set a password in your profile page. You will always be able to log in to the shelter database with your email and password, even if you decide to delete your humanitarian.id account.<p>
+
+			    <p>If you are interested, or have any questions or
+                        recommendations, please don't hesitate to write to
+                        <a href="mailto:info@shelter-database.org">info@shelter-database.org</a>.
+				</p>
+            </div>
+        </div>
+        <div class="col-md-4 well-highlight">
+            <div class="well">               
+                <h3>What is Humanitarian.id?</h3>
+                <p>Learn more about humanitarian.id by watching the below video, or read <a href="http://about.humanitarian.id/" target="_blank">this</a>.</p>
+                <div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://www.youtube.com/embed/tqBwJld2Sz8?ecver=2" width="640" height="360" frameborder="0" style="position:absolute;width:100%;height:100%;left:0" allowfullscreen></iframe></div>
+				<h4>Need help?</h4>
+				<p>Visit <a href="{{ url_for('help') }}">help section</a> for video tutorials on how te create an account, add or search for a shelter.</p>
+			</div>
+        </div>
+        <div class="col-md-4">
+             <div class="well">
+				<h3>Login or register with Humanitarian.id?</h3>
+				<div class="humanitarianid">
+                    <a class="btn btn-default btn-hid btn-lg" href="#" id="login-hid">
+                        <img width="22px" height="20px" style="margin-right: 5px; vertical-align: sub;" src="{{ url_for('static', filename='img/logo_hid.png') }}"> LOG IN OR REGISTER HERE
+                    </a>
+                </div>
+                <form class="form-horizontal" action="{{ url_for('join') }}" method="POST" role="form">
+                    <h4 class="form-group"><span>Log in with your email</span></h4>
+                    <p>After registration with humanitarian.id you can also log in with your email.</p>
+
+                    {{ loginForm.hidden_tag() }}
+                    <div class="form-group">
+                        {{ loginForm.email(class_="form-control", placeholder="Your email address") }}
+                        {% for message in loginForm.email.errors %}
+                            <div class="myerror"><b>{{ message }}</b></div>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ loginForm.password(class_="form-control", placeholder="Your password") }}
+                        {% for message in loginForm.password.errors %}
+                            <div class="myerror"><b>{{ message }}</b></div>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ loginForm.submit(class_="button button-light button-right", style="") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block defer_extra %}
+<script>
+    $(document).ready(function() {
+        $('#login-hid').click(function(event) {
+            event.preventDefault();
+            window.location.href = '{{humanitarian_id_auth_uri}}/oauth/authorize?response_type=token&client_id={{client_id}}&scope=profile&state=12345&redirect_uri={{redirect_uri}}';
+        });
+    });
+</script>
+{% endblock %}

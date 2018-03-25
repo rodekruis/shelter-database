@@ -80,7 +80,10 @@ def edit(shelter_id=0, section_name=""):
     elif shelter is not None and current_user.id == shelter.user_id:
         pass
     else:
-        return redirect(url_for('join')) #render_template('errors/403.html'), 403
+        flash('Only Admin or shelter creater have edit permission',
+              'warning')
+        # render_template('errors/403.html'), 403
+        return redirect(url_for('join'))
 
     user = User.query.filter(User.id == shelter.user_id).first()
 
@@ -161,7 +164,47 @@ def get_media(shelter_id=0, section_name=""):
 
     return redirect(request.url)
 
+@shelter_bp.route('/edit/multidocument/<int:shelter_id>/<category_id>/<section>', methods=['POST'])
+@login_required
+def get_multimedia_documents(shelter_id=0, category_id=2, section="Documents"):
+    """
+    Get the media (documents) for the shelter sent via a POST
+    request.
+    """
+    shelter = Shelter.query.filter(Shelter.id==shelter_id).first()
+    if not current_user.is_authenticated:
+        return 'unauthorized', 403
+	
+    if not shelter:
+        return 'no such shelter', 400 
 
+    file = request.files.get('mediafile', None)
+
+    for f in request.files:
+        if request.files[f] and request.files[f].filename == '':
+            return 'No selected file', 400 
+        if request.files[f] and not allowed_file(request.files[f].filename,
+                                conf.ALLOWED_EXTENSIONS_DOCUMENT):	
+            return 'File type not allowed', 400
+		
+        path = os.path.join(conf.SHELTERS_DOCUMENTS_SERVER_PATH, str(shelter.id))
+        logging.debug('path:' + path)
+			
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+        filename = secure_filename(request.files[f].filename)
+        request.files[f].save(os.path.join(path , filename))
+
+        if category_id:
+            new_media = ShelterDocument(file_name=filename,
+               shelter_id=shelter.id, category_id=category_id)
+            db.session.add(new_media)
+            db.session.commit()
+            return str(new_media.id), 200
+
+    return 'Document not uploaded', 400
+			
 @shelter_bp.route('/edit/multi/<int:shelter_id>/<category_id>/<section>', methods=['POST'])
 #@login_required
 def get_multi_media(shelter_id=0, category_id=2, section = 'Identification'):
