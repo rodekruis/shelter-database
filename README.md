@@ -46,7 +46,6 @@ $ ./create_db.sh shelter pgsqluser pgsqlpwd
 (shelter-database-JZplA0Yt) ~/git/shelter-database$ ./init_db.sh
 
 (shelter-database-JZplA0Yt) ~/git/shelter-database$ python src/runserver.py
-Problem with weasyprint: No module named 'weasyprint'
 * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ```
 
