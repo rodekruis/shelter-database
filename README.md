@@ -41,7 +41,7 @@ $ echo "GRANT ALL PRIVILEGES ON DATABASE shelter TO pgsqluser;" | psql
 ```bash
 ~/git$  git clone https://github.com/rodekruis/shelter-database.git
 ~/git$  cd shelter-database/
-~/git$  cp src/conf/conf.cfg-sample src/conf/conf.cfg
+~/git/shelter-database$ cp src/conf/conf.cfg-sample src/conf/conf.cfg
 ~/git/shelter-database$ pipenv install
 ✨🍰✨
 
