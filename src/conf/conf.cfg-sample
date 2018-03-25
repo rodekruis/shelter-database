@@ -19,7 +19,8 @@ port=5000
 https=false
 secret_key=secret_key_of_the_web_application
 [database]
-database_url=postgres://pgsqluser:pgsqlpwd@127.0.0.1:5432/shelter
+database_name=shelter
+database_url=postgres://pgsqluser:pgsqlpwd@127.0.0.1:5432/
 [geoserver]
 geoserver_url=https://shelter-database.org:8443
 [notification]
@@ -35,8 +36,8 @@ humanitarian_id_app_uri=https://app2.dev.humanitarian.id
 humanitarian_id_client_id=rc-nl-local
 humanitarian_id_redirect_uri=http://localhost:5000/callback/humanitarianid
 [admin]
-admin_email=
-admin_name=
-admin_password=
+admin_email=admin@admin.org
+admin_name=admin
+admin_password=password
 [piwik]
 piwik_url=

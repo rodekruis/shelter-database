@@ -1,7 +1,7 @@
 #! /bin/sh
 
 python src/manager.py db_empty
-python src/manager.py db_create
+python src/manager.py db_init
 
 # Initializes the structure of the shelters
 python src/manager.py init_shelters_structure data/shelters/Shelters_Structure_small.csv data/shelters/drawings

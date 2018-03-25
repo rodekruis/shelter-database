@@ -23,60 +23,34 @@ First we install the application for a simple standalone mode.
 Installation of Python
 ~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: shell
-    
-	sudo apt-get install software-properties-common
-    sudo add-apt-repository ppa:fkrull/deadsnakes
-    sudo apt-get update
-    sudo apt-get install python3.5 python3.5-dev libncurses5-dev
-	sudo wget https://bootstrap.pypa.io/get-pip.py
-	sudo python3 get-pip.py
-	sudo apt-get install --reinstall binutils
+First install
+[pyenv](https://github.com/pyenv/pyenv),
+then [pipsi](https://github.com/mitsuhiko/pipsi), and finally
+[pew](https://github.com/berdario/pew) and
+[pipenv](https://github.com/pypa/pipenv) with pipsi.
 
-If this doesn't work, try:
-	
-.. code-block:: shell
 
-    apt-get install build-essential openssl libssl-dev git
-
-    wget https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tgz
-    tar -xzvf Python-3.5.1.tgz
-    rm Python-3.5.1.tgz
-    cd Python-3.5.1/
-    ./configure --enable-shared --with-ensurepip=install
-    make
-    sudo make install
-    cd ..
-    sudo rm -Rf Python-3.5.1/
-	
 
 Install and configure the database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: shell
 
-    sudo apt-get install -y postgresql postgresql-server-dev-9.3 postgresql-client
-	su - postgres
-    echo "127.0.0.1:5432:shelter:pgsqluser:pgsqlpwd" > ~/.pgpass
-    chmod 0600 ~/.pgpass
-    createuser pgsqluser --no-superuser --createdb --no-createrole
-	createdb shelter --no-password
-    echo "ALTER USER pgsqluser WITH ENCRYPTED PASSWORD 'pgsqlpwd';" | psql
-    echo "GRANT ALL PRIVILEGES ON DATABASE shelter TO pgsqluser;" | psql
-	exit
+    sudo apt-get install postgresql npm
+    ./create_db.sh shelter pgsqluser pgsqlpwd
 
 Set Rights to database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Edit your pg_hba.conf and add the name of the database, in this case 'shelter'
 
 .. code-bock:: shell
-   
+
    local   shelter     pgsqluser                               trust
    host    shelter     all             127.0.0.1/32            trust
    host    shelter     all             ::1/128                 trust
-   
+
 .. code-bock:: shell
-   
+
    sudo service postgresql restart
 
 
@@ -88,7 +62,9 @@ Retrieve the application *Shelter Database*
     sudo apt-get install git
 	cd TO YOUR APACHE WWW DIRECTORY FOR THIS INSTANCE
 	git clone https://github.com/rodekruis/shelter-database.git .
-    sudo pip3 install --upgrade -r requirements.txt
+    npm install
+    pipenv install
+    pipenv shell
     cp src/conf/conf.cfg-sample src/conf/conf.cfg
 
 Initialization of the database
@@ -117,44 +93,6 @@ other user:
 .. code-block:: shell
 
     $ python src/manager.py create_user firstname.lastname@mail.org name password
-
-
-Install the JavaScript requirements with Bower
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Installation of node
-''''''''''''''''''''
-
-.. code-block:: shell
-
-	sudo apt-get install nodejs
-	ln -s /usr/bin/nodejs /usr/bin/node
-
-
-Installation of NPM
-'''''''''''''''''''
-
-.. code-block:: shell
-
-    sudo apt-get install npm
-
-
-Installation of Bower
-'''''''''''''''''''''
-
-.. code-block:: shell
-
-    npm install -g bower
-
-
-Installation of our JavaScript dependencies
-'''''''''''''''''''''''''''''''''''''''''''
-
-.. code-block:: shell
-
-    cd
-    cd shelter-database/
-    bower install --allow-root
 
 
 You can now run the application in standalone mode:
@@ -196,22 +134,22 @@ Installation of mod_wsgi
     echo 'LoadModule wsgi_module /usr/lib/apache2/modules/mod_wsgi.so' > /etc/apache2/mods-available/wsgi.load
     sudo service apache2 restart
     sudo a2enmod wsgi
-	
+
 To fix errors you can try:
 
 .. code-block:: shell
 
-   ln -s /usr/bin/sw-engine-cgi /var/www/cgi-bin/cgi_wrapper/cgi_wrapper 
-   
+   ln -s /usr/bin/sw-engine-cgi /var/www/cgi-bin/cgi_wrapper/cgi_wrapper
+
    a2dismod python for conflicts with mod_wsgi
 
 
 To fix plesk:
 
 .. code-block:: shell
-  
+
    sh <(curl http://autoinstall.plesk.com/plesk-installer || wget -O - http://autoinstall.plesk.com/plesk-installer)
-   
+
 The Geoserver
 ~~~~~~~~~~~~~
 
@@ -223,34 +161,34 @@ Tomcat 8.0.36 and available
 
    sudo apt-get install openjdk-7-jre
    sudo apt-get install tomcat7
-   
+
 Now we enable SSL
 
 .. code-block:: shell
 
    keytool -genkey -alias tomcat7 -keyalg RSA
    (follow instructions)
-    
+
    cp ~/.keystore /etc/tomcat7
-   
+
 Configuring Tomcat to use the Keystore. pen the Apache Tomcat server configuration on /etc/tomcat7/server.xml and find the https configuration like lines below :
 
 .. code-block:: shell
 
    nano /etc/tomcat7/server.xml
-   
+
    add the following under the existing commented out connector for SSL. Make sure to change the keystorepassword and set the maxThreads to 200 * number of CPU cores
    <Connector SSLEnabled="true" acceptCount="100" clientAuth="false" disableUploadTimeout="true" enableLookups="false" maxThreads="25" port="8444" keystoreFile="/etc/tomcat7/.keystore" keystorePass="verysecretpassword" protocol="org.apache.coyote.http11.Http11NioProtocol" scheme="https" secure="true" sslProtocol="TLS" />
 
    nano /etc/default/tomcat7
-   
+
    in JAVA_OPTS you should set a higher value for the maximum heap size (xmx) for example -Xmx1024m (depending on the ressources available and the expected load) instead of the initial 128. Also you should add the initial heap size parameter (xms) and set it's value to the same one as xsx, e.g. -Xms1024m
- 
+
 Now let's restart tomcat 7 to reload the configuration.
 
 .. code-block:: shell
-   sudo service tomcat7 restart  
-   
+   sudo service tomcat7 restart
+
 Download and install Geoserver
 
 .. code-block:: shell
@@ -258,23 +196,23 @@ Download and install Geoserver
    wget http://sourceforge.net/projects/geoserver/files/GeoServer/2.8.4/geoserver-2.8.4-war.zip
    unzip geoserver-2.8.4-war.zip
    cp geoserver.war /var/lib/tomcat7/webapps
-   sudo service tomcat7 restart 
-   
+   sudo service tomcat7 restart
+
 Change the config in the shelter-database to match the domain:
 
 .. code-block:: shell
-	
+
    nano conf/conf.cfg
    change the value of 'geoserver_url' to https://[URL]:8443 and replace [URL] with your server url.
- 
+
 Except some configurations in order to enable HTTPS no specific settings were required. It is just needed to deploy the GeoServer WAR file in Tomcat.
 
 Two layers are used by the Shelter Database application:
 
 * `Köppen–Geiger climate classification system <https://shelter-database.org:8443/geoserver/shelters/wms?service=WMS&version=1.1.0&request=GetMap&layers=shelters:koeppen-geiger&styles=&bbox=-180.24500000476837,-90.2449951171875,180.2449951171875,84.22234392166138&width=768&height=371&srs=EPSG:4326&format=application/openlayers>`_;
-* `Red Cross climate classification system <https://shelter-database.org:8443/geoserver/shelters/wms?service=WMS&version=1.1.0&request=GetMap&layers=shelters:redcross&styles=&bbox=-180.24500000476837,-90.2449951171875,180.2449951171875,84.22234392166138&width=768&height=371&srs=EPSG:4326&format=application/openlayers>`_.   
-   
-   
+* `Red Cross climate classification system <https://shelter-database.org:8443/geoserver/shelters/wms?service=WMS&version=1.1.0&request=GetMap&layers=shelters:redcross&styles=&bbox=-180.24500000476837,-90.2449951171875,180.2449951171875,84.22234392166138&width=768&height=371&srs=EPSG:4326&format=application/openlayers>`_.
+
+
 The WSGI file
 ~~~~~~~~~~~~~
 
@@ -290,7 +228,7 @@ Below is an example of WSGI file (**/var/www/shelter-database/webserver.wsgi**).
 
     from runserver import app as application
 
-Note: make sure there are no tabs/spaces preceding the 
+Note: make sure there are no tabs/spaces preceding the
 
 The VirtualHost configuration file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -378,7 +316,7 @@ Enable the site:
 .. code-block:: shell
 
     sudo a2ensite shelter-database
-	
+
 Set rights on directories:
 
 .. code-block:: shell

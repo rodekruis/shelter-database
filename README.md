@@ -27,31 +27,25 @@ then [pipsi](https://github.com/mitsuhiko/pipsi), and finally
 ### Database configuration
 
 ```bash
-$ echo "127.0.0.1:5432:shelter:pgsqluser:pgsqlpwd" > ~/.pgpass
-$ chmod 0600 ~/.pgpass
-$ createuser pgsqluser --no-superuser --createdb --no-createrole
-$ createdb shelter --no-password
-$ echo "ALTER USER pgsqluser WITH ENCRYPTED PASSWORD 'pgsqlpwd';" | psql
-$ echo "GRANT ALL PRIVILEGES ON DATABASE shelter TO pgsqluser;" | psql
+$ ./create_db.sh shelter pgsqluser pgsqlpwd
 ```
 
 ### Application
 
-
 ```bash
-~/git$  git clone https://github.com/rodekruis/shelter-database.git
-~/git$  cd shelter-database/
+~/git$ git clone https://github.com/rodekruis/shelter-database.git
+~/git$ cd shelter-database/
 ~/git/shelter-database$ cp src/conf/conf.cfg-sample src/conf/conf.cfg
 ~/git/shelter-database$ pipenv install
 ✨🍰✨
+~/git/shelter-database$ pipenv shell
 
-(shelter-database-JZplA0Yt) ~/git/shelter-database$  npm install
+(shelter-database-JZplA0Yt) ~/git/shelter-database$ npm install
 
-(shelter-database-JZplA0Yt) ~/git/shelter-database$  ./init_db.sh
+(shelter-database-JZplA0Yt) ~/git/shelter-database$ ./create_db.sh shelter pgsqluser pgsqlpwd
+(shelter-database-JZplA0Yt) ~/git/shelter-database$ ./init_db.sh
 
-(shelter-database-JZplA0Yt) ~/git/shelter-database$  ./init_db.sh
-
-(shelter-database-JZplA0Yt) ~/git/shelter-database$ python src/runserver.py 
+(shelter-database-JZplA0Yt) ~/git/shelter-database$ python src/runserver.py
 Problem with weasyprint: No module named 'weasyprint'
 * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ```
