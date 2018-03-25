@@ -218,15 +218,15 @@
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.min.js"></script>
 	
 	{% assets filters="jsmin", output="assets/packaged-contribute.js",
-		  "lib/bower/leaflet-geosearch/src/js/l.control.geosearch.js", 
-		  "lib/bower/leaflet-geosearch/src/js/l.geosearch.provider.google.js",
-		  "lib/bower/Leaflet.label/dist/leaflet.label.js",
-		  "lib/bower/leaflet-image/leaflet-image.js",
-		  "lib/custom/tooltip/tooltip.js",
-		  "lib/custom/jquery-glossarize/jquery.glossarize.js",		  
-		  "js/countries.js",
-		  "js/create-shelter.js",
-		  "js/contribute.js"
+            "lib/npm_components/leaflet-geosearch/dist/bundle.min.js", 
+            "lib/npm_components/leaflet-geosearch/lib/providers/googleProvider.js",
+            "lib/npm_components/leaflet-label/dist/leaflet.label.js",
+            "lib/npm_components/leaflet-image/leaflet-image.js",
+            "lib/custom/tooltip/tooltip.js",
+            "lib/custom/jquery-glossarize/jquery.glossarize.js",		  
+            "js/countries.js",
+            "js/create-shelter.js",
+            "js/contribute.js"
 	%}
 		<script type="text/javascript" src="{{ASSET_URL}}" defer></script>
 	{% endassets %}

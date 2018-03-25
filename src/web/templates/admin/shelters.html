@@ -49,10 +49,10 @@
 
 {% block defer %}
         {% assets filters="jsmin", output="assets/packaged.js",
-              "lib/bower/jquery/dist/jquery.min.js",
-              "lib/bower/d3/d3.min.js",
-              "lib/bower/datatables.net/js/jquery.dataTables.min.js",
-              "lib/bower/bootstrap/dist/js/bootstrap.min.js"
+              "lib/npm_components/jquery/dist/jquery.min.js",
+              "lib/npm_components/d3/d3.min.js",
+              "lib/npm_components/datatables.net/js/jquery.dataTables.min.js",
+              "lib/npm_components/bootstrap/dist/js/bootstrap.min.js"
         %}
             <script type="text/javascript" src="{{ASSET_URL}}"></script>
         {% endassets %}
