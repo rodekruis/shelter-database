@@ -23,12 +23,9 @@ eproject.cfg
 venv
 build
 
-# bower
-
-src/web/static/lib/bower/
-
 # node files
 node_modules
+src/web/static/lib/npm_components
 
 
 .coverage
