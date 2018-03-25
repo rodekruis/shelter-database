@@ -1,7 +1,7 @@
 #! /bin/sh
 
 . src/conf/conf.cfg
-echo $database_name
+echo $database_name 
 
 # drop completely the db (with the triggers, sequences, etc.)
 sudo -u postgres dropdb $database_name

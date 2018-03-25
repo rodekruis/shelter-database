@@ -48,10 +48,10 @@ with app.app_context():
 
 
 # Watch Templates files for change, In DEBUG MODE
+extra_files = []
 if conf.WEBSERVER_DEBUG:
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     extra_dirs = ['src/web/templates/', ]
-    extra_files = []
     for extra_dir in extra_dirs:
         for dirname, dirs, files in os.walk(os.path.join(BASE_DIR, extra_dir)):
             for dir in dirs:
