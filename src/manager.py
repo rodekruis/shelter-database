@@ -50,12 +50,12 @@ def db_empty():
         web.models.db_empty(db)
 
 @manager.command
-def db_create():
-    "Will create the database."
-    print("Creation of the database...")
+def db_init():
+    "Will initialize the database."
+    print("Initialization of the database...")
     with app.app_context():
         populate_g()
-        web.models.db_create(db)
+        web.models.db_init(db)
 
 @manager.command
 def init_shelters_structure(csv_file, drawnings_folder):
@@ -77,7 +77,7 @@ def create_admin_user():
                             is_active=True)
         db.session.add(user)
         db.session.commit()
-		
+
 @manager.command
 def set_admin(email):
     "set an admin to existing user by email"
