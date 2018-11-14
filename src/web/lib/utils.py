@@ -79,8 +79,10 @@ class HumanitarianId:
             return
 
         access_token = session['hid_access_token']
-        r = requests.get(conf.HUMANITARIAN_ID_AUTH_URI+'/account.json',
-                         params={'access_token': access_token})
+        r = requests.post(
+            conf.HUMANITARIAN_ID_AUTH_URI+'/account.json',
+            headers={'Authorization': 'Bearer ' + access_token}
+        )
         if r.status_code == 200:
             self.data = r.json()
             if not self.data['deleted'] and self.data['email_verified']:
