@@ -24,7 +24,7 @@
         "datatables.net-bs": "1.10.9",
         "dropzone": "4.3.0",
         "font-awesome": "4.6.3",
-        "jquery": "3.1.*",
+        "jquery": "3.5.*",
         "jquery-form-validator": "2.3.*",
         "jquery_lazyload": "1.9.*",
         "leaflet": "0.7.7",
