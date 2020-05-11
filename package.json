@@ -37,7 +37,7 @@
         "select2": "4.0.*",
         "selectize": "*",
         "spin.js": "2.3.*",
-        "tinymce": "4.4.*"
+        "tinymce": "5.2.*"
     },
     "engines": {
         "yarn": ">= 1.0.0"
